@@ -9,17 +9,28 @@ public class PlayerMove : MonoBehaviour
     public float maxJumpTime;
     public float maxJumpHeight;
     public LayerMask groundLayer;
+    public float dashForce = 20f;
+    public float dashDuration = 0.2f;
+    public float invincibilityDuration = 1f;
 
-    private Rigidbody2D rb;
+    private Rigidbody2D rigid;
     private bool isGrounded;
     private bool isJumping;
+    private bool isDashing;
+    private bool isInvincible;
     private float jumpTimeCounter;
+    private float dashTimeCounter;
+    private float invincibilityCounter;
     private Transform groundCheck;
     private float groundCheckRadius = 0.2f;
+    private float lastDirection = 1f;
+
+    SpriteRenderer spriteRenderer;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rigid = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         groundCheck = transform.Find("GroundCheck");
     }
 
@@ -27,12 +38,23 @@ public class PlayerMove : MonoBehaviour
     {
         Move();
         Jump();
+        Dash();
+        HandleInvincibility();
     }
 
     void Move()
     {
-        float moveInput = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
+        if (!isDashing)
+        {
+            float moveInput = Input.GetAxis("Horizontal");
+
+            if (moveInput != 0)
+            {
+                lastDirection = moveInput > 0 ? 1f : -1f;
+            }
+
+            rigid.velocity = new Vector2(moveInput * moveSpeed, rigid.velocity.y);
+        }
     }
 
     void Jump()
@@ -43,7 +65,7 @@ public class PlayerMove : MonoBehaviour
         {
             isJumping = true;
             jumpTimeCounter = 0f;
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            rigid.velocity = new Vector2(rigid.velocity.x, jumpForce);
         }
 
         if (isJumping && Input.GetButton("Jump"))
@@ -53,7 +75,7 @@ public class PlayerMove : MonoBehaviour
                 jumpTimeCounter += Time.deltaTime;
                 float t = jumpTimeCounter / maxJumpTime;
                 float currentJumpForce = Mathf.Lerp(jumpForce, maxJumpHeight, t);
-                rb.velocity = new Vector2(rb.velocity.x, currentJumpForce);
+                rigid.velocity = new Vector2(rigid.velocity.x, currentJumpForce);
             }
             else
             {
@@ -66,9 +88,57 @@ public class PlayerMove : MonoBehaviour
             isJumping = false;
         }
 
-        if (!isGrounded && !isJumping && rb.velocity.y > 0)
+        if (!isGrounded && !isJumping && rigid.velocity.y > 0)
         {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+            rigid.velocity = new Vector2(rigid.velocity.x, rigid.velocity.y * 0.5f);
+        }
+    }
+
+    void Dash()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && !isDashing)
+        {
+            isDashing = true;
+            isInvincible = true;
+            dashTimeCounter = dashDuration;
+            rigid.velocity = new Vector2(dashForce * lastDirection, rigid.velocity.y);
+        }
+
+        if (isDashing)
+        {
+            dashTimeCounter -= Time.deltaTime;
+            if (dashTimeCounter <= 0)
+            {
+                isDashing = false;
+                isInvincible = false;
+            }
+        }
+    }
+
+    void HandleInvincibility()
+    {
+        if (isInvincible && !isDashing)
+        {
+            gameObject.layer = 8;
+            spriteRenderer.color = new Color(1, 1, 1, 0.4f);
+
+            invincibilityCounter -= Time.deltaTime;
+            if (invincibilityCounter <= 0)
+            {
+                isInvincible = false;
+                gameObject.layer = 7;
+                spriteRenderer.color = new Color(1, 1, 1, 1);
+            }
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Enemy" && !isInvincible)
+        {
+            Debug.Log("Player hit");
+            isInvincible = true;
+            invincibilityCounter = invincibilityDuration;
         }
     }
 }
