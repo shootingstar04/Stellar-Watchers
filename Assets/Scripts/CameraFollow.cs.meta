@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scripts/CameraFollow.cs.meta
+guid: b0a58e4e4e28d424bad5139fbe807f71
+========
+guid: e97a67cd1e7c32d409a3d15ac9580165
+>>>>>>>> e3b9c721bd57ef608d3d63b458562f6e23369524:Assets/Scripts/MapManage.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
