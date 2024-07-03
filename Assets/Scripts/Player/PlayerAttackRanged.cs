@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerRangedAttack : MonoBehaviour
+public class PlayerAttackRanged : MonoBehaviour
 {
     private Rigidbody2D rigid;
     private float curTime = 0f;

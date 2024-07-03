@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMeleeAttack : MonoBehaviour
+public class PlayerAttackMelee : MonoBehaviour
 {
     private float curTime = 0f;
     public float coolTime = 0.5f;
