@@ -13,7 +13,7 @@ public class CameraFollow : MonoBehaviour
    
     private void Update()
     {
-        if(Player == null);
+        if(Player == null)
         {
             Player = GameObject.FindGameObjectWithTag("Player");
             target = this.Player.GetComponent<Transform>();
