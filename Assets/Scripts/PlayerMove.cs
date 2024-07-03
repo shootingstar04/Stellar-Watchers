@@ -27,15 +27,11 @@ public class PlayerMove : MonoBehaviour
 
     SpriteRenderer spriteRenderer;
 
-    public Collider2D Pc;
-
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         groundCheck = transform.Find("GroundCheck");
-
-        Pc = this.GetComponent<Collider2D>();
     }
 
     void Update()
@@ -43,7 +39,7 @@ public class PlayerMove : MonoBehaviour
         Move();
         Jump();
         Dash();
-        HandleInvincibility();
+
     }
 
     void Move()
@@ -121,6 +117,7 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
+    
     void HandleInvincibility()
     {
         if (isInvincible && !isDashing)
@@ -135,16 +132,6 @@ public class PlayerMove : MonoBehaviour
                 gameObject.layer = 7;
                 spriteRenderer.color = new Color(1, 1, 1, 1);
             }
-        }
-    }
-
-    void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.tag == "Enemy" && !isInvincible)
-        {
-            Debug.Log("Player hit");
-            isInvincible = true;
-            invincibilityCounter = invincibilityDuration;
         }
     }
 }

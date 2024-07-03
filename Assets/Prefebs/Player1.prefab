@@ -76,6 +76,7 @@ GameObject:
   - component: {fileID: 995794738268323480}
   - component: {fileID: 4577722370102244310}
   - component: {fileID: 7291258084089063899}
+  - component: {fileID: 4652734376172901455}
   m_Layer: 7
   m_Name: Player1
   m_TagString: Player
@@ -236,7 +237,6 @@ MonoBehaviour:
   dashForce: 20
   dashDuration: 0.2
   invincibilityDuration: 1
-  Pc: {fileID: 9147734360950874602}
 --- !u!114 &7291258084089063899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,3 +255,17 @@ MonoBehaviour:
   projectilePrefab: {fileID: 2348632306736164109, guid: 468f3889d67728c4289e026832ac53a9, type: 3}
   projectileSpawnPoint: {fileID: 6133654612465694735}
   projectileSpeed: 10
+--- !u!114 &4652734376172901455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6989752634600861853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dcd4f1299876804ab5e9735761dfb4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  invincibilityDuration: 1
+  Pc: {fileID: 9147734360950874602}
