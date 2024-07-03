@@ -111,7 +111,7 @@ public class MapManage : MonoBehaviour
         }
     }
 
-    public void map_size_button(int dtSize)
+    public void button(int dtSize)
     {
         if (isShowing)
         {

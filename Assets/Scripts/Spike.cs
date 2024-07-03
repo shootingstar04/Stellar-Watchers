@@ -4,23 +4,11 @@ using UnityEngine;
 
 public class Spike : MonoBehaviour
 {
-    private GameObject Player;
-    private Collider2D P_Collider;
-    private Collider2D Collider;
-
-    // Start is called before the first frame update
-    void Start()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        this.Player = GameObject.Find("Player");
-        P_Collider = Player.GetComponent<Collider2D>();
-        Collider = this.GetComponent<Collider2D>();
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.gameObject.name == Player.name)
+        if (collision.gameObject.CompareTag(Define.PlayerTag))
         {
-            Destroy(Player);
+            Debug.Log("µ¥¹ÌÁö");
         }
     }
 }

@@ -1,30 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class JumpPad : MonoBehaviour
 {
-    private GameObject Player;
-    private Rigidbody2D P_rigd;
-    private Collider2D col;
-    private Collider2D p_col;
-
-    private float BoostPower = 5.0f;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        Player = GameObject.Find("Player");
-        P_rigd = Player.GetComponent<Rigidbody2D>();
-        p_col = Player.GetComponent<Collider2D>();
-        col = this.GetComponent<Collider2D>();
-    }
+    private float BoostPower = 20.0f;
+    private Rigidbody2D rigid;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.name == Player.name)
+        if(collision.gameObject.CompareTag(Define.PlayerTag))
         {
-            P_rigd.AddForce(transform.up * BoostPower);
+            rigid = collision.gameObject.GetComponent<Rigidbody2D>();
+            rigid.AddForce(Vector2.up * BoostPower, ForceMode2D.Impulse);
         }
     }
 }
