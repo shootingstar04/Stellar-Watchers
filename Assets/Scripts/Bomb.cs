@@ -4,22 +4,36 @@ using UnityEngine;
 
 public class Bomb : MonoBehaviour
 {
-    private Rigidbody2D rigd;
-    private Collider2D col;
-    private Vector2 Boxsize;
-    private GameObject Player;
+    private Rigidbody2D rigid;
 
-    // Start is called before the first frame update
-    void Start()
+    private GameObject player;
+
+
+
+    private void Awake()
     {
-        Player = GameObject.Find("Player");
-        rigd = this.GetComponent<Rigidbody2D>();
-        col = this.GetComponent<Collider2D>();
+        rigid = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        if(player== null)
+        {
+            player = GameObject.FindGameObjectWithTag(Define.PlayerTag);
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            //PlayerMove.Move.moveInput
+        }
     }
+
+
+    void Attacked()
+    {
+        player.GetComponentInChildren<GameObject>();
+    }
+
+
 }
