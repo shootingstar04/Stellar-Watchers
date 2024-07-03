@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - interact
+  - hazard
+  - ground
+  - disappear
   layers:
   - Default
   - TransparentFX
@@ -15,8 +19,8 @@ TagManager:
   - Enemy
   - Player
   - PlayDamaged
-  - 
-  - 
+  - interact
+  - hazard
   - 
   - 
   - 
