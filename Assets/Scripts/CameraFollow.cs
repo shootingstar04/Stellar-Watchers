@@ -7,21 +7,15 @@ public class CameraFollow : MonoBehaviour
     private Transform target;
     private GameObject Player;
 
-    private Vector3 offset = new Vector3(0f, 0f, -10f);
-    private float smoothTime = 0.25f;
-    private Vector3 velocity = Vector3.zero;
 
- 
-
-    private void Update()
+    private void Start()
     {
-        if (Player == null)
-        {
-            this.Player = GameObject.FindGameObjectWithTag("Player");
-            target = this.Player.GetComponent<Transform>();
-        }
+        this.Player = GameObject.Find("Player");
+        target = this.Player.GetComponent<Transform>();
+    }
 
-        Vector3 targetPosition = target.position + offset;
-        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
+    private void FixedUpdate()
+    {
+        transform.position = target.position+Vector3.back;
     }
 }
