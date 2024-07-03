@@ -10,7 +10,7 @@ public class Coin : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("ÄÚÀÎÈ¹µæ");
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½È¹ï¿½ï¿½");
             Destroy(this.gameObject);
         }
     }

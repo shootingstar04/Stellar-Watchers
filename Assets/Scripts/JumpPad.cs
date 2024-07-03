@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class JumpPad : MonoBehaviour
 {
-<<<<<<< HEAD
-    private float bounce = 20f;
-=======
     private GameObject Player;
     private Rigidbody2D P_rigd;
     private Collider2D col;
@@ -22,17 +19,12 @@ public class JumpPad : MonoBehaviour
         p_col = Player.GetComponent<Collider2D>();
         col = this.GetComponent<Collider2D>();
     }
->>>>>>> 794d122833713cfc82e9d187eb9a57b5ae4bb56f
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.name == Player.name)
         {
-<<<<<<< HEAD
-            collision.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * bounce, ForceMode2D.Impulse);
-=======
             P_rigd.AddForce(transform.up * BoostPower);
->>>>>>> 794d122833713cfc82e9d187eb9a57b5ae4bb56f
         }
     }
 }

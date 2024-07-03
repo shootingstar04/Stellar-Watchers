@@ -10,8 +10,11 @@ public class PlayerMeleeAttack : MonoBehaviour
     public Transform Pos;
     public Transform UpPos;
     public Transform DownPos;
+    public Transform SlashPos;
     public Vector2 boxSize1;
     public Vector2 boxSize2;
+    public Vector2 boxSize3;
+
 
     void Update()
     {
@@ -23,6 +26,15 @@ public class PlayerMeleeAttack : MonoBehaviour
                 curTime = coolTime;
             }
         }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            if (curTime <= 0) 
+            {
+                SlashAttack();
+                curTime = coolTime;
+            }
+        }
+
         curTime -= Time.deltaTime;
     }
 
@@ -48,11 +60,25 @@ public class PlayerMeleeAttack : MonoBehaviour
         }
     }
 
+    void SlashAttack()
+    {
+        Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(SlashPos.position, boxSize1, 0);;
+
+        foreach(Collider2D collider in collider2Ds)
+        {
+            if (collider.tag == "Enemy")
+            {
+                Debug.Log("적 맞음");
+            }
+        }
+    }
+
     private void OnDrawGizmos() 
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(Pos.position, boxSize1);
         Gizmos.DrawWireCube(UpPos.position, boxSize2);
         Gizmos.DrawWireCube(DownPos.position, boxSize2);
+        Gizmos.DrawWireCube(SlashPos.position, boxSize3);
     }
 }
