@@ -292,9 +292,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16b6e701a09421b4088c01230aad093b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Jumpables:
+  moveSpeed: 5
+  jumpForce: 15
+  maxJumpTime: 0.4
+  maxJumpHeight: 2.5
+  groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  dashForce: 20
+  dashDuration: 0.2
+  invincibilityDuration: 1
 --- !u!114 &4314836703254164502
 MonoBehaviour:
   m_ObjectHideFlags: 0
