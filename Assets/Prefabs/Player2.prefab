@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 6260389278998830378}
   - component: {fileID: 2388406829824541893}
   - component: {fileID: 2451448773822978060}
+  - component: {fileID: 2011331900999722540}
   m_Layer: 7
   m_Name: Player2
   m_TagString: Player
@@ -235,7 +236,19 @@ MonoBehaviour:
   coolTime: 0.5
   projectilePrefab: {fileID: 5779890570710995444, guid: ab73d3f8275fb324d98b41a587007b0a, type: 3}
   projectileSpawnPoint: {fileID: 4715356964907440381}
-  projectileSpeed: 20
+--- !u!114 &2011331900999722540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5704660711654450385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b082c92947e09ef4abdfacf48ed32398, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerType: 1
 --- !u!1 &8033630387128428611
 GameObject:
   m_ObjectHideFlags: 0
