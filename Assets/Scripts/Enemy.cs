@@ -17,7 +17,6 @@ public class Enemy : MonoBehaviour
 
     void Die()
     {
-        // 적 사망 처리
         Destroy(gameObject);
     }
 }

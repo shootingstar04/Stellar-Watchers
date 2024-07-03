@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    public string playerTag; // "Player1" or "Player2"
+    public string playerTag;
     public float meleeAttackRange = 2.0f;
     public float meleeAttackDamage = 10.0f;
     public GameObject projectilePrefab;
@@ -31,7 +31,6 @@ public class PlayerAttack : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit, meleeAttackRange))
         {
-            // Assuming the enemy has a script with a TakeDamage method
             if (hit.collider.CompareTag("Enemy"))
             {
                 hit.collider.GetComponent<Enemy>().TakeDamage(meleeAttackDamage);
