@@ -68,14 +68,14 @@ public class PlayerMove : MonoBehaviour
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
-        if (isGrounded && Input.GetKeyDown(KeyCode.Z))
+        if (isGrounded && Input.GetButtonDown("Jump"))
         {
             isJumping = true;
             jumpTimeCounter = 0f;
             rigid.velocity = new Vector2(rigid.velocity.x, jumpForce);
         }
 
-        if (isJumping && Input.GetKeyDown(KeyCode.Z))
+        if (isJumping && Input.GetButton("Jump"))
         {
             if (jumpTimeCounter < maxJumpTime)
             {
@@ -90,7 +90,7 @@ public class PlayerMove : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetButtonUp("Jump"))
         {
             isJumping = false;
         }
