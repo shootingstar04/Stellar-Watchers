@@ -18,7 +18,24 @@ public class PlayerCollision : MonoBehaviour
 
     void Update()
     {
-        
+        HandleInvincibility();
+    }
+    
+    void HandleInvincibility()
+    {
+        if (isInvincible)
+        {
+            gameObject.layer = 8;
+            spriteRenderer.color = new Color(1, 1, 1, 0.4f);
+
+            invincibilityCounter -= Time.deltaTime;
+            if (invincibilityCounter <= 0)
+            {
+                isInvincible = false;
+                gameObject.layer = 7;
+                spriteRenderer.color = new Color(1, 1, 1, 1);
+            }
+        }
     }
 
     void OnCollisionEnter2D(Collision2D other)

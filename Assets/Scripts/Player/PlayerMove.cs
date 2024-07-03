@@ -17,10 +17,8 @@ public class PlayerMove : MonoBehaviour
     private bool isGrounded;
     private bool isJumping;
     private bool isDashing;
-    private bool isInvincible;
     private float jumpTimeCounter;
     private float dashTimeCounter;
-    private float invincibilityCounter;
     private Transform groundCheck;
     private float groundCheckRadius = 0.2f;
     private float lastDirection = 1f;
@@ -51,6 +49,15 @@ public class PlayerMove : MonoBehaviour
             if (moveInput != 0)
             {
                 lastDirection = moveInput > 0 ? 1f : -1f;
+            }
+
+            if (moveInput < 0)
+            {
+                transform.localEulerAngles = new Vector3(0, 180, 0);
+            }
+            else if (moveInput > 0)
+            {
+                transform.localEulerAngles = new Vector3(0, 0, 0);
             }
 
             rigid.velocity = new Vector2(moveInput * moveSpeed, rigid.velocity.y);
@@ -99,7 +106,6 @@ public class PlayerMove : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && !isDashing)
         {
             isDashing = true;
-            isInvincible = true;
             dashTimeCounter = dashDuration;
             rigid.velocity = new Vector2(dashForce * lastDirection, rigid.velocity.y);
         }
@@ -111,26 +117,7 @@ public class PlayerMove : MonoBehaviour
             if (dashTimeCounter <= 0)
             {
                 isDashing = false;
-                isInvincible = false;
                 gameObject.layer = 7;
-            }
-        }
-    }
-
-    
-    void HandleInvincibility()
-    {
-        if (isInvincible && !isDashing)
-        {
-            gameObject.layer = 8;
-            spriteRenderer.color = new Color(1, 1, 1, 0.4f);
-
-            invincibilityCounter -= Time.deltaTime;
-            if (invincibilityCounter <= 0)
-            {
-                isInvincible = false;
-                gameObject.layer = 7;
-                spriteRenderer.color = new Color(1, 1, 1, 1);
             }
         }
     }
