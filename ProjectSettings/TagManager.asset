@@ -9,6 +9,7 @@ TagManager:
   - hazard
   - ground
   - disappear
+  - JumpPad
   layers:
   - Default
   - TransparentFX
