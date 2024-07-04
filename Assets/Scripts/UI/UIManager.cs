@@ -33,10 +33,22 @@ public class UIManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.I)) show_screen(0);
         if (Input.GetKeyDown(KeyCode.M)) show_screen(1);
+        if (Input.GetKeyDown(KeyCode.Escape)) show_screen(-1);
     }
     void show_screen(int a)
     {
-        if (screen[a])
+        if (a == -1) 
+        {
+            for (int i = 0; i < isShowing.Count; i++)
+            {
+                if (isShowing[i])
+                {
+                    isShowing[i] = false;
+                    screen[i].SetActive(isShowing[i]);
+                }
+            }
+        }
+        else if (screen[a])
         {
             if (!isShowing[a])
             {
