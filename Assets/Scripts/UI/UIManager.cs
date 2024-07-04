@@ -8,6 +8,10 @@ public class UIManager : MonoBehaviour
     private List<bool> isShowing = new List<bool>();
     //0 : Inspector, 1 : Map
 
+    public bool isShowingUI = false;
+    private GameObject pauseScreen;
+    private bool isPause = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -15,11 +19,14 @@ public class UIManager : MonoBehaviour
         screen.Add(GameObject.Find("inspectorscreen"));
         screen.Add(GameObject.Find("mapscreen"));
 
+        pauseScreen = GameObject.Find("pausescreen");
+
         for (int i = 0; i < screen.Count; i++) {
             isShowing.Add(false);
             if (screen[i]) screen[i].SetActive(isShowing[i]);
         }
 
+        if (pauseScreen) pauseScreen.SetActive(isPause);
 
     }
 
@@ -39,19 +46,33 @@ public class UIManager : MonoBehaviour
     {
         if (a == -1) 
         {
-            for (int i = 0; i < isShowing.Count; i++)
+            if (isShowingUI)
             {
-                if (isShowing[i])
+                isShowingUI = false;
+                for (int i = 0; i < isShowing.Count; i++)
                 {
-                    isShowing[i] = false;
-                    screen[i].SetActive(isShowing[i]);
+                    if (isShowing[i])
+                    {
+                        isShowing[i] = false;
+                        screen[i].SetActive(isShowing[i]);
+                    }
                 }
             }
+            else
+            {
+                isPause = !isPause;
+                Time.timeScale = Time.timeScale == 1 ? 0 : 1;
+                pauseScreen.SetActive(isPause);
+            } 
         }
-        else if (screen[a])
+        else if (screen[a] && !isPause)
         {
+            isShowingUI = false;
+
             if (!isShowing[a])
             {
+                isShowingUI = true;
+
                 for (int i = 0; i < isShowing.Count; i++)
                 {
                     if (isShowing[i])

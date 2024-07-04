@@ -13,7 +13,6 @@ public class MapManage : MonoBehaviour
     private float mapSizeX = 1920f;
     private float mapSizeY = 1080f;
     public float magnification = 1.1f;
-    private bool isShowing = false;
 
     private List<Vector2> childLocate = new List<Vector2>();
     private List<Vector2> childSize = new List<Vector2>();
@@ -24,8 +23,8 @@ public class MapManage : MonoBehaviour
     {
         GameObject a = GameObject.Find("map");
 
-        if (a) 
-        { 
+        if (a)
+        {
             map = a;
 
             for (int i = 0; i < map.transform.childCount; i++)
@@ -71,36 +70,31 @@ public class MapManage : MonoBehaviour
 
     void map_size_wheel()
     {
-        if (isShowing)
+        float wheelInput = Input.GetAxis("Mouse ScrollWheel");
+
+        if (wheelInput != 0)
         {
-
-            float wheelInput = Input.GetAxis("Mouse ScrollWheel");
-
-            if (wheelInput != 0)
+            if (wheelInput > 0 && mapSize < maxMapSize)
             {
-                if (wheelInput > 0 && mapSize < maxMapSize)
-                {
-                    mapSize += 1;
-                }
-
-                else if (wheelInput < 0 && mapSize > 0)
-                {
-                    mapSize -= 1;
-                }
-
-                map_size();
+                mapSize += 1;
             }
+
+            else if (wheelInput < 0 && mapSize > 0)
+            {
+                mapSize -= 1;
+            }
+
+            map_size();
         }
     }
 
     public void button(int dtSize)
     {
-        if (isShowing)
-        {
-            mapSize += 5 * dtSize;
-            if (mapSize < 0) mapSize = 0;
-            else if (mapSize > maxMapSize) mapSize = maxMapSize;
-            map_size();
-        }
+
+        mapSize += 5 * dtSize;
+        if (mapSize < 0) mapSize = 0;
+        else if (mapSize > maxMapSize) mapSize = maxMapSize;
+        map_size();
+
     }
 }
