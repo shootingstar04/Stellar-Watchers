@@ -16,7 +16,7 @@ public class Rock : MonoBehaviour
         if(collision.rigidbody != null && collision.gameObject.CompareTag("Player")) //혹시 공격 히트박스도 인식할까봐 rigidbody 보유조건추가
         {
             Debug.Log("돌 맞음");
-            col.isTrigger = true; //이후통과
+            Physics2D.IgnoreCollision(collision.collider, col);
         }
     }
 }

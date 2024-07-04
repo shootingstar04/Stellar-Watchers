@@ -6,7 +6,7 @@ public class ItemSpeed : MonoBehaviour
 {
     [SerializeField] private GameObject itemSpeedManager;
     private ItemSpeedManager other;
-    private GameObject player;
+
     private PlayerMove pMove;
 
     private void Awake()
@@ -15,22 +15,12 @@ public class ItemSpeed : MonoBehaviour
     }
 
 
-    private void Update()
-    {
-        if(player == null)
-        {
-            player = GameObject.FindGameObjectWithTag("Player");
-            
-            pMove = player.GetComponent<PlayerMove>();
-        }
-
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
             other.isTriggered = true;
+            pMove = collision.gameObject.GetComponent<PlayerMove>();
             pMove.moveSpeed = pMove.moveSpeed * 1.6f;
             Destroy(this.gameObject);
         }
