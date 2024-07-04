@@ -10,6 +10,7 @@ TagManager:
   - ground
   - disappear
   - JumpPad
+  - BOMB
   layers:
   - Default
   - TransparentFX

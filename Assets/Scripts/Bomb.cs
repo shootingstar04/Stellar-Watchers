@@ -1,38 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Bomb : MonoBehaviour
 {
-    private Rigidbody2D rigid;
-
-    private GameObject player;
 
 
 
-    private void Awake()
+    public static void onFire()
     {
-        rigid = GetComponent<Rigidbody2D>();
-    }
-
-    private void Update()
-    {
-        if(player== null)
-        {
-            player = GameObject.FindGameObjectWithTag(Define.PlayerTag);
-        }
-
-
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            //PlayerMove.Move.moveInput
-        }
-    }
-
-
-    void Attacked()
-    {
-        player.GetComponentInChildren<GameObject>();
+        //range = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+        //OnTriggerStay2D(Collision2D, collision)
     }
 
 

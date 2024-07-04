@@ -57,6 +57,11 @@ public class PlayerAttackMelee : MonoBehaviour
             {
                 Debug.Log("적 맞음");
             }
+            else if (collider.tag == "BOMB")
+            {
+                Debug.Log("폭탄 맞음");
+                Bomb.onFire();
+            }
         }
     }
 
@@ -69,6 +74,11 @@ public class PlayerAttackMelee : MonoBehaviour
             if (collider.tag == "Enemy")
             {
                 Debug.Log("적 맞음");
+            }
+            else if (collider.tag == "BOMB")
+            {
+                Debug.Log("폭탄 맞음");
+                Bomb.onFire();
             }
         }
     }
