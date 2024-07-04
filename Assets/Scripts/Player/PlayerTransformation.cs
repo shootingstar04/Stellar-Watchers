@@ -21,6 +21,7 @@ public class PlayerTransformation : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
         {
             Transform();
+            PlayerAttackCombo.instance.ComboInvocation();
         }
     }
 

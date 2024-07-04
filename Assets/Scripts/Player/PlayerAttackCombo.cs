@@ -4,23 +4,38 @@ using UnityEngine;
 
 public class PlayerAttackCombo : MonoBehaviour
 {
+    public static PlayerAttackCombo instance;
     public enum PlayerType { Player1, Player2 }
     public PlayerType playerType;
 
     private bool xKeyPressed = false;
     private float xKeyPressTime;
+    
+    void Awake()
+    {   
+        instance = this;
+    }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.X))
         {
             xKeyPressed = true;
-            xKeyPressTime = Time.time;
-        }
+            xKeyPressTime = 0f;
+        }  
 
-        if (xKeyPressed && Input.GetKeyDown(KeyCode.LeftShift) && Time.time - xKeyPressTime <= 2f)
+        xKeyPressTime += Time.deltaTime;
+
+        if (xKeyPressed && xKeyPressTime > 2f)
         {
-            Debug.Log("Combo");
+            xKeyPressed = false;
+        }
+    }
+
+    public void ComboInvocation()
+    {
+        if (xKeyPressTime <= 2f)
+        {
             if (playerType == PlayerType.Player1)
             {
                 PerformRangedAttack();
@@ -30,11 +45,6 @@ public class PlayerAttackCombo : MonoBehaviour
                 PerformMeleeAttack();
             }
 
-            xKeyPressed = false;
-        }
-
-        if (xKeyPressed && Time.time - xKeyPressTime > 2f)
-        {
             xKeyPressed = false;
         }
     }
