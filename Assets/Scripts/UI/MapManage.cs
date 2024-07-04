@@ -7,7 +7,6 @@ public class MapManage : MonoBehaviour
 {
 
     private GameObject map;
-    private GameObject mapScreen;
 
     public int maxMapSize = 28;
     private int mapSize = 0;
@@ -24,7 +23,6 @@ public class MapManage : MonoBehaviour
     void Start()
     {
         GameObject a = GameObject.Find("map");
-        GameObject b = GameObject.Find("mapscreen");
 
         if (a) 
         { 
@@ -40,10 +38,6 @@ public class MapManage : MonoBehaviour
                 childSize.Add(map.transform.GetChild(i).GetComponent<RectTransform>().sizeDelta);
             }
         }
-        if (b) {
-            mapScreen = b;
-            b.SetActive(false);
-        }
 
         return;
     }
@@ -51,21 +45,9 @@ public class MapManage : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        show_map();
         map_size_wheel();
     }
 
-    void show_map()
-    {
-
-        if (Input.GetKeyDown(KeyCode.M) && mapScreen)
-        {
-            isShowing = !isShowing;
-            Time.timeScale = Time.timeScale == 1 ? 0 : 1;
-            mapScreen.SetActive(isShowing);
-        }
-
-    }
     void map_size() {
         map.GetComponent<RectTransform>().sizeDelta
             = new Vector2(mapSizeX, mapSizeY) * Mathf.Pow(magnification, mapSize);
