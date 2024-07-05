@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
@@ -10,8 +11,6 @@ public class Bomb : MonoBehaviour
 
     private static Vector2 circleCenter;
     private static float circleRadius = 3f;
-    [SerializeField] private static LayerMask player;
-    [SerializeField] private static LayerMask enemy;
 
     protected void Awake()
     {
@@ -21,7 +20,9 @@ public class Bomb : MonoBehaviour
 
     public static void onFire()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(circleCenter, circleRadius, 0); ;
+        LayerMask enemy = LayerMask.GetMask("Enemy");
+
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(circleCenter, circleRadius, enemy); ;
 
         if(colliders.Length == 0 )
         {
