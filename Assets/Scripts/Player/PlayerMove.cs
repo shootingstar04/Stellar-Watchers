@@ -9,7 +9,7 @@ public class PlayerMove : MonoBehaviour
     public float maxJumpTime;
     public float maxJumpHeight;
     public LayerMask groundLayer;
-    public float dashForce = 20f;
+    public float dashForce = 15f;
     public float dashDuration = 0.2f;
     public float invincibilityDuration = 1f;
 

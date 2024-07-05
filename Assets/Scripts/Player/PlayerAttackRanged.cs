@@ -19,11 +19,24 @@ public class PlayerAttackRanged : MonoBehaviour
                 curTime = coolTime;
             }
         }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            if (curTime <= 0) 
+            {
+                ShootingAttack();
+                curTime = coolTime;
+            }
+        }
         curTime -= Time.deltaTime;
     }
 
     void RangedAttack()
     {
         GameObject projectile = Instantiate(projectilePrefab, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
+    }
+
+    void ShootingAttack()
+    {
+        
     }
 }

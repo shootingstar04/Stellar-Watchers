@@ -10,6 +10,9 @@ public class PlayerTransformation : MonoBehaviour
     private GameObject currentPlayer;
     private Transform currentTransform;
 
+    private float curTime = 0f;
+    public float coolTime = 2f;
+
     void Start()
     {
         currentPlayer = Instantiate(player1Prefab, transform.position, transform.rotation);
@@ -20,9 +23,15 @@ public class PlayerTransformation : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
         {
-            Transform();
-            PlayerAttackCombo.instance.ComboInvocation();
+            if (curTime <= 0) 
+            {
+                Transform();
+                PlayerAttackCombo.instance.ComboInvocation();
+                curTime = coolTime;
+            }
         }
+
+        curTime -= Time.deltaTime;
     }
 
     void Transform()

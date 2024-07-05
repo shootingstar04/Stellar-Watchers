@@ -204,7 +204,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  dashForce: 20
+  dashForce: 15
   dashDuration: 0.2
   invincibilityDuration: 1
 --- !u!114 &2388406829824541893
