@@ -22,8 +22,7 @@ public class SPUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E)) refresh_sp(-1);
-        if (Input.GetKeyDown(KeyCode.R)) refresh_sp(1);
+
     }
 
     bool refresh_sp(int dtSP) 
@@ -52,7 +51,6 @@ public class SPUI : MonoBehaviour
             while (Mathf.Abs((currentSP.GetComponent<Image>().fillAmount * maxSPValue) - currentSPValue) > 0.1)
             {
                 currentSP.GetComponent<Image>().fillAmount += changeValue;
-                Debug.Log("1");
                 
                 if (Mathf.Abs((currentSP.GetComponent<Image>().fillAmount * maxSPValue) - currentSPValue) < 0.1)
                 {

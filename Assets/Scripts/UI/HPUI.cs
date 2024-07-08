@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HPUI : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class HPUI : MonoBehaviour
 
     private int currentHPValue = 5;
     private int maxHPValue = 5;
+
 
 
     // Start is called before the first frame update
@@ -35,9 +37,7 @@ public class HPUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E)) refresh_hp(-1);
-        if (Input.GetKeyDown(KeyCode.R)) refresh_hp(1);
-        if (Input.GetKeyDown(KeyCode.Q)) add_max_HP(1);
+
     }
 
     bool refresh_hp(int dtHP) 
