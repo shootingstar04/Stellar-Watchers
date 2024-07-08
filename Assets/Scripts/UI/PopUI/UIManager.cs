@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
     //0 : Inspector, 1 : Map
 
     public bool isShowingUI = false;
+    public bool showingPopUp = false;
     private GameObject pauseScreen;
     private bool isPause = false;
 
@@ -39,12 +40,12 @@ public class UIManager : MonoBehaviour
     void check_input()
     {
         if (Input.GetKeyDown(KeyCode.I)) show_screen(0);
-        if (Input.GetKeyDown(KeyCode.M)) show_screen(1);
-        if (Input.GetKeyDown(KeyCode.Escape)) show_screen(-1);
+        else if (Input.GetKeyDown(KeyCode.M)) show_screen(1);
+        else if (Input.GetKeyDown(KeyCode.Escape)) show_screen(-1);
     }
     void show_screen(int a)
     {
-        if (a == -1) 
+        if (a == -1 && !showingPopUp) 
         {
             if (isShowingUI)
             {
@@ -87,5 +88,10 @@ public class UIManager : MonoBehaviour
             Time.timeScale = Time.timeScale == 1 ? 0 : 1;
             screen[a].SetActive(isShowing[a]);
         }
+    }
+
+    void show_popup() 
+    {
+        showingPopUp = !showingPopUp;
     }
 }
