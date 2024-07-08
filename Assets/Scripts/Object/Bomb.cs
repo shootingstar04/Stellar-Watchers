@@ -20,11 +20,16 @@ public class Bomb : MonoBehaviour
 
     public static void onFire()
     {
-        LayerMask enemy = LayerMask.GetMask("Enemy");
 
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(circleCenter, circleRadius, enemy); ;
+        LayerMask layer = LayerMask.GetMask("Enemy") | LayerMask.GetMask("Player");
 
-        if(colliders.Length == 0 )
+
+
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(circleCenter, circleRadius, layer);
+
+
+
+        if (colliders.Length == 0 )
         {
             Debug.Log("½ÇÆÐ");
         }
@@ -33,6 +38,7 @@ public class Bomb : MonoBehaviour
         {
             Debug.Log("Object inside circle: " + collider.gameObject.name);
         }
+
     }
 
 

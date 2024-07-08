@@ -6,11 +6,11 @@ public class PlayerHealth : MonoBehaviour
 {
     public static PlayerHealth instance;
 
-    public int CurHealth;
-    public int MaxHealth;
+    public int CurHP;
+    public int MaxHP;
 
     void Awake()
-    {   
+    {
         instance = this;
     }
 }

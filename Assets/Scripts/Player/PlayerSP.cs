@@ -10,7 +10,7 @@ public class PlayerSP : MonoBehaviour
     public int MaxSP;
 
     void Awake()
-    {   
+    {
         instance = this;
     }
 }

@@ -5,24 +5,15 @@ using UnityEngine;
 public class PlayerAttackCombo : MonoBehaviour
 {
     public static PlayerAttackCombo instance;
-    
-    private Rigidbody2D rigid;
     public enum PlayerType { Player1, Player2 }
     public PlayerType playerType;
 
     private bool xKeyPressed = false;
     private float xKeyPressTime;
-
-    private float AttackTimeCounter;
     
     void Awake()
     {   
         instance = this;
-    }
-
-    void Start()
-    {
-        rigid = GetComponent<Rigidbody2D>();
     }
 
     void Update()
@@ -43,7 +34,7 @@ public class PlayerAttackCombo : MonoBehaviour
 
     public void ComboInvocation()
     {
-        if (xKeyPressed && xKeyPressTime <= 2f)
+        if (xKeyPressTime <= 2f)
         {
             if (playerType == PlayerType.Player1)
             {
@@ -65,13 +56,6 @@ public class PlayerAttackCombo : MonoBehaviour
 
     void PerformMeleeAttack()
     {
-        rigid.velocity = new Vector2(15, rigid.velocity.y);
-
-        gameObject.layer = 8;
-        AttackTimeCounter -= Time.deltaTime;
-        if (AttackTimeCounter <= 0)
-        {
-            gameObject.layer = 7;
-        }
+        Debug.Log("Player2 performs a melee attack!");
     }
 }
