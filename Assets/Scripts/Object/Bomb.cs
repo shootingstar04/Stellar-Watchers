@@ -28,12 +28,8 @@ public class Bomb : MonoBehaviour
         Collider2D[] colliders = Physics2D.OverlapCircleAll(circleCenter, circleRadius, layer);
 
 
-
-<<<<<<< HEAD
-        if (colliders.Length == 0 )
-=======
         if (colliders.Length == 0)
->>>>>>> af53cb1c83a19e62ef889f90a2f9eb2fb512ccdd
+
         {
             Debug.Log("½ÇÆÐ");
         }
@@ -79,7 +75,7 @@ public class Bomb : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(circleCenter, circleRadius);
-
+    
     }
 
 }

@@ -6,48 +6,19 @@ using Cinemachine;
 public class cam_deadzone_test : MonoBehaviour
 {
     private CinemachineVirtualCamera cam;
-<<<<<<< HEAD
-=======
     private CinemachineFramingTransposer camT;
 
     float lastMinput;
 
->>>>>>> af53cb1c83a19e62ef889f90a2f9eb2fb512ccdd
 
     private void Start()
     {
         cam = GetComponent<CinemachineVirtualCamera>();
-<<<<<<< HEAD
-=======
         camT = cam.GetCinemachineComponent<CinemachineFramingTransposer>();
->>>>>>> af53cb1c83a19e62ef889f90a2f9eb2fb512ccdd
     }
 
     private void Update()
     {
-<<<<<<< HEAD
-        float moveInput = Input.GetAxis("Horizontal");
-        bool jumpInput = Input.GetKey(KeyCode.Z);
-
-        if (moveInput != 0)
-        {
-            moveInput = moveInput > 0 ? 1f : -1f;
-        }
-
-        if (moveInput == 1f)
-            cam.GetCinemachineComponent<CinemachineFramingTransposer>().m_ScreenX = 0.3f;
-        else if(moveInput == -1f)
-            cam.GetCinemachineComponent<CinemachineFramingTransposer>().m_ScreenX = 0.7f;
-        else
-            cam.GetCinemachineComponent<CinemachineFramingTransposer>().m_ScreenX = 0.5f;
-
-        if (jumpInput)
-            cam.GetCinemachineComponent<CinemachineFramingTransposer>().m_ScreenY = 0.5f;
-        else
-            cam.GetCinemachineComponent<CinemachineFramingTransposer>().m_ScreenY = 0.7f;
-    }
-}
-=======
         float moveInput = Input.GetAxisRaw("Horizontal");
         float sightInput = Input.GetAxisRaw("Vertical");
 
@@ -81,5 +52,3 @@ public class cam_deadzone_test : MonoBehaviour
 
     }
 }
-
->>>>>>> af53cb1c83a19e62ef889f90a2f9eb2fb512ccdd

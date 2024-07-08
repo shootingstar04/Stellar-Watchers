@@ -9,6 +9,7 @@ public class PlayerTransformation : MonoBehaviour
     void Start()
     {
         currentTransform = gameObject.transform;
+        asd.Instance.ChangeCameraTarget(currentTransform);
     }
 
     void Update()
