@@ -26,10 +26,11 @@ public class MapManage : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameObject map = GameObject.Find("map");//map 찾기
+        map = GameObject.Find("map");//map 찾기
 
         if (map)//예외처리
         {//map의 자식 오브젝트 정보 저장
+
             for (int i = 0; i < map.transform.childCount; i++)
             {
                 childLocate.Add(map.transform.GetChild(i).transform.position);
@@ -51,7 +52,8 @@ public class MapManage : MonoBehaviour
     }
 
     //지도의 배율을 조정하는 함수
-    void map_size() {
+    void map_size() 
+    {
         map.GetComponent<RectTransform>().sizeDelta
             = new Vector2(mapSizeX, mapSizeY) * Mathf.Pow(magnification, mapSize);
 
