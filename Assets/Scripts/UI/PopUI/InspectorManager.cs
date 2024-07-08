@@ -30,19 +30,19 @@ public class InspectorManager : MonoBehaviour
     public void move_info(int dir) 
     {
 
-        if (dir > 0)//>¹æÇâ
+        if (dir > 0)//>ï¿½ï¿½ï¿½ï¿½
         {
             info.Add(info[0]);
             info.RemoveAt(0);
         }
-        else//<¹æÇâ
+        else//<ï¿½ï¿½ï¿½ï¿½
         {
             info.Insert(0, info[info.Count - 1]);
             info.RemoveAt(info.Count - 1);
         }
 
-        if(info[0].transform.FindChild("start"))
-            info[0].transform.FindChild("start").GetComponent<Button>().Select();
+        if(info[0].transform.Find("start"))
+            info[0].transform.Find("start").GetComponent<Button>().Select();
     }
 
     private void set_pos()
