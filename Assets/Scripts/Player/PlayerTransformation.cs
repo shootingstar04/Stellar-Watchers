@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerTransformation : MonoBehaviour
 {
+    public string PlayerType = "Melee";
+
     private Transform currentTransform;
 
     void Start()
@@ -26,14 +28,19 @@ public class PlayerTransformation : MonoBehaviour
         Vector3 position = currentTransform.position;
         Quaternion rotation = currentTransform.rotation;
 
-        // if (currentPlayer.name.Contains("Player1"))
-        // {
-        //     currentPlayer = Instantiate(player2Prefab, position, rotation);
-        // }
-        // else
-        // {
-        //     currentPlayer = Instantiate(player1Prefab, position, rotation);
-        // }
+        if (PlayerType == "Melee")
+        {
+            PlayerType = "Ranged";
+            gameObject.GetComponent<PlayerAttackMelee>().enabled = false;
+            gameObject.GetComponent<PlayerAttackRanged>().enabled = true;
+        }
+        else
+        {
+            PlayerType = "Melee";
+            gameObject.GetComponent<PlayerAttackMelee>().enabled = true;
+            gameObject.GetComponent<PlayerAttackRanged>().enabled = false;
+            
+        }
 
         currentTransform = gameObject.transform;
     }

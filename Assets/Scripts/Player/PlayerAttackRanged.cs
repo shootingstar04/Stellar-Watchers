@@ -9,12 +9,21 @@ public class PlayerAttackRanged : MonoBehaviour
 
     public GameObject projectilePrefab;
     public Transform projectileSpawnPoint;
+
+    Animator animator;
+
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
+    
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.X))
         {
             if (curTime <= 0) 
             {
+                animator.SetTrigger("Attack2");
                 RangedAttack();
                 curTime = coolTime;
             }
