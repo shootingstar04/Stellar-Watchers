@@ -29,7 +29,11 @@ public class Bomb : MonoBehaviour
 
 
 
+<<<<<<< HEAD
         if (colliders.Length == 0 )
+=======
+        if (colliders.Length == 0)
+>>>>>>> af53cb1c83a19e62ef889f90a2f9eb2fb512ccdd
         {
             Debug.Log("½ÇÆÐ");
         }
@@ -74,8 +78,8 @@ public class Bomb : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(circleCenter,  circleRadius);
-        
+        Gizmos.DrawWireSphere(circleCenter, circleRadius);
+
     }
 
 }
