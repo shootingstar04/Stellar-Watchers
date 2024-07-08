@@ -15,6 +15,12 @@ public class PlayerAttackMelee : MonoBehaviour
     public Vector2 boxSize2;
     public Vector2 boxSize3;
 
+    Animator animator;
+
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     void Update()
     {
@@ -22,6 +28,7 @@ public class PlayerAttackMelee : MonoBehaviour
         {
             if (curTime <= 0) 
             {
+                animator.SetTrigger("Attack1");
                 MeleeAttack();
                 curTime = coolTime;
             }
