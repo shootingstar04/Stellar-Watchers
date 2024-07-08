@@ -3980,9 +3980,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e009be8ee8f2972439c9f62aef8b5af9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player1Prefab: {fileID: 0}
-  player2Prefab: {fileID: 0}
-  coolTime: 2
 --- !u!1 &2022093791
 GameObject:
   m_ObjectHideFlags: 0
