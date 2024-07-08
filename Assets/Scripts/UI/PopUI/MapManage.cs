@@ -2,30 +2,42 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+//지도 UI를 관리하는 스크립트
 
+/*대충 기본 아이디어
+    map오브잭트에 지도의 큰 틀을 작성한다
+    그 자식 오브젝트로 핀이나 세부 지도를 표현한다
+ */
 public class MapManage : MonoBehaviour
 {
 
-    private GameObject map;
+    private GameObject map;//지도 오브잭트를 저장할 변수
 
-    public int maxMapSize = 28;
-    private int mapSize = 0;
-    private float mapSizeX = 1920f;
-    private float mapSizeY = 1080f;
-    public float magnification = 1.1f;
+    public int maxMapSize = 28;//최대 확대 횟수
+    private int mapSize = 0;//시작 확대 횟수 | 0 : 최소크기
+    private float mapSizeX = 1920f;//지도 오브젝트의 가로 크기
+    private float mapSizeY = 1080f;//지도 오브젝트의 세로 크기
+    public float magnification = 1.1f;//확대 배율
 
-    private List<Vector2> childLocate = new List<Vector2>();
-    private List<Vector2> childSize = new List<Vector2>();
+    private List<Vector2> childLocate = new List<Vector2>();//지도 조각들의 위치
+    private List<Vector2> childSize = new List<Vector2>();//지도 조각들의 크기
 
+
+    private void OnEnable()
+    {
+        for (int i = 0; i < map.transform.childCount; i++)
+        {
+            map.transform.GetChild(i).gameObject.SetActive(false);
+        }
+    }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        GameObject a = GameObject.Find("map");
+        map = GameObject.Find("map");//map 찾기
 
-        if (a)
-        {
-            map = a;
+        if (map)//예외처리
+        {//map의 자식 오브젝트 정보 저장
 
             for (int i = 0; i < map.transform.childCount; i++)
             {
@@ -47,7 +59,9 @@ public class MapManage : MonoBehaviour
         map_size_wheel();
     }
 
-    void map_size() {
+    //지도의 배율을 조정하는 함수
+    void map_size() 
+    {
         map.GetComponent<RectTransform>().sizeDelta
             = new Vector2(mapSizeX, mapSizeY) * Mathf.Pow(magnification, mapSize);
 
@@ -68,6 +82,7 @@ public class MapManage : MonoBehaviour
         }
     }
 
+    //휠입력이 들어오면 mapSize변수를 수정하는 함수
     void map_size_wheel()
     {
         float wheelInput = Input.GetAxis("Mouse ScrollWheel");
@@ -88,13 +103,14 @@ public class MapManage : MonoBehaviour
         }
     }
 
+    //버튼을 누르면 mapSize변수를 수정하는 함수
     public void button(int dtSize)
     {
 
         mapSize += 5 * dtSize;
         if (mapSize < 0) mapSize = 0;
         else if (mapSize > maxMapSize) mapSize = maxMapSize;
+        
         map_size();
-
     }
 }

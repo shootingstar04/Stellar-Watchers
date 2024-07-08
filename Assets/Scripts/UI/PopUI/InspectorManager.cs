@@ -1,18 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InspectorManager : MonoBehaviour
 {
-    private List<GameObject> info = new List<GameObject>();
-
-    private float mid = 1920f, left = 1920f, right = 1920f;
+    public List<GameObject> info = new List<GameObject>();
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        info.Add(GameObject.Find("Stat"));
-        info.Add(GameObject.Find("Item"));
+        info.Add(GameObject.Find("Progress"));
+        info.Add(GameObject.Find("Collection"));
         info.Add(GameObject.Find("Constellation"));
     }
 
@@ -20,6 +19,12 @@ public class InspectorManager : MonoBehaviour
     void Update()
     {
         set_pos();
+        check_input();
+    }
+    void check_input()
+    {
+        if (Input.GetKeyDown(KeyCode.A)) move_info(-1);
+        else if (Input.GetKeyDown(KeyCode.D)) move_info(1);
     }
 
     public void move_info(int dir) 
@@ -27,14 +32,17 @@ public class InspectorManager : MonoBehaviour
 
         if (dir > 0)//>방향
         {
-            info.Insert(0, info[info.Count - 1]);
-            info.RemoveAt(info.Count - 1);
-        }
-        else//<방향
-        {
             info.Add(info[0]);
             info.RemoveAt(0);
         }
+        else//<방향
+        {
+            info.Insert(0, info[info.Count - 1]);
+            info.RemoveAt(info.Count - 1);
+        }
+
+        if(info[0].transform.FindChild("start"))
+            info[0].transform.FindChild("start").GetComponent<Button>().Select();
     }
 
     private void set_pos()
