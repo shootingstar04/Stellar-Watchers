@@ -3063,6 +3063,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 5601640077373299387, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5601640077373299387, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5601640077373299387, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.51
       objectReference: {fileID: 0}
@@ -3101,6 +3109,18 @@ PrefabInstance:
     - target: {fileID: 5601640077373299387, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5854748761432140204, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
+      propertyPath: jumpForce
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 5854748761432140204, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
+      propertyPath: moveSpeed
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5854748761432140204, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
+      propertyPath: maxJumpHeight
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8550617144831936086, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
       propertyPath: m_Name
@@ -3758,6 +3778,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e009be8ee8f2972439c9f62aef8b5af9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerType: Melee
 --- !u!1 &2022093791
 GameObject:
   m_ObjectHideFlags: 0
