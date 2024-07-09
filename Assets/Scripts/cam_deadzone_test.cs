@@ -18,13 +18,25 @@ public class cam_deadzone_test : MonoBehaviour
 
     float timer = 0f;
 
+    float height;
+    float width;
+
+    float lx;
+    float ly;
+
+    public Vector2 mapSize;
+
     private void Start()
     {
         cam = GetComponent<CinemachineVirtualCamera>();
         camT = cam.GetCinemachineComponent<CinemachineFramingTransposer>();
         priviousPos = this.transform.position;
 
+        height = cam.m_Lens.OrthographicSize;
+        width = height * Screen.width / Screen.height;
 
+        lx = mapSize.x - width;
+        ly = mapSize.y - height;
 
     }
 
@@ -87,5 +99,10 @@ public class cam_deadzone_test : MonoBehaviour
 
         else if (lookAround && sightInput == 0f)
             camT.m_ScreenY = 0.5f;
+    }
+
+    void ScreenBoundary()
+    {
+
     }
 }
