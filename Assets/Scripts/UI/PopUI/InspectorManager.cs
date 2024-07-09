@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class InspectorManager : MonoBehaviour
 {
     public List<GameObject> info = new List<GameObject>();
+
+    private UIManager UIManager;
 
     // Start is called before the first frame update
     void Awake()
@@ -13,18 +16,35 @@ public class InspectorManager : MonoBehaviour
         info.Add(GameObject.Find("Progress"));
         info.Add(GameObject.Find("Collection"));
         info.Add(GameObject.Find("Constellation"));
+
+        UIManager = GameObject.Find("PopUpUI").GetComponent<UIManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        set_pos();
         check_input();
+        set_pos();
+        if (EventSystem.current.currentSelectedGameObject == GameObject.Find("start").gameObject) Debug.Log("test");
     }
+
+    private void OnEnable()
+    {
+        //if (info[0].transform.Find("Buttons").transform.Find("start"))
+            info[0].transform.Find("Buttons").transform.Find("start").GetComponent<Button>().Select();
+    }
+
+
     void check_input()
     {
-        if (Input.GetKeyDown(KeyCode.A)) move_info(-1);
-        else if (Input.GetKeyDown(KeyCode.D)) move_info(1);
+        if(Input.GetMouseButtonDown(1))
+            info[0].transform.Find("Buttons").transform.Find("start").GetComponent<Button>().Select();
+
+        if (Time.timeScale == 0 && !UIManager.showingPopUp)
+        {
+            if (Input.GetKeyDown(KeyCode.A)) move_info(-1);
+            else if (Input.GetKeyDown(KeyCode.D)) move_info(1);
+        }
     }
 
     public void move_info(int dir) 
@@ -47,14 +67,15 @@ public class InspectorManager : MonoBehaviour
 
     private void set_pos()
     {
+
         if (Mathf.Abs(info[0].GetComponent<RectTransform>().offsetMin.x) > 1)
         {
             info[0].transform.position
                 = new Vector3(info[0].transform.position.x, info[0].transform.position.y, -3);
             info[0].GetComponent<RectTransform>().offsetMin
-                = new Vector2(info[0].GetComponent<RectTransform>().offsetMin.x * 0.98f, 0);
+                = new Vector2(info[0].GetComponent<RectTransform>().offsetMin.x * Mathf.Pow(0.95f, 100 * Time.unscaledDeltaTime), 0);
             info[0].GetComponent<RectTransform>().offsetMax
-                = new Vector2(info[0].GetComponent<RectTransform>().offsetMax.x * 0.98f, 0);
+                = new Vector2(info[0].GetComponent<RectTransform>().offsetMax.x * Mathf.Pow(0.95f, 100 * Time.unscaledDeltaTime), 0);
         }
         else
         {

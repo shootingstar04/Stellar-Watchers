@@ -29,6 +29,10 @@ public class UIManager : MonoBehaviour
 
         if (pauseScreen) pauseScreen.SetActive(isPause);
 
+
+        Cursor.visible = isShowingUI;
+        Cursor.lockState = CursorLockMode.Locked;
+
     }
 
     // Update is called once per frame
@@ -50,6 +54,10 @@ public class UIManager : MonoBehaviour
             if (isShowingUI)
             {
                 isShowingUI = false;
+
+                Cursor.visible = isShowingUI;
+                Cursor.lockState = CursorLockMode.Locked;
+
                 for (int i = 0; i < isShowing.Count; i++)
                 {
                     if (isShowing[i])
@@ -62,6 +70,9 @@ public class UIManager : MonoBehaviour
             else
             {
                 isPause = !isPause;
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+                    //isPause ? CursorLockMode.None : CursorLockMode.Locked;
                 Time.timeScale = Time.timeScale == 1 ? 0 : 1;
                 pauseScreen.SetActive(isPause);
             } 
@@ -69,10 +80,12 @@ public class UIManager : MonoBehaviour
         else if (screen[a] && !isPause)
         {
             isShowingUI = false;
+            Cursor.lockState = CursorLockMode.Locked;
 
             if (!isShowing[a])
             {
                 isShowingUI = true;
+                Cursor.lockState = CursorLockMode.None;
 
                 for (int i = 0; i < isShowing.Count; i++)
                 {
@@ -83,7 +96,10 @@ public class UIManager : MonoBehaviour
                     }
                 }
             }
-            
+
+
+            Cursor.visible = isShowingUI;
+
             isShowing[a] = !isShowing[a];
             Time.timeScale = Time.timeScale == 1 ? 0 : 1;
             screen[a].SetActive(isShowing[a]);

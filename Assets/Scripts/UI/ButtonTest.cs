@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class ButtonTest : MonoBehaviour
 {
@@ -14,5 +15,6 @@ public class ButtonTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //if (EventSystem.current.currentSelectedGameObject == this.gameObject) Debug.Log(this.gameObject.name); 
     }
 }
