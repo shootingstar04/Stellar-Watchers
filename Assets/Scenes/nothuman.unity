@@ -39263,11 +39263,11 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 9.492442, y: 77.76455}
-      - {x: -107.978516, y: 78.16146}
-      - {x: -107.310455, y: -2.6135063}
-      - {x: 173.98997, y: -2.3147736}
-      - {x: 173.92427, y: 77.64428}
+    - - {x: 12.695478, y: 86.52233}
+      - {x: -117.07919, y: 87.361984}
+      - {x: -116.49785, y: -11.770679}
+      - {x: 184.23912, y: -12.434673}
+      - {x: 183.65425, y: 85.8161}
   m_UseDelaunayMesh: 0
 --- !u!4 &814192140
 Transform:
@@ -39559,7 +39559,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BoundingShape2D: {fileID: 814192139}
-  m_Damping: 0.5
+  m_Damping: 0
   m_MaxWindowSize: -1
 --- !u!1 &1098623921
 GameObject:
