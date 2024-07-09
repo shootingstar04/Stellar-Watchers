@@ -9,13 +9,13 @@ public class asd : MonoBehaviour
 
     [SerializeField] private CinemachineVirtualCamera cb;
 
-
     public static asd Instance;
 
     private void Awake()
     {
 
-            Instance = this;
+        Instance = this;
+
     }
 
     private void Start()
