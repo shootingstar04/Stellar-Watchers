@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class JumpPad : MonoBehaviour
 {
-    private float BoostPower = 20.0f;
+    public float BoostPower = 200.0f;
     private Rigidbody2D rigid;
 
     private void OnCollisionEnter2D(Collision2D collision)

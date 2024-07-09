@@ -37,8 +37,6 @@ public class InspectorManager : MonoBehaviour
 
     void check_input()
     {
-        if(Input.GetMouseButtonDown(1))
-            info[0].transform.Find("Buttons").transform.Find("start").GetComponent<Button>().Select();
 
         if (Time.timeScale == 0 && !UIManager.showingPopUp)
         {
