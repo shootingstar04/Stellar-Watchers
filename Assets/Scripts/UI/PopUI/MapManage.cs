@@ -22,15 +22,6 @@ public class MapManage : MonoBehaviour
     private List<Vector2> childLocate = new List<Vector2>();//지도 조각들의 위치
     private List<Vector2> childSize = new List<Vector2>();//지도 조각들의 크기
 
-
-    private void OnEnable()
-    {
-        for (int i = 0; i < map.transform.childCount; i++)
-        {
-            map.transform.GetChild(i).gameObject.SetActive(false);
-        }
-    }
-
     // Start is called before the first frame update
     void Awake()
     {
