@@ -19,7 +19,7 @@ public class ProgressExplanatioon : MonoBehaviour
     public List<string> names = new List<string>();
     public List<Sprite> images = new List<Sprite>();
 
-    private int lastSelected = 0;
+    private int lastSelected = -1;
 
     private int gender = 1;//1 = male, -1 = female
 
@@ -38,9 +38,9 @@ public class ProgressExplanatioon : MonoBehaviour
         currentImage = this.transform.Find("image").gameObject.GetComponent<Image>();
         currentName = this.transform.Find("name").gameObject.GetComponent<Text>();
 
-        currentImage.sprite = images[lastSelected];
-        currentExplanation.text = explanations[lastSelected];
-        currentName.text = names[lastSelected];
+        currentImage.sprite = images[0];
+        currentExplanation.text = explanations[0];
+        currentName.text = names[0];
     }
 
     // Update is called once per frame

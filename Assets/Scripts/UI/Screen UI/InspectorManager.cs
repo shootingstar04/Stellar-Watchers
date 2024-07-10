@@ -25,7 +25,6 @@ public class InspectorManager : MonoBehaviour
     {
         check_input();
         set_pos();
-        if (EventSystem.current.currentSelectedGameObject == GameObject.Find("start").gameObject) Debug.Log("test");
     }
 
     private void OnEnable()
