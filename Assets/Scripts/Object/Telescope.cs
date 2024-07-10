@@ -1,65 +1,85 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 using UnityEngine.UI;
+
 using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Telescope : MonoBehaviour
 {
-    private GameObject objectInTrigger = new GameObject();
+    [SerializeField] private GameObject Player;
+    [SerializeField] private GameObject UI;
+    [SerializeField] private Cinemachine.CinemachineVirtualCamera Cam;
+    private PlayerMove playermove;
+    private cam_deadzone_test cam;
 
-    private static Vector2 circleCenter;
-    private static float circleRadius = 2f;
-
-    private PlayerMove playerMove;
+    bool inside = false;
 
     [SerializeField] private Canvas canvas;
 
 
     private void Awake()
     {
+        playermove = Player.GetComponent<PlayerMove>();
+        cam = Cam.GetComponent<cam_deadzone_test>();
 
-        circleCenter = this.transform.position;
     }
 
     private void Update()
     {
-        LayerMask layer = LayerMask.GetMask(Define.PlayerTag);
-        Collider2D collider = Physics2D.OverlapCircle(circleCenter, circleRadius,layer);
-        objectInTrigger = collider.GetComponent<GameObject>();
-        if(objectInTrigger.gameObject.CompareTag(Define.PlayerTag))
+        if (inside)
         {
-            playerMove = objectInTrigger.gameObject.GetComponent<PlayerMove>();
             Activated();
         }
     }
-
 
     public void Activated()
     { //È°¼ºÈ­´Â È¦µå. Åä±Û ¾Æ´Ô
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            playerMove.moveSpeed = 0;
-            playerMove.jumpForce = 0;
+            playermove.moveSpeed = 0;
+            playermove.jumpForce = 0;
+            playermove.dashForce = 0f;
+            playermove.dashDuration = 0f;
+            playermove.invincibilityDuration = 0f;
+            playermove.maxJumpHeight = 0f;
+            playermove.maxJumpTime = 0f;
+            cam.isInCutScene = true;
             canvas.gameObject.SetActive(true);
 
         }
-        else;
+        else
         {
-            playerMove.moveSpeed = 7;
-            playerMove.jumpForce = 18;
+            playermove.moveSpeed = 7;
+            playermove.jumpForce = 18;
+            playermove.dashForce = 20f;
+            playermove.dashDuration = 0.2f;
+            playermove.invincibilityDuration = 1f;
+            playermove.maxJumpHeight = 3f;
+            playermove.maxJumpTime = 0.4f;
+            cam.isInCutScene = false;
             canvas.gameObject.SetActive(false);
         }
 
     }
 
-
-    private void OnDrawGizmos()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(circleCenter, circleRadius);
-
+        if(collision.CompareTag(Define.PlayerTag))
+        {
+            inside = true;
+            UI.SetActive(inside);
+        }
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.CompareTag(Define.PlayerTag))
+        {
+            inside = false;
+            UI.SetActive(inside);
+        }
+    }
 
 }
