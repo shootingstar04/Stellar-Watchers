@@ -38,6 +38,9 @@ public class HPUI : MonoBehaviour
     void Update()
     {
 
+        if (Input.GetKeyDown(KeyCode.O)) refresh_hp(-1);
+        else if (Input.GetKeyDown(KeyCode.P)) refresh_hp(1);
+        else if (Input.GetKeyDown(KeyCode.L)) add_max_HP(1);
     }
 
     bool refresh_hp(int dtHP) 

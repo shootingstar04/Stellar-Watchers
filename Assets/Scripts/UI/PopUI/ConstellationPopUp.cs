@@ -107,7 +107,7 @@ public class ConstellationPopUp : MonoBehaviour
         }
     }
 
-    private void off_popup()
+    public void off_popup()
     {
         if (isShowing)
         {

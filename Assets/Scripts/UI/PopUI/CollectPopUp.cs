@@ -66,6 +66,7 @@ public class CollectPopUp : MonoBehaviour
             UIManager.showingPopUp = false;
             isShowing = false;
             tooltipScreen.SetActive(isShowing);
+            this.transform.Find("Buttons").transform.Find("start").GetComponent<Button>().Select();
         }
     }
 }

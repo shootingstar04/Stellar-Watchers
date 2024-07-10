@@ -22,7 +22,8 @@ public class SPUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.O)) refresh_sp(-1);
+        else if (Input.GetKeyDown(KeyCode.P)) refresh_sp(1);
     }
 
     bool refresh_sp(int dtSP) 
