@@ -1,37 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Background : MonoBehaviour
 {
-    [SerializeField] private Vector2 parallaxEffectMultiplier;
-
-    private Transform CameraTransform;
-    private Vector3 lastCameraPosition;
-    private float textureUnitSizeX;
-
+    private float length;
+    private float startPos;
+    private GameObject cam;
+    [SerializeField] private float parallaxEffect;
 
     private void Start()
     {
-        CameraTransform = Camera.main.transform;
-        lastCameraPosition = CameraTransform.position;
-        Sprite sprite = GetComponent<SpriteRenderer>().sprite;
-        Texture2D texture = sprite.texture;
-        textureUnitSizeX = texture.width / sprite.pixelsPerUnit;
+        cam = GameObject.Find("Player");
+        startPos = transform.position.x;
+        length = GetComponent<SpriteRenderer>().bounds.size.x;
 
     }
 
-    private void LateUpdate()
+    private void Update()
     {
-        Vector3 deltaMovement = CameraTransform.position - lastCameraPosition;
+        float temp = (cam.transform.position.x * (1 - parallaxEffect));
+        float distance = (cam.transform.position.x * parallaxEffect);
+        transform.position = new Vector3(startPos + distance, transform.position.y, transform.position.z);
 
-        transform.position += new Vector3(deltaMovement.x * parallaxEffectMultiplier.x, deltaMovement.y * parallaxEffectMultiplier.y, deltaMovement.z);
-        lastCameraPosition = CameraTransform.position;
-
-        if (Mathf.Abs(CameraTransform.position.x - transform.position.x) >= textureUnitSizeX)
+        if (temp > startPos + length)
         {
-            float offsetPositionX = (CameraTransform.position.x - transform.position.x) % textureUnitSizeX;
-            transform.position = new Vector3(CameraTransform.position.x + offsetPositionX, transform.position.y);
+            startPos += length;
+        }
+        else if(temp < startPos - length)
+        {
+            startPos-= length;
         }
     }
+
+
 }

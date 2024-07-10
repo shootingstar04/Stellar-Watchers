@@ -44,6 +44,7 @@ public class cam_deadzone_test : MonoBehaviour
 
     private void Update()
     {
+        if (isInCutScene) return;
 
         moveInput = Input.GetAxisRaw("Horizontal");
         sightInput = Input.GetAxisRaw("Vertical");
@@ -52,7 +53,7 @@ public class cam_deadzone_test : MonoBehaviour
         isAttacking = Input.GetKey(KeyCode.X);
 
 
-        if (sightInput != 0f && !isInCutScene)
+        if (sightInput != 0f)
         {
             timer += Time.deltaTime;
             if (timer >= 1f)
@@ -62,7 +63,7 @@ public class cam_deadzone_test : MonoBehaviour
             }
         }
 
-        if (sightInput == 0f || moveInput != 0 || isAttacking || jumpInput || isInCutScene)
+        if (sightInput == 0f || moveInput != 0 || isAttacking || jumpInput)
         {
             timer = 0f;
             lookAround = false;
@@ -79,10 +80,10 @@ public class cam_deadzone_test : MonoBehaviour
 
         //논리구조 오류 조심 -- 점프와 위아래 화살표 사이 안겹치게
         //공격, 이동중 시야이동 안되게...
-        if (jumpInput && !isInCutScene)
+        if (jumpInput)
             camT.m_ScreenY = 0.65f;
 
-        else if (!jumpInput && !isInCutScene)
+        else if (!jumpInput)
         {
             camT.m_ScreenY = 0.55f;
 

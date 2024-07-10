@@ -79,6 +79,18 @@ public class Telescope : MonoBehaviour
         {
             inside = false;
             UI.SetActive(inside);
+
+            
+            playermove.moveSpeed = 7;
+            playermove.jumpForce = 18;
+            playermove.dashForce = 20f;
+            playermove.dashDuration = 0.2f;
+            playermove.invincibilityDuration = 1f;
+            playermove.maxJumpHeight = 3f;
+            playermove.maxJumpTime = 0.4f;
+            cam.isInCutScene = false;
+            canvas.gameObject.SetActive(false);
+            
         }
     }
 
