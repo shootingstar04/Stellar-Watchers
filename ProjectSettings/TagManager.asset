@@ -11,6 +11,8 @@ TagManager:
   - disappear
   - JumpPad
   - BOMB
+  - Enter
+  - Exit
   layers:
   - Default
   - TransparentFX
@@ -24,7 +26,7 @@ TagManager:
   - interact
   - hazard
   - Money
-  - 
+  - Door
   - 
   - 
   - 
