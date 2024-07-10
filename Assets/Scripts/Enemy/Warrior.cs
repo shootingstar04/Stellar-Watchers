@@ -10,6 +10,8 @@ public class Warrior : MonoBehaviour
         PATROL,
         CHASE,
         ATTACK,
+        JUMPING,
+        FALLING,
         KILLED
     }
 
@@ -20,6 +22,7 @@ public class Warrior : MonoBehaviour
     public float attackRadius = 2f;
     public float moveSpeed = 2f;
     public float patrolDistance = 5f; // 순찰할 거리
+    public float jumpForce = 5f; // 점프력
 
     private Rigidbody2D rb;
     private Animator animator;
@@ -63,6 +66,12 @@ public class Warrior : MonoBehaviour
             case State.ATTACK:
                 Attack();
                 break;
+            case State.JUMPING:
+                Jumping();
+                break;
+            case State.FALLING:
+                Falling();
+                break;
             case State.KILLED:
                 Killed();
                 break;
@@ -71,7 +80,7 @@ public class Warrior : MonoBehaviour
         // 상태 전환 로직
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
-        if (currentState != State.KILLED)
+        if (currentState != State.KILLED && currentState != State.JUMPING && currentState != State.FALLING)
         {
             // 바라보는 방향에서만 플레이어 감지
             Vector2 directionToPlayer = player.position - transform.position;
@@ -94,12 +103,34 @@ public class Warrior : MonoBehaviour
             }
         }
 
-        // 벽이나 땅의 끝을 감지하면 방향 전환
+        // 벽이나 땅의 끝을 감지하면 방향 전환 또는 점프
         if (currentState == State.PATROL)
         {
-            if (IsWallAhead() || IsEdgeAhead())
+            if (IsWallAhead())
             {
                 Flip();
+            }
+            else if (IsEdgeAhead())
+            {
+                if (CanJumpAcross())
+                {
+                    Jump();
+                    return; // 점프한 후에는 다른 작업을 중단
+                }
+                else
+                {
+                    Flip();
+                }
+            }
+        }
+
+        // 점프 후 바닥에 닿았는지 확인
+        if (currentState == State.JUMPING || currentState == State.FALLING)
+        {
+            if (IsGrounded())
+            {
+                currentState = State.PATROL;
+                animator.SetBool("Fall", false);
             }
         }
     }
@@ -134,10 +165,18 @@ public class Warrior : MonoBehaviour
         animator.SetBool("Walk", true);
 
         // 낭떠러지 감지
-        if (IsNearCliff())
+        if (IsEdgeAhead())
         {
-            Flip();
-            currentState = State.PATROL; // 낭떠러지를 피하기 위해 추적을 멈추고 순찰 상태로 변경
+            if (CanJumpAcross())
+            {
+                Jump();
+                return; // 점프한 후에는 다른 작업을 중단
+            }
+            else
+            {
+                Flip();
+                currentState = State.PATROL; // 낭떠러지를 피하기 위해 추적을 멈추고 순찰 상태로 변경
+            }
         }
     }
 
@@ -165,11 +204,34 @@ public class Warrior : MonoBehaviour
         // 죽음 처리를 여기서 수행합니다. 예: 파괴, 리스폰 등
     }
 
+    private void Jumping()
+    {
+        if (rb.velocity.y < 0)
+        {
+            currentState = State.FALLING;
+            animator.SetBool("Fall", true);
+        }
+    }
+
+    private void Falling()
+    {
+        // 낙하 중일 때 속도를 증가시킵니다.
+        rb.velocity += Vector2.up * Physics2D.gravity.y * Time.deltaTime;
+
+        // 낙하 중에 Ground 감지
+        if (IsGrounded())
+        {
+            currentState = State.PATROL;
+            animator.SetBool("Fall", false);
+            animator.SetBool("Walk", true);
+        }
+    }
+
     private void MoveTo(Vector2 target)
     {
         float direction = target.x > transform.position.x ? 1f : -1f;
         Vector2 moveDirection = new Vector2(direction, 0f);
-        rb.velocity = moveDirection * moveSpeed;
+        rb.velocity = new Vector2(moveDirection.x * moveSpeed, rb.velocity.y);
     }
 
     private void Flip()
@@ -178,18 +240,6 @@ public class Warrior : MonoBehaviour
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
-    }
-
-    private bool IsNearCliff()
-    {
-        Vector2 position = transform.position;
-        Vector2 rayStart = facingRight ? new Vector2(position.x + 0.5f, position.y) : new Vector2(position.x - 0.5f, position.y);
-
-        RaycastHit2D hit = Physics2D.Raycast(rayStart, Vector2.down, cliffDetectionDistance, groundLayer);
-
-        Debug.DrawRay(rayStart, Vector2.down * cliffDetectionDistance, Color.red);
-
-        return hit.collider == null; // 낭떠러지이면 true를 반환
     }
 
     private bool IsWallAhead()
@@ -213,6 +263,39 @@ public class Warrior : MonoBehaviour
         Debug.DrawRay(position + direction * rayDistance, Vector2.down * cliffDetectionDistance, Color.green);
 
         return hit.collider == null; // 땅의 끝이면 true를 반환
+    }
+
+    private bool CanJumpAcross()
+    {
+        Vector2 position = transform.position;
+        Vector2 rayStart = facingRight ? new Vector2(position.x + 0.5f, position.y - 1.5f) : new Vector2(position.x - 0.5f, position.y - 1.5f);
+        Vector2 rayDirection = facingRight ? Vector2.right : Vector2.left;
+        float rayDistance = patrolDistance;
+
+        RaycastHit2D hit = Physics2D.Raycast(rayStart, rayDirection, rayDistance, groundLayer);
+
+        Debug.DrawRay(rayStart, rayDirection * rayDistance, Color.yellow);
+
+        return hit.collider != null; // 건너편에 땅이 있는 경우 true 반환
+    }
+
+    private void Jump()
+    {
+        currentState = State.JUMPING;
+        rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        animator.SetTrigger("Jump");
+    }
+
+    private bool IsGrounded()
+    {
+        Vector2 position = transform.position;
+        Vector2 direction = facingRight ? Vector2.right : Vector2.left;
+        float rayDistance = 0.1f;
+        RaycastHit2D hit = Physics2D.Raycast(position + direction * rayDistance, Vector2.down, cliffDetectionDistance, groundLayer);
+
+        Debug.DrawRay(position + direction * rayDistance, Vector2.down * cliffDetectionDistance, Color.red);
+
+        return hit.collider != null; // 바닥에 닿아 있으면 true를 반환
     }
 
     public void TakeDamage(int damage)

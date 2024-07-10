@@ -30,7 +30,7 @@ public class Background : MonoBehaviour
         }
         else if(temp < startPos - length)
         {
-            startPos-= length;
+            startPos-= length;  
         }
     }
 
