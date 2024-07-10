@@ -13,7 +13,6 @@ public class CollectPopUp : MonoBehaviour
     public List<Sprite> images = new List<Sprite>();
 
     private GameObject tooltipScreen;
-    private GameObject buttons;
     private UIManager UIManager;
 
     private bool isShowing = false;
@@ -23,7 +22,6 @@ public class CollectPopUp : MonoBehaviour
     {
         UIManager = GameObject.Find("PopUpUI").GetComponent<UIManager>();
 
-        buttons = GameObject.Find("Collection").transform.Find("Buttons").gameObject;
         tooltipScreen = GameObject.Find("Collection ToolTip");
 
         tooltipScreen.SetActive(false);
@@ -59,7 +57,6 @@ public class CollectPopUp : MonoBehaviour
             UIManager.showingPopUp = true;
             isShowing = true;
             tooltipScreen.SetActive(isShowing);
-            buttons.SetActive(!isShowing);
         }
     }
     public void off_tooltip()
@@ -69,7 +66,6 @@ public class CollectPopUp : MonoBehaviour
             UIManager.showingPopUp = false;
             isShowing = false;
             tooltipScreen.SetActive(isShowing);
-            buttons.SetActive(!isShowing);
         }
     }
 }

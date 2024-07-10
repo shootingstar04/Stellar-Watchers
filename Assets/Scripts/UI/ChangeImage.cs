@@ -5,13 +5,14 @@ using UnityEngine.UI;
 
 public class ChangeImage : MonoBehaviour
 {
-    public Sprite Sprite1;
-    public Sprite Sprite2;
+    public List<Sprite> sprites = new List<Sprite>();
+
+    private int imageIndex = 0;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        this.GetComponent<Image>().sprite = Sprite1;
+        this.GetComponent<Image>().sprite = sprites[0];
     }
 
     // Update is called once per frame
@@ -22,7 +23,14 @@ public class ChangeImage : MonoBehaviour
 
     public void change_image() 
     {
-        if (this.GetComponent<Image>().sprite == Sprite1) this.GetComponent<Image>().sprite = Sprite2;
-        else this.GetComponent<Image>().sprite = Sprite1;
+        imageIndex += 1;
+        if (imageIndex > sprites.Count - 1) imageIndex = 0;
+
+        this.GetComponent<Image>().sprite = sprites[imageIndex];
+    }
+
+    public void set_image(int index)
+    {
+        this.GetComponent<Image>().sprite = sprites[index];
     }
 }
