@@ -30,9 +30,12 @@ public class InspectorManager : MonoBehaviour
 
     private void OnEnable()
     {
-        //if (info[0].transform.Find("Buttons").transform.Find("start"))
+        if (info[0].transform.Find("Buttons").transform.Find("start"))
+        {
             info[0].transform.Find("Buttons").transform.Find("start").GetComponent<Button>().Select();
+        }
     }
+
 
 
     void check_input()

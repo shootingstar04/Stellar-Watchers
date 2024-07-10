@@ -70,9 +70,10 @@ public class UIManager : MonoBehaviour
             else
             {
                 isPause = !isPause;
-                Cursor.visible = false;
-                Cursor.lockState = CursorLockMode.Locked;
-                    //isPause ? CursorLockMode.None : CursorLockMode.Locked;
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.lockState = 
+                    isPause ? CursorLockMode.None : CursorLockMode.Locked;
                 Time.timeScale = Time.timeScale == 1 ? 0 : 1;
                 pauseScreen.SetActive(isPause);
             } 
