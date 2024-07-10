@@ -106,13 +106,13 @@ public class Skeleton : MonoBehaviour
 
     private void Idle()
     {
-        animator.SetBool("isWalking", false);
+        animator.SetBool("Walk", false);
         rb.velocity = Vector2.zero;
     }
 
     private void Patrol()
     {
-        animator.SetBool("isWalking", true);
+        animator.SetBool("Walk", true);
 
         // 왼쪽 또는 오른쪽 경계에 도달하면 방향 전환
         if (facingRight && transform.position.x >= patrolRightLimit.x)
@@ -131,7 +131,7 @@ public class Skeleton : MonoBehaviour
     private void Chase()
     {
         MoveTo(player.position);
-        animator.SetBool("isWalking", true);
+        animator.SetBool("Walk", true);
 
         // 낭떠러지 감지
         if (IsNearCliff())
@@ -144,8 +144,8 @@ public class Skeleton : MonoBehaviour
     private void Attack()
     {
         rb.velocity = Vector2.zero;
-        animator.SetBool("isWalking", false);
-        animator.SetTrigger("Attack");
+        animator.SetBool("Walk", false);
+        animator.SetTrigger("Attack1");
 
         // 공격 중에도 플레이어와의 거리를 확인
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
