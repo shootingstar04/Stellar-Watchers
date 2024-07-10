@@ -8,12 +8,17 @@ public class Background : MonoBehaviour
 
     private Transform CameraTransform;
     private Vector3 lastCameraPosition;
+    private float textureUnitSizeX;
 
 
     private void Start()
     {
         CameraTransform = Camera.main.transform;
         lastCameraPosition = CameraTransform.position;
+        Sprite sprite = GetComponent<SpriteRenderer>().sprite;
+        Texture2D texture = sprite.texture;
+        textureUnitSizeX = texture.width / sprite.pixelsPerUnit;
+
     }
 
     private void LateUpdate()
@@ -21,6 +26,12 @@ public class Background : MonoBehaviour
         Vector3 deltaMovement = CameraTransform.position - lastCameraPosition;
 
         transform.position += new Vector3(deltaMovement.x * parallaxEffectMultiplier.x, deltaMovement.y * parallaxEffectMultiplier.y, deltaMovement.z);
-        lastCameraPosition= CameraTransform.position;
+        lastCameraPosition = CameraTransform.position;
+
+        if (Mathf.Abs(CameraTransform.position.x - transform.position.x) >= textureUnitSizeX)
+        {
+            float offsetPositionX = (CameraTransform.position.x - transform.position.x) % textureUnitSizeX;
+            transform.position = new Vector3(CameraTransform.position.x + offsetPositionX, transform.position.y);
+        }
     }
 }
