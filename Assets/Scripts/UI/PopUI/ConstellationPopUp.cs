@@ -37,7 +37,7 @@ public class ConstellationPopUp : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        UIManager = GameObject.Find("PopUpUI").GetComponent<UIManager>();
+        UIManager = GameObject.Find("Screen UI").GetComponent<UIManager>();
 
         constellationPopUp = GameObject.Find("Constellation PopUp");
 
@@ -80,7 +80,7 @@ public class ConstellationPopUp : MonoBehaviour
 
     private void check_input()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) off_popup();
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.X)) off_popup();
     }
 
     public void show_popup(int index)
@@ -102,11 +102,7 @@ public class ConstellationPopUp : MonoBehaviour
             for (int i = 0; i < buttons.Count; i++)
             {
                 if (acquired[i]) buttons[i].GetComponent<ChangeImage>().set_image(0);
-                else
-                {
-                    Debug.Log(i);
-                    buttons[i].GetComponent<ChangeImage>().set_image(1);
-                }
+                else buttons[i].GetComponent<ChangeImage>().set_image(1);
             }
         }
     }

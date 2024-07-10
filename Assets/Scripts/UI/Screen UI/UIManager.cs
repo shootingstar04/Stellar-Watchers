@@ -45,7 +45,7 @@ public class UIManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.I)) show_screen(0);
         else if (Input.GetKeyDown(KeyCode.M)) show_screen(1);
-        else if (Input.GetKeyDown(KeyCode.Escape)) show_screen(-1);
+        else if (Input.GetKeyDown(KeyCode.Escape)) show_screen(-1); 
     }
     void show_screen(int a)
     {

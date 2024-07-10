@@ -17,7 +17,7 @@ public class InspectorManager : MonoBehaviour
         info.Add(GameObject.Find("Collection"));
         info.Add(GameObject.Find("Constellation"));
 
-        UIManager = GameObject.Find("PopUpUI").GetComponent<UIManager>();
+        UIManager = GameObject.Find("Screen UI").GetComponent<UIManager>();
     }
 
     // Update is called once per frame

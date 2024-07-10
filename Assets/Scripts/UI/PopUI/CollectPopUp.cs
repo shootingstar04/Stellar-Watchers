@@ -20,7 +20,7 @@ public class CollectPopUp : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        UIManager = GameObject.Find("PopUpUI").GetComponent<UIManager>();
+        UIManager = GameObject.Find("Screen UI").GetComponent<UIManager>();
 
         tooltipScreen = GameObject.Find("Collection ToolTip");
 
@@ -40,7 +40,7 @@ public class CollectPopUp : MonoBehaviour
 
     private void check_input()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) off_tooltip();
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.X)) off_tooltip();
     }
 
     public void show_tooltip(int index)
