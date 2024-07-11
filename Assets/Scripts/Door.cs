@@ -31,6 +31,9 @@ public class Door : MonoBehaviour
     public void OpenDoor()
     {
         door.SetActive(false);
+        if(door.gameObject.CompareTag("Enter"))
+        {
+            Destroy(enterTrigger);
+         }
     }
-
 }
