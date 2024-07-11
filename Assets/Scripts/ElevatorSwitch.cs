@@ -10,7 +10,7 @@ public class ElevatorSwitch : MonoBehaviour
     //플레이어 공격 코드에 추가예정
     public void SwitchFlick()
     {
-        if(!Elevator.EV.isWorking)
+        if(Elevator.EV.CurrentPos.y != this.transform.position.y)
         {
             Elevator.EV.Active();
         }
@@ -23,7 +23,8 @@ public class ElevatorSwitch : MonoBehaviour
         {
             if (!Elevator.EV.isWorking)
             {
-                Elevator.EV.Active();
+                Debug.Log("스위치 작동");
+                SwitchFlick();
             }
         }
     }

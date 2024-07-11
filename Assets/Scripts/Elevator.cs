@@ -7,12 +7,13 @@ public class Elevator : MonoBehaviour
 {
     [SerializeField] protected Rigidbody2D cage;
     [SerializeField] private Collider2D guard;
-    [SerializeField] private GameObject TargetPosition;
+    [SerializeField] private GameObject SwitchUp;
+    [SerializeField] private GameObject SwitchDown;
 
     public static Elevator EV;
 
-    private Vector2 CurrentPos;
-    private Vector2 TargetPos;
+    public Vector2 CurrentPos = new Vector2(0, 0);
+    private Vector2 TargetPos = new Vector2(0, 0);
 
     private float timer = 0f;
     private float moveTime = 3f; //이동시속시간
@@ -25,30 +26,30 @@ public class Elevator : MonoBehaviour
     private void Awake()
     {
         EV = this;
-        TargetPosition = GameObject.Find("TargetPosition");
-        TargetPosition.transform.position = TargetPos;
-        CurrentPos = this.transform.position;
+        CurrentPos.y = SwitchDown.transform.position.y;
+        TargetPos.y = SwitchUp.transform.position.y;
+
     }
 
     //타면 작동
     public void Active()
     {
         timer = 0f;
-        isWorking= true;
+        isWorking = true;
         guard.gameObject.SetActive(true);
     }
 
     private void Update()
     {
-        if(isWorking)
+        if (isWorking)
         {
             timer += Time.deltaTime;
             t = timer / moveTime;
-            t = t * t*(3f - 2f * t);
+            t = t * t * (3f - 2f * t);
 
-            Vector2 newPosition = Vector2.Lerp(CurrentPos, TargetPos, t);
-            cage.MovePosition(newPosition);
-            if(cage.transform.position.y == TargetPos.y)
+            float newPosition = Mathf.Lerp(CurrentPos.y, TargetPos.y, t);
+            cage.MovePosition(new Vector2(this.transform.position.x, isUpDown * newPosition));
+            if (cage.transform.position.y == TargetPos.y)
             {
                 EndFunction();
             }
@@ -60,10 +61,12 @@ public class Elevator : MonoBehaviour
         isWorking = false;
         guard.gameObject.SetActive(false);
         isUpDown = (short)(isUpDown * -1);
+
+        Vector2 temp = TargetPos;
         TargetPos = CurrentPos;
-        CurrentPos = this.transform.position;
+        CurrentPos = TargetPos;
     }
 
-    
+
 
 }

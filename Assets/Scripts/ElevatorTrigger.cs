@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ElevatorTrigger : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag(Define.PlayerTag))// && !Elevator.EV.isWorking)
+        if (other.CompareTag(Define.PlayerTag) && !Elevator.EV.isWorking)
         {
             Debug.Log("¿¤º£ °¨Áö");
             Elevator.EV.Active();
