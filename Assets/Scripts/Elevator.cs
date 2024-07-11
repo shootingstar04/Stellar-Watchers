@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using DG.Tweening;
+using System.ComponentModel;
 
 public class Elevator : MonoBehaviour
 {
@@ -12,33 +14,37 @@ public class Elevator : MonoBehaviour
 
     public static Elevator EV;
 
-    public Vector2 CurrentPos = new Vector2(0, 0);
-    private Vector2 TargetPos = new Vector2(0, 0);
-
-    private float timer = 0f;
     private float moveTime = 3f; //이동시속시간
+    private Vector3 floorPos = Vector3.zero;
 
-    private float t;
-
-    protected short isUpDown = 1; //-1 위층, 1 땅
     public bool isWorking = false;
 
     private void Awake()
     {
         EV = this;
-        CurrentPos.y = SwitchDown.transform.position.y;
-        TargetPos.y = SwitchUp.transform.position.y;
+        floorPos = cage.transform.position;
 
     }
 
     //타면 작동
     public void Active()
     {
-        timer = 0f;
         isWorking = true;
         guard.gameObject.SetActive(true);
+        Vector3 pos = Vector3.zero;
+
+        if(Mathf.Approximately(cage.transform.position.y, floorPos.y)) 
+        {
+            pos = new Vector3(cage.transform.position.x, SwitchUp.transform.position.y-1f, cage.transform.position.z);
+        }
+        else
+        {
+            pos = new Vector3(cage.transform.position.x, SwitchDown.transform.position.y-1f, cage.transform.position.z);
+        }
+        cage.transform.DOMove(pos, moveTime).OnComplete(() => EndFunction());
     }
 
+    /*
     private void Update()
     {
         if (isWorking)
@@ -55,16 +61,12 @@ public class Elevator : MonoBehaviour
             }
         }
     }
+    */
 
     protected void EndFunction()
     {
         isWorking = false;
         guard.gameObject.SetActive(false);
-        isUpDown = (short)(isUpDown * -1);
-
-        Vector2 temp = TargetPos;
-        TargetPos = CurrentPos;
-        CurrentPos = TargetPos;
     }
 
 

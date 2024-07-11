@@ -10,16 +10,21 @@ public class ElevatorSwitch : MonoBehaviour
     //플레이어 공격 코드에 추가예정
     public void SwitchFlick()
     {
-        if(Elevator.EV.CurrentPos.y != this.transform.position.y)
-        {
-            Elevator.EV.Active();
-        }
+        Elevator.EV.Active();
+        
     }
 
     //임시
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(Input.GetKeyDown(KeyCode.P)) 
+
+        
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        Debug.Log("스위치 충돌");
+        if (Input.GetKeyDown(KeyCode.P))
         {
             if (!Elevator.EV.isWorking)
             {
