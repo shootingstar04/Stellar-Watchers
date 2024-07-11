@@ -270,7 +270,7 @@ public class Warrior : MonoBehaviour
         Vector2 position = transform.position;
         Vector2 rayStart = facingRight ? new Vector2(position.x + 0.5f, position.y - 1.5f) : new Vector2(position.x - 0.5f, position.y - 1.5f);
         Vector2 rayDirection = facingRight ? Vector2.right : Vector2.left;
-        float rayDistance = patrolDistance;
+        float rayDistance = 3f;
 
         RaycastHit2D hit = Physics2D.Raycast(rayStart, rayDirection, rayDistance, groundLayer);
 

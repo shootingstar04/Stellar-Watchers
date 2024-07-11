@@ -7,40 +7,24 @@ public class Hider : MonoBehaviour
     public enum State
     {
         IDLE,
-        PATROL,
+        ATTACK,
         KILLED
     }
 
     public State currentState;
 
+    public Transform player;
     public float detectionRadius = 10f;
-    public float attackRadius = 2f;
-    public float moveSpeed = 2f;
-    public float patrolDistance = 5f; // 순찰할 거리
+    public float attackDelay = 2f;
+    public LayerMask playerLayer;
 
-    private Rigidbody2D rb;
     private Animator animator;
-    private bool facingRight = true;
-
-    // 추가된 부분: 낭떠러지 및 벽 감지를 위한 변수
-    public float cliffDetectionDistance = 1f;
-    public float wallDetectionDistance = 0.1f;
-    public LayerMask groundLayer;
-
-    private Vector2 startPos;
-    private Vector2 patrolLeftLimit;
-    private Vector2 patrolRightLimit;
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         animator = GetComponent<Animator>();
-
-        currentState = State.PATROL;
-
-        startPos = transform.position;
-        patrolLeftLimit = new Vector2(startPos.x - patrolDistance, startPos.y);
-        patrolRightLimit = new Vector2(startPos.x + patrolDistance, startPos.y);
+        currentState = State.IDLE;
     }
 
     private void Update()
@@ -50,20 +34,21 @@ public class Hider : MonoBehaviour
             case State.IDLE:
                 Idle();
                 break;
-            case State.PATROL:
-                Patrol();
+            case State.ATTACK:
+                // 공격 상태에서는 별도로 처리할 필요 없음 (코루틴으로 처리)
                 break;
             case State.KILLED:
                 Killed();
                 break;
         }
 
-        // 벽이나 땅의 끝을 감지하면 방향 전환
-        if (currentState == State.PATROL)
+        if (currentState != State.KILLED)
         {
-            if (IsWallAhead() || IsEdgeAhead())
+            float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+            if (distanceToPlayer <= detectionRadius && currentState == State.IDLE)
             {
-                Flip();
+                currentState = State.ATTACK;
+                StartCoroutine(AttackPlayer());
             }
         }
     }
@@ -71,71 +56,27 @@ public class Hider : MonoBehaviour
     private void Idle()
     {
         animator.SetBool("Walk", false);
-        rb.velocity = Vector2.zero;
+        // 가만히 있는 상태
     }
 
-    private void Patrol()
+    private IEnumerator AttackPlayer()
     {
-        animator.SetBool("Walk", true);
+        // 2초 대기
+        yield return new WaitForSeconds(attackDelay);
 
-        // 왼쪽 또는 오른쪽 경계에 도달하면 방향 전환
-        if (facingRight && transform.position.x >= patrolRightLimit.x)
-        {
-            Flip();
-        }
-        else if (!facingRight && transform.position.x <= patrolLeftLimit.x)
-        {
-            Flip();
-        }
+        // 공격 애니메이션 트리거
+        animator.SetTrigger("Attack1");
 
-        Vector2 target = facingRight ? patrolRightLimit : patrolLeftLimit;
-        MoveTo(target);
+        // 여기서 실제 공격 로직을 추가할 수 있습니다. 예: 플레이어에게 데미지를 입히는 함수 호출 등
+
+        // 다시 IDLE 상태로 전환
+        currentState = State.IDLE;
     }
 
     private void Killed()
     {
-        rb.velocity = Vector2.zero;
         animator.SetTrigger("Die");
-
         // 죽음 처리를 여기서 수행합니다. 예: 파괴, 리스폰 등
-    }
-
-    private void MoveTo(Vector2 target)
-    {
-        float direction = target.x > transform.position.x ? 1f : -1f;
-        Vector2 moveDirection = new Vector2(direction, 0f);
-        rb.velocity = moveDirection * moveSpeed;
-    }
-
-    private void Flip()
-    {
-        facingRight = !facingRight;
-        Vector3 scale = transform.localScale;
-        scale.x *= -1;
-        transform.localScale = scale;
-    }
-
-    private bool IsWallAhead()
-    {
-        Vector2 position = transform.position;
-        Vector2 direction = facingRight ? Vector2.right : Vector2.left;
-        RaycastHit2D hit = Physics2D.Raycast(position, direction, wallDetectionDistance, groundLayer);
-
-        Debug.DrawRay(position, direction * wallDetectionDistance, Color.blue);
-
-        return hit.collider != null; // 벽이면 true를 반환
-    }
-
-    private bool IsEdgeAhead()
-    {
-        Vector2 position = transform.position;
-        Vector2 direction = facingRight ? Vector2.right : Vector2.left;
-        float rayDistance = 1f;
-        RaycastHit2D hit = Physics2D.Raycast(position + direction * rayDistance, Vector2.down, cliffDetectionDistance, groundLayer);
-
-        Debug.DrawRay(position + direction * rayDistance, Vector2.down * cliffDetectionDistance, Color.green);
-
-        return hit.collider == null; // 땅의 끝이면 true를 반환
     }
 
     public void TakeDamage(int damage)
