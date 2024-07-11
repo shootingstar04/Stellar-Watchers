@@ -16,10 +16,13 @@ public class EvilWizard : MonoBehaviour
     public State currentState;
 
     public Transform player;
+    public GameObject projectilePrefab; // 원거리 공격에 사용할 투사체 프리팹
+    public Transform firePoint; // 투사체 발사 위치
     public float detectionRadius = 10f;
-    public float attackRadius = 2f;
+    public float attackRadius = 5f;
     public float moveSpeed = 2f;
     public float patrolDistance = 5f; // 순찰할 거리
+    public float attackDelay = 2f; // 공격 딜레이
 
     private Rigidbody2D rb;
     private Animator animator;
@@ -34,10 +37,17 @@ public class EvilWizard : MonoBehaviour
     private Vector2 patrolLeftLimit;
     private Vector2 patrolRightLimit;
 
+    private bool isPatrollingRight;
+    private float patrolTimer;
+    private float stopTimer;
+    private float flipCooldown = 0.5f; // 방향 전환 쿨다운
+    private float flipTimer;
+
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         rb = GetComponent<Rigidbody2D>();
+        rb.freezeRotation = true; // 회전 고정
         animator = GetComponent<Animator>();
 
         currentState = State.PATROL;
@@ -45,6 +55,10 @@ public class EvilWizard : MonoBehaviour
         startPos = transform.position;
         patrolLeftLimit = new Vector2(startPos.x - patrolDistance, startPos.y);
         patrolRightLimit = new Vector2(startPos.x + patrolDistance, startPos.y);
+
+        isPatrollingRight = true;
+        patrolTimer = 5f;
+        stopTimer = 0f;
     }
 
     private void Update()
@@ -84,9 +98,10 @@ public class EvilWizard : MonoBehaviour
                 currentState = State.CHASE;
             }
 
-            if (distanceToPlayer <= attackRadius)
+            if (distanceToPlayer <= attackRadius && currentState != State.ATTACK)
             {
                 currentState = State.ATTACK;
+                StartCoroutine(AttackDelay());
             }
             else if (currentState == State.CHASE && distanceToPlayer > detectionRadius)
             {
@@ -97,9 +112,12 @@ public class EvilWizard : MonoBehaviour
         // 벽이나 땅의 끝을 감지하면 방향 전환
         if (currentState == State.PATROL)
         {
-            if (IsWallAhead() || IsEdgeAhead())
+            flipTimer -= Time.deltaTime;
+
+            if ((IsWallAhead() || IsEdgeAhead()) && flipTimer <= 0)
             {
                 Flip();
+                flipTimer = flipCooldown; // 쿨다운 타이머 리셋
             }
         }
     }
@@ -108,10 +126,26 @@ public class EvilWizard : MonoBehaviour
     {
         animator.SetBool("Walk", false);
         rb.velocity = Vector2.zero;
+
+        stopTimer -= Time.deltaTime;
+
+        if (stopTimer <= 0)
+        {
+            currentState = State.PATROL;
+        }
     }
 
     private void Patrol()
     {
+        patrolTimer -= Time.deltaTime;
+
+        if (patrolTimer <= 0f)
+        {
+            currentState = State.IDLE;
+            stopTimer = 3f;
+            patrolTimer = 5f;
+        }
+
         animator.SetBool("Walk", true);
 
         // 왼쪽 또는 오른쪽 경계에 도달하면 방향 전환
@@ -145,16 +179,19 @@ public class EvilWizard : MonoBehaviour
     {
         rb.velocity = Vector2.zero;
         animator.SetBool("Walk", false);
-        animator.SetTrigger("Attack1");
+        animator.SetTrigger("Attack");
 
-        // 공격 중에도 플레이어와의 거리를 확인
-        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-        if (distanceToPlayer > attackRadius)
+        // 공격 애니메이션 실행 후 1초 뒤에 투사체 생성
+        StartCoroutine(DelayedProjectileSpawn());
+    }
+
+    private IEnumerator AttackDelay()
+    {
+        yield return new WaitForSeconds(attackDelay);
+        if (currentState == State.ATTACK)
         {
-            currentState = State.CHASE;
+            Attack();
         }
-
-        // 여기서 플레이어에게 데미지를 주는 로직을 추가할 수 있습니다.
     }
 
     private void Killed()
@@ -213,6 +250,16 @@ public class EvilWizard : MonoBehaviour
         Debug.DrawRay(position + direction * rayDistance, Vector2.down * cliffDetectionDistance, Color.green);
 
         return hit.collider == null; // 땅의 끝이면 true를 반환
+    }
+
+    private IEnumerator DelayedProjectileSpawn()
+    {
+        yield return new WaitForSeconds(1f); // 공격 딜레이 만큼 기다림
+
+        if (currentState == State.ATTACK)
+        {
+            GameObject projectile = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
+        }
     }
 
     public void TakeDamage(int damage)
