@@ -288,7 +288,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -38.67, y: -1.6, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalScale: {x: -5, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -306,15 +306,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
+  player: {fileID: 1180692019}
   detectionRadius: 10
-  attackRadius: 2
-  moveSpeed: 2
-  patrolDistance: 5
-  cliffDetectionDistance: 3
-  wallDetectionDistance: 1
-  groundLayer:
+  attackDelay: 2
+  playerLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 128
 --- !u!1 &285489525
 GameObject:
   m_ObjectHideFlags: 0
@@ -4091,7 +4088,7 @@ Transform:
   m_GameObject: {fileID: 290719736}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -22.451895, y: -3.61163, z: -18.647606}
+  m_LocalPosition: {x: -27.34, y: -3.61163, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4312,7 +4309,7 @@ MonoBehaviour:
   player: {fileID: 0}
   detectionRadius: 10
   attackRadius: 4
-  moveSpeed: 2
+  moveSpeed: 3
   patrolDistance: 5
   cliffDetectionDistance: 2
   wallDetectionDistance: 1
@@ -4407,7 +4404,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -22.451895, y: -3.61163, z: -18.647606}
+  m_LocalPosition: {x: -27.34, y: -3.61163, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5017,8 +5014,8 @@ MonoBehaviour:
   currentState: 0
   player: {fileID: 1180692019}
   detectionRadius: 10
-  attackRadius: 2
-  moveSpeed: 2
+  attackRadius: 4
+  moveSpeed: 3
   patrolDistance: 5
   cliffDetectionDistance: 2
   wallDetectionDistance: 1
@@ -5190,10 +5187,11 @@ Transform:
   m_GameObject: {fileID: 1435119159}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.64, y: -2.647, z: 0}
+  m_LocalPosition: {x: 15.71, y: -2.61, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1436838474}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1435119165
@@ -5210,15 +5208,49 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: 0
   player: {fileID: 1180692019}
-  detectionRadius: 10
-  attackRadius: 2
-  moveSpeed: 2
+  projectilePrefab: {fileID: 7062000989716058343, guid: 1e7ae4ed35eb6184ea4a874b192e2dc6, type: 3}
+  firePoint: {fileID: 1436838474}
+  detectionRadius: 12
+  attackRadius: 8
+  moveSpeed: 3
   patrolDistance: 5
+  attackDelay: 2
   cliffDetectionDistance: 2
   wallDetectionDistance: 1
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+--- !u!1 &1436838473
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1436838474}
+  m_Layer: 6
+  m_Name: Fire Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1436838474
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1436838473}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.288, y: 0.166, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1435119164}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1765993879
 GameObject:
   m_ObjectHideFlags: 0
@@ -5378,10 +5410,10 @@ MonoBehaviour:
   currentState: 0
   player: {fileID: 1180692019}
   detectionRadius: 10
-  attackRadius: 2
-  moveSpeed: 2
-  patrolDistance: 10
-  jumpForce: 10
+  attackRadius: 4
+  moveSpeed: 5
+  patrolDistance: 15
+  jumpForce: 4
   cliffDetectionDistance: 2
   wallDetectionDistance: 1
   groundLayer:
@@ -5600,8 +5632,8 @@ MonoBehaviour:
   currentState: 0
   detectionRadius: 10
   attackRadius: 2
-  moveSpeed: 2
-  fleeSpeed: 5
+  moveSpeed: 3
+  fleeSpeed: 6
   patrolDistance: 5
   fleeGravityScale: 2
   normalGravityScale: 1
@@ -5870,7 +5902,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5601640077373299387, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -22.267792
+      value: -27.39
       objectReference: {fileID: 0}
     - target: {fileID: 5601640077373299387, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
       propertyPath: m_LocalPosition.y
