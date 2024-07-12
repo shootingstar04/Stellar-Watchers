@@ -7,7 +7,7 @@ using System.ComponentModel;
 
 public class Elevator : MonoBehaviour
 {
-    [SerializeField] protected Rigidbody2D cage;
+    [SerializeField] public Rigidbody2D cage;
     [SerializeField] private Collider2D guard;
     [SerializeField] private GameObject SwitchUp;
     [SerializeField] private GameObject SwitchDown;

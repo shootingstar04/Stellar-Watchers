@@ -22,7 +22,7 @@ public class ElevatorSwitch : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.P))
             {
                 Debug.Log("스위치 충돌");
-                if (!Elevator.EV.isWorking)
+                if (!Elevator.EV.isWorking && Elevator.EV.cage.transform.position.y == this.transform.position.y)
                 {
                     Debug.Log("스위치 작동");
                     SwitchFlick();
