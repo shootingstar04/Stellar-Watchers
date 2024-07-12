@@ -11,6 +11,7 @@ public class CollectPopUp : MonoBehaviour
     public List<string> toolTips = new List<string>();
     public List<string> names = new List<string>();
     public List<Sprite> images = new List<Sprite>();
+    public List<bool> acquired = new List<bool>();
 
     private GameObject tooltipScreen;
     private UIManager UIManager;
@@ -45,9 +46,10 @@ public class CollectPopUp : MonoBehaviour
 
     public void show_tooltip(int index)
     {
-        if (!isShowing)
+        index -= 1;
+
+        if (acquired[index] && !isShowing)
         {
-            index -= 1;
 
             tooltipScreen.transform.Find("Image").GetComponent<Image>().sprite = images[index];
             tooltipScreen.transform.Find("tooltip").GetComponent<Text>().text = toolTips[index];
@@ -67,6 +69,16 @@ public class CollectPopUp : MonoBehaviour
             isShowing = false;
             tooltipScreen.SetActive(isShowing);
             this.transform.Find("Buttons").transform.Find("start").GetComponent<Button>().Select();
+        }
+    }
+
+    public void set_button_image()
+    {
+        for (int i = 0; i < this.transform.Find("Buttons").transform.childCount; i++) {
+            if(acquired[i])
+                this.transform.Find("Buttons").transform.GetChild(i).GetComponent<ChangeImage>().set_image(0);
+            else
+                this.transform.Find("Buttons").transform.GetChild(i).GetComponent<ChangeImage>().set_image(1);
         }
     }
 }
