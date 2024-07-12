@@ -11,25 +11,22 @@ public class ElevatorSwitch : MonoBehaviour
     public void SwitchFlick()
     {
         Elevator.EV.Active();
-        
+
     }
 
     //임시
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-
-        
-    }
-
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        Debug.Log("스위치 충돌");
-        if (Input.GetKeyDown(KeyCode.P))
+        if (collision.CompareTag(Define.PlayerTag))
         {
-            if (!Elevator.EV.isWorking)
+            if (Input.GetKeyDown(KeyCode.P))
             {
-                Debug.Log("스위치 작동");
-                SwitchFlick();
+                Debug.Log("스위치 충돌");
+                if (!Elevator.EV.isWorking)
+                {
+                    Debug.Log("스위치 작동");
+                    SwitchFlick();
+                }
             }
         }
     }
