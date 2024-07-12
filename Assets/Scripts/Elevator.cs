@@ -7,10 +7,12 @@ using System.ComponentModel;
 
 public class Elevator : MonoBehaviour
 {
-    [SerializeField] protected Rigidbody2D cage;
+    [SerializeField] public Rigidbody2D cage;
     [SerializeField] private Collider2D guard;
     [SerializeField] private GameObject SwitchUp;
     [SerializeField] private GameObject SwitchDown;
+
+    private Vector2 UpDownPosition;
 
     public static Elevator EV;
 
@@ -22,7 +24,6 @@ public class Elevator : MonoBehaviour
     private void Awake()
     {
         EV = this;
-        floorPos = cage.transform.position;
 
     }
 
@@ -33,13 +34,18 @@ public class Elevator : MonoBehaviour
         guard.gameObject.SetActive(true);
         Vector3 pos = Vector3.zero;
 
-        if(Mathf.Approximately(cage.transform.position.y, floorPos.y)) 
+        if(Mathf.Approximately(cage.transform.position.y, SwitchDown.transform.position.y))
         {
-            pos = new Vector3(cage.transform.position.x, SwitchUp.transform.position.y-1f, cage.transform.position.z);
+            pos = new Vector3(cage.transform.position.x, SwitchUp.transform.position.y, cage.transform.position.z);
+        }
+        else if (Mathf.Approximately(cage.transform.position.y, SwitchUp.transform.position.y))
+        {
+            pos = new Vector3(cage.transform.position.x, SwitchDown.transform.position.y, cage.transform.position.z);
         }
         else
         {
-            pos = new Vector3(cage.transform.position.x, SwitchDown.transform.position.y-1f, cage.transform.position.z);
+            Debug.Log("¿À·ù");
+            return;
         }
         cage.transform.DOMove(pos, moveTime).OnComplete(() => EndFunction());
     }
