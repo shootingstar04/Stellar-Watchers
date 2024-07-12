@@ -33,7 +33,7 @@ public class PlayerAttackMelee : MonoBehaviour
                 curTime = coolTime;
             }
         }
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.A))
         {
             if (curTime <= 0) 
             {

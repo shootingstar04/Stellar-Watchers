@@ -12,6 +12,7 @@ public class PlayerMove : MonoBehaviour
     public float dashForce = 20f;
     public float dashDuration = 0.2f;
     public float invincibilityDuration = 1f;
+    public float fallMultiplier = 2.5f; // 추가된 부분: 낙하 속도 증가를 위한 계수
 
     private Rigidbody2D rigid;
     private bool isGrounded;
@@ -37,7 +38,6 @@ public class PlayerMove : MonoBehaviour
         Move();
         Jump();
         Dash();
-
     }
 
     void Move()
@@ -99,11 +99,17 @@ public class PlayerMove : MonoBehaviour
         {
             rigid.velocity = new Vector2(rigid.velocity.x, rigid.velocity.y * 0.5f);
         }
+
+        // 추가된 부분: 떨어질 때 속도를 증가시키는 로직
+        if (rigid.velocity.y < 0)
+        {
+            rigid.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+        }
     }
 
     void Dash()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !isDashing)
+        if (Input.GetKeyDown(KeyCode.C) && !isDashing)
         {
             isDashing = true;
             dashTimeCounter = dashDuration;
