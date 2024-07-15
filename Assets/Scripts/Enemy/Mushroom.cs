@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Mushroom : MonoBehaviour
 {
+    public static Mushroom instance;
     public enum State
     {
         IDLE,
@@ -14,23 +15,20 @@ public class Mushroom : MonoBehaviour
 
     public State currentState;
 
-    public float detectionRadius = 10f;
-    public float attackRadius = 2f;
-    public float moveSpeed = 2f;
-    public float fleeSpeed = 5f; // FLEE 상태일 때의 이동 속도
-    public float patrolDistance = 5f; // 순찰할 거리
-    public float fleeGravityScale = 2f; // FLEE 상태일 때의 중력 스케일
-    public float normalGravityScale = 1f; // 일반 중력 스케일
-    public float fallingAcceleration = 1.5f; // 떨어지는 가속도
+    public float moveSpeed = 5f;
+    public float fleeSpeed = 8f;
+    public float patrolDistance = 10f;
+    public float fallingAcceleration = 1000f;
+    
+    public int CurHP = 8;
 
     private Rigidbody2D rb;
     private Animator animator;
     private bool facingRight = true;
     private bool isFalling = false;
 
-    // 추가된 부분: 낭떠러지 및 벽 감지를 위한 변수
-    public float cliffDetectionDistance = 1f;
-    public float wallDetectionDistance = 0.1f;
+    public float cliffDetectionDistance = 2f;
+    public float wallDetectionDistance = 1f;
     public LayerMask groundLayer;
 
     private Vector2 startPos;
@@ -38,7 +36,12 @@ public class Mushroom : MonoBehaviour
     private Vector2 patrolRightLimit;
     private Transform player;
 
-    private void Start()
+    void Awake()
+    {   
+        instance = this;
+    }
+
+    void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         rb = GetComponent<Rigidbody2D>();
@@ -49,11 +52,9 @@ public class Mushroom : MonoBehaviour
         startPos = transform.position;
         patrolLeftLimit = new Vector2(startPos.x - patrolDistance, startPos.y);
         patrolRightLimit = new Vector2(startPos.x + patrolDistance, startPos.y);
-
-        rb.gravityScale = normalGravityScale; // 초기 중력 스케일 설정
     }
 
-    private void Update()
+    void Update()
     {
         switch (currentState)
         {
@@ -71,7 +72,6 @@ public class Mushroom : MonoBehaviour
                 break;
         }
 
-        // 벽이나 땅의 끝을 감지하면 방향 전환
         if (currentState == State.PATROL)
         {
             if (IsWallAhead() || IsEdgeAhead())
@@ -80,16 +80,19 @@ public class Mushroom : MonoBehaviour
             }
         }
 
-        // 낭떠러지 감지
         if (currentState == State.FLEE && IsEdgeAhead() && !IsGroundDetected())
         {
             isFalling = true;
         }
 
-        // 떨어질 때의 가속도 적용
         if (isFalling)
         {
             rb.velocity += Vector2.down * fallingAcceleration * Time.deltaTime;
+        }
+
+        if (CurHP <= 0)
+        {
+            Killed();
         }
     }
 
@@ -103,7 +106,6 @@ public class Mushroom : MonoBehaviour
     {
         animator.SetBool("Walk", true);
 
-        // 왼쪽 또는 오른쪽 경계에 도달하면 방향 전환
         if (facingRight && transform.position.x >= patrolRightLimit.x)
         {
             Flip();
@@ -119,10 +121,9 @@ public class Mushroom : MonoBehaviour
 
     private void Flee()
     {
-        rb.gravityScale = fleeGravityScale; // FLEE 상태에서 중력 스케일 증가
         animator.SetBool("Walk", true);
 
-        float direction = player.position.x > transform.position.x ? -1f : 1f; // 플레이어와 반대 방향으로 도망
+        float direction = player.position.x > transform.position.x ? -1f : 1f;
         Vector2 moveDirection = new Vector2(direction, 0f);
         rb.velocity = moveDirection * fleeSpeed;
     }
@@ -132,7 +133,17 @@ public class Mushroom : MonoBehaviour
         rb.velocity = Vector2.zero;
         animator.SetTrigger("Die");
 
-        // 죽음 처리를 여기서 수행합니다. 예: 파괴, 리스폰 등
+        StartCoroutine(DieAfterAnimation());
+    }
+
+    private IEnumerator DieAfterAnimation()
+    {
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        yield return new WaitForSeconds(stateInfo.length);
+        animator.speed = 0;
+        yield return new WaitForSeconds(1f);
+
+        Destroy(gameObject);
     }
 
     private void MoveTo(Vector2 target, float speed)
@@ -158,7 +169,7 @@ public class Mushroom : MonoBehaviour
 
         Debug.DrawRay(position, direction * wallDetectionDistance, Color.blue);
 
-        return hit.collider != null; // 벽이면 true를 반환
+        return hit.collider != null;
     }
 
     private bool IsEdgeAhead()
@@ -170,7 +181,7 @@ public class Mushroom : MonoBehaviour
 
         Debug.DrawRay(position + direction * rayDistance, Vector2.down * cliffDetectionDistance, Color.green);
 
-        return hit.collider == null; // 땅의 끝이면 true를 반환
+        return hit.collider == null;
     }
 
     private bool IsGroundDetected()
@@ -180,14 +191,15 @@ public class Mushroom : MonoBehaviour
 
         Debug.DrawRay(position, Vector2.down * 1f, Color.yellow);
 
-        return hit.collider != null; // 땅을 감지하면 true를 반환
+        return hit.collider != null;
     }
 
     public void TakeDamage(int damage)
     {
-        // 체력 감소 로직을 추가하고 체력이 0 이하가 되면 KILLED 상태로 전환합니다.
+        animator.SetTrigger("Hit");
         currentState = State.FLEE;
-        rb.gravityScale = fleeGravityScale; // FLEE 상태로 전환 시 중력 스케일 증가
-        Flip(); // 플레이어와 반대 방향으로 도망가기 위해 Flip
+        CurHP -= damage;
+
+        Flip();
     }
 }

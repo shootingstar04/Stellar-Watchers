@@ -6,7 +6,7 @@ public class PlayerCollision : MonoBehaviour
 {
     private bool isInvincible;
     private float invincibilityCounter;
-    public float invincibilityDuration = 1f;
+    private float invincibilityDuration = 1f;
     public Collider2D Pc;
     SpriteRenderer spriteRenderer;
 

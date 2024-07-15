@@ -17,17 +17,18 @@ public class Skeleton : MonoBehaviour
 
     public Transform player;
     public float detectionRadius = 10f;
-    public float attackRadius = 2f;
-    public float moveSpeed = 2f;
-    public float patrolDistance = 5f; // 순찰할 거리
+    public float attackRadius = 4f;
+    public float moveSpeed = 5f;
+    public float patrolDistance = 5f;
+
+    public int CurHP = 10;
 
     private Rigidbody2D rb;
     private Animator animator;
     private bool facingRight = true;
 
-    // 추가된 부분: 낭떠러지 및 벽 감지를 위한 변수
-    public float cliffDetectionDistance = 1f;
-    public float wallDetectionDistance = 0.1f;
+    public float cliffDetectionDistance = 2f;
+    public float wallDetectionDistance = 1f;
     public LayerMask groundLayer;
 
     private Vector2 startPos;
@@ -68,12 +69,10 @@ public class Skeleton : MonoBehaviour
                 break;
         }
 
-        // 상태 전환 로직
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
         if (currentState != State.KILLED)
         {
-            // 바라보는 방향에서만 플레이어 감지
             Vector2 directionToPlayer = player.position - transform.position;
             if (facingRight && directionToPlayer.x > 0 && directionToPlayer.magnitude <= detectionRadius)
             {
@@ -94,7 +93,6 @@ public class Skeleton : MonoBehaviour
             }
         }
 
-        // 벽이나 땅의 끝을 감지하면 방향 전환
         if (currentState == State.PATROL)
         {
             if (IsWallAhead() || IsEdgeAhead())
@@ -114,7 +112,6 @@ public class Skeleton : MonoBehaviour
     {
         animator.SetBool("Walk", true);
 
-        // 왼쪽 또는 오른쪽 경계에 도달하면 방향 전환
         if (facingRight && transform.position.x >= patrolRightLimit.x)
         {
             Flip();
@@ -133,11 +130,10 @@ public class Skeleton : MonoBehaviour
         MoveTo(player.position);
         animator.SetBool("Walk", true);
 
-        // 낭떠러지 감지
         if (IsNearCliff())
         {
             Flip();
-            currentState = State.PATROL; // 낭떠러지를 피하기 위해 추적을 멈추고 순찰 상태로 변경
+            currentState = State.PATROL;
         }
     }
 
@@ -147,14 +143,12 @@ public class Skeleton : MonoBehaviour
         animator.SetBool("Walk", false);
         animator.SetTrigger("Attack1");
 
-        // 공격 중에도 플레이어와의 거리를 확인
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
         if (distanceToPlayer > attackRadius)
         {
             currentState = State.CHASE;
         }
 
-        // 여기서 플레이어에게 데미지를 주는 로직을 추가할 수 있습니다.
     }
 
     private void Killed()
@@ -189,7 +183,7 @@ public class Skeleton : MonoBehaviour
 
         Debug.DrawRay(rayStart, Vector2.down * cliffDetectionDistance, Color.red);
 
-        return hit.collider == null; // 낭떠러지이면 true를 반환
+        return hit.collider == null;
     }
 
     private bool IsWallAhead()
@@ -200,7 +194,7 @@ public class Skeleton : MonoBehaviour
 
         Debug.DrawRay(position, direction * wallDetectionDistance, Color.blue);
 
-        return hit.collider != null; // 벽이면 true를 반환
+        return hit.collider != null;
     }
 
     private bool IsEdgeAhead()
@@ -212,12 +206,14 @@ public class Skeleton : MonoBehaviour
 
         Debug.DrawRay(position + direction * rayDistance, Vector2.down * cliffDetectionDistance, Color.green);
 
-        return hit.collider == null; // 땅의 끝이면 true를 반환
+        return hit.collider == null;
     }
 
     public void TakeDamage(int damage)
     {
-        // 체력 감소 로직을 추가하고 체력이 0 이하가 되면 KILLED 상태로 전환합니다.
-        currentState = State.KILLED;
+        animator.SetTrigger("Hit");
+        CurHP -= damage;
+
+        Flip();
     }
 }
