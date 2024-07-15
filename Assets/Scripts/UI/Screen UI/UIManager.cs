@@ -78,7 +78,7 @@ public class UIManager : MonoBehaviour
                 pauseScreen.SetActive(isPause);
             } 
         }
-        else if (screen[a] && !isPause)
+        else if (!isPause)
         {
             isShowingUI = false;
             Cursor.lockState = CursorLockMode.Locked;

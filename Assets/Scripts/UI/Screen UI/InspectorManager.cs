@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class InspectorManager : MonoBehaviour
 {
-    public List<GameObject> info = new List<GameObject>();
+    private List<GameObject> info = new List<GameObject>();
 
     private UIManager UIManager;
 
@@ -61,7 +61,10 @@ public class InspectorManager : MonoBehaviour
             info.RemoveAt(info.Count - 1);
         }
 
-        if(info[0].transform.Find("Buttons").transform.Find("start"))
+        if (info[0].GetComponent<CollectPopUp>())
+            info[0].GetComponent<CollectPopUp>().set_button_image();
+
+        if (info[0].transform.Find("Buttons").transform.Find("start"))
             info[0].transform.Find("Buttons").transform.Find("start").GetComponent<Button>().Select();
     }
 
