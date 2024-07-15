@@ -54,6 +54,7 @@ public class UIManager : MonoBehaviour
             if (isShowingUI)
             {
                 isShowingUI = false;
+                Time.timeScale = 1;
 
                 Cursor.visible = isShowingUI;
                 Cursor.lockState = CursorLockMode.Locked;
@@ -80,11 +81,14 @@ public class UIManager : MonoBehaviour
         }
         else if (!isPause)
         {
+
             isShowingUI = false;
             Cursor.lockState = CursorLockMode.Locked;
 
+
             if (!isShowing[a])
             {
+
                 isShowingUI = true;
                 Cursor.lockState = CursorLockMode.None;
 
@@ -94,15 +98,16 @@ public class UIManager : MonoBehaviour
                     {
                         isShowing[i] = false;
                         screen[i].SetActive(isShowing[i]);
+                        Time.timeScale = 1;
                     }
                 }
             }
 
 
-            Cursor.visible = isShowingUI;
 
-            isShowing[a] = !isShowing[a];
+            Cursor.visible = isShowingUI;
             Time.timeScale = Time.timeScale == 1 ? 0 : 1;
+            isShowing[a] = !isShowing[a];
             screen[a].SetActive(isShowing[a]);
         }
     }
