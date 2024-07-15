@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Chest : MonoBehaviour
@@ -50,11 +51,13 @@ public class Chest : MonoBehaviour
         int LootCoin = Random.Range(MinCoin, MaxCoin);
         for(int i = 0;  i < LootCoin; i ++)
         {
-            GameObject myInstance = Instantiate(coin, new Vector3(this.transform.position.x,this.transform.position.y,Vector3.zero.z), Quaternion.identity);
+            Vector3 axis = Vector3.back;
+            float angle = Random.Range(-90f, 90f);
 
-            float rotation = Random.Range(-180f, 180f);
-            myInstance.transform.Rotate(0f,0f, rotation);
+            GameObject myInstance = Instantiate(coin, new Vector3(this.transform.position.x,this.transform.position.y,Vector3.zero.z), Quaternion.AngleAxis(angle,axis));
 
+            //float rotation = Random.Range(-180f, 180f);
+            //myInstance.transform.Rotate(0f,0f, rotation);
 
             var Xdirection = Random.Range(-1f, 1f);
             var Ydirection = 1f;
