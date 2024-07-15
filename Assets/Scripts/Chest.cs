@@ -9,6 +9,12 @@ public class Chest : MonoBehaviour
     //코인 정보(프리팹)
     //파괴 정보
 
+    //코인 1 5 10
+    // S - 10코인 x
+    // B - 10코인 3
+    // C - 10코인 5
+    
+
     [SerializeField] private GameObject box;
     [SerializeField] private GameObject coin;
     int MaxCoin;
