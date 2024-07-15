@@ -39269,6 +39269,7 @@ MonoBehaviour:
   attackRadius: 2
   moveSpeed: 2
   patrolDistance: 5
+  CurHP: 10
   cliffDetectionDistance: 1
   wallDetectionDistance: 0.1
   groundLayer:
@@ -40415,7 +40416,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5601640077373299387, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.51
+      value: -57.8
       objectReference: {fileID: 0}
     - target: {fileID: 5601640077373299387, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
       propertyPath: m_LocalPosition.y
@@ -40518,6 +40519,7 @@ GameObject:
   m_Component:
   - component: {fileID: 747433204}
   - component: {fileID: 747433203}
+  - component: {fileID: 747433205}
   m_Layer: 0
   m_Name: Teleport
   m_TagString: Untagged
@@ -40585,6 +40587,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &747433205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 747433202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa60ae101ec6ba943a24ed32dd24d705, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &770170177
 GameObject:
   m_ObjectHideFlags: 0

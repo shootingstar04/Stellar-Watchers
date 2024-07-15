@@ -73,6 +73,11 @@ public class PlayerAttackMelee : MonoBehaviour
                 Debug.Log("폭탄 맞음");
                 Bomb.onFire();
             }
+            else if (collider.name == "Switch")
+            {
+                Debug.Log("스위치 작동");
+                ElevatorSwitch.EVSwitch.SwitchFlick();
+            }
         }
     }
 

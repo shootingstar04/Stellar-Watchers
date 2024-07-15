@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -17,6 +18,8 @@ public class ChangeMap : MonoBehaviour
     private void Start()
     {
         currentScene = (MapCode)Enum.Parse(typeof(MapCode), SceneManager.GetActiveScene().name);
+
+        Debug.Log(currentScene); 
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -25,10 +28,21 @@ public class ChangeMap : MonoBehaviour
         {
             switch (currentScene)
             {
-                //case (nothuman):
-                //{
-
-                //}
+                case MapCode.nothuman:
+                    {
+                        Debug.Log("nothuman");
+                    }
+                    break;
+                case MapCode.nothuman_mapTPtest:
+                    {
+                        Debug.Log("nothuman_mapTest");
+                    }
+                    break;
+                default:
+                    {
+                        Debug.Log("Error");
+                    }
+                    break;
 
             }
 
