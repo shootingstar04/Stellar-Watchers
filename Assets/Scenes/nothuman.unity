@@ -39269,6 +39269,7 @@ MonoBehaviour:
   attackRadius: 2
   moveSpeed: 2
   patrolDistance: 5
+  CurHP: 10
   cliffDetectionDistance: 1
   wallDetectionDistance: 0.1
   groundLayer:
@@ -40415,7 +40416,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5601640077373299387, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.51
+      value: -57.8
       objectReference: {fileID: 0}
     - target: {fileID: 5601640077373299387, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
       propertyPath: m_LocalPosition.y

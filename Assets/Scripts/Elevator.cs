@@ -9,8 +9,8 @@ public class Elevator : MonoBehaviour
 {
     [SerializeField] public Rigidbody2D cage;
     [SerializeField] private Collider2D guard;
-    [SerializeField] private GameObject SwitchUp;
-    [SerializeField] private GameObject SwitchDown;
+    [SerializeField] public GameObject SwitchUp;
+    [SerializeField] public GameObject SwitchDown;
 
     private Vector2 UpDownPosition;
 
@@ -49,6 +49,7 @@ public class Elevator : MonoBehaviour
         }
         cage.transform.DOMove(pos, moveTime).OnComplete(() => EndFunction());
     }
+
 
     /*
     private void Update()
