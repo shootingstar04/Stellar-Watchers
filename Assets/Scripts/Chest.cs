@@ -51,7 +51,10 @@ public class Chest : MonoBehaviour
         for(int i = 0;  i < LootCoin; i ++)
         {
             GameObject myInstance = Instantiate(coin, new Vector3(this.transform.position.x,this.transform.position.y,Vector3.zero.z), Quaternion.identity);
- 
+
+            float rotation = Random.Range(-180f, 180f);
+            myInstance.transform.Rotate(0f,0f, rotation);
+
 
             var Xdirection = Random.Range(-1f, 1f);
             var Ydirection = 1f;
