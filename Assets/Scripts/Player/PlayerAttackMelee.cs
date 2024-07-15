@@ -78,6 +78,21 @@ public class PlayerAttackMelee : MonoBehaviour
                 Debug.Log("스위치 작동");
                 ElevatorSwitch.EVSwitch.SwitchFlick();
             }
+            else if (collider.name == "SmallRock")
+            {
+                Debug.Log("작은 코인 돌");
+                Chest.chest.Distroyed();
+            }
+            else if(collider.name == "BigRock")
+            {
+                Debug.Log("큰 코인 돌");
+                Chest.chest.Distroyed();
+            }
+            else if(collider.name == "CoinChest")
+            {
+                Debug.Log("코인상자");
+                Chest.chest.Distroyed();
+            }
         }
     }
 

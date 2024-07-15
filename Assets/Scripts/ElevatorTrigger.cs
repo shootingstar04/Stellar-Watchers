@@ -15,6 +15,7 @@ public class ElevatorTrigger : MonoBehaviour
         {
             reload = false;
             Debug.Log("¿¤º£ °¨Áö");
+            other.transform.parent = Elevator.EV.transform;
             Elevator.EV.Active();
         }
     }
@@ -23,6 +24,7 @@ public class ElevatorTrigger : MonoBehaviour
         if (collision.CompareTag(Define.PlayerTag) && !Elevator.EV.isWorking)
         {
             reload = true;
+            collision.transform.parent = null;
         }
     }
 }
