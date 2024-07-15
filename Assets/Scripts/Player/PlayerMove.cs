@@ -9,19 +9,24 @@ public class PlayerMove : MonoBehaviour
     public float maxJumpTime;
     public float maxJumpHeight; 
     public LayerMask groundLayer;
+    public LayerMask wallLayer; // 추가된 부분: 벽 레이어
     public float dashForce = 20f;
     public float dashDuration = 0.2f;
     public float invincibilityDuration = 1f;
-    public float fallMultiplier = 2.5f; // 추가된 부분: 낙하 속도 증가를 위한 계수
+    public float fallMultiplier = 2.5f; // 낙하 속도 증가를 위한 계수
+    public float wallJumpForce = 10f; // 추가된 부분: 벽 점프 힘
 
     private Rigidbody2D rigid;
     private bool isGrounded;
     private bool isJumping;
     private bool isDashing;
+    private bool isTouchingWall; // 추가된 부분: 벽에 닿았는지 여부
     private float jumpTimeCounter;
     private float dashTimeCounter;
     private Transform groundCheck;
+    private Transform wallCheck; // 추가된 부분: 벽 감지용 트랜스폼
     private float groundCheckRadius = 0.2f;
+    private float wallCheckRadius = 0.2f; // 추가된 부분: 벽 감지 반경
     private float lastDirection = 1f;
 
     SpriteRenderer spriteRenderer;
@@ -31,6 +36,7 @@ public class PlayerMove : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         groundCheck = transform.Find("GroundCheck");
+        wallCheck = transform.Find("WallCheck"); // 추가된 부분: WallCheck 트랜스폼 찾기
     }
 
     void Update()
@@ -38,6 +44,7 @@ public class PlayerMove : MonoBehaviour
         Move();
         Jump();
         Dash();
+        CheckWall(); // 추가된 부분: 벽 감지 함수 호출
     }
 
     void Move()
@@ -68,11 +75,27 @@ public class PlayerMove : MonoBehaviour
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
-        if (isGrounded && Input.GetButtonDown("Jump"))
+        if ((isGrounded || isTouchingWall) && Input.GetButtonDown("Jump"))
         {
             isJumping = true;
             jumpTimeCounter = 0f;
             rigid.velocity = new Vector2(rigid.velocity.x, jumpForce);
+
+            if (isTouchingWall)
+            {
+                // 벽 점프 시 플레이어를 반대 방향으로 튕겨내기
+                rigid.velocity = new Vector2(-lastDirection * wallJumpForce, jumpForce);
+                // 벽 점프 후 방향 전환
+                if (lastDirection > 0)
+                {
+                    transform.localEulerAngles = new Vector3(0, 180, 0);
+                }
+                else
+                {
+                    transform.localEulerAngles = new Vector3(0, 0, 0);
+                }
+                lastDirection = -lastDirection;
+            }
         }
 
         if (isJumping && Input.GetButton("Jump"))
@@ -100,7 +123,7 @@ public class PlayerMove : MonoBehaviour
             rigid.velocity = new Vector2(rigid.velocity.x, rigid.velocity.y * 0.5f);
         }
 
-        // 추가된 부분: 떨어질 때 속도를 증가시키는 로직
+        // 떨어질 때 속도를 증가시키는 로직
         if (rigid.velocity.y < 0)
         {
             rigid.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
@@ -126,5 +149,11 @@ public class PlayerMove : MonoBehaviour
                 gameObject.layer = 7;
             }
         }
+    }
+
+    // 추가된 부분: 벽 감지 함수
+    void CheckWall()
+    {
+        isTouchingWall = Physics2D.OverlapCircle(wallCheck.position, wallCheckRadius, wallLayer);
     }
 }

@@ -5,7 +5,8 @@ using UnityEngine;
 public class PlayerAttackMelee : MonoBehaviour
 {
     private float curTime = 0f;
-    public float coolTime = 0.5f;
+    private float coolTime = 0.5f;
+    public int Damage = 3;
 
     public Transform Pos;
     public Transform UpPos;
@@ -62,7 +63,10 @@ public class PlayerAttackMelee : MonoBehaviour
         {
             if (collider.tag == "Enemy")
             {
-                Debug.Log("적 맞음");
+                if (collider.name == "Mushroom")
+                {
+                    collider.GetComponent<Mushroom>().TakeDamage(Damage);
+                }
             }
             else if (collider.tag == "BOMB")
             {

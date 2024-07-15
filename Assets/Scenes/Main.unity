@@ -138,7 +138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &12390609
 Transform:
   m_ObjectHideFlags: 0
@@ -1473,6 +1473,7 @@ GameObject:
   - component: {fileID: 255573634}
   - component: {fileID: 255573633}
   - component: {fileID: 255573636}
+  - component: {fileID: 255573637}
   m_Layer: 5
   m_Name: Stat Canvas
   m_TagString: Untagged
@@ -1574,6 +1575,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 74f794c129e35d541bb47123b21da9a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &255573637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 255573631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 212f12cc9c519e842be2d83c3bcdde37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &271377045
@@ -18745,7 +18758,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1913850082
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19567,7 +19580,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2016369247
 RectTransform:
   m_ObjectHideFlags: 0
