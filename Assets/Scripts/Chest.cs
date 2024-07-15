@@ -12,15 +12,7 @@ public class Chest : MonoBehaviour
     [SerializeField] private GameObject coin;
     int MaxCoin;
     int MinCoin;
-
-    static public Chest chest;
-
-    private void Awake()
-    {
-        chest = this;
-    }
-
-
+  
     private void Start()
     {
         string boxSize = box.name;
@@ -35,7 +27,7 @@ public class Chest : MonoBehaviour
             case "BigRock":
                 {
                     MaxCoin = 81;
-                    MinCoin = 65;
+                    MinCoin = 65;  
                 }
                 return;
             case "CoinChest":
@@ -56,13 +48,18 @@ public class Chest : MonoBehaviour
     public void Distroyed()
     {
         int LootCoin = Random.Range(MinCoin, MaxCoin);
-        for(int i  = LootCoin;  i >=0; LootCoin --)
+        for(int i = 0;  i < LootCoin; i ++)
         {
-            GameObject myInstance = Instantiate(coin);
-            var direction = Random.Range(-1000, 1000);
-            var force = 10f;
-            myInstance.GetComponent<Rigidbody2D>().AddForce(new Vector2(direction , force));
+            GameObject myInstance = Instantiate(coin, new Vector3(this.transform.position.x,this.transform.position.y,Vector3.zero.z), Quaternion.identity);
+ 
+
+            var Xdirection = Random.Range(-1f, 1f);
+            var Ydirection = 1f;
+            Vector2 dir = new Vector2(Xdirection, Ydirection).normalized;
+            float force = Random.Range(100f, 300f);
+            
+            myInstance.GetComponent<Rigidbody2D>().AddForce(dir * force);
         }
-        Destroy(this);
+        Destroy(this.gameObject);
     }
 }

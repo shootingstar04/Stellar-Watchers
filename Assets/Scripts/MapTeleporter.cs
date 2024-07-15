@@ -11,5 +11,4 @@ public class MapTeleporter : MonoBehaviour
             SceneManager.instance.NextMap();
         }
     }
-
 }
