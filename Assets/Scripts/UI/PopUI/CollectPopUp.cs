@@ -11,7 +11,8 @@ public class CollectPopUp : MonoBehaviour
     public List<string> toolTips = new List<string>();
     public List<string> names = new List<string>();
     public List<Sprite> images = new List<Sprite>();
-    public List<bool> acquired = new List<bool>();
+
+    public bool[] acquired = new bool[10];
 
     private GameObject tooltipScreen;
     private UIManager UIManager;
@@ -65,7 +66,6 @@ public class CollectPopUp : MonoBehaviour
     {
         if (isShowing)
         {
-            UIManager.showingPopUp = false;
             isShowing = false;
             tooltipScreen.SetActive(isShowing);
             this.transform.Find("Buttons").transform.Find("start").GetComponent<Button>().Select();

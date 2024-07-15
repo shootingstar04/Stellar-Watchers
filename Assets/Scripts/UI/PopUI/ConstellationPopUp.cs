@@ -115,7 +115,6 @@ public class ConstellationPopUp : MonoBehaviour
             {
                 buttonParents[i].SetActive(false);
             }
-            UIManager.showingPopUp = false;
             isShowing = false;
             constellationPopUp.SetActive(false);
             this.transform.Find("Buttons").transform.Find("start").GetComponent<Button>().Select();
