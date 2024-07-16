@@ -8,7 +8,8 @@ public class CollectItem : MonoBehaviour
     public enum type 
     {
         collect = 0,
-        star
+        star,
+        key
     }
 
     public type itemType;// 0: collect, 1: star, 2: key 
