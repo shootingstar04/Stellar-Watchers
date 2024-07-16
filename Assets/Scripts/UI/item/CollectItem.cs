@@ -5,7 +5,14 @@ using UnityEngine.UI;
 
 public class CollectItem : MonoBehaviour
 {
-    public int itemType;// 0: collect, 1: star, 2: key 
+    public enum type 
+    {
+        collect = 0,
+        star,
+        key
+    }
+
+    public type itemType;// 0: collect, 1: star, 2: key 
     public int itemNum;
 
     private GameObject interact;

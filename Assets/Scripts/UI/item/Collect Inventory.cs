@@ -62,7 +62,7 @@ public class CollectInventory : MonoBehaviour
             {
                 CollectItem item = other.GetComponent<CollectItem>();
 
-                switch (item.itemType) {
+                switch (((int)item.itemType)) {
                     case 0:
                         if (item.itemNum < collectItems.Length)
                             collectItems[item.itemNum] = true;
@@ -77,7 +77,7 @@ public class CollectInventory : MonoBehaviour
                         break;
                 }
 
-                this.GetComponent<ItemPopUp>().show_PopUP(item.itemType, item.itemNum);
+                this.GetComponent<ItemPopUp>().show_PopUP((int) item.itemType, item.itemNum);
 
                 item.StartCoroutine(item.destroy_item());
             }

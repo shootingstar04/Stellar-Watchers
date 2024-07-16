@@ -77,24 +77,13 @@ public class PlayerAttackMelee : MonoBehaviour
                 Debug.Log("폭탄 맞음");
                 Bomb.onFire();
             }
-            else if (collider.name == "Switch")
+            else if (collider.GetComponent<ElevatorSwitch>() != null)
             {
                 Debug.Log("스위치 작동");
                 ElevatorSwitch.EVSwitch.SwitchFlick();
             }
-            else if (collider.name == "SmallRock")
+            else if(collider.GetComponent<Chest>() != null)
             {
-                Debug.Log("작은 코인 돌");
-                collider.gameObject.GetComponent<Chest>().Distroyed();
-            }
-            else if(collider.name == "BigRock")
-            {
-                Debug.Log("큰 코인 돌");
-                collider.gameObject.GetComponent<Chest>().Distroyed();
-            }
-            else if(collider.name == "CoinChest")
-            {
-                Debug.Log("코인상자");
                 collider.gameObject.GetComponent<Chest>().Distroyed();
             }
         }

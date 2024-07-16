@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.Scripting;
 using static Unity.VisualScripting.Member;
+
+
+
 
 public class Chest : MonoBehaviour
 {
@@ -16,41 +20,39 @@ public class Chest : MonoBehaviour
     // B - 10코인 3
     // C - 10코인 5
 
+    enum coinKind { small= 1, big, chest }
 
-    [SerializeField] private GameObject box;
+    [SerializeField] coinKind _coinKind;
+
     Queue<int> CoinNumQueue = new Queue<int>();
+
+    private Sprite sprite;
 
     int coins = 0;
 
-    private void Start()
+    private void Awake()
     {
-        string boxSize = box.name;
-        switch (boxSize)
+        switch ((int)_coinKind)
         {
-            case "SmallRock":
-                {
-                    CoinNumQueue.Enqueue(10);
-                }
-                return;
-            case "BigRock":
-                {
-                    CoinNumQueue.Enqueue(0);
-                    CoinNumQueue.Enqueue(8);
-                }
-                return;
-            case "CoinChest":
-                {
-                    CoinNumQueue.Enqueue(0);
-                    CoinNumQueue.Enqueue(4);
-                    CoinNumQueue.Enqueue(5);
-                }
-                return;
+            case 1:
+                CoinNumQueue.Enqueue(10);
+                break; 
+            case 2:
+                CoinNumQueue.Enqueue(0);
+                CoinNumQueue.Enqueue(8);
+                break;
+            case 3:
+                CoinNumQueue.Enqueue(0);
+                CoinNumQueue.Enqueue(4);
+                CoinNumQueue.Enqueue(5);
+                break;
             default:
-                {
-                }
-                return;
+                CoinNumQueue.Enqueue(0);
+                break;
+
         }
     }
+
     /*
     public void Distroyed()
     {
