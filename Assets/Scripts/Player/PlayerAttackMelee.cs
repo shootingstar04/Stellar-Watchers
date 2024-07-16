@@ -67,6 +67,10 @@ public class PlayerAttackMelee : MonoBehaviour
                 {
                     collider.GetComponent<Mushroom>().TakeDamage(Damage);
                 }
+                else if (collider.name == "Skeleton")
+                {
+                    collider.GetComponent<Skeleton>().TakeDamage(Damage);
+                }
             }
             else if (collider.tag == "BOMB")
             {
@@ -77,6 +81,21 @@ public class PlayerAttackMelee : MonoBehaviour
             {
                 Debug.Log("스위치 작동");
                 ElevatorSwitch.EVSwitch.SwitchFlick();
+            }
+            else if (collider.name == "SmallRock")
+            {
+                Debug.Log("작은 코인 돌");
+                collider.gameObject.GetComponent<Chest>().Distroyed();
+            }
+            else if(collider.name == "BigRock")
+            {
+                Debug.Log("큰 코인 돌");
+                collider.gameObject.GetComponent<Chest>().Distroyed();
+            }
+            else if(collider.name == "CoinChest")
+            {
+                Debug.Log("코인상자");
+                collider.gameObject.GetComponent<Chest>().Distroyed();
             }
         }
     }
