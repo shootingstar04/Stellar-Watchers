@@ -93,7 +93,7 @@ public class ConstellationPopUp : MonoBehaviour
             constellationPopUp.transform.Find("ConstellaImage").GetComponent<Image>().sprite = constellationImages[index];
             constellationPopUp.transform.Find("ConstellaName").GetComponent<Text>().text = constellationNames[index];
 
-            UIManager.showingPopUp = true;
+            UIManager.show_popup();
             isShowing = true;
             constellationPopUp.SetActive(true);
             buttonParents[index].SetActive(true);

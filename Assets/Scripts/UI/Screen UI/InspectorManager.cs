@@ -40,7 +40,7 @@ public class InspectorManager : MonoBehaviour
     void check_input()
     {
 
-        if (Time.timeScale == 0 && !UIManager.showingPopUp)
+        if (Time.timeScale == 0 && !UIManager.ShowingPopUp)
         {
             if (Input.GetKeyDown(KeyCode.A)) move_info(-1);
             else if (Input.GetKeyDown(KeyCode.D)) move_info(1);

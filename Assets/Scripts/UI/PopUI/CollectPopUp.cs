@@ -57,7 +57,7 @@ public class CollectPopUp : MonoBehaviour
             tooltipScreen.transform.Find("story").GetComponent<Text>().text = storys[index];
             tooltipScreen.transform.Find("name").GetComponent<Text>().text = names[index];
 
-            UIManager.showingPopUp = true;
+            UIManager.show_popup();
             isShowing = true;
             tooltipScreen.SetActive(isShowing);
         }

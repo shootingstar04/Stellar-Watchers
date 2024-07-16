@@ -91,7 +91,6 @@ public class ItemPopUp : MonoBehaviour
     {
         if (showing)
         {
-            UIManager.showingPopUp = false;
             itemPopUp.SetActive(false);
             showing = false;
 

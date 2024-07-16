@@ -11,6 +11,8 @@ public class CollectInventory : MonoBehaviour
     private GameObject collection;
     private GameObject constellation;
 
+    private int currentGold = 0;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -41,16 +43,19 @@ public class CollectInventory : MonoBehaviour
         
     }
 
+    public void get_coin(int goldValue) 
+    {
+        currentGold += goldValue;
+    }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponent<CollectItem>() != null)
+        GameObject other = collision.gameObject;
+        if (other.GetComponent<CollectItem>() != null)
         {
-            Debug.Log("1");
-
             if (Input.GetKey(KeyCode.UpArrow))
             {
-                CollectItem item = collision.gameObject.GetComponent<CollectItem>();
+                CollectItem item = other.GetComponent<CollectItem>();
 
                 switch (item.itemType) {
                     case 0:
@@ -69,7 +74,7 @@ public class CollectInventory : MonoBehaviour
 
                 this.GetComponent<ItemPopUp>().show_PopUP(item.itemType, item.itemNum);
 
-                Destroy(collision.gameObject); 
+                item.StartCoroutine(item.destroy_item());
             }
         }
     }

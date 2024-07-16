@@ -8,10 +8,18 @@ public class UIManager : MonoBehaviour
     private List<bool> isShowing = new List<bool>();
     //0 : Inspector, 1 : Map
 
-    public bool isShowingUI = false;
+    private bool isShowingUI = false;
     public bool showingPopUp = false;
     private GameObject pauseScreen;
     private bool isPause = false;
+
+    public bool ShowingPopUp
+    {
+        get 
+        {
+            return showingPopUp;
+        }    
+    }
 
 
     // Start is called before the first frame update
@@ -116,8 +124,13 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    void show_popup() 
+    public void show_popup() 
     {
-        showingPopUp = !showingPopUp;
+        showingPopUp = true;
+    }
+
+    public void off_PopUp()
+    {
+        showingPopUp = false;
     }
 }
