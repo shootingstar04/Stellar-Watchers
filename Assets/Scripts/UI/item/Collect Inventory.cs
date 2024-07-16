@@ -13,9 +13,14 @@ public class CollectInventory : MonoBehaviour
 
     private int currentGold = 0;
 
+    public static CollectInventory Instance;
+
     // Start is called before the first frame update
     void Awake()
     {
+        if(Instance == null)
+            Instance = this;
+
         collection = GameObject.Find("Collection");
         constellation = GameObject.Find("Constellation");
 

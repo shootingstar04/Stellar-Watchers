@@ -32,8 +32,9 @@ public class Coin : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             Debug.Log(gold+"원 돈먹음");
+            CollectInventory.Instance.get_coin(gold);
             DestroyCoin();
-            //플레이어 코인 수 증가 관련 코드 추가.(gold)인수로 줌
+            
         }
     }
     
