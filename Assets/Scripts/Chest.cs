@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Pool;
+using static Unity.VisualScripting.Member;
 
 public class Chest : MonoBehaviour
 {
@@ -13,45 +15,43 @@ public class Chest : MonoBehaviour
     // S - 10코인 x
     // B - 10코인 3
     // C - 10코인 5
-    
+
 
     [SerializeField] private GameObject box;
-    [SerializeField] private GameObject coin;
-    int MaxCoin;
-    int MinCoin;
-  
+    Queue<int> CoinNumQueue = new Queue<int>();
+
+    int coins = 0;
+
     private void Start()
     {
         string boxSize = box.name;
-        switch(boxSize)
+        switch (boxSize)
         {
             case "SmallRock":
                 {
-                    MaxCoin = 51;
-                    MinCoin = 30;
+                    CoinNumQueue.Enqueue(10);
                 }
                 return;
             case "BigRock":
                 {
-                    MaxCoin = 81;
-                    MinCoin = 65;  
+                    CoinNumQueue.Enqueue(0);
+                    CoinNumQueue.Enqueue(8);
                 }
                 return;
             case "CoinChest":
                 {
-                    MaxCoin = 100;
-                    MinCoin = 100;
+                    CoinNumQueue.Enqueue(0);
+                    CoinNumQueue.Enqueue(4);
+                    CoinNumQueue.Enqueue(5);
                 }
                 return;
             default:
                 {
-                    MaxCoin = 0;
-                    MinCoin = 0;
                 }
                 return;
         }
     }
-
+    /*
     public void Distroyed()
     {
         int LootCoin = Random.Range(MinCoin, MaxCoin);
@@ -73,5 +73,50 @@ public class Chest : MonoBehaviour
             myInstance.GetComponent<Rigidbody2D>().AddForce(dir * force);
         }
         Destroy(this.gameObject);
+    }
+    */
+
+    public void Distroyed()
+    {
+        while (CoinNumQueue.Count > 0)
+        {
+            coins += 1;
+            var count = CoinNumQueue.Dequeue();
+
+            for (int i = 0; i < count; i++)
+            {
+                var (q, obj) = WhatCoinCurrently(coins);
+                var Coin = CoinPool.GetObject(q, obj);
+
+                Coin.transform.position = this.transform.position;
+
+                float rotation = Random.Range(-90f, 90f);
+                Coin.transform.Rotate(0f, 0f, rotation);
+
+                var Xdirection = Random.Range(-1f, 1f);
+                var Ydirection = 1f;
+                Vector2 dir = new Vector2(Xdirection, Ydirection).normalized;
+                float force = Random.Range(100f, 300f);
+                Coin.GetComponent<Rigidbody2D>().AddForce(dir * force);
+            }
+
+        }
+        Destroy(this.gameObject);
+    }
+
+    private (Queue<Coin>, GameObject) WhatCoinCurrently(int coin)
+    {
+        switch (coin)
+        {
+            case 1:
+                return (CoinPool.Instance.poolCoin1Queue, CoinPool.Instance.Coin1);
+            case 2:
+                return (CoinPool.Instance.poolCoinVQueue, CoinPool.Instance.CoinV);
+            case 3:
+                return (CoinPool.Instance.poolCoinXQueue, CoinPool.Instance.CoinX);
+
+        }
+        return (null, null);
+
     }
 }
