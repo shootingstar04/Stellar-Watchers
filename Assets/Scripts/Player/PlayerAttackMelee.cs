@@ -67,6 +67,10 @@ public class PlayerAttackMelee : MonoBehaviour
                 {
                     collider.GetComponent<Mushroom>().TakeDamage(Damage);
                 }
+                else if (collider.name == "Skeleton")
+                {
+                    collider.GetComponent<Skeleton>().TakeDamage(Damage);
+                }
             }
             else if (collider.tag == "BOMB")
             {

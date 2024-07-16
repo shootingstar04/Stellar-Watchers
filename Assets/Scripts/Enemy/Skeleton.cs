@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class Skeleton : MonoBehaviour
 {
+    public static Skeleton instance;
     public enum State
     {
         IDLE,
         PATROL,
         CHASE,
-        ATTACK,
+        ATTACK1,
+        ATTACK2,
+        SHIELD,
         KILLED
     }
 
@@ -35,6 +38,14 @@ public class Skeleton : MonoBehaviour
     private Vector2 patrolLeftLimit;
     private Vector2 patrolRightLimit;
 
+    private bool isAttacking = false;
+
+    void Awake()
+    {   
+        instance = this;
+    }
+
+
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -50,6 +61,8 @@ public class Skeleton : MonoBehaviour
 
     private void Update()
     {
+        if (isAttacking) return; // 공격 중일 때는 다른 상태로 전환되지 않도록 함
+
         switch (currentState)
         {
             case State.IDLE:
@@ -61,8 +74,14 @@ public class Skeleton : MonoBehaviour
             case State.CHASE:
                 Chase();
                 break;
-            case State.ATTACK:
-                Attack();
+            case State.ATTACK1:
+                Attack1();
+                break;
+            case State.ATTACK2:
+                Attack2();
+                break;
+            case State.SHIELD:
+                Shield();
                 break;
             case State.KILLED:
                 Killed();
@@ -71,25 +90,36 @@ public class Skeleton : MonoBehaviour
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
-        if (currentState != State.KILLED)
+        if (currentState != State.KILLED && currentState != State.SHIELD)
         {
             Vector2 directionToPlayer = player.position - transform.position;
-            if (facingRight && directionToPlayer.x > 0 && directionToPlayer.magnitude <= detectionRadius)
-            {
-                currentState = State.CHASE;
-            }
-            else if (!facingRight && directionToPlayer.x < 0 && directionToPlayer.magnitude <= detectionRadius)
-            {
-                currentState = State.CHASE;
-            }
 
-            if (distanceToPlayer <= attackRadius)
+            if (currentState != State.ATTACK1 && currentState != State.ATTACK2) // 공격 중이 아닐 때만 상태 전환
             {
-                currentState = State.ATTACK;
-            }
-            else if (currentState == State.CHASE && distanceToPlayer > detectionRadius)
-            {
-                currentState = State.PATROL;
+                if (facingRight && directionToPlayer.x > 0 && directionToPlayer.magnitude <= detectionRadius)
+                {
+                    currentState = State.CHASE;
+                }
+                else if (!facingRight && directionToPlayer.x < 0 && directionToPlayer.magnitude <= detectionRadius)
+                {
+                    currentState = State.CHASE;
+                }
+
+                if (distanceToPlayer <= attackRadius)
+                {
+                    if (player.GetComponent<Rigidbody2D>().velocity.y > 0 && Random.value < 0.3f) // 30% 확률로 Attack2 발동
+                    {
+                        currentState = State.ATTACK2;
+                    }
+                    else
+                    {
+                        currentState = State.ATTACK1;
+                    }
+                }
+                else if (currentState == State.CHASE && distanceToPlayer > detectionRadius)
+                {
+                    currentState = State.PATROL;
+                }
             }
         }
 
@@ -137,18 +167,49 @@ public class Skeleton : MonoBehaviour
         }
     }
 
-    private void Attack()
+    private void Attack1()
     {
-        rb.velocity = Vector2.zero;
+        StartCoroutine(AttackCoroutine("Attack1"));
+    }
+
+    private void Attack2()
+    {
+        StartCoroutine(AttackCoroutine("Attack2"));
+    }
+
+    private IEnumerator AttackCoroutine(string attackTrigger)
+    {
+        isAttacking = true;
+        rb.velocity = Vector2.zero; // 공격 중 이동하지 않음
         animator.SetBool("Walk", false);
-        animator.SetTrigger("Attack1");
+        animator.SetTrigger(attackTrigger);
+
+        yield return new WaitForSeconds(1f); // 공격 애니메이션 재생 시간 대기
+
+        yield return new WaitForSeconds(1f); // 공격 후 1초 딜레이
+
+        isAttacking = false;
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
         if (distanceToPlayer > attackRadius)
         {
             currentState = State.CHASE;
         }
+    }
 
+    private void Shield()
+    {
+        rb.velocity = Vector2.zero;
+        animator.SetBool("Walk", false);
+        animator.SetTrigger("Shield");
+
+        StartCoroutine(ShieldDuration());
+    }
+
+    private IEnumerator ShieldDuration()
+    {
+        yield return new WaitForSeconds(2f); // 방어 행동 지속 시간
+        currentState = State.PATROL;
     }
 
     private void Killed()
@@ -156,7 +217,7 @@ public class Skeleton : MonoBehaviour
         rb.velocity = Vector2.zero;
         animator.SetTrigger("Die");
 
-        // 죽음 처리를 여기서 수행합니다. 예: 파괴, 리스폰 등
+        Destroy(gameObject, 1f);
     }
 
     private void MoveTo(Vector2 target)
@@ -214,6 +275,19 @@ public class Skeleton : MonoBehaviour
         animator.SetTrigger("Hit");
         CurHP -= damage;
 
-        Flip();
+        if (CurHP <= 0)
+        {
+            currentState = State.KILLED;
+        }
+        else if (IsFacingPlayer() && Random.value < 0.1f) // 10% 확률로 방어 행동
+        {
+            currentState = State.SHIELD;
+        }
+    }
+
+    private bool IsFacingPlayer()
+    {
+        Vector2 directionToPlayer = player.position - transform.position;
+        return (facingRight && directionToPlayer.x > 0) || (!facingRight && directionToPlayer.x < 0);
     }
 }
