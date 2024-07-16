@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : MonoBehaviour
+public class CollectItem : MonoBehaviour
 {
     public int itemType;// 0: collect, 1: star, 2: key 
     public int itemNum;

@@ -15,8 +15,10 @@ public class CollectInventory : MonoBehaviour
     void Awake()
     {
         collection = GameObject.Find("Collection");
+        constellation = GameObject.Find("Constellation");
 
         collection.GetComponent<CollectPopUp>().acquired = collectItems;
+        constellation.GetComponent<ConstellationPopUp>().acquired = stars;
 
         for (int i = 0; i < collectItems.Length; i++) {
             collectItems[i] = false;
@@ -39,30 +41,36 @@ public class CollectInventory : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponent<Item>() != null)
+        if (collision.gameObject.GetComponent<CollectItem>() != null)
         {
-            Debug.Log(1111);
+            Debug.Log("1");
 
-            Item item = collision.gameObject.GetComponent<Item>();
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+                CollectItem item = collision.gameObject.GetComponent<CollectItem>();
 
-            switch (item.itemType) { 
-                case 0:
-                    if(item.itemNum<collectItems.Length)
-                        collectItems[item.itemNum] = true;
-                    break;
-                case 1:
-                    if (item.itemNum < stars.Length)
-                        stars[item.itemNum] = true;
-                    break;
-                case 2:
-                    if (item.itemNum < keys.Length)
-                        keys[item.itemNum] = true;
-                    break;
+                switch (item.itemType) {
+                    case 0:
+                        if (item.itemNum < collectItems.Length)
+                            collectItems[item.itemNum] = true;
+                        break;
+                    case 1:
+                        if (item.itemNum < stars.Length)
+                            stars[item.itemNum] = true;
+                        break;
+                    case 2:
+                        if (item.itemNum < keys.Length)
+                            keys[item.itemNum] = true;
+                        break;
+                }
+
+                this.GetComponent<ItemPopUp>().show_PopUP(item.itemType, item.itemNum);
+
+                Destroy(collision.gameObject); 
             }
-
-            Destroy(collision.gameObject);
         }
     }
 }

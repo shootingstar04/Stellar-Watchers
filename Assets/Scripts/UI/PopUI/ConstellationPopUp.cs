@@ -8,7 +8,7 @@ public class ConstellationPopUp : MonoBehaviour
 {
     public List<string> constellationNames = new List<string>();
     public List<Sprite> constellationImages = new List<Sprite>();
-    public List<bool> acquired = new List<bool>();
+    public bool[] acquired = new bool[15];
 
     private List<GameObject> buttonParents = new List<GameObject>();
     private List<GameObject> buttons = new List<GameObject>();
