@@ -75,7 +75,6 @@ public class UIManager : MonoBehaviour
                 {
                     isPause = !isPause;
                     Cursor.visible = true;
-                    Cursor.lockState = CursorLockMode.None;
                     Cursor.lockState =
                         isPause ? CursorLockMode.None : CursorLockMode.Locked;
                     Time.timeScale = Time.timeScale == 1 ? 0 : 1;
@@ -84,7 +83,7 @@ public class UIManager : MonoBehaviour
             }
             else showingPopUp = false;
         }
-        else if (!isPause)
+        else if (!isPause && !showingPopUp)
         {
 
             isShowingUI = false;
