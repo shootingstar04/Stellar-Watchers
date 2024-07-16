@@ -8,20 +8,23 @@ public class Coin : MonoBehaviour
 {
     private int gold = 1;
 
-    private Sprite sprite;
+
+    private enum coins {oneCoin = 1, fiveCoin, tenCoin }
+
+    [SerializeField] private coins coin;
 
     private void Awake()
     {
-        sprite = GetComponent<SpriteRenderer>().sprite;
-        switch(sprite.name)
+        switch((int)coin)
         {
-            case "Icon10":
+            case 1:
+                gold = 1;
+                break;
+            case 2:
                 gold = 5;
                 break;
-            case "Icon27":
+            case 3:
                 gold = 10;
-                break;
-            default:
                 break;
         }
     }
@@ -32,8 +35,9 @@ public class Coin : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             Debug.Log(gold+"원 돈먹음");
+            //CollectInventory.Instance.get_coin(gold);
             DestroyCoin();
-            //플레이어 코인 수 증가 관련 코드 추가.(gold)인수로 줌
+            
         }
     }
     
