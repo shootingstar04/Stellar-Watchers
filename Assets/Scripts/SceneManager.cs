@@ -25,12 +25,12 @@ public class SceneManager : MonoBehaviour
         }
     }
 
-    public void NextMap(Transform targetPos, int offset)
+    public void NextMap(Transform targetPos, sbyte offset)
     {
         StartCoroutine(LoadMap(targetPos, offset));
     }
 
-    IEnumerator LoadMap(Transform targetPos, int offset)
+    IEnumerator LoadMap(Transform targetPos, sbyte offset)
     {
         transitionAnim.SetTrigger("End");
         yield return new WaitForSeconds(2);

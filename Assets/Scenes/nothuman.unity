@@ -88125,7 +88125,7 @@ GameObject:
   - component: {fileID: 368035169}
   - component: {fileID: 368035168}
   m_Layer: 0
-  m_Name: Teleport (1)
+  m_Name: Tele()=>ObjTestMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -89688,7 +89688,7 @@ GameObject:
   - component: {fileID: 747433206}
   - component: {fileID: 747433207}
   m_Layer: 0
-  m_Name: Teleport
+  m_Name: Tele()=>EmptyMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

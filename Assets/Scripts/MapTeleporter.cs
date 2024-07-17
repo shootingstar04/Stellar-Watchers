@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class MapTeleporter : MonoBehaviour
 {
-    [SerializeField] int offset;
+    [TooltipAttribute("TargetPos가 왼쪽 끝이면 1, 오른쪽 끝이면 -1")]
+    [SerializeField] sbyte offset;
     [SerializeField] Transform TargetPosition;
 
     private void OnTriggerEnter2D(Collider2D collision)
