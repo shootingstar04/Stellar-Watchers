@@ -39,22 +39,45 @@ public class Bomb : MonoBehaviour
         foreach (Collider2D collider in colliders)
         {
             Debug.Log("Object inside circle: " + collider.gameObject.name);
+
+            //Vector2 direction = collider.transform.position - circleCenter;
+
             switch (collider.gameObject.tag)
             {
                 case (Define.PlayerTag):
                     {
                         //collider.GetComponent<"PlayerHealth">().Instance.Damaged(bombDamage);
-                        collider.GetComponent<Rigidbody2D>().AddForce(Vector2.up*10);
+                        var rigid = collider.GetComponent<Rigidbody2D>();
+                        if (rigid != null)
+                            rigid.AddForce(Vector2.up * 500, ForceMode2D.Impulse);
+                        else
+                            Debug.Log("ÆøÅº ³Ë¹é ÀÎ½Ä¸øÇÔ");
                     }
                     break;
                 case (Define.EnemyTag):
                     {
                         //collider.Instance.Damaged(bombDamage);
-                        collider.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 10);
+                        var rigid = collider.GetComponent<Rigidbody2D>();
+
+                        if (rigid != null)
+                        {
+                            Debug.Log("ÆøÅº ³Ë¹é ÇÔ");
+                            rigid.AddForce(Vector2.up * 500, ForceMode2D.Impulse);
+                        }
+                        else
+                        {
+                            Debug.Log("ÆøÅº ³Ë¹é ÀÎ½Ä¸øÇÔ");
+                        }
+
+                            
+                    }
+                    break;
+                default:
+                    {
+                        Debug.Log("collider Å×±× ÀÎ½ÄºÒ°¡");
                     }
                     break;
             }
-
         }
 
     }
@@ -93,7 +116,7 @@ public class Bomb : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(circleCenter, circleRadius);
-    
+
     }
 
 }
