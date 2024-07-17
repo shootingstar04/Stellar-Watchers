@@ -12,6 +12,8 @@ public class Bomb : MonoBehaviour
     private static Vector2 circleCenter;
     private static float circleRadius = 3f;
 
+    private static int bombDamage = 50;
+
     protected void Awake()
     {
         circleCenter = this.transform.position;
@@ -37,6 +39,22 @@ public class Bomb : MonoBehaviour
         foreach (Collider2D collider in colliders)
         {
             Debug.Log("Object inside circle: " + collider.gameObject.name);
+            switch (collider.gameObject.tag)
+            {
+                case (Define.PlayerTag):
+                    {
+                        //collider.GetComponent<"PlayerHealth">().Instance.Damaged(bombDamage);
+                        collider.GetComponent<Rigidbody2D>().AddForce(Vector2.up*10);
+                    }
+                    break;
+                case (Define.EnemyTag):
+                    {
+                        //collider.Instance.Damaged(bombDamage);
+                        collider.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 10);
+                    }
+                    break;
+            }
+
         }
 
     }

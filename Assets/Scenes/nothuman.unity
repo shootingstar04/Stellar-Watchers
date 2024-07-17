@@ -89303,7 +89303,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d24287e22174c8e4f9277c4c26d1dc9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BoostPower: 200
+  BoostPower: 1000
 --- !u!61 &642390534
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -89582,11 +89582,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5601640077373299387, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -57.8
+      value: 9.8
       objectReference: {fileID: 0}
     - target: {fileID: 5601640077373299387, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.88
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5601640077373299387, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
       propertyPath: m_LocalPosition.z
@@ -89635,6 +89635,10 @@ PrefabInstance:
     - target: {fileID: 8550617144831936086, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8550617144831936086, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -89912,7 +89916,7 @@ GameObject:
   - component: {fileID: 771975164}
   - component: {fileID: 771975163}
   - component: {fileID: 771975162}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: OneWayPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89970,7 +89974,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 1
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.09375}
+  m_Offset: {x: 0, y: 0.05249547}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.36363637}
@@ -89981,7 +89985,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.9375, y: 0.6875}
+  m_Size: {x: 2.9375, y: 0.34096184}
   m_EdgeRadius: 0
 --- !u!212 &771975164
 SpriteRenderer:
@@ -90044,7 +90048,7 @@ Transform:
   m_GameObject: {fileID: 771975161}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 42.49, y: -0.57, z: -0.38642502}
+  m_LocalPosition: {x: 42.49, y: -1.22, z: -0.38642502}
   m_LocalScale: {x: 3.6597, y: 2.1955, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
