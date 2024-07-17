@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Animations;
+using DG.Tweening;
 
 public class SceneManager : MonoBehaviour
 {
     public static SceneManager instance;
     [SerializeField] Animator transitionAnim;
+
+    private GameObject Player;
 
     private void Awake()
     {
@@ -22,16 +25,17 @@ public class SceneManager : MonoBehaviour
         }
     }
 
-    public void NextMap()
+    public void NextMap(Transform targetPos, sbyte offset)
     {
-        StartCoroutine(LoadMap());
+        StartCoroutine(LoadMap(targetPos, offset));
     }
 
-    IEnumerator LoadMap()
+    IEnumerator LoadMap(Transform targetPos, sbyte offset)
     {
         transitionAnim.SetTrigger("End");
-        yield return new WaitForSeconds(1);
-        UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("nothuman_mapTPtest");
+        yield return new WaitForSeconds(2);
+        Player = GameObject.FindGameObjectWithTag(Define.PlayerTag);
+        Player.transform.position = new Vector3(targetPos.position.x + offset*2, targetPos.position.y, Player.transform.position.z);
         transitionAnim.SetTrigger("Start");
     }
 
