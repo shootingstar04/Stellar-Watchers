@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -49,7 +50,13 @@ public class Bomb : MonoBehaviour
                         //collider.GetComponent<"PlayerHealth">().Instance.Damaged(bombDamage);
                         var rigid = collider.GetComponent<Rigidbody2D>();
                         if (rigid != null)
+                        {
                             rigid.AddForce(Vector2.up * 500, ForceMode2D.Impulse);
+                            Debug.Log("1");
+                            rigid.AddForce(new Vector2(rigid.transform.position.x - circleCenter.x, rigid.transform.position.y - circleCenter.y).normalized * 5000, ForceMode2D.Impulse);
+                            Debug.Log("2");
+                        }
+
                         else
                             Debug.Log("ÆøÅº ³Ë¹é ÀÎ½Ä¸øÇÔ");
                     }
@@ -69,7 +76,7 @@ public class Bomb : MonoBehaviour
                             Debug.Log("ÆøÅº ³Ë¹é ÀÎ½Ä¸øÇÔ");
                         }
 
-                            
+
                     }
                     break;
                 default:
