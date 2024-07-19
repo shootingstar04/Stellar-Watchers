@@ -8,16 +8,16 @@ public class CollectItem : MonoBehaviour
     public enum type 
     {
         collect = 0,
-        star,
+        skill,
         key
     }
 
-    public type itemType;// 0: collect, 1: star, 2: key 
+    public type itemType;// 0: collect, 1:skill, 2: key 
     public int itemNum;
 
     private GameObject interact;
     private GameObject item;
-    private bool isActived = false;
+    public bool isActived = false;
 
     private ParticleSystem p1;
     private ParticleSystem p2;
@@ -64,7 +64,7 @@ public class CollectItem : MonoBehaviour
         p1.Stop();
         p2.Stop();
 
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(3);
         Destroy(this.gameObject);
     }
 }

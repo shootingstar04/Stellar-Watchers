@@ -68,14 +68,14 @@ public class ItemPopUp : MonoBehaviour
 
         switch (itemType) {
             case 0:
-                name.text = collectNames[itemNum];
-                explanation.text = collectExplanations[itemNum];
-                image.sprite = collectImages[itemNum];
+                name.text = ItemData.Instance.Name[itemNum];
+                explanation.text = ItemData.Instance.Explanation[itemNum];
+                image.sprite = ItemData.Instance.Image[itemNum];
                 break;
             case 1:
-                name.text = starNames[itemNum];
-                explanation.text = starExplanations[itemNum];
-                image.sprite = starImages[itemNum];
+                name.text = SkillData.Instance.Name[itemNum];
+                explanation.text = SkillData.Instance.Explanation[itemNum];
+                image.sprite = SkillData.Instance.Image[itemNum];
                 break;
             case 2:
                 name.text = keyNames[itemNum];
@@ -95,6 +95,7 @@ public class ItemPopUp : MonoBehaviour
         {
             itemPopUp.SetActive(false);
             showing = false;
+            UIManager.showingPopUp = false;
 
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;

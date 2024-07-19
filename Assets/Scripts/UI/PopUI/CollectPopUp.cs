@@ -5,14 +5,6 @@ using UnityEngine.UI;
 
 public class CollectPopUp : MonoBehaviour
 {
-    [TextArea]
-    public List<string> storys = new List<string>();
-    [TextArea]
-    public List<string> toolTips = new List<string>();
-    public List<string> names = new List<string>();
-    public List<Sprite> images = new List<Sprite>();
-
-    public bool[] acquired = new bool[10];
 
     private GameObject tooltipScreen;
     private UIManager UIManager;
@@ -49,13 +41,13 @@ public class CollectPopUp : MonoBehaviour
     {
         index -= 1;
 
-        if (acquired[index] && !isShowing)
+        if (ItemData.Instance.Acquired[index] && !isShowing)
         {
-
-            tooltipScreen.transform.Find("Image").GetComponent<Image>().sprite = images[index];
-            tooltipScreen.transform.Find("tooltip").GetComponent<Text>().text = toolTips[index];
-            tooltipScreen.transform.Find("story").GetComponent<Text>().text = storys[index];
-            tooltipScreen.transform.Find("name").GetComponent<Text>().text = names[index];
+            Debug.Log(tooltipScreen.name + ItemData.Instance.Name[0]);
+            tooltipScreen.transform.Find("Image").GetComponent<Image>().sprite = ItemData.Instance.Image[index];
+            tooltipScreen.transform.Find("tooltip").GetComponent<Text>().text = ItemData.Instance.Explanation[index];
+            tooltipScreen.transform.Find("story").GetComponent<Text>().text = ItemData.Instance.Story[index];
+            tooltipScreen.transform.Find("name").GetComponent<Text>().text = ItemData.Instance.Name[index];
 
             UIManager.show_popup();
             isShowing = true;
@@ -75,7 +67,7 @@ public class CollectPopUp : MonoBehaviour
     public void set_button_image()
     {
         for (int i = 0; i < this.transform.Find("Buttons").transform.childCount; i++) {
-            if(acquired[i])
+            if(ItemData.Instance.Acquired[i])
                 this.transform.Find("Buttons").transform.GetChild(i).GetComponent<ChangeImage>().set_image(0);
             else
                 this.transform.Find("Buttons").transform.GetChild(i).GetComponent<ChangeImage>().set_image(1);

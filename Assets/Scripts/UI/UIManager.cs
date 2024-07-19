@@ -27,7 +27,6 @@ public class UIManager : MonoBehaviour
     {
         screen.Add(GameObject.Find("inspectorscreen"));
         screen.Add(GameObject.Find("mapscreen"));
-
         pauseScreen = GameObject.Find("pausescreen");
 
         for (int i = 0; i < screen.Count; i++) {

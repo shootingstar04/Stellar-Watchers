@@ -4,12 +4,9 @@ using UnityEngine;
 
 public class CollectInventory : MonoBehaviour
 {
-    public bool[] collectItems = new bool[10];
-    private bool[] stars = new bool[15];
     private bool[] keys = new bool[2];
 
     private GameObject collection;
-    private GameObject constellation;
 
     private int currentGold = 0;
 
@@ -22,18 +19,9 @@ public class CollectInventory : MonoBehaviour
             Instance = this;
 
         collection = GameObject.Find("Collection");
-        constellation = GameObject.Find("Constellation");
 
-        collection.GetComponent<CollectPopUp>().acquired = collectItems;
-        constellation.GetComponent<ConstellationPopUp>().acquired = stars;
-
-        for (int i = 0; i < collectItems.Length; i++) {
-            collectItems[i] = false;
-        }
-
-        for (int i = 0; i < stars.Length; i++)
-        {
-            stars[i] = false;
+        for (int i = 0; i < ItemData.Instance.Acquired.Count; i++) {
+            ItemData.Instance.Acquired[i] = false;
         }
 
         for (int i = 0; i < keys.Length; i++)
@@ -56,7 +44,7 @@ public class CollectInventory : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision)
     {
         GameObject other = collision.gameObject;
-        if (other.GetComponent<CollectItem>() != null)
+        if (other.GetComponent<CollectItem>() != null && !other.GetComponent<CollectItem>().isActived)
         {
             if (Input.GetKey(KeyCode.UpArrow))
             {
@@ -64,14 +52,10 @@ public class CollectInventory : MonoBehaviour
 
                 switch (((int)item.itemType)) {
                     case 0:
-                        if (item.itemNum < collectItems.Length)
-                            collectItems[item.itemNum] = true;
+                        if (item.itemNum < ItemData.Instance.Acquired.Count)
+                            ItemData.Instance.Acquired[item.itemNum] = true;
                         break;
                     case 1:
-                        if (item.itemNum < stars.Length)
-                            stars[item.itemNum] = true;
-                        break;
-                    case 2:
                         if (item.itemNum < keys.Length)
                             keys[item.itemNum] = true;
                         break;

@@ -14,11 +14,6 @@ public class ProgressExplanatioon : MonoBehaviour
     private Text currentName;
     private Text currentExplanation;
 
-    [TextArea]
-    public List<string> explanations = new List<string>();
-    public List<string> names = new List<string>();
-    public List<Sprite> images = new List<Sprite>();
-
     private int lastSelected = -1;
 
     private int gender = 1;//1 = male, -1 = female
@@ -38,9 +33,9 @@ public class ProgressExplanatioon : MonoBehaviour
         currentImage = this.transform.Find("image").gameObject.GetComponent<Image>();
         currentName = this.transform.Find("name").gameObject.GetComponent<Text>();
 
-        currentImage.sprite = images[0];
-        currentExplanation.text = explanations[0];
-        currentName.text = names[0];
+        currentImage.sprite = ProgressData.Instance.Image[0];
+        currentExplanation.text = ProgressData.Instance.Explanation[0];
+        currentName.text = ProgressData.Instance.Name[0];
     }
 
     // Update is called once per frame
@@ -61,22 +56,22 @@ public class ProgressExplanatioon : MonoBehaviour
                 {
                     if (gender == 1)
                     {
-                        currentImage.sprite = images[currentSelected];
-                        currentExplanation.text = explanations[currentSelected];
-                        currentName.text = names[currentSelected];
+                        currentImage.sprite = ProgressData.Instance.Image[currentSelected];
+                        currentExplanation.text = ProgressData.Instance.Explanation[currentSelected];
+                        currentName.text = ProgressData.Instance.Name[currentSelected];
                     }
                     else
                     {
-                        currentImage.sprite = images[images.Count - 1];
-                        currentExplanation.text = explanations[explanations.Count - 1];
-                        currentName.text = names[names.Count - 1];
+                        currentImage.sprite = ProgressData.Instance.Image[ProgressData.Instance.Image.Count - 1];
+                        currentExplanation.text = ProgressData.Instance.Explanation[ProgressData.Instance.Explanation.Count - 1];
+                        currentName.text = ProgressData.Instance.Name[ProgressData.Instance.Name.Count - 1];
                     }
                 }
                 else
                 {
-                    currentImage.sprite = images[currentSelected];
-                    currentExplanation.text = explanations[currentSelected];
-                    currentName.text = names[currentSelected];
+                    currentImage.sprite = ProgressData.Instance.Image[currentSelected];
+                    currentExplanation.text = ProgressData.Instance.Explanation[currentSelected];
+                    currentName.text = ProgressData.Instance.Name[currentSelected];
                 }
 
                 lastSelected = currentSelected;
@@ -86,15 +81,15 @@ public class ProgressExplanatioon : MonoBehaviour
             {
                 if (gender == 1)
                 {
-                    currentImage.sprite = images[lastSelected];
-                    currentExplanation.text = explanations[lastSelected];
-                    currentName.text = names[lastSelected];
+                    currentImage.sprite = ProgressData.Instance.Image[lastSelected];
+                    currentExplanation.text = ProgressData.Instance.Explanation[lastSelected];
+                    currentName.text = ProgressData.Instance.Name[lastSelected];
                 }
                 else
                 {
-                    currentImage.sprite = images[images.Count - 1];
-                    currentExplanation.text = explanations[explanations.Count - 1];
-                    currentName.text = names[names.Count - 1];
+                    currentImage.sprite = ProgressData.Instance.Image[ProgressData.Instance.Image.Count - 1];
+                    currentExplanation.text = ProgressData.Instance.Explanation[ProgressData.Instance.Explanation.Count - 1];
+                    currentName.text = ProgressData.Instance.Name[ProgressData.Instance.Name.Count - 1];
                 }
 
             }

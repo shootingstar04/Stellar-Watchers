@@ -14,8 +14,8 @@ public class InspectorManager : MonoBehaviour
     void Awake()
     {
         info.Add(GameObject.Find("Progress"));
+        info.Add(GameObject.Find("Astrology"));
         info.Add(GameObject.Find("Collection"));
-        info.Add(GameObject.Find("Constellation"));
 
         UIManager = GameObject.Find("Screen UI").GetComponent<UIManager>();
     }
@@ -32,6 +32,9 @@ public class InspectorManager : MonoBehaviour
         if (info[0].transform.Find("Buttons").transform.Find("start"))
         {
             info[0].transform.Find("Buttons").transform.Find("start").GetComponent<Button>().Select();
+
+            if (info[0].GetComponent<CollectPopUp>())
+                info[0].GetComponent<CollectPopUp>().set_button_image();
         }
     }
 
@@ -42,8 +45,8 @@ public class InspectorManager : MonoBehaviour
 
         if (Time.timeScale == 0 && !UIManager.ShowingPopUp)
         {
-            if (Input.GetKeyDown(KeyCode.A)) move_info(-1);
-            else if (Input.GetKeyDown(KeyCode.D)) move_info(1);
+            if (Input.GetKeyDown(KeyCode.Q)) move_info(-1);
+            else if (Input.GetKeyDown(KeyCode.E)) move_info(1);
         }
     }
 
