@@ -31,6 +31,7 @@ public class ChangeImage : MonoBehaviour
 
     public void set_image(int index)
     {
+        imageIndex = index;
         this.GetComponent<Image>().sprite = sprites[index];
     }
 }

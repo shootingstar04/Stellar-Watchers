@@ -14,21 +14,11 @@ public class SkillExplanation : MonoBehaviour
     private Text currentName;
     private Text currentExplanation;
 
-    [TextArea]
-    public List<string> explanations = new List<string>();
-    public List<string> names = new List<string>();
-    public List<Sprite> images = new List<Sprite>();
-
-    private int lastSelected = 0;
-
-    public static SkillExplanation skillExplanation;
+    private int lastSelected = -1;
 
     // Start is called before the first frame update
     void Awake()
     {
-        if(skillExplanation)
-            skillExplanation = this;
-
         buttonParent = GameObject.Find("Astrology").transform.Find("Buttons").gameObject;
 
         for (int i = 0; i < buttonParent.transform.childCount; i++)
@@ -40,18 +30,21 @@ public class SkillExplanation : MonoBehaviour
         currentName = this.transform.Find("name").gameObject.GetComponent<Text>();
         currentExplanation = this.transform.Find("explanation").gameObject.GetComponent<Text>();
 
-        currentImage.sprite = images[0];
-        currentName.text = names[0];
-        currentExplanation.text = explanations[0];
+        if (SkillData.Instance.Acquired[0])
+        {
+            currentImage.sprite = SkillData.Instance.Image[0];
+            currentName.text = SkillData.Instance.Name[0];
+            currentExplanation.text = SkillData.Instance.Explanation[0];
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        set_image();
+        set_explanation();
     }
 
-    public void set_image()
+    public void set_explanation()
     {
         int currentSelected = buttons.IndexOf(EventSystem.current.currentSelectedGameObject);
 
@@ -59,9 +52,21 @@ public class SkillExplanation : MonoBehaviour
         {
             if (currentSelected != lastSelected)
             {
-                currentImage.sprite = images[currentSelected];
-                currentName.text = names[currentSelected];
-                currentExplanation.text = explanations[currentSelected];
+
+                if (SkillData.Instance.Acquired[currentSelected])
+                {
+                    currentImage.sprite = SkillData.Instance.Image[currentSelected];
+                    currentName.text = SkillData.Instance.Name[currentSelected];
+                    currentExplanation.text = SkillData.Instance.Explanation[currentSelected];
+                }
+
+                else
+                {
+                    int none = SkillData.Instance.Acquired.Count-1;
+                    currentImage.sprite = SkillData.Instance.Image[none];
+                    currentName.text = SkillData.Instance.Name[none];
+                    currentExplanation.text = SkillData.Instance.Explanation[none];
+                }
 
                 lastSelected = currentSelected;
             }
