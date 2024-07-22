@@ -88388,7 +88388,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 647232901}
-  - component: {fileID: 647232900}
+  - component: {fileID: 647232902}
   m_Layer: 0
   m_Name: SceneManager
   m_TagString: Untagged
@@ -88396,19 +88396,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &647232900
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 647232899}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b1e75a829b61f24e89149c0e51884ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  transitionAnim: {fileID: 1849547704}
 --- !u!4 &647232901
 Transform:
   m_ObjectHideFlags: 0
@@ -88425,6 +88412,19 @@ Transform:
   - {fileID: 1524480350}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &647232902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 647232899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b45a6d536fcad864fab2a14f10090f1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transitionAnim: {fileID: 1524480349}
 --- !u!1 &655705358
 GameObject:
   m_ObjectHideFlags: 0
@@ -91417,6 +91417,18 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8550617144831936086, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
   m_PrefabInstance: {fileID: 1906089114}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1799971765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1799971750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffe4d1efc4efcfb48a251c52209211fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1809528583
 GameObject:
   m_ObjectHideFlags: 0
@@ -92138,7 +92150,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8550617144831936086, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1799971765}
   m_SourcePrefab: {fileID: 100100000, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
 --- !u!1 &1935067399
 GameObject:

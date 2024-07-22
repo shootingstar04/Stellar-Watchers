@@ -20,6 +20,8 @@ public class MapTeleporter1 : MonoBehaviour
     [Tooltip("맵 순서 따라 다음 맵이면 true, 이전 맵이면 fasle")]
     [SerializeField] bool isLeftRight;
 
+    public static MapTeleporter1 mapTP;
+
     private void Awake()
     {
         /*
@@ -27,11 +29,13 @@ public class MapTeleporter1 : MonoBehaviour
         if(player== null)
             Instantiate(player);
         */
-
-        currentScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+        mapTP = this;
+        currentScene = SceneManager.GetActiveScene().name;
 
         currentMap = (int)(Map)Enum.Parse(typeof(Map), currentScene);
+        Debug.Log(currentScene +" = " + currentMap);
         targetMap = currentMap;
+        Debug.Log("targetMap = " + targetMap);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -44,6 +48,7 @@ public class MapTeleporter1 : MonoBehaviour
         {
             targetMap -= 1;
         }
+        Debug.Log(targetMap);
         Teleport(targetMap);
     }
 
@@ -51,11 +56,17 @@ public class MapTeleporter1 : MonoBehaviour
     {
         string target;
         target = toString((Map)MapNum);
-        UnityEngine.SceneManagement.SceneManager.LoadScene(target);
+        DontDestroy.thisIsPlayer.getLeftRight(isLeftRight);
+        SceneManager.LoadScene(target);
     }
 
     string toString(Map thing)
     {
         return thing.ToString();
+    }
+
+    public static bool GiveIsLR()
+    {
+        return MapTeleporter1.mapTP.isLeftRight;
     }
 }
