@@ -6,16 +6,6 @@ using UnityEngine.UI;
 public class ItemPopUp : MonoBehaviour
 {
     [TextArea]
-    public List<string> collectExplanations = new List<string>();
-    public List<string> collectNames = new List<string>();
-    public List<Sprite> collectImages = new List<Sprite>();
-
-    [TextArea]
-    public List<string> starExplanations = new List<string>();
-    public List<string> starNames = new List<string>();
-    public List<Sprite> starImages = new List<Sprite>();
-
-    [TextArea]
     public List<string> keyExplanations = new List<string>();
     public List<string> keyNames = new List<string>();
     public List<Sprite> keyImages = new List<Sprite>();
