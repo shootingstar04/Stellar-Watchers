@@ -56,8 +56,6 @@ public class ItemPopUp : MonoBehaviour
 
     public void show_PopUP(int itemType, int itemNum) 
     {
-        Debug.Log(itemType);
-
         UIManager.show_popup();
         itemPopUp.SetActive(true);
         showing = true;
