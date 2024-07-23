@@ -7,14 +7,13 @@ using Unity.VisualScripting;
 public class asd : MonoBehaviour
 {
 
-
     [SerializeField] private CinemachineVirtualCamera cb;
 
     public static asd Instance;
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+
         Instance = this;
 
     }

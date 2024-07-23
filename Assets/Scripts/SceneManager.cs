@@ -5,9 +5,9 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Animations;
 using DG.Tweening;
 
-public class SceneTransition : MonoBehaviour
+public class SceneManager : MonoBehaviour
 {
-    public static SceneTransition instance;
+    public static SceneManager instance;
     [SerializeField] Animator transitionAnim;
 
     private GameObject Player;
@@ -35,7 +35,7 @@ public class SceneTransition : MonoBehaviour
         transitionAnim.SetTrigger("End");
         yield return new WaitForSeconds(2);
         Player = GameObject.FindGameObjectWithTag(Define.PlayerTag);
-        Player.transform.position = new Vector3(targetPos.position.x + offset * 2, targetPos.position.y, Player.transform.position.z);
+        Player.transform.position = new Vector3(targetPos.position.x + offset*2, targetPos.position.y, Player.transform.position.z);
         transitionAnim.SetTrigger("Start");
     }
 

@@ -13,7 +13,6 @@ TagManager:
   - BOMB
   - Enter
   - Exit
-  - Teleporter
   layers:
   - Default
   - TransparentFX

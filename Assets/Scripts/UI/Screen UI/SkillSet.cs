@@ -6,9 +6,9 @@ using UnityEngine.UI;
 public class SkillSet : MonoBehaviour
 {
     private GameObject buttonParent;
-
     private List<GameObject> buttons = new List<GameObject>();
 
+    private GameObject slotParent;
     private List<GameObject> skillSlot = new List<GameObject>();
 
     private enum skill 
@@ -41,6 +41,13 @@ public class SkillSet : MonoBehaviour
         {
             buttons.Add(buttonParent.transform.GetChild(i).gameObject);
         }
+
+        slotParent = this.transform.Find("Skill Slot").gameObject;
+
+        for (int i = 0; i < slotParent.transform.childCount; i++)
+        {
+            skillSlot.Add(slotParent.transform.GetChild(i).gameObject);
+        }
     }
 
     // Update is called once per frame
@@ -58,31 +65,51 @@ public class SkillSet : MonoBehaviour
                 {
                     if (settedSkill[i, j] == (skill)skillNum)
                     {
-                        settedSkill[i, j] = skill.none;
-                        buttons[skillNum].GetComponent<ChangeImage>().set_image(0);
-                        skillSlot[i * 2 + j].GetComponent<Image>().sprite = SkillData.Instance.Image[SkillData.Instance.Acquired.Count-1];
+                        Debug.Log(1);
+                        Color ButtonColor = buttons[skillNum].GetComponent<Image>().color;
+                        ButtonColor += Color.white / 3;
+
+                        buttons[skillNum].GetComponent<Image>().color = ButtonColor;
+
+                        if (j == 1)
+                        {
+                            settedSkill[i, 1] = skill.none;
+                            skillSlot[i * 2 + 1].GetComponent<Image>().sprite = SkillData.Instance.Image[SkillData.Instance.Acquired.Count - 1];
+                        }
+                        else if (j == 0)
+                        {
+                            settedSkill[i, 0] = settedSkill[i, 1];
+                            settedSkill[i, 1] = skill.none;
+                            skillSlot[i * 2].GetComponent<Image>().sprite = skillSlot[i * 2 + 1].GetComponent<Image>().sprite;
+                            skillSlot[i * 2 + 1].GetComponent<Image>().sprite = SkillData.Instance.Image[SkillData.Instance.Acquired.Count - 1];
+                        }
+
                         return;
                     }
                 }
             }
+            Debug.Log(2);
 
             int gender = skillNum / 4;
-            int askillNum= skillNum % 4;
+            int askillNum = skillNum % 4;
 
-            if (settedSkill[gender, 1] != skill.none)
+            if (settedSkill[gender, 1] == skill.none)
             {
-                if (settedSkill[gender, 0] != skill.none)
+                if (settedSkill[gender, 0] == skill.none)
                 {
                     settedSkill[gender, 0] = (skill)skillNum;
-                    buttons[skillNum].GetComponent<ChangeImage>().set_image(1);
                     skillSlot[gender * 2].GetComponent<Image>().sprite = SkillData.Instance.Image[skillNum];
                 }
                 else
                 {
                     settedSkill[gender, 1] = (skill)skillNum;
-                    buttons[skillNum].GetComponent<ChangeImage>().set_image(1);
                     skillSlot[gender * 2 + 1].GetComponent<Image>().sprite = SkillData.Instance.Image[skillNum];
                 }
+
+                Color buttonColor = buttons[skillNum].GetComponent<Image>().color;
+                buttonColor -= Color.white / 3;
+
+                buttons[skillNum].GetComponent<Image>().color = buttonColor;
             }
         }
     }
@@ -92,9 +119,10 @@ public class SkillSet : MonoBehaviour
         for (int i = 0; i < this.transform.Find("Buttons").transform.childCount; i++)
         {
             if (SkillData.Instance.Acquired[i])
-                this.transform.Find("Buttons").transform.GetChild(i).GetComponent<ChangeImage>().set_image(0);
+                this.transform.Find("Buttons").transform.GetChild(i).GetComponent<Image>().sprite = SkillData.Instance.Image[i];
             else
-                this.transform.Find("Buttons").transform.GetChild(i).GetComponent<ChangeImage>().set_image(2);
+                this.transform.Find("Buttons").transform.GetChild(i).GetComponent<Image>().sprite = SkillData.Instance.Image[SkillData.Instance.Acquired.Count - 1 ];
         }
     }
 }
+
