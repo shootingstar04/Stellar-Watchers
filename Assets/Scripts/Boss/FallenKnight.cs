@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeavyArmor2 : MonoBehaviour
+public class FallenKnight : MonoBehaviour
 {
     public enum State
     {
