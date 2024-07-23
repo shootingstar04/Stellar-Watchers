@@ -6,19 +6,16 @@ using UnityEngine.SceneManagement;
 
 public class MapTeleporter1 : MonoBehaviour
 {
-    [SerializeField] enum Map
-    {
-        nothuman = 1,
-        nothuman_mapTPtest
-    }
     private GameObject player;
-    private string currentScene;
-    private int currentMap;
-    private int targetMap;
+    private Scene currentScene;
+    private int currentIndex;
+    private int targetIndex;
 
     [Header("목표 텔레포트 위치")]
     [Tooltip("맵 순서 따라 다음 맵이면 true, 이전 맵이면 fasle")]
     [SerializeField] bool isLeftRight;
+
+    private static bool returnLR;
 
     public static MapTeleporter1 mapTP;
 
@@ -30,43 +27,50 @@ public class MapTeleporter1 : MonoBehaviour
             Instantiate(player);
         */
         mapTP = this;
-        currentScene = SceneManager.GetActiveScene().name;
+        currentScene = SceneManager.GetActiveScene();
+        currentIndex = currentScene.buildIndex;
+        targetIndex = currentIndex;
+        Debug.Log(currentIndex + "는 현재 buildindex");
 
-        currentMap = (int)(Map)Enum.Parse(typeof(Map), currentScene);
-        Debug.Log(currentScene +" = " + currentMap);
-        targetMap = currentMap;
-        Debug.Log("targetMap = " + targetMap);
+        returnLR = isLeftRight;
+
+        Debug.Log("objname = " + this.name + ", isLeftRight = " + isLeftRight + ", returnLR = " + returnLR);
+
+        if(currentIndex != 1)
+        {
+            Debug.Log("텔포판별시작");
+            bool temp = DontDestroy.thisIsPlayer.giveLeftRight();
+            if(temp != isLeftRight)
+            {
+                Debug.Log(this.name + "는 맞음.");
+                DontDestroy.thisIsPlayer.transform.position = new Vector3(this.transform.position.x +10, this.transform.position.y, DontDestroy.thisIsPlayer.transform.position.z);
+            }
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(isLeftRight) //enum순서상 다음 맵
+        if (isLeftRight) //enum순서상 다음 맵
         {
-            targetMap += 1;
+            targetIndex += 1;
         }
         else
         {
-            targetMap -= 1;
+            targetIndex -= 1;
         }
-        Debug.Log(targetMap);
-        Teleport(targetMap);
+        Debug.Log(targetIndex);
+        Teleport(targetIndex);
     }
 
     public void Teleport(int MapNum)
     {
-        string target;
-        target = toString((Map)MapNum);
         DontDestroy.thisIsPlayer.getLeftRight(isLeftRight);
-        SceneManager.LoadScene(target);
-    }
-
-    string toString(Map thing)
-    {
-        return thing.ToString();
+        SceneManager.LoadScene(MapNum);
     }
 
     public static bool GiveIsLR()
     {
-        return MapTeleporter1.mapTP.isLeftRight;
+        Debug.Log("텔레포터 호출, " + returnLR);
+        return returnLR;
     }
 }

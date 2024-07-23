@@ -21,8 +21,10 @@ public class Telescope : MonoBehaviour
 
     private void Awake()
     {
+        Player = GameObject.FindGameObjectWithTag(Define.PlayerTag);
         playermove = Player.GetComponent<PlayerMove>();
         cam = Cam.GetComponent<cam_deadzone_test>();
+
 
     }
 

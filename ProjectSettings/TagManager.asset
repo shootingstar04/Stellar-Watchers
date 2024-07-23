@@ -11,8 +11,6 @@ TagManager:
   - disappear
   - JumpPad
   - BOMB
-  - Enter
-  - Exit
   - Teleporter
   layers:
   - Default
