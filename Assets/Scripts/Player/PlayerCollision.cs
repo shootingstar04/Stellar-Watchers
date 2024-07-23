@@ -43,6 +43,7 @@ public class PlayerCollision : MonoBehaviour
         if (other.gameObject.tag == "Enemy" && !isInvincible)
         {
             Debug.Log("Player hit");
+            PlayerHealth.instance.modify_HP(-1);
             isInvincible = true;
             invincibilityCounter = invincibilityDuration;
         }

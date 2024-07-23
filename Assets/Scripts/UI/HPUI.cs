@@ -14,11 +14,18 @@ public class HPUI : MonoBehaviour
     private int currentHPValue = 5;
     private int maxHPValue = 5;
 
-
-
+    public static HPUI Instance;
     // Start is called before the first frame update
     void Start()
     {
+        if (!Instance)
+            Instance = this;
+        else
+        {
+            Destroy(this);
+        }
+
+
         currentHP = GameObject.Find("Current HP");
         HPBowl = GameObject.Find("HP Bowl");
 
@@ -37,17 +44,13 @@ public class HPUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if (Input.GetKeyDown(KeyCode.O)) refresh_hp(-1);
-        else if (Input.GetKeyDown(KeyCode.P)) refresh_hp(1);
-        else if (Input.GetKeyDown(KeyCode.L)) add_max_HP(1);
     }
 
-    bool refresh_hp(int dtHP) 
+    public bool refresh_hp(int HP) 
     {
-        if (currentHPValue + dtHP >= 0 && currentHPValue + dtHP < maxHPValue + 1)
+        if (HP >= 0 && HP < maxHPValue + 1)
         {
-            currentHPValue += dtHP;
+            currentHPValue = HP;
 
             for (int i = 0; i < currentHP.transform.childCount; i++)
             {
@@ -60,11 +63,11 @@ public class HPUI : MonoBehaviour
         else return false;
     }
 
-    void add_max_HP(int dtMaxHP) 
+    public void add_max_HP(int dtMaxHP) 
     {
-        if (maxHPValue + dtMaxHP < 9)
+        if (dtMaxHP < 9)
         {
-            maxHPValue += dtMaxHP;
+            maxHPValue = dtMaxHP;
             currentHPValue = maxHPValue;
 
             for (int i = 0; i < currentHP.transform.childCount; i++)
