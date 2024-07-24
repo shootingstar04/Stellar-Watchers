@@ -182,42 +182,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad81d439605ac904e8cad466665d2835, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collectExplanations:
-  - test
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  collectNames:
-  - test
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  collectImages:
-  - {fileID: 21300000, guid: 35316ba0423f7c24db3eef54f8fa4e7d, type: 3}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  starExplanations: []
-  starNames: []
-  starImages: []
   keyExplanations: []
   keyNames: []
   keyImages: []
@@ -254,7 +218,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.00000023841858, y: 0.7230622}
+  m_Offset: {x: -0.054323614, y: 0.7463769}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -265,7 +229,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7818961, y: 1.269287}
+  m_Size: {x: 0.68312633, y: 1.1535189}
   m_EdgeRadius: 0
 --- !u!1 &7653665271837155178
 GameObject:
@@ -351,6 +315,7 @@ GameObject:
   - component: {fileID: 7946850411316044133}
   - component: {fileID: 6345144225241622964}
   - component: {fileID: 7242322318207948754}
+  - component: {fileID: 4073959861003734554}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -626,8 +591,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be4809a5949102a4798e5b0336a09318, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurHP: 0
-  MaxHP: 0
 --- !u!114 &7946850411316044133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -653,8 +616,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd37c931fe35afc439a523364cda9bb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurSP: 0
-  MaxSP: 0
 --- !u!114 &7242322318207948754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -673,6 +634,18 @@ MonoBehaviour:
   m_newColors:
   - {r: 1, g: 0, b: 0, a: 0}
   - {r: 0.1792453, g: 0.12259702, b: 0.12259702, a: 0}
+--- !u!114 &4073959861003734554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8550617144831936086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffe4d1efc4efcfb48a251c52209211fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8641076700620156055
 GameObject:
   m_ObjectHideFlags: 0

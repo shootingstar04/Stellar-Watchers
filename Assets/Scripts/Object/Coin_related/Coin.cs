@@ -32,7 +32,7 @@ public class Coin : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag(Define.PlayerTag))
         {
             Debug.Log(gold+"원 돈먹음");
             CollectInventory.Instance.get_coin(gold);

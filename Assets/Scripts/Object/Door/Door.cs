@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Door : MonoBehaviour
 {
-    protected GameObject door;
+    [SerializeField] protected GameObject door;
 
     public abstract void OpenDoor();
     public abstract void CloseDoor();
