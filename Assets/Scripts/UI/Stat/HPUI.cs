@@ -16,7 +16,7 @@ public class HPUI : MonoBehaviour
 
     public static HPUI Instance;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         if (!Instance)
             Instance = this;
@@ -63,18 +63,14 @@ public class HPUI : MonoBehaviour
         else return false;
     }
 
-    public void add_max_HP(int dtMaxHP) 
+    public void add_max_HP(int MaxHP) 
     {
-        if (dtMaxHP < 9)
+        if (MaxHP < 9)
         {
-            maxHPValue = dtMaxHP;
-            currentHPValue = maxHPValue;
+            maxHPValue = MaxHP;
 
-            for (int i = 0; i < currentHP.transform.childCount; i++)
-            {
-                if (i < currentHPValue) currentHPs[i].gameObject.SetActive(true);
-                else currentHPs[i].gameObject.SetActive(false);
-            }
+            refresh_hp(MaxHP);
+
             for (int i = 0; i < HPBowl.transform.childCount; i++)
             {
                 if (i < maxHPValue) HPBowls[i].gameObject.SetActive(true);

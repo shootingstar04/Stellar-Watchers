@@ -35,7 +35,7 @@ public class Coin : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             Debug.Log(gold+"원 돈먹음");
-            //CollectInventory.Instance.get_coin(gold);
+            CollectInventory.Instance.get_coin(gold);
             DestroyCoin();
             
         }

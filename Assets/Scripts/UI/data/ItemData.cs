@@ -14,7 +14,17 @@ public class ItemData : MonoBehaviour
     public List<string> Explanation = new List<string>();
     [TextArea]
     public List<string> Story = new List<string>();
-    
+
+    private int currentGold = 0;
+
+    public int CurrentGold
+    {
+        get
+        {
+            return currentGold;
+        }
+    }
+
 
     // Start is called before the first frame update
     void Awake()
@@ -32,6 +42,12 @@ public class ItemData : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+
+    public void modify_gold(int gold)
+    {
+        currentGold += gold;
+        if (currentGold > 999999999) currentGold = 999999999;
     }
 }

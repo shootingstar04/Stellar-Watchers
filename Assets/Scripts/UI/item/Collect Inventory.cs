@@ -8,8 +8,6 @@ public class CollectInventory : MonoBehaviour
 
     private GameObject collection;
 
-    private int currentGold = 0;
-
     public static CollectInventory Instance;
 
     // Start is called before the first frame update
@@ -38,7 +36,7 @@ public class CollectInventory : MonoBehaviour
 
     public void get_coin(int goldValue) 
     {
-        currentGold += goldValue;
+        ItemData.Instance.modify_gold(goldValue);
     }
 
     private void OnTriggerStay2D(Collider2D collision)

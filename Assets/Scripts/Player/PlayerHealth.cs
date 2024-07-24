@@ -6,8 +6,16 @@ public class PlayerHealth : MonoBehaviour
 {
     public static PlayerHealth instance;
 
-    private int CurHP;
-    private int MaxHP;
+    private int curHP;
+    private int maxHP;
+
+    public int CurHP
+    {
+        get
+        {
+            return curHP;
+        }
+    }
 
     void Awake()
     {
@@ -18,8 +26,8 @@ public class PlayerHealth : MonoBehaviour
             Destroy(this);
         }
 
-        instance.CurHP = 5;
-        instance.MaxHP = 5;
+        instance.curHP = 5;
+        instance.maxHP = 5;
     }
 
     private void Update()
@@ -28,20 +36,20 @@ public class PlayerHealth : MonoBehaviour
 
     public void modify_HP(int value)
     {
-        CurHP += value;
-        if (CurHP > MaxHP) CurHP = MaxHP;
-        else if (CurHP < 0) CurHP = 0;
+        curHP += value;
+        if (curHP > maxHP) curHP = maxHP;
+        else if (curHP < 0) curHP = 0;
 
         HPUI.Instance.refresh_hp(CurHP);
     }
     public void modify_max_HP(int value)
     {
-        MaxHP += value;
-        if (MaxHP > 8) MaxHP = 8;
-        else if (MaxHP < 1) MaxHP = 1;
+        maxHP += value;
+        if (maxHP > 8) maxHP = 8;
+        else if (maxHP < 1) maxHP = 1;
 
-        CurHP = MaxHP;
+        curHP = maxHP;
 
-        HPUI.Instance.add_max_HP(MaxHP);
+        HPUI.Instance.add_max_HP(maxHP);
     }
 }

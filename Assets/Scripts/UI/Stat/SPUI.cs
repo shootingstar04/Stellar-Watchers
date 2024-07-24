@@ -8,29 +8,37 @@ public class SPUI : MonoBehaviour
     // Start is called before the first frame update
 
     GameObject currentSP;
+    GameObject maxSP;
     GameObject currentSPText;
 
     private int currentSPValue = 5;
     private int maxSPValue = 5;
 
-    void Start()
+    public static SPUI Instance;
+    void Awake()
     {
+        if (!Instance)
+            Instance = this;
+        else
+        {
+            Destroy(this);
+        }
+
         currentSP = GameObject.Find("Current SP");
+        maxSP = GameObject.Find("Max SP");
         currentSPText = GameObject.Find("Current SP Text");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.O)) refresh_sp(-1);
-        else if (Input.GetKeyDown(KeyCode.P)) refresh_sp(1);
     }
 
-    bool refresh_sp(int dtSP) 
+    public bool refresh_sp(int SP)
     {
-        if (currentSPValue + dtSP >= 0 && currentSPValue + dtSP < maxSPValue + 1)
-        {
-            currentSPValue += dtSP;
+        if (SP >= 0 && SP < maxSPValue + 1)
+        { 
+            currentSPValue = SP;
 
             currentSPText.GetComponent<Text>().text = currentSPValue.ToString();
 
@@ -42,10 +50,22 @@ public class SPUI : MonoBehaviour
         }
         else return false;
     }
+    public void add_max_SP(int MaxSP)
+    {
+        if (MaxSP < 8)
+        {
+            maxSPValue = MaxSP;
+
+            refresh_sp(MaxSP);
+
+            maxSP.GetComponent<ChangeImage>().set_image(MaxSP - 5);
+            currentSP.GetComponent<ChangeImage>().set_image(MaxSP - 5);
+        }
+    }
 
     IEnumerator smoth_change()
     {
-        if ((int) (currentSP.GetComponent<Image>().fillAmount * maxSPValue) != currentSPValue)
+        if ((currentSP.GetComponent<Image>().fillAmount * maxSPValue) != currentSPValue)
         {
             float changeValue = (currentSPValue / (float)maxSPValue - currentSP.GetComponent<Image>().fillAmount) / 10;
 
