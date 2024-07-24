@@ -4,7 +4,8 @@ using UnityEngine;
 
 public abstract class Door : MonoBehaviour
 {
-    [SerializeField] protected GameObject door;
+    [SerializeField] protected List<GameObject> door;
+    [SerializeField] protected bool isDisabled = false;
 
     public abstract void OpenDoor();
     public abstract void CloseDoor();

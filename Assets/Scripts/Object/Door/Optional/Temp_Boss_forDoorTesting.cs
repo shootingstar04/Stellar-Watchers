@@ -6,33 +6,28 @@ using UnityEngine;
 public class Temp_Boss_forDoorTesting : MonoBehaviour
 {
     int hp = 10;
-    [SerializeField] Door doorEnter;
-    [SerializeField] Door doorExit;
     bool isInvins = false;
     float invinsTimer = 0f;
     float maxInvinsDuration = 1f;
 
-    private void Awake()
+    private void OnTriggerStay2D(Collider2D collision)
     {
-
-    }
-
-
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Alpha1))
+        if (collision.CompareTag(Define.PlayerTag))
         {
-            damaged();
-            isInvins = !isInvins;
-        }
-
-        if(isInvins)
-        {
-            invinsTimer += Time.deltaTime;
-            if(invinsTimer >= maxInvinsDuration )
+            if (Input.GetKeyDown(KeyCode.Q))
             {
+                damaged();
                 isInvins = !isInvins;
-                invinsTimer = 0f;
+            }
+
+            if (isInvins)
+            {
+                invinsTimer += Time.deltaTime;
+                if (invinsTimer >= maxInvinsDuration)
+                {
+                    isInvins = !isInvins;
+                    invinsTimer = 0f;
+                }
             }
         }
     }
@@ -41,13 +36,13 @@ public class Temp_Boss_forDoorTesting : MonoBehaviour
     {
         Debug.Log("보스맞음");
         Debug.Log(hp);
-        if(isInvins)
+        if (isInvins)
         {
             return;
         }
 
         hp -= 5;
-        if(hp<=0)
+        if (hp <= 0)
         {
             dead();
         }
@@ -56,8 +51,7 @@ public class Temp_Boss_forDoorTesting : MonoBehaviour
 
     void dead()
     {
-        doorEnter.OpenDoor();
-        doorExit.OpenDoor();
+        BossDoor.bossdoorOpen();
         Destroy(this.gameObject);
     }
 }

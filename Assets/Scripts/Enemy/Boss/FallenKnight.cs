@@ -12,9 +12,10 @@ public class FallenKnight : MonoBehaviour
         ATTACK1,
         ATTACK2,
         ATTACK3,
-        SKILL1,
-        SKILL2,
-        SKILL3,
+        SKILL,
+        ROLL,
+        BLOCK,
+        SUMMONS,
         HIT,
         KILLED
     }
@@ -22,12 +23,13 @@ public class FallenKnight : MonoBehaviour
     public State currentState;
 
     public Transform player;
-    public float detectionRadius = 15f;
-    public float attackRadius = 5f;
-    public float moveSpeed = 3f;
-    public float patrolDistance = 7f;
+    public float detectionRadius = 20f;
+    public float attackRadius = 3f;
+    public float moveSpeed = 2f;
+    public float patrolDistance = 10f;
+    public float decisionInterval = 2f; // 의사 결정 간격
 
-    public int CurHP = 50;
+    public int CurHP = 100;
 
     private Rigidbody2D rb;
     private Animator animator;
@@ -42,6 +44,7 @@ public class FallenKnight : MonoBehaviour
     private Vector2 patrolRightLimit;
 
     private bool isPerformingAction = false;
+    private float nextDecisionTime = 0f; // 다음 의사 결정을 위한 시간
 
     private void Start()
     {
@@ -59,6 +62,32 @@ public class FallenKnight : MonoBehaviour
     private void Update()
     {
         if (isPerformingAction) return; // 행동 중일 때는 다른 상태로 전환되지 않도록 함
+
+        if (Time.time >= nextDecisionTime)
+        {
+            nextDecisionTime = Time.time + decisionInterval; // 다음 의사 결정 시간 설정
+            MakeDecision();
+        }
+
+        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+
+        if (currentState != State.KILLED && !isPerformingAction)
+        {
+            if (distanceToPlayer <= attackRadius)
+            {
+                // 공격 범위 내에 플레이어가 있는 경우
+                animator.SetBool("Walk", false); // Walk 애니메이션 비활성화
+                StartCoroutine(RandomAction());
+            }
+            else if (distanceToPlayer <= detectionRadius)
+            {
+                currentState = State.CHASE;
+            }
+            else if (currentState != State.PATROL)
+            {
+                currentState = State.IDLE;
+            }
+        }
 
         switch (currentState)
         {
@@ -79,25 +108,7 @@ public class FallenKnight : MonoBehaviour
                 break;
         }
 
-        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-
-        if (currentState != State.KILLED && !isPerformingAction)
-        {
-            if (distanceToPlayer <= attackRadius)
-            {
-                StartCoroutine(RandomAttackOrSkill());
-            }
-            else if (distanceToPlayer <= detectionRadius)
-            {
-                currentState = State.CHASE;
-            }
-            else if (currentState != State.PATROL)
-            {
-                currentState = State.IDLE;
-            }
-        }
-
-        if (currentState == State.PATROL)
+        if (currentState == State.PATROL || currentState == State.CHASE)
         {
             if (IsWallAhead() || IsEdgeAhead())
             {
@@ -154,7 +165,7 @@ public class FallenKnight : MonoBehaviour
     {
         isPerformingAction = true;
         rb.velocity = Vector2.zero;
-        animator.SetBool("Walk", false);
+        animator.SetBool("Walk", false); // Walk 애니메이션 비활성화
 
         switch (actionState)
         {
@@ -170,17 +181,21 @@ public class FallenKnight : MonoBehaviour
                 Debug.Log("A-3");
                 animator.SetTrigger("Attack3");
                 break;
-            case State.SKILL1:
-                Debug.Log("S-1");
-                animator.SetTrigger("Skill1");
+            case State.SKILL:
+                Debug.Log("S");
+                animator.SetTrigger("Skill");
                 break;
-            case State.SKILL2:
-                Debug.Log("S-2");
-                animator.SetTrigger("Skill2");
+            case State.ROLL:
+                Debug.Log("R");
+                animator.SetTrigger("Roll");
                 break;
-            case State.SKILL3:
-                Debug.Log("S-3");
-                animator.SetTrigger("Skill3");
+            case State.BLOCK:
+                Debug.Log("B");
+                animator.SetTrigger("Block");
+                break;
+            case State.SUMMONS:
+                Debug.Log("S");
+                animator.SetTrigger("Summons");
                 break;
         }
 
@@ -190,41 +205,46 @@ public class FallenKnight : MonoBehaviour
         currentState = State.IDLE;
     }
 
-    private IEnumerator RandomAttackOrSkill()
+    private IEnumerator RandomAction()
     {
         isPerformingAction = true;
-        yield return new WaitForSeconds(3f); // 3초 대기
+        yield return new WaitForSeconds(2f); // 2초 대기
 
         float randomValue = Random.value;
-        if (randomValue < 0.166f)
+        if (randomValue < 0.15f)
         {
             currentState = State.ATTACK1;
             StartCoroutine(PerformAction(State.ATTACK1, 1f));
         }
-        else if (randomValue < 0.333f)
+        else if (randomValue < 0.3f)
         {
             currentState = State.ATTACK2;
             StartCoroutine(PerformAction(State.ATTACK2, 1f));
         }
-        else if (randomValue < 0.5f)
+        else if (randomValue < 0.45f)
         {
             currentState = State.ATTACK3;
             StartCoroutine(PerformAction(State.ATTACK3, 1f));
         }
-        else if (randomValue < 0.666f)
+        else if (randomValue < 0.6f)
         {
-            currentState = State.SKILL1;
-            StartCoroutine(PerformAction(State.SKILL1, 2f));
+            currentState = State.SKILL;
+            StartCoroutine(PerformAction(State.SKILL, 2f));
         }
-        else if (randomValue < 0.833f)
+        else if (randomValue < 0.75f)
         {
-            currentState = State.SKILL2;
-            StartCoroutine(PerformAction(State.SKILL2, 2f));
+            currentState = State.ROLL;
+            StartCoroutine(PerformAction(State.ROLL, 1f));
+        }
+        else if (randomValue < 0.9f)
+        {
+            currentState = State.BLOCK;
+            StartCoroutine(PerformAction(State.BLOCK, 1f));
         }
         else
         {
-            currentState = State.SKILL3;
-            StartCoroutine(PerformAction(State.SKILL3, 2f));
+            currentState = State.SUMMONS;
+            StartCoroutine(PerformAction(State.SUMMONS, 3f));
         }
     }
 
@@ -291,6 +311,45 @@ public class FallenKnight : MonoBehaviour
         else
         {
             currentState = State.HIT;
+        }
+    }
+
+    private void MakeDecision()
+    {
+        float randomValue = Random.value;
+
+        // 강화 학습 및 확률 기반 의사 결정 로직
+        if (randomValue < 0.1f)
+        {
+            currentState = State.ATTACK1;
+        }
+        else if (randomValue < 0.2f)
+        {
+            currentState = State.ATTACK2;
+        }
+        else if (randomValue < 0.3f)
+        {
+            currentState = State.ATTACK3;
+        }
+        else if (randomValue < 0.4f)
+        {
+            currentState = State.SKILL;
+        }
+        else if (randomValue < 0.5f)
+        {
+            currentState = State.ROLL;
+        }
+        else if (randomValue < 0.6f)
+        {
+            currentState = State.BLOCK;
+        }
+        else if (randomValue < 0.7f)
+        {
+            currentState = State.SUMMONS;
+        }
+        else
+        {
+            // 다른 상태 유지
         }
     }
 }
