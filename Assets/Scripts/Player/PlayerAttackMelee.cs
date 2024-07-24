@@ -80,11 +80,15 @@ public class PlayerAttackMelee : MonoBehaviour
             else if (collider.GetComponent<ElevatorSwitch>() != null)
             {
                 Debug.Log("스위치 작동");
-                ElevatorSwitch.EVSwitch.SwitchFlick();
+                collider.GetComponent<ElevatorSwitch>().SwitchFlick();
             }
             else if(collider.GetComponent<Chest>() != null)
             {
                 collider.gameObject.GetComponent<Chest>().Distroyed();
+            }
+            else if(collider.GetComponent<GeneralDoor>() != null)
+            {
+                collider.GetComponent<GeneralDoor>().OpenDoor();
             }
         }
     }
