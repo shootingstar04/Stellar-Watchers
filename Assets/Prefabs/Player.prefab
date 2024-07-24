@@ -503,8 +503,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16b6e701a09421b4088c01230aad093b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  jumpForce: 15
+  moveSpeed: 7
+  wallSlidingSpeed: 5
+  jumpForce: 18
   maxJumpTime: 0.4
   maxJumpHeight: 2.5
   groundLayer:
@@ -512,12 +513,13 @@ MonoBehaviour:
     m_Bits: 8
   wallLayer:
     serializedVersion: 2
-    m_Bits: 0
-  dashForce: 20
-  dashDuration: 0.2
+    m_Bits: 8
+  dashForce: 40
+  dashDuration: 0.15
   invincibilityDuration: 1
   fallMultiplier: 2.5
   wallJumpForce: 10
+  foot_size: 0.7
 --- !u!114 &4314836703254164502
 MonoBehaviour:
   m_ObjectHideFlags: 0
