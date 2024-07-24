@@ -35,6 +35,7 @@ public class PlayerMove : MonoBehaviour
     private float lastDirection = 1f;
 
     SpriteRenderer spriteRenderer;
+    Animator animator;
 
     void Start()
     {
@@ -42,6 +43,7 @@ public class PlayerMove : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         groundCheck = transform.Find("GroundCheck");
         wallCheck = transform.Find("WallCheck"); // 추가된 부분: WallCheck 트랜스폼 찾기
+        animator = this.GetComponent<Animator>();
     }
 
     void Update()
@@ -51,6 +53,7 @@ public class PlayerMove : MonoBehaviour
         GrabWall();
         Jump();
         Dash();
+        AnimationControl();
     }
 
     void Move()
@@ -92,6 +95,7 @@ public class PlayerMove : MonoBehaviour
             isJumping = true;
             jumpTimeCounter = 0f;
             rigid.velocity = new Vector2(rigid.velocity.x, jumpForce);
+            animator.SetTrigger("Jump");
 
             if (isTouchingWall && !isGrounded)
             {
@@ -182,7 +186,7 @@ public class PlayerMove : MonoBehaviour
 
     void GrabWall()
     {
-        if (isTouchingWall && lastDirection * (wallCheck.position.x - this.transform.position.x) > 0)
+        if (isTouchingWall && rigid.velocity.x * (wallCheck.position.x - this.transform.position.x) > 0 )
         {
             isGrabWall = true;
             rigid.gravityScale = 0f;
@@ -203,9 +207,17 @@ public class PlayerMove : MonoBehaviour
     void CheckGround()
     {
         isTouchingWall = Physics2D.OverlapCircle(wallCheck.position, wallCheckRadius, wallLayer);
-        
+
         RaycastHit2D hit = Physics2D.Raycast((Vector2)groundCheck.position - new Vector2(lastDirection * foot_size, 0.2f), Vector2.right * lastDirection, foot_size * 2, groundLayer);
 
         isGrounded = hit.collider == null ? false : true;
+    }
+
+    void AnimationControl()
+    {
+        animator.SetFloat("AirSpeedY", rigid.velocity.y);
+        animator.SetBool("Grounded", isGrounded);
+        animator.SetBool("WallSlide", isGrabWall);
+        animator.SetInteger("AnimState", rigid.velocity.x != 0 ? 1 : 0);
     }
 }
