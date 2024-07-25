@@ -16,18 +16,10 @@ public class Elevator : MonoBehaviour
 
     private Vector2 UpDownPosition;
 
-    public static Elevator EV;
-
     private float moveTime = 3f; //이동시속시간
     private Vector3 floorPos = Vector3.zero;
 
-    public bool isWorking = false;
-
-    private void Awake()
-    {
-        EV = this;
-
-    }
+    public bool isWorking = false;  
 
     //타면 작동
     public void Active()

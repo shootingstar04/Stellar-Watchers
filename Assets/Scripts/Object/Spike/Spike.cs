@@ -2,21 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using DG.Tweening;
+using TMPro;
 
 public class Spike : MonoBehaviour
 {
     [SerializeField] bool isSpike;
-    private static Transform priviousPos;
+    private Transform priviousPos;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag(Define.PlayerTag))
         {
-            if(isSpike)
+            if (isSpike)
             {
                 Debug.Log("데미지");
                 StartCoroutine(PlayHitEffect(collision.gameObject));
-            }    
+            }
         }
         ReturnPlayer(collision.gameObject);
     }
@@ -31,10 +33,39 @@ public class Spike : MonoBehaviour
 
     private void ReturnPlayer(GameObject player)
     {
-        player.transform.position = new Vector3(priviousPos.position.x, priviousPos.position.y, player.transform.position.z);
+        if (priviousPos != null)
+        {
+            player.transform.position = new Vector3(priviousPos.position.x, priviousPos.position.y, player.transform.position.z);
+        }
+        else //예외처리(priviousPos못받음)
+        {
+            GameObject par = this.transform.parent.gameObject;
+            List <Transform> gameObjects = new List<Transform>();
+            foreach(Transform child in par.transform)
+            {
+                gameObjects.Add(child);
+            }
+            float tempVal = 999f;
+            Transform temp = null;
+            foreach (Transform obj in gameObjects)
+            {
+                if (!obj.GetComponent<Spike>())
+                {
+                    float absVal = Mathf.Abs(obj.position.x - player.transform.position.x);
+                    if(absVal < tempVal)
+                    {
+                        tempVal = absVal;
+                        temp = obj;
+                    }
+                }
+                Debug.Log("temp는 " + temp);
+            }
+            player.transform.position = new Vector3(temp.position.x, temp.position.y, player.transform.position.z);
+        }
+        SceneTransition.instance.NextMap();
     }
 
-    public static void ReturnPos(Transform pos)
+    public void ReturnPos(Transform pos)
     {
         priviousPos = pos;
     }

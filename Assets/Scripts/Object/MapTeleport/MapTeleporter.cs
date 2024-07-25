@@ -13,7 +13,7 @@ public class MapTeleporter : MonoBehaviour
         if(collision.CompareTag(Define.PlayerTag))
         {
             Debug.Log("맵전환 작동");
-            SceneTransition.instance.NextMap(TargetPosition, offset);
+            //SceneTransition.instance.NextMap(TargetPosition, offset);
         }
     }
 }

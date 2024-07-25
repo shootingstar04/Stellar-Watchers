@@ -25,17 +25,19 @@ public class SceneTransition : MonoBehaviour
         }
     }
 
-    public void NextMap(Transform targetPos, sbyte offset)
+    public void NextMap()//(Transform targetPos, sbyte offset)
     {
-        StartCoroutine(LoadMap(targetPos, offset));
+        StartCoroutine(LoadMap());//(targetPos, offset)
     }
 
-    IEnumerator LoadMap(Transform targetPos, sbyte offset)
+    IEnumerator LoadMap()//(Transform targerPos, sbyte offset)
     {
         transitionAnim.SetTrigger("End");
         yield return new WaitForSeconds(2);
+        /*
         Player = GameObject.FindGameObjectWithTag(Define.PlayerTag);
         Player.transform.position = new Vector3(targetPos.position.x + offset * 2, targetPos.position.y, Player.transform.position.z);
+        */
         transitionAnim.SetTrigger("Start");
     }
 

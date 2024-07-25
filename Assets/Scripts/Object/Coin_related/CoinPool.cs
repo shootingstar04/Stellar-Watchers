@@ -17,6 +17,7 @@ public class CoinPool : MonoBehaviour
 
     private void Awake()
     {
+        DontDestroyOnLoad(this.gameObject);
         Instance = this;
         Initialize(10, poolCoin1Queue, Coin1);
         Initialize(10, poolCoinVQueue, CoinV);

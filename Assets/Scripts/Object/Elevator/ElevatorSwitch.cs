@@ -11,31 +11,51 @@ public class ElevatorSwitch : MonoBehaviour
 
     float tolerance = 0.0000001f;
 
+    private Transform obj;
+    private Transform EV;
+    private Elevator elevator;
+
     private void Awake()
     {
-        EVSwitch = this;
+        obj = this.transform.parent;
+        EV  = obj.transform.parent;
+
+        List<Transform> gameObjects = new List<Transform>();
+        foreach (Transform child in EV.transform)
+        {
+            gameObjects.Add(child);
+        }
+
+        foreach (Transform obj in gameObjects)
+        {
+            if (obj.GetComponent<Elevator>())
+            {
+                elevator = obj.GetComponent<Elevator>();
+            }
+        }
+        Debug.Log(elevator);
     }
 
     //플레이어 공격 코드에 추가예정
     public void SwitchFlick()
     {
-        if (!Elevator.EV.isWorking)
+        if (!elevator.isWorking)
         {
             Debug.Log("엘리베이터 작동중 x");
             if (!isThisSwitchUP)
             {
-                if (!Mathf.Approximately(Elevator.EV.SwitchDown.transform.position.y, Elevator.EV.cage.transform.position.y))
+                if (!Mathf.Approximately(elevator.SwitchDown.transform.position.y, elevator.cage.transform.position.y))
                 {
                     Debug.Log("엘리베이터 호출");
-                    Elevator.EV.Active();
+                    elevator.Active();
                 }
             }
             else
             {
-                if (!Mathf.Approximately(Elevator.EV.SwitchUp.transform.position.y, Elevator.EV.cage.transform.position.y))
+                if (!Mathf.Approximately(elevator.SwitchUp.transform.position.y, elevator.cage.transform.position.y))
                 {
                     Debug.Log("엘리베이터 호출");
-                    Elevator.EV.Active();
+                    elevator.Active();
                 }
             }
 
