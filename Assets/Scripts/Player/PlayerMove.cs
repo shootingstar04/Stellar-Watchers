@@ -30,7 +30,6 @@ public class PlayerMove : MonoBehaviour
     private float dashTimeCounter;
     private Transform groundCheck;
     private Transform wallCheck; // 추가된 부분: 벽 감지용 트랜스폼
-    private float groundCheckRadius = 0.2f;
     private float wallCheckRadius = 0.2f; // 추가된 부분: 벽 감지 반경
     private float lastDirection = 1f;
 

@@ -9,11 +9,15 @@ public class CollectItem : MonoBehaviour
     {
         collect = 0,
         skill,
-        key
+        progress,
+        point,
+        reinforcementStone
     }
 
     public type itemType;// 0: collect, 1:skill, 2: key 
     public int itemNum;
+
+    public bool showPopUp =false;
 
     private GameObject interact;
     private GameObject item;
@@ -57,14 +61,17 @@ public class CollectItem : MonoBehaviour
 
     public IEnumerator destroy_item()
     {
-        isActived = true;
-        item.SetActive(false);
-        interact.SetActive(false);
+        if (p1 != null)
+        {
+            isActived = true;
+            item.SetActive(false);
+            interact.SetActive(false);
 
-        p1.Stop();
-        p2.Stop();
+            p1.Stop();
+            p2.Stop();
 
-        yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(3);
+        }
         Destroy(this.gameObject);
     }
 }

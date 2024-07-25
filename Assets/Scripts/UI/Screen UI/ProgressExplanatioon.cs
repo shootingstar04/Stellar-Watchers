@@ -48,30 +48,39 @@ public class ProgressExplanatioon : MonoBehaviour
     {
         int currentSelected = buttons.IndexOf(EventSystem.current.currentSelectedGameObject);
 
-        if (currentSelected != -1) {
+        if (currentSelected != -1)
+        {
             if (currentSelected != lastSelected && currentSelected != buttons.Count - 1)
             {
-
                 if (currentSelected == 0)
                 {
+                    int count = ProgressData.Instance.reinforcementCount;
                     if (gender == 1)
                     {
-                        currentImage.sprite = ProgressData.Instance.Image[currentSelected];
-                        currentExplanation.text = ProgressData.Instance.Explanation[currentSelected];
-                        currentName.text = ProgressData.Instance.Name[currentSelected];
+                        currentImage.sprite = ProgressData.Instance.weaponImage[count];
+                        currentExplanation.text = ProgressData.Instance.weaponExplanation[count];
+                        currentName.text = ProgressData.Instance.weaponName[count];
                     }
                     else
                     {
-                        currentImage.sprite = ProgressData.Instance.Image[ProgressData.Instance.Image.Count - 1];
-                        currentExplanation.text = ProgressData.Instance.Explanation[ProgressData.Instance.Explanation.Count - 1];
-                        currentName.text = ProgressData.Instance.Name[ProgressData.Instance.Name.Count - 1];
+                        currentImage.sprite = ProgressData.Instance.weaponImage[count + 4];
+                        currentExplanation.text = ProgressData.Instance.weaponExplanation[count + 4];
+                        currentName.text = ProgressData.Instance.weaponName[count + 4];
                     }
                 }
+                else if (ProgressData.Instance.Acquired[currentSelected - 1])
+                {
+                    currentImage.sprite = ProgressData.Instance.Image[currentSelected - 1];
+                    currentExplanation.text = ProgressData.Instance.Explanation[currentSelected - 1];
+                    currentName.text = ProgressData.Instance.Name[currentSelected - 1];
+                }
+
                 else
                 {
-                    currentImage.sprite = ProgressData.Instance.Image[currentSelected];
-                    currentExplanation.text = ProgressData.Instance.Explanation[currentSelected];
-                    currentName.text = ProgressData.Instance.Name[currentSelected];
+                    int last = ProgressData.Instance.Acquired.Count - 1;
+                    currentImage.sprite = ProgressData.Instance.Image[last];
+                    currentExplanation.text = ProgressData.Instance.Explanation[last];
+                    currentName.text = ProgressData.Instance.Name[last];
                 }
 
                 lastSelected = currentSelected;
@@ -79,19 +88,19 @@ public class ProgressExplanatioon : MonoBehaviour
 
             else if (lastSelected == 0)
             {
+                int count = ProgressData.Instance.reinforcementCount;
                 if (gender == 1)
                 {
-                    currentImage.sprite = ProgressData.Instance.Image[lastSelected];
-                    currentExplanation.text = ProgressData.Instance.Explanation[lastSelected];
-                    currentName.text = ProgressData.Instance.Name[lastSelected];
+                    currentImage.sprite = ProgressData.Instance.weaponImage[count];
+                    currentExplanation.text = ProgressData.Instance.weaponExplanation[count];
+                    currentName.text = ProgressData.Instance.weaponName[count];
                 }
                 else
                 {
-                    currentImage.sprite = ProgressData.Instance.Image[ProgressData.Instance.Image.Count - 1];
-                    currentExplanation.text = ProgressData.Instance.Explanation[ProgressData.Instance.Explanation.Count - 1];
-                    currentName.text = ProgressData.Instance.Name[ProgressData.Instance.Name.Count - 1];
+                    currentImage.sprite = ProgressData.Instance.weaponImage[count + 4];
+                    currentExplanation.text = ProgressData.Instance.weaponExplanation[count + 4];
+                    currentName.text = ProgressData.Instance.weaponName[count + 4];
                 }
-
             }
         }
     }

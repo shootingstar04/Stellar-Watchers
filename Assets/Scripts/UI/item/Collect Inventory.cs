@@ -48,18 +48,35 @@ public class CollectInventory : MonoBehaviour
             {
                 CollectItem item = other.GetComponent<CollectItem>();
 
-                switch (((int)item.itemType)) {
-                    case 0:
+                switch ((item.itemType)) {
+
+                    case CollectItem.type.collect:
                         if (item.itemNum < ItemData.Instance.Acquired.Count)
                             ItemData.Instance.Acquired[item.itemNum] = true;
                         break;
-                    case 1:
-                        if (item.itemNum < keys.Length)
-                            keys[item.itemNum] = true;
+
+                    case CollectItem.type.progress:
+                        if (item.itemNum < ProgressData.Instance.Acquired.Count)
+                            ProgressData.Instance.Acquired[item.itemNum] = true;
                         break;
+
+                    case CollectItem.type.reinforcementStone:
+                        if (item.itemNum < ProgressData.Instance.Acquired.Count)
+                        {
+                            ProgressData.Instance.Acquired[item.itemNum] = true;
+                            ProgressData.Instance.stoneCount += 1;
+                        }
+                        break;
+
+                    case CollectItem.type.point:
+                        ProgressData.Instance.pointCount += 1;
+                        break;
+
                 }
 
-                this.GetComponent<ItemPopUp>().show_PopUP((int) item.itemType, item.itemNum);
+                if (item.showPopUp) {
+                    this.GetComponent<ItemPopUp>().show_PopUP((int)item.itemType, item.itemNum);
+                }
 
                 item.StartCoroutine(item.destroy_item());
             }
