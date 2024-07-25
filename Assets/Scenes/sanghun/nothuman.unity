@@ -361,6 +361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09ad1ad44def90d48a1fe0f77110917b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isThisSwitchUP: 1
 --- !u!61 &63924141
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -89890,6 +89891,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc7342e137396224cb4f5e8f1eaad1d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DoNotLoadInThisIndex: 2
   isLeftRight: 1
 --- !u!331 &1315544764
 SpriteMask:
@@ -92158,6 +92160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09ad1ad44def90d48a1fe0f77110917b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isThisSwitchUP: 0
 --- !u!61 &1965385662
 BoxCollider2D:
   m_ObjectHideFlags: 0

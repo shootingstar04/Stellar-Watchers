@@ -7,6 +7,8 @@ public class ElevatorSwitch : MonoBehaviour
 {
     public static ElevatorSwitch EVSwitch;
 
+    [SerializeField] bool isThisSwitchUP;
+
     float tolerance = 0.0000001f;
 
     private void Awake()
@@ -20,11 +22,23 @@ public class ElevatorSwitch : MonoBehaviour
         if (!Elevator.EV.isWorking)
         {
             Debug.Log("엘리베이터 작동중 x");
-            if (!Mathf.Approximately(Elevator.EV.SwitchDown.transform.position.y, Elevator.EV.cage.transform.position.y))
+            if (!isThisSwitchUP)
             {
-                Debug.Log("엘리베이터 호출");
-                Elevator.EV.Active();
+                if (!Mathf.Approximately(Elevator.EV.SwitchDown.transform.position.y, Elevator.EV.cage.transform.position.y))
+                {
+                    Debug.Log("엘리베이터 호출");
+                    Elevator.EV.Active();
+                }
             }
+            else
+            {
+                if (!Mathf.Approximately(Elevator.EV.SwitchUp.transform.position.y, Elevator.EV.cage.transform.position.y))
+                {
+                    Debug.Log("엘리베이터 호출");
+                    Elevator.EV.Active();
+                }
+            }
+
         }
 
     }
