@@ -11,6 +11,8 @@ public class MapTeleporter1 : MonoBehaviour
     private int currentIndex;
     private int targetIndex;
 
+    [SerializeField] int DoNotLoadInThisIndex = 2;
+
     [Header("목표 텔레포트 위치")]
     [Tooltip("맵 순서 따라 다음 맵이면 true, 이전 맵이면 fasle")]
     [SerializeField] bool isLeftRight;
@@ -36,7 +38,7 @@ public class MapTeleporter1 : MonoBehaviour
 
         Debug.Log("objname = " + this.name + ", isLeftRight = " + isLeftRight + ", returnLR = " + returnLR);
 
-        if(currentIndex != 1)
+        if(currentIndex != DoNotLoadInThisIndex)
         {
             Debug.Log("텔포판별시작");
             bool temp = DontDestroy.thisIsPlayer.giveLeftRight();
