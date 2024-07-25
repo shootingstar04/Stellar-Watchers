@@ -28,9 +28,13 @@ public class ProgressExplanatioon : MonoBehaviour
     {
         buttonParent = GameObject.Find("Progress").transform.Find("Buttons").gameObject;
 
+        Debug.Log(buttonParent.name);
+
         for (int i = 0; i < buttonParent.transform.childCount; i++)
         {
             buttons.Add(buttonParent.transform.GetChild(i).gameObject);
+
+            Debug.Log(buttons[i].name);
         }
 
         GameObject a = this.transform.Find("BackGround").transform.Find("BG 3").gameObject;

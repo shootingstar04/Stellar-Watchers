@@ -16,7 +16,7 @@ public class PlayerMove : MonoBehaviour
     public float invincibilityDuration = 1f;
     public float fallMultiplier = 2.5f; // 낙하 속도 증가를 위한 계수
     public float wallJumpForce = 10f; // 추가된 부분: 벽 점프 힘
-    public float foot_size = 0.6f;
+    public float foot_size = 0.5f;
 
     private Rigidbody2D rigid;
     private bool isGrounded;
@@ -58,7 +58,6 @@ public class PlayerMove : MonoBehaviour
             AnimationControl();
             CheckGround();//지형 확인
         }
-        Debug.Log(isGrounded);
     }
 
     void Move()
@@ -94,11 +93,22 @@ public class PlayerMove : MonoBehaviour
 
     void Jump()
     {
-        if (isGrounded || isGrabWall)
+        if ((isGrounded || isGrabWall))
         {
             canJump = ProgressData.Instance.Acquired[2] ? 2 : 1;
         }
 
+        if (!isGrounded && !isGrabWall && !isJumping)
+        {
+            if (ProgressData.Instance.Acquired[2] && canJump == 2)
+            {
+                canJump = 1;
+            }
+            else if (!ProgressData.Instance.Acquired[2] && canJump == 1)
+            {
+                canJump = 0;
+            }
+        }
 
         if (canJump > 0 && Input.GetButtonDown("Jump"))
         {
@@ -193,7 +203,7 @@ public class PlayerMove : MonoBehaviour
                     rigid.gravityScale = 1;
                 }
             }
-            else if (isGrounded)
+            else if (isGrounded || isGrabWall)
             {
                 canDash = true;
             }
@@ -202,6 +212,7 @@ public class PlayerMove : MonoBehaviour
 
     void GrabWall()
     {
+
         if (ProgressData.Instance.Acquired[1])
         {
             if (isTouchingWall && rigid.velocity.x * (wallCheck.position.x - this.transform.position.x) > 0)
@@ -226,13 +237,10 @@ public class PlayerMove : MonoBehaviour
     {
         isTouchingWall = Physics2D.OverlapCircle(wallCheck.position, wallCheckRadius, wallLayer);
 
-        RaycastHit2D hit = Physics2D.Raycast((Vector2)groundCheck.position - new Vector2(lastDirection * foot_size, 0), Vector2.right * lastDirection, foot_size * 2, groundLayer);
+        RaycastHit2D hit = Physics2D.Raycast((Vector2)groundCheck.position - new Vector2(lastDirection * foot_size / 2, 0), Vector2.right * lastDirection, foot_size, groundLayer);
 
-        Debug.DrawRay((Vector2)groundCheck.position - new Vector2(lastDirection * foot_size, 0), Vector2.right * lastDirection + new Vector2(lastDirection * foot_size,0));
 
         isGrounded = hit.collider == null ? false : true;
-
-        Debug.Log(hit.collider);
     }
 
 
