@@ -58,6 +58,7 @@ public class PlayerMove : MonoBehaviour
             AnimationControl();
             CheckGround();//지형 확인
         }
+        Debug.Log(isGrounded);
     }
 
     void Move()
@@ -227,7 +228,11 @@ public class PlayerMove : MonoBehaviour
 
         RaycastHit2D hit = Physics2D.Raycast((Vector2)groundCheck.position - new Vector2(lastDirection * foot_size, 0), Vector2.right * lastDirection, foot_size * 2, groundLayer);
 
+        Debug.DrawRay((Vector2)groundCheck.position - new Vector2(lastDirection * foot_size, 0), Vector2.right * lastDirection + new Vector2(lastDirection * foot_size,0));
+
         isGrounded = hit.collider == null ? false : true;
+
+        Debug.Log(hit.collider);
     }
 
 
