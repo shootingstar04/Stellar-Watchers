@@ -16,6 +16,13 @@ public class PlayerSP : MonoBehaviour
             return curSP;
         }
     }
+    public int MaxSP
+    {
+        get
+        {
+            return maxSP;
+        }
+    }
     void Awake()
     {
         if (!instance)

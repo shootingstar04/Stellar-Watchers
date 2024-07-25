@@ -44,7 +44,7 @@ public class ItemPopUp : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Escape)) off_PopUp();
     }
 
-    public void show_PopUP(int itemType, int itemNum) 
+    public void show_PopUP(CollectItem item) 
     {
         UIManager.show_popup();
         itemPopUp.SetActive(true);
@@ -54,21 +54,21 @@ public class ItemPopUp : MonoBehaviour
         Cursor.lockState =CursorLockMode.None;
         Time.timeScale = 0;
 
-        switch (itemType) {
-            case 0:
-                name.text = ItemData.Instance.Name[itemNum];
-                explanation.text = ItemData.Instance.Explanation[itemNum];
-                image.sprite = ItemData.Instance.Image[itemNum];
+        switch (item.itemType) {
+            case CollectItem.type.collect:
+                name.text = ItemData.Instance.Name[item.itemNum];
+                explanation.text = ItemData.Instance.Explanation[item.itemNum];
+                image.sprite = ItemData.Instance.Image[item.itemNum];
                 break;
-            case 1:
-                name.text = SkillData.Instance.Name[itemNum];
-                explanation.text = SkillData.Instance.Explanation[itemNum];
-                image.sprite = SkillData.Instance.Image[itemNum];
+            case CollectItem.type.skill:
+                name.text = SkillData.Instance.Name[item.itemNum];
+                explanation.text = SkillData.Instance.Explanation[item.itemNum];
+                image.sprite = SkillData.Instance.Image[item.itemNum];
                 break;
-            case 2:
-                name.text = keyNames[itemNum];
-                explanation.text = keyExplanations[itemNum];
-                image.sprite = keyImages[itemNum];
+            case CollectItem.type.progress:
+                name.text = ProgressData.Instance.Name[item.itemNum];
+                explanation.text = ProgressData.Instance.Explanation[item.itemNum];
+                image.sprite = ProgressData.Instance.Image[item.itemNum];
                 break;
         }
 

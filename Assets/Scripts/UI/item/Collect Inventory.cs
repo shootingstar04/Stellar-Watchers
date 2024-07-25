@@ -63,7 +63,7 @@ public class CollectInventory : MonoBehaviour
                     case CollectItem.type.reinforcementStone:
                         if (item.itemNum < ProgressData.Instance.Acquired.Count)
                         {
-                            ProgressData.Instance.Acquired[item.itemNum] = true;
+                            ProgressData.Instance.Acquired[3] = true;
                             ProgressData.Instance.stoneCount += 1;
                         }
                         break;
@@ -75,7 +75,7 @@ public class CollectInventory : MonoBehaviour
                 }
 
                 if (item.showPopUp) {
-                    this.GetComponent<ItemPopUp>().show_PopUP((int)item.itemType, item.itemNum);
+                    this.GetComponent<ItemPopUp>().show_PopUP(item);
                 }
 
                 item.StartCoroutine(item.destroy_item());

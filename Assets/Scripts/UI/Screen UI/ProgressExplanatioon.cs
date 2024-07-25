@@ -19,6 +19,10 @@ public class ProgressExplanatioon : MonoBehaviour
     private int gender = 1;//1 = male, -1 = female
 
 
+    private Text HP;
+    private Text SP;
+
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -29,9 +33,15 @@ public class ProgressExplanatioon : MonoBehaviour
             buttons.Add(buttonParent.transform.GetChild(i).gameObject);
         }
 
-        currentExplanation = this.transform.Find("explanation").gameObject.GetComponent<Text>();
-        currentImage = this.transform.Find("image").gameObject.GetComponent<Image>();
-        currentName = this.transform.Find("name").gameObject.GetComponent<Text>();
+        GameObject a = this.transform.Find("BackGround").transform.Find("BG 3").gameObject;
+        GameObject b = this.transform.Find("BackGround").transform.Find("BG 1").gameObject;
+
+        HP = b.transform.Find("HP").transform.Find("text").GetComponent<Text>();
+        SP = b.transform.Find("SP").transform.Find("text").GetComponent<Text>();
+
+        currentExplanation = a.transform.Find("explanation").gameObject.GetComponent<Text>();
+        currentImage = a.transform.Find("image").gameObject.GetComponent<Image>();
+        currentName = a.transform.Find("name").gameObject.GetComponent<Text>();
 
         currentImage.sprite = ProgressData.Instance.Image[0];
         currentExplanation.text = ProgressData.Instance.Explanation[0];
@@ -102,6 +112,26 @@ public class ProgressExplanatioon : MonoBehaviour
                     currentName.text = ProgressData.Instance.weaponName[count + 4];
                 }
             }
+        }
+    }
+
+    public void Set_button_image()
+    {
+        HP.text = "x " + PlayerHealth.instance.MaxHP;
+        SP.text = "x " + PlayerSP.instance.MaxSP;
+
+
+        buttons[0].GetComponent<Image>().sprite = ProgressData.Instance.weaponImage[gender == 1 ? 0 : 4 + ProgressData.Instance.reinforcementCount];
+
+        for (int i = 1; i < buttonParent.transform.childCount - 1; i++)
+        {
+            if (i == 4)
+                buttons[i].transform.Find("text").GetComponent<Text>().text = "x " + ProgressData.Instance.stoneCount;
+
+            if (ProgressData.Instance.Acquired[i - 1])
+                buttons[i].GetComponent<Image>().sprite = ProgressData.Instance.Image[i - 1];
+            else
+                buttons[i].GetComponent<Image>().sprite = ProgressData.Instance.Image[ProgressData.Instance.Acquired.Count - 1];
         }
     }
 

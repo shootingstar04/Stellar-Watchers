@@ -65,7 +65,6 @@ public class SkillSet : MonoBehaviour
                 {
                     if (settedSkill[i, j] == (skill)skillNum)
                     {
-                        Debug.Log(1);
                         Color ButtonColor = buttons[skillNum].GetComponent<Image>().color;
                         ButtonColor += Color.white / 3;
 
@@ -88,7 +87,6 @@ public class SkillSet : MonoBehaviour
                     }
                 }
             }
-            Debug.Log(2);
 
             int gender = skillNum / 4;
             int askillNum = skillNum % 4;

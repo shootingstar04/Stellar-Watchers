@@ -35,6 +35,10 @@ public class InspectorManager : MonoBehaviour
 
             if (info[0].GetComponent<CollectPopUp>())
                 info[0].GetComponent<CollectPopUp>().set_button_image();
+            if (info[0].GetComponent<SkillSet>())
+                info[0].GetComponent<SkillSet>().set_button_image();
+            if (info[0].GetComponent<ProgressExplanatioon>())
+                info[0].GetComponent<ProgressExplanatioon>().Set_button_image();
         }
     }
 
@@ -65,10 +69,11 @@ public class InspectorManager : MonoBehaviour
         }
 
         if (info[0].GetComponent<CollectPopUp>())
-            info[0].GetComponent<CollectPopUp>().
-                set_button_image();
+            info[0].GetComponent<CollectPopUp>().set_button_image();
         if (info[0].GetComponent<SkillSet>())
-            info[0].GetComponent<SkillSet>().set_button_image();
+            info[0].GetComponent<SkillSet>().set_button_image(); 
+        if (info[0].GetComponent<ProgressExplanatioon>())
+            info[0].GetComponent<ProgressExplanatioon>().Set_button_image();
 
         if (info[0].transform.Find("Buttons").transform.Find("start"))
             info[0].transform.Find("Buttons").transform.Find("start").GetComponent<Button>().Select();

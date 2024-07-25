@@ -16,6 +16,13 @@ public class PlayerHealth : MonoBehaviour
             return curHP;
         }
     }
+    public int MaxHP
+    {
+        get
+        {
+            return maxHP;
+        }
+    }
 
     void Awake()
     {

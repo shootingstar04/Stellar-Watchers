@@ -16,11 +16,12 @@ public class PlayerMove : MonoBehaviour
     public float invincibilityDuration = 1f;
     public float fallMultiplier = 2.5f; // 낙하 속도 증가를 위한 계수
     public float wallJumpForce = 10f; // 추가된 부분: 벽 점프 힘
-    public float foot_size = 0.7f;
+    public float foot_size = 0.6f;
 
     private Rigidbody2D rigid;
     private bool isGrounded;
     private bool isJumping;
+    private int canJump;
     private bool isDashing;
     private bool canDash;
     private bool isTouchingWall; // 추가된 부분: 벽에 닿았는지 여부
@@ -45,35 +46,39 @@ public class PlayerMove : MonoBehaviour
         animator = this.GetComponent<Animator>();
     }
 
+
     void Update()
     {
-        CheckGround(); //지형 확인
-        Move();
-        GrabWall();
-        Jump();
-        Dash();
-        AnimationControl();
+        if (Time.timeScale != 0)
+        {
+            Move();
+            GrabWall();
+            Jump();
+            Dash();
+            AnimationControl();
+            CheckGround();//지형 확인
+        }
     }
 
     void Move()
     {
+        float moveInput = Input.GetAxis("Horizontal");
+
+        if (moveInput != 0)
+        {
+            lastDirection = moveInput > 0 ? 1f : -1f;
+        }
+
+        if (moveInput < 0)
+        {
+            transform.localEulerAngles = new Vector3(0, 180, 0);
+        }
+        else if (moveInput > 0)
+        {
+            transform.localEulerAngles = new Vector3(0, 0, 0);
+        }
         if (!isDashing && !isWallJump)
         {
-            float moveInput = Input.GetAxis("Horizontal");
-
-            if (moveInput != 0)
-            {
-                lastDirection = moveInput > 0 ? 1f : -1f;
-            }
-
-            if (moveInput < 0)
-            {
-                transform.localEulerAngles = new Vector3(0, 180, 0);
-            }
-            else if (moveInput > 0)
-            {
-                transform.localEulerAngles = new Vector3(0, 0, 0);
-            }
 
             if (Mathf.Abs(rigid.velocity.x) > moveSpeed && rigid.velocity.x * moveInput > 0)
             {
@@ -88,15 +93,20 @@ public class PlayerMove : MonoBehaviour
 
     void Jump()
     {
+        if (isGrounded || isGrabWall)
+        {
+            canJump = ProgressData.Instance.Acquired[2] ? 2 : 1;
+        }
 
-        if ((isGrounded || isTouchingWall) && Input.GetButtonDown("Jump"))
+
+        if (canJump > 0 && Input.GetButtonDown("Jump"))
         {
             isJumping = true;
             jumpTimeCounter = 0f;
             rigid.velocity = new Vector2(rigid.velocity.x, jumpForce);
             animator.SetTrigger("Jump");
 
-            if (isTouchingWall && !isGrounded)
+            if (isTouchingWall && !isGrounded && ProgressData.Instance.Acquired[1])
             {
                 isWallJump = true;
                 // 벽 점프 시 플레이어를 반대 방향으로 튕겨내기
@@ -131,19 +141,22 @@ public class PlayerMove : MonoBehaviour
             else
             {
                 isJumping = false;
+                canJump -= 1;
             }
         }
 
-        if (Input.GetButtonUp("Jump"))
+        if (isJumping && !Input.GetButton("Jump"))
         {
             isJumping = false;
             isWallJump = false;
+            canJump -= 1;
         }
 
         if (!isGrounded && !isJumping && rigid.velocity.y > 0)
         {
             rigid.velocity = new Vector2(rigid.velocity.x, rigid.velocity.y * 0.5f);
         }
+       
 
         // 떨어질 때 속도를 증가시키는 로직
         if (rigid.velocity.y < 0)
@@ -154,64 +167,71 @@ public class PlayerMove : MonoBehaviour
 
     void Dash()
     {
-        if (Input.GetKeyDown(KeyCode.C) && canDash)
+        if (ProgressData.Instance.Acquired[0])
         {
-            isDashing = true;
-            isJumping = false;
-            isWallJump = false;
-            canDash = false;
-            dashTimeCounter = dashDuration;
-            rigid.velocity = new Vector2(dashForce * lastDirection, 0);
-            rigid.gravityScale = 0;
-        }
-
-        if (isDashing)
-        {
-            gameObject.layer = 8;
-            dashTimeCounter -= Time.deltaTime;
-            if (dashTimeCounter <= 0)
+            if (Input.GetKeyDown(KeyCode.C) && canDash)
             {
-                isDashing = false;
-                rigid.velocity = Vector2.zero;
-                gameObject.layer = 7;
-                rigid.gravityScale = 1;
+                isDashing = true;
+                isJumping = false;
+                isWallJump = false;
+                canDash = false;
+                dashTimeCounter = dashDuration;
+                rigid.velocity = new Vector2(dashForce * lastDirection, 0);
+                rigid.gravityScale = 0;
             }
-        }
-        else if (isGrounded)
-        {
-            canDash = true;
+
+            if (isDashing)
+            {
+                gameObject.layer = 8;
+                dashTimeCounter -= Time.deltaTime;
+                if (dashTimeCounter <= 0)
+                {
+                    isDashing = false;
+                    rigid.velocity = Vector2.zero;
+                    gameObject.layer = 7;
+                    rigid.gravityScale = 1;
+                }
+            }
+            else if (isGrounded)
+            {
+                canDash = true;
+            }
         }
     }
 
     void GrabWall()
     {
-        if (isTouchingWall && rigid.velocity.x * (wallCheck.position.x - this.transform.position.x) > 0 )
+        if (ProgressData.Instance.Acquired[1])
         {
-            isGrabWall = true;
-            rigid.gravityScale = 0f;
-            rigid.velocity = new Vector2(rigid.velocity.x, -1 * wallSlidingSpeed);
-        }
-
-        if (isGrabWall)
-        {
-            if (!isTouchingWall || isJumping || isDashing)
+            if (isTouchingWall && rigid.velocity.x * (wallCheck.position.x - this.transform.position.x) > 0)
             {
-                rigid.gravityScale = 1;
-                isGrabWall = false;
+                isGrabWall = true;
+                rigid.gravityScale = 0f;
+                rigid.velocity = new Vector2(rigid.velocity.x, -1 * wallSlidingSpeed);
+            }
+
+            if (isGrabWall)
+            {
+                if (!isTouchingWall || isJumping || isDashing)
+                {
+                    rigid.gravityScale = 1;
+                    isGrabWall = false;
+                }
             }
         }
-
     }
-    // 추가된 부분: 벽 감지 함수
+    // 추가된 부분: 지형 감지 함수
     void CheckGround()
     {
         isTouchingWall = Physics2D.OverlapCircle(wallCheck.position, wallCheckRadius, wallLayer);
 
-        RaycastHit2D hit = Physics2D.Raycast((Vector2)groundCheck.position - new Vector2(lastDirection * foot_size, 0.2f), Vector2.right * lastDirection, foot_size * 2, groundLayer);
+        RaycastHit2D hit = Physics2D.Raycast((Vector2)groundCheck.position - new Vector2(lastDirection * foot_size, 0), Vector2.right * lastDirection, foot_size * 2, groundLayer);
 
         isGrounded = hit.collider == null ? false : true;
     }
 
+
+    // 추가된 부분: 애니매이션 재생 함수
     void AnimationControl()
     {
         animator.SetFloat("AirSpeedY", rigid.velocity.y);
