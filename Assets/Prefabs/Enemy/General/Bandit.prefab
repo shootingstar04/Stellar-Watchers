@@ -13,9 +13,11 @@ GameObject:
   - component: {fileID: 5832347558060052179}
   - component: {fileID: 7162952642421591794}
   - component: {fileID: 7462606144030238024}
-  m_Layer: 0
+  - component: {fileID: -7886077764210310157}
+  - component: {fileID: 6088138954150952700}
+  m_Layer: 6
   m_Name: Bandit
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -180,3 +182,35 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-7886077764210310157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 658300764385624329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b46f4ccf9666d5643a012266df3027f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 0
+  player: {fileID: 5601640077373299387, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
+  detectionRadius: 10
+  attackRadius: 5
+  moveSpeed: 4
+  recoverTime: 5
+  CurHP: 20
+--- !u!114 &6088138954150952700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 658300764385624329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 529de97fd3abe7043aeaeb9c5634700e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemyName: Bandit
