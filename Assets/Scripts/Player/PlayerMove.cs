@@ -27,6 +27,7 @@ public class PlayerMove : MonoBehaviour
     private bool isTouchingWall; // 추가된 부분: 벽에 닿았는지 여부
     private bool isWallJump;
     private bool isGrabWall;
+    private bool ispause;
     private float jumpTimeCounter;
     private float dashTimeCounter;
     private Transform groundCheck;
@@ -51,7 +52,7 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        if (Time.timeScale != 0)
+        if (Time.timeScale != 0 || !ispause)
         {
             Move();
             GrabWall();
@@ -261,5 +262,17 @@ public class PlayerMove : MonoBehaviour
         animator.SetBool("Grounded", isGrounded);
         animator.SetBool("WallSlide", isGrabWall);
         animator.SetInteger("AnimState", rigid.velocity.x != 0 ? 1 : 0);
+    }
+
+
+    public void PauseMove() 
+    {
+        rigid.velocity = Vector2.zero;
+        ispause = true;
+    }
+
+    public void RestartMove()
+    {
+        ispause = false;
     }
 }
