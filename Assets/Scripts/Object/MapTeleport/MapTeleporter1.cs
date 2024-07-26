@@ -40,6 +40,7 @@ public class MapTeleporter1 : MonoBehaviour
 
         if(currentIndex != DoNotLoadInThisIndex)
         {
+            SceneTransition.instance.makeItBright();
             Debug.Log("텔포판별시작");
             bool temp = DontDestroy.thisIsPlayer.giveLeftRight();
             if(temp != isLeftRight)
@@ -50,7 +51,7 @@ public class MapTeleporter1 : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (isLeftRight) //enum순서상 다음 맵
         {
@@ -62,17 +63,31 @@ public class MapTeleporter1 : MonoBehaviour
         }
         Debug.Log(targetIndex);
         Teleport(targetIndex);
+        Destroy(this.GetComponent<Collider2D>());
     }
 
     public void Teleport(int MapNum)
     {
         DontDestroy.thisIsPlayer.getLeftRight(isLeftRight);
-        SceneManager.LoadScene(MapNum);
+        Transition(MapNum);
+        
+        
     }
 
     public static bool GiveIsLR()
     {
         Debug.Log("텔레포터 호출, " + returnLR);
         return returnLR;
+    }
+
+    IEnumerator Transition(int MapNum)
+    {
+        SceneTransition.instance.makeItDark();
+        yield return new WaitForSeconds(0.5f);
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(MapNum);
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
     }
 }

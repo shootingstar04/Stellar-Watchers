@@ -20,7 +20,7 @@ public class Spike : MonoBehaviour
                 StartCoroutine(PlayHitEffect(collision.gameObject));
             }
         }
-        ReturnPlayer(collision.gameObject);
+        
     }
 
     IEnumerator PlayHitEffect(GameObject obj)
@@ -29,6 +29,10 @@ public class Spike : MonoBehaviour
         sprite.color = Color.red;
         yield return new WaitForSeconds(0.2f);
         sprite.color = Color.white;
+        SceneTransition.instance.makeItDark();
+        yield return new WaitForSeconds(0.5f);
+        SceneTransition.instance.makeItBright();
+        ReturnPlayer(obj.gameObject);
     }
 
     private void ReturnPlayer(GameObject player)
@@ -62,7 +66,6 @@ public class Spike : MonoBehaviour
             }
             player.transform.position = new Vector3(temp.position.x, temp.position.y, player.transform.position.z);
         }
-        SceneTransition.instance.NextMap();
     }
 
     public void ReturnPos(Transform pos)

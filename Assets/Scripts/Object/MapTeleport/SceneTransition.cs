@@ -27,6 +27,7 @@ public class SceneTransition : MonoBehaviour
 
     public void NextMap()//(Transform targetPos, sbyte offset)
     {
+        Debug.Log("æ¿ ¿¸»Ø ¿Ã∆Â∆Æ Ω√¿€");
         StartCoroutine(LoadMap());//(targetPos, offset)
     }
 
@@ -38,6 +39,16 @@ public class SceneTransition : MonoBehaviour
         Player = GameObject.FindGameObjectWithTag(Define.PlayerTag);
         Player.transform.position = new Vector3(targetPos.position.x + offset * 2, targetPos.position.y, Player.transform.position.z);
         */
+        transitionAnim.SetTrigger("Start");
+    }
+
+    public void makeItDark()
+    {
+        transitionAnim.SetTrigger("End");
+    }
+
+    public void makeItBright()
+    {
         transitionAnim.SetTrigger("Start");
     }
 
