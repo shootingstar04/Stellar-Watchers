@@ -31,6 +31,7 @@ public class PlayerMove : MonoBehaviour
     private float dashTimeCounter;
     private Transform groundCheck;
     private Transform wallCheck; // 추가된 부분: 벽 감지용 트랜스폼
+    private Transform headingCheck; // 추가된 부분: 천장 감지용 트랜스폼
     private float wallCheckRadius = 0.2f; // 추가된 부분: 벽 감지 반경
     private float lastDirection = 1f;
 
@@ -43,6 +44,7 @@ public class PlayerMove : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         groundCheck = transform.Find("GroundCheck");
         wallCheck = transform.Find("WallCheck"); // 추가된 부분: WallCheck 트랜스폼 찾기
+        headingCheck = transform.Find("HeadingCheck"); // 추가된 부분: HeadingCheck 트랜스폼 찾기
         animator = this.GetComponent<Animator>();
     }
 
@@ -237,10 +239,18 @@ public class PlayerMove : MonoBehaviour
     {
         isTouchingWall = Physics2D.OverlapCircle(wallCheck.position, wallCheckRadius, wallLayer);
 
-        RaycastHit2D hit = Physics2D.Raycast((Vector2)groundCheck.position - new Vector2(lastDirection * foot_size / 2, 0), Vector2.right * lastDirection, foot_size, groundLayer);
+        RaycastHit2D foothit = Physics2D.Raycast((Vector2)groundCheck.position - new Vector2(lastDirection * foot_size / 2, 0), Vector2.right * lastDirection, foot_size, groundLayer);
 
+        RaycastHit2D headhit = Physics2D.Raycast((Vector2)headingCheck.position - new Vector2(lastDirection * foot_size / 2, 0), Vector2.right * lastDirection, foot_size, groundLayer);
 
-        isGrounded = hit.collider == null ? false : true;
+        isGrounded = foothit.collider == null ? false : true;
+
+        if (headhit.collider != null)
+        {
+            isJumping = false;
+            isWallJump = false;
+            canJump -= 1;
+        }
     }
 
 
