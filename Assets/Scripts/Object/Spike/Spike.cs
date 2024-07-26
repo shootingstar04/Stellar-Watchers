@@ -33,9 +33,9 @@ public class Spike : MonoBehaviour
         sprite.color = Color.red;
         yield return new WaitForSeconds(0.2f);
         sprite.color = Color.white;
-        SceneTransition.instance.makeItDark();
+        SceneTransition.instance.FadeOut();
         yield return new WaitForSeconds(0.5f);
-        SceneTransition.instance.makeItBright();
+        SceneTransition.instance.FadeIn();
         ReturnPlayer(obj.gameObject);
     }
 
