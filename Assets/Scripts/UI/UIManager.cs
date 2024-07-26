@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
+    public static UIManager instance;
+
     private List<GameObject> screen = new List<GameObject>();
     private List<bool> isShowing = new List<bool>();
     //0 : Inspector, 1 : Map
@@ -19,6 +21,18 @@ public class UIManager : MonoBehaviour
         {
             return showingPopUp;
         }    
+    }
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
 
 
@@ -131,5 +145,20 @@ public class UIManager : MonoBehaviour
     public void off_PopUp()
     {
         showingPopUp = false;
+    }
+
+    public void pause()
+    {
+        isShowingUI = true;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        Time.timeScale = 0;
+    }
+    public void start()
+    {
+        isShowingUI = false;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Time.timeScale = 1;
     }
 }

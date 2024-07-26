@@ -5,11 +5,6 @@ using UnityEngine.UI;
 
 public class ItemPopUp : MonoBehaviour
 {
-    [TextArea]
-    public List<string> keyExplanations = new List<string>();
-    public List<string> keyNames = new List<string>();
-    public List<Sprite> keyImages = new List<Sprite>();
-
     private GameObject itemPopUp;
     private UIManager UIManager;
 
