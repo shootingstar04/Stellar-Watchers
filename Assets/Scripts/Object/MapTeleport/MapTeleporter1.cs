@@ -69,9 +69,9 @@ public class MapTeleporter1 : MonoBehaviour
     public void Teleport(int MapNum)
     {
         DontDestroy.thisIsPlayer.getLeftRight(isLeftRight);
-        Transition(MapNum);
-        
-        
+        StartCoroutine( Transition(MapNum));
+
+
     }
 
     public static bool GiveIsLR()
@@ -84,10 +84,6 @@ public class MapTeleporter1 : MonoBehaviour
     {
         SceneTransition.instance.makeItDark();
         yield return new WaitForSeconds(0.5f);
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(MapNum);
-        while (!asyncLoad.isDone)
-        {
-            yield return null;
-        }
+        SceneManager.LoadScene(MapNum);
     }
 }
