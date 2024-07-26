@@ -10,13 +10,17 @@ public class Spike : MonoBehaviour
     [SerializeField] bool isSpike;
     private Transform priviousPos;
 
+    [SerializeField] private int Damage = 1;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag(Define.PlayerTag))
         {
+            collision.GetComponent<PlayerMove>().PauseMove();
             if (isSpike)
             {
                 Debug.Log("데미지");
+                PlayerHealth.instance.modify_HP(-Damage);
                 StartCoroutine(PlayHitEffect(collision.gameObject));
             }
         }
@@ -65,6 +69,7 @@ public class Spike : MonoBehaviour
                 Debug.Log("temp는 " + temp);
             }
             player.transform.position = new Vector3(temp.position.x, temp.position.y, player.transform.position.z);
+            player.GetComponent<PlayerMove>().RestartMove();
         }
     }
 
