@@ -12,7 +12,16 @@ public class DisPlatform : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            isTriggered = true;
+            isTriggered = true; 
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision) //if dissapeared -> remove sprite && set collider to Trigger instead of SetActive(false). from there find if player is inside of collider
+        //if this method not possible -> use update && raycast/overlapBox in displatformMgr
+    {
+        if(collision.gameObject.CompareTag(Define.PlayerTag))
+        {
+
         }
     }
 }
