@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 7241290557745701054}
   - component: {fileID: 3564733753770127591}
   - component: {fileID: 5575612036237431769}
+  - component: {fileID: 2716617933728985519}
+  - component: {fileID: 7082031105414897134}
   m_Layer: 0
   m_Name: Bringer
   m_TagString: Untagged
@@ -180,3 +182,33 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2716617933728985519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7494296412630966460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd65e510ed705ad4f99568b8290f6f46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 0
+  player: {fileID: 5601640077373299387, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
+  detectionRadius: 10
+  attackRadius: 3
+  CurHP: 20
+--- !u!114 &7082031105414897134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7494296412630966460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 529de97fd3abe7043aeaeb9c5634700e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemyName: Bringer
