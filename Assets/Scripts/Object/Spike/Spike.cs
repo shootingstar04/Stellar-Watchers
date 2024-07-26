@@ -69,8 +69,14 @@ public class Spike : MonoBehaviour
                 Debug.Log("temp´Â " + temp);
             }
             player.transform.position = new Vector3(temp.position.x, temp.position.y, player.transform.position.z);
-            player.GetComponent<PlayerMove>().RestartMove();
         }
+        
+        Debug.Log(player.name);
+        PlayerMove pMove = player.GetComponent<PlayerMove>();
+        if (pMove == null)
+            Debug.Log("fuckyou");
+
+        pMove.RestartMove();
     }
 
     public void ReturnPos(Transform pos)

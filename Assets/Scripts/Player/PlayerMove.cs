@@ -52,7 +52,7 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        if (Time.timeScale != 0 || !ispause)
+        if (!(Time.timeScale == 0 || ispause))
         {
             Move();
             GrabWall();
@@ -273,6 +273,7 @@ public class PlayerMove : MonoBehaviour
 
     public void RestartMove()
     {
+        Debug.Log("리스타트무브");
         ispause = false;
     }
 }

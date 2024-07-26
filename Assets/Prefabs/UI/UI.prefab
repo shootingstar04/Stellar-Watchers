@@ -3202,8 +3202,8 @@ GameObject:
   - component: {fileID: 1978299982304204201}
   - component: {fileID: 1632793354569222161}
   - component: {fileID: 851397586351297366}
-  - component: {fileID: 6424276507893326151}
-  - component: {fileID: 6534602255103207553}
+  - component: {fileID: 4572742310528828186}
+  - component: {fileID: 2895685371164584377}
   m_Layer: 5
   m_Name: Stat Canvas
   m_TagString: Untagged
@@ -3296,7 +3296,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &6424276507893326151
+--- !u!114 &4572742310528828186
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3305,10 +3305,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2153281648918873006}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74f794c129e35d541bb47123b21da9a8, type: 3}
+  m_Script: {fileID: 11500000, guid: c0b993296311b0e45b1d35580146f6c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6534602255103207553
+--- !u!114 &2895685371164584377
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3317,7 +3317,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2153281648918873006}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 212f12cc9c519e842be2d83c3bcdde37, type: 3}
+  m_Script: {fileID: 11500000, guid: 7c99ed93e77db7244812761578a50e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2184885847394038133
