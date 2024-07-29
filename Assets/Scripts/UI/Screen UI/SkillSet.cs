@@ -50,14 +50,7 @@ public class SkillSet : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        for (int i = 0; i < 2; i++)
-        {
-            for (int tj = 0; tj < 2; tj++)
-            {
-                Debug.Log(settedSkill[i, tj].ToString());
-            }
-        }
+    { 
     }
 
     public void Set_skill(int skillNum)

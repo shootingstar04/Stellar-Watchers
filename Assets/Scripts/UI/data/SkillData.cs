@@ -16,7 +16,7 @@ public class SkillData : MonoBehaviour
     [TextArea]
     public List<string> Explanation = new List<string>();
 
-    [SerializeField]
+
     public SkillSet.skill[,] settedSkill = new SkillSet.skill[2, 2]
     {
         { SkillSet.skill.none, SkillSet.skill.none },
