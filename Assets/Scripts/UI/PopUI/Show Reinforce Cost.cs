@@ -43,7 +43,6 @@ public class ShowReinforceCost : MonoBehaviour
                 cost = 0;
                 break;
         }
-        Debug.Log(cost);
         if (cost != 0)
         {
             string changeText = generalText.Replace("x", cost.ToString());

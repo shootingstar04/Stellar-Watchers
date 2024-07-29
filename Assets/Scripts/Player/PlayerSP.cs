@@ -38,9 +38,6 @@ public class PlayerSP : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.O)) modify_SP(1);
-        if (Input.GetKeyDown(KeyCode.P)) modify_SP(-1);
-        if (Input.GetKeyDown(KeyCode.L)) modify_max_SP(1);
     }
 
     public void modify_SP(int value)

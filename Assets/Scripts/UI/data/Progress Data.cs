@@ -12,18 +12,22 @@ public class ProgressData : MonoBehaviour
     [TextArea]
     public List<string> weaponExplanation = new List<string>();
 
+    [Space(5)]
+
     [Header("기타")]
     [Tooltip("마지막은 획득하지 못한 경우")]
     public List<Sprite> Image = new List<Sprite>();
-    public List<bool> Acquired = new List<bool>();
     public List<string> Name = new List<string>();
     [TextArea]
     public List<string> Explanation = new List<string>();
+    //[HideInInspector]
+    public List<bool> Acquired = new List<bool>();
 
-
-
+    [HideInInspector]
     public int stoneCount = 0;
+    [HideInInspector]
     public int pointCount = 0;
+    [HideInInspector]
     public int reinforcementCount = 0;
 
 

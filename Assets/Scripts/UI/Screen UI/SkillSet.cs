@@ -11,7 +11,7 @@ public class SkillSet : MonoBehaviour
     private GameObject slotParent;
     private List<GameObject> skillSlot = new List<GameObject>();
 
-    private enum skill 
+    public enum skill 
     {
         none = -1,
 
@@ -26,15 +26,13 @@ public class SkillSet : MonoBehaviour
         stunShot
     }
 
-    private skill[,] settedSkill = new skill[2, 2]
-    {
-        { skill.none, skill.none },
-        { skill.none, skill.none }
-    };
+    public SkillSet.skill[,] settedSkill = new SkillSet.skill[2, 2];
 
     // Start is called before the first frame update
     void Awake()
     {
+        settedSkill = SkillData.Instance.settedSkill;
+
         buttonParent = this.transform.Find("Buttons").gameObject;
 
         for (int i = 0; i < buttonParent.transform.childCount; i++)
@@ -53,7 +51,13 @@ public class SkillSet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        for (int i = 0; i < 2; i++)
+        {
+            for (int tj = 0; tj < 2; tj++)
+            {
+                Debug.Log(settedSkill[i, tj].ToString());
+            }
+        }
     }
 
     public void Set_skill(int skillNum)

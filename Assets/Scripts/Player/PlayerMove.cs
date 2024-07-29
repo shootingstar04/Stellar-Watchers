@@ -39,6 +39,50 @@ public class PlayerMove : MonoBehaviour
     SpriteRenderer spriteRenderer;
     Animator animator;
 
+    public enum animationType
+    {
+        idle = 0,
+        block,
+        attack1,
+        attack2,
+        attack3
+    }
+
+    public bool IsJumping
+    {
+        get 
+        {
+            return isJumping;
+        }
+    }
+    public bool IsGrounded
+    {
+        get
+        {
+            return isGrounded;
+        }
+    }
+    public bool IsDashing
+    {
+        get
+        {
+            return isDashing;
+        }
+    }
+    public bool IsGrabWall
+    {
+        get
+        {
+            return isGrabWall;
+        }
+    }
+    public bool IsPause
+    {
+        get
+        {
+            return ispause;
+        }
+    }
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -52,7 +96,7 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        if (Time.timeScale != 0 || !ispause)
+        if (!(Time.timeScale == 0 || ispause))
         {
             Move();
             GrabWall();
@@ -227,7 +271,7 @@ public class PlayerMove : MonoBehaviour
 
             if (isGrabWall)
             {
-                if (!isTouchingWall || isJumping || isDashing)
+                if (!isTouchingWall || isJumping || isDashing || ispause)
                 {
                     rigid.gravityScale = 1;
                     isGrabWall = false;
@@ -264,11 +308,23 @@ public class PlayerMove : MonoBehaviour
         animator.SetInteger("AnimState", rigid.velocity.x != 0 ? 1 : 0);
     }
 
+    public void PlayAnimation(animationType type, float isPlay)
+    {
+        switch (type)
+        {
+            case animationType.block:
+                animator.SetBool("Block", isPlay == 0 ? false : true);
+                animator.SetBool("Grounded", isPlay == 0 ? false : true);
+                break;
+        }
+    }
 
     public void PauseMove() 
     {
         rigid.velocity = Vector2.zero;
         ispause = true;
+        GrabWall();
+        AnimationControl();
     }
 
     public void RestartMove()

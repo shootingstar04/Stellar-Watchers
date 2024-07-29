@@ -39,6 +39,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.W)) modify_HP(-1);
     }
 
     public void modify_HP(int value)

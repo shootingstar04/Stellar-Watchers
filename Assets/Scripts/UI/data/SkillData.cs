@@ -7,12 +7,21 @@ public class SkillData : MonoBehaviour
 {
     public static SkillData Instance;
 
-    public List<Sprite> Image = new List<Sprite>();
+    [HideInInspector]
     public List<bool> Acquired = new List<bool>();
+
+
+    public List<Sprite> Image = new List<Sprite>();
     public List<string> Name = new List<string>();
     [TextArea]
     public List<string> Explanation = new List<string>();
 
+    [SerializeField]
+    public SkillSet.skill[,] settedSkill = new SkillSet.skill[2, 2]
+    {
+        { SkillSet.skill.none, SkillSet.skill.none },
+        { SkillSet.skill.none, SkillSet.skill.none }
+    };
 
     // Start is called before the first frame update
     void Awake()
@@ -30,6 +39,5 @@ public class SkillData : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
     }
 }
