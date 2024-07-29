@@ -12,5 +12,9 @@ public class EnemyData : MonoBehaviour
         {
             this.GetComponent<Bandit>().TakeDamage(damage);
         }
+        if (EnemyName == "Bringer")
+        {
+            this.GetComponent<Bringer>().TakeDamage(damage);
+        }
     }
 }

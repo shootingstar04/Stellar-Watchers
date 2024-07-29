@@ -329,6 +329,7 @@ public class PlayerMove : MonoBehaviour
 
     public void RestartMove()
     {
+        Debug.Log("리스타트무브");
         ispause = false;
     }
 }

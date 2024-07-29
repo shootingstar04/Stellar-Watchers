@@ -40,7 +40,8 @@ public class MapTeleporter1 : MonoBehaviour
 
         if(currentIndex != DoNotLoadInThisIndex)
         {
-            SceneTransition.instance.makeItBright();
+            SceneTransition.instance.FadeIn();
+
             Debug.Log("텔포판별시작");
             bool temp = DontDestroy.thisIsPlayer.giveLeftRight();
             if(temp != isLeftRight)
@@ -69,9 +70,9 @@ public class MapTeleporter1 : MonoBehaviour
     public void Teleport(int MapNum)
     {
         DontDestroy.thisIsPlayer.getLeftRight(isLeftRight);
-        Transition(MapNum);
-        
-        
+        StartCoroutine( Transition(MapNum));
+
+
     }
 
     public static bool GiveIsLR()
@@ -82,12 +83,8 @@ public class MapTeleporter1 : MonoBehaviour
 
     IEnumerator Transition(int MapNum)
     {
-        SceneTransition.instance.makeItDark();
+        SceneTransition.instance.FadeOut();
         yield return new WaitForSeconds(0.5f);
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(MapNum);
-        while (!asyncLoad.isDone)
-        {
-            yield return null;
-        }
+        SceneManager.LoadScene(MapNum);
     }
 }

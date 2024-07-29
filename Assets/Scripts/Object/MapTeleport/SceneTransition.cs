@@ -42,12 +42,12 @@ public class SceneTransition : MonoBehaviour
         transitionAnim.SetTrigger("Start");
     }
 
-    public void makeItDark()
+    public void FadeOut()
     {
         transitionAnim.SetTrigger("End");
     }
 
-    public void makeItBright()
+    public void FadeIn()
     {
         transitionAnim.SetTrigger("Start");
     }
