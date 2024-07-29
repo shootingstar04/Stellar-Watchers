@@ -23,9 +23,22 @@ public class Spike : MonoBehaviour
                 PlayerHealth.instance.modify_HP(-Damage);
                 StartCoroutine(PlayHitEffect(collision.gameObject));
             }
+            else
+            {
+                StartCoroutine(PlayEffect(collision.gameObject));
+            }
         }
         
     }
+
+    IEnumerator PlayEffect(GameObject obj)
+    {
+        SceneTransition.instance.FadeOut();
+        yield return new WaitForSeconds(0.5f);
+        SceneTransition.instance.FadeIn();
+        ReturnPlayer(obj);
+    }
+
 
     IEnumerator PlayHitEffect(GameObject obj)
     {
@@ -33,10 +46,7 @@ public class Spike : MonoBehaviour
         sprite.color = Color.red;
         yield return new WaitForSeconds(0.2f);
         sprite.color = Color.white;
-        SceneTransition.instance.FadeOut();
-        yield return new WaitForSeconds(0.5f);
-        SceneTransition.instance.FadeIn();
-        ReturnPlayer(obj.gameObject);
+        StartCoroutine(PlayEffect(obj));
     }
 
     private void ReturnPlayer(GameObject player)
