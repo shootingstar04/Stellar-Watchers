@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Telescope : MonoBehaviour
@@ -95,6 +97,8 @@ public class Telescope : MonoBehaviour
     void SaveMethod()
     {
         playerdata.Position = this.transform.position;
+        UnityEngine.SceneManagement.Scene scene = SceneManager.GetActiveScene();
+        playerdata.SceneIndex = scene.buildIndex;
         playerdata.Coin = itemdata.GetComponent<ItemData>().CurrentGold;
         Debug.Log(playerdata.Position + "위치, " + playerdata.Coin + "코인");
         TextPopUp.instance.show_PopUp("저장");
