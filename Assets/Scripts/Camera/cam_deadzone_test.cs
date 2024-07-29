@@ -15,6 +15,7 @@ public class cam_deadzone_test : MonoBehaviour
     float sightInput;
     bool jumpInput;
     bool lookAround;
+    public bool interact = false;
 
     public bool isInCutScene = false;
 
@@ -63,7 +64,9 @@ public class cam_deadzone_test : MonoBehaviour
             }
         }
 
-        if (sightInput == 0f || moveInput != 0 || isAttacking || jumpInput)
+        
+
+        if (sightInput == 0f || moveInput != 0 || isAttacking || jumpInput || interact)
         {
             timer = 0f;
             lookAround = false;

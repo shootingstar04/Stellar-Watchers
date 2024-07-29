@@ -11,6 +11,7 @@ TagManager:
   - JumpPad
   - BOMB
   - Teleporter
+  - OneWay
   layers:
   - Default
   - TransparentFX

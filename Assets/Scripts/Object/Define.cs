@@ -13,5 +13,6 @@ public class Define : MonoBehaviour
     public const string JumpPadTag = "JumpPad";
     public const string BombTag = "BOMB";
     public const string TPtag = "Teleporter";
+    public const string OneWayTag = "OneWay";
 
 }
