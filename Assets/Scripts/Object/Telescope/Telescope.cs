@@ -12,10 +12,13 @@ public class Telescope : MonoBehaviour
     private cam_deadzone_test cam;
 
     bool inside = false;
+    [SerializeField] bool isSave;
 
     [SerializeField] private Canvas canvas;
 
     private PlayerData playerdata;
+
+    [SerializeField] private GameObject itemdata;
 
     //private float timer = 0f;
     //private const float StatusActive = 2f;
@@ -27,12 +30,13 @@ public class Telescope : MonoBehaviour
         playermove = Player.GetComponent<PlayerMove>();
         cam = Cam.GetComponent<cam_deadzone_test>();
 
+        playerdata = Resources.Load<PlayerData>("SaveData/PlayerSO");
     }
 
     private void Update()
     {
         if (inside)
-        { 
+        {
             Active();
         }
     }
@@ -41,9 +45,17 @@ public class Telescope : MonoBehaviour
     public void Active()
     {
 
-        if(Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            SaveMethod();
+            if (isSave)
+            {
+                SaveMethod();
+            }
+            else
+            {
+                RockMethod();
+            }
+
         }
         /*
         if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -82,10 +94,19 @@ public class Telescope : MonoBehaviour
 
     void SaveMethod()
     {
-        playerdata.position = this.transform;
+        playerdata.Position = this.transform.position;
+        playerdata.Coin = itemdata.GetComponent<ItemData>().CurrentGold;
+        Debug.Log(playerdata.Position + "위치, " + playerdata.Coin + "코인");
         TextPopUp.instance.show_PopUp("저장");
 
     }
+
+    void RockMethod()
+    {
+        ReinforcePopUp.instance.show_PopUp();
+    }
+
+
     /*
     void StatusMethod()
     {

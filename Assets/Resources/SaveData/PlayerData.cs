@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerData : ScriptableObject
 {
     [Header("General")]
-    public Transform position;
+    public Vector3 Position;
     public int SceneIndex;
     public int Coin;
     public int MaxHp;
