@@ -50,7 +50,7 @@ public class PlayerMove : MonoBehaviour
 
     public bool IsJumping
     {
-        get 
+        get
         {
             return isJumping;
         }
@@ -214,7 +214,7 @@ public class PlayerMove : MonoBehaviour
         {
             rigid.velocity = new Vector2(rigid.velocity.x, rigid.velocity.y * 0.5f);
         }
-       
+
 
         // 떨어질 때 속도를 증가시키는 로직
         if (rigid.velocity.y < 0)
@@ -282,15 +282,23 @@ public class PlayerMove : MonoBehaviour
     // 추가된 부분: 지형 감지 함수
     void CheckGround()
     {
-        isTouchingWall = Physics2D.OverlapCircle(wallCheck.position, wallCheckRadius, wallLayer);
-
+        Collider2D wall = Physics2D.OverlapCircle(wallCheck.position, wallCheckRadius, wallLayer);
+        if (wall != null && !wall.isTrigger)
+        {
+            isTouchingWall = true;
+        }
+        else
+        {
+            isTouchingWall = false;
+        }
         RaycastHit2D foothit = Physics2D.Raycast((Vector2)groundCheck.position - new Vector2(lastDirection * foot_size / 2, 0), Vector2.right * lastDirection, foot_size, groundLayer);
 
         RaycastHit2D headhit = Physics2D.Raycast((Vector2)headingCheck.position - new Vector2(lastDirection * foot_size / 2, 0), Vector2.right * lastDirection, foot_size, groundLayer);
 
-        isGrounded = foothit.collider == null ? false : true;
 
-        if (headhit.collider != null)
+        isGrounded = foothit.collider != null && !foothit.collider.isTrigger ? true : false;
+
+        if (headhit.collider != null && !headhit.collider.isTrigger)
         {
             isJumping = false;
             isWallJump = false;
@@ -319,7 +327,7 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    public void PauseMove() 
+    public void PauseMove()
     {
         rigid.velocity = Vector2.zero;
         ispause = true;
