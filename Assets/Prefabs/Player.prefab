@@ -56,7 +56,7 @@ Transform:
   m_GameObject: {fileID: 1149771299206647761}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.007, y: 0.696, z: 0}
+  m_LocalPosition: {x: 1.154, y: 0.729, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -217,7 +217,39 @@ Transform:
   m_Children:
   - {fileID: 2512897470640941337}
   - {fileID: 4042788679408951549}
+  - {fileID: 93056214812033774}
   m_Father: {fileID: 5601640077373299387}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6782937776388661970
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 93056214812033774}
+  m_Layer: 7
+  m_Name: freyja
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &93056214812033774
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6782937776388661970}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.2, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1753012192705358774}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6927538254496137994
 GameObject:
@@ -802,6 +834,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffe4d1efc4efcfb48a251c52209211fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numbering: 0
+  isTeleported: 0
 --- !u!114 &3599624433234362489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -817,7 +851,10 @@ MonoBehaviour:
   stellaPos: {fileID: 2512897470640941337}
   stellaBox: {x: 4, y: 4}
   meteorPos: {fileID: 4042788679408951549}
-  meteorBox: {x: 2, y: 2}
+  meteorBox: {x: 2.5, y: 2.5}
+  freyjaPos: {fileID: 93056214812033774}
+  freyjaBullet: {fileID: 1735533236137297643, guid: 963a942036369f641a0132c8462da90e, type: 3}
+  soaringBullet: {fileID: 0}
 --- !u!1 &8641076700620156055
 GameObject:
   m_ObjectHideFlags: 0
