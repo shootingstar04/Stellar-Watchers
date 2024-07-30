@@ -28,6 +28,7 @@ public class PlayerMove : MonoBehaviour
     private bool isWallJump;
     private bool isGrabWall;
     private bool ispause;
+    private bool isUsingSkill;
     private float jumpTimeCounter;
     private float dashTimeCounter;
     private Transform groundCheck;
@@ -96,7 +97,7 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        if (!(Time.timeScale == 0 || ispause))
+        if (!(Time.timeScale == 0 || ispause || isUsingSkill))
         {
             Move();
             GrabWall();
@@ -337,7 +338,19 @@ public class PlayerMove : MonoBehaviour
 
     public void RestartMove()
     {
-        Debug.Log("리스타트무브");
         ispause = false;
+    }
+
+    public void UseSkill(bool isStopMove)
+    {
+        rigid.velocity = Vector2.zero;
+        rigid.gravityScale = 1;
+
+        isJumping = false;
+        isWallJump = false;
+        isDashing = false;
+        isGrabWall = false;
+
+        isUsingSkill = isStopMove;
     }
 }

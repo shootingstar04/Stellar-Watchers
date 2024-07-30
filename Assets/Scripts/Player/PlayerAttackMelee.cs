@@ -6,7 +6,7 @@ public class PlayerAttackMelee : MonoBehaviour
 {
     private float curTime = 0f;
     private float coolTime = 0.5f;
-    public int Damage = 3;
+    public int Damage = 5;
 
     public Transform Pos;
     public Transform UpPos;
@@ -27,7 +27,7 @@ public class PlayerAttackMelee : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.X))
         {
-            if (curTime <= 0) 
+            if (curTime <= 0)
             {
                 animator.SetTrigger("Attack1");
                 MeleeAttack();
@@ -36,19 +36,19 @@ public class PlayerAttackMelee : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.A))
         {
-            if (curTime <= 0) 
+            if (curTime <= 0)
             {
                 SlashAttack();
                 curTime = coolTime;
             }
         }
 
-        curTime -= Time.deltaTime;
+        if (curTime > 0) curTime -= Time.deltaTime;
     }
 
     void MeleeAttack()
     {
-        Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(Pos.position, boxSize1, 0);;
+        Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(Pos.position, boxSize1, 0);
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
@@ -59,11 +59,11 @@ public class PlayerAttackMelee : MonoBehaviour
             collider2Ds = Physics2D.OverlapBoxAll(DownPos.position, boxSize2, 0);
         }
 
-        foreach(Collider2D collider in collider2Ds)
+        foreach (Collider2D collider in collider2Ds)
         {
             if (collider.tag == "Enemy")
             {
-                collider.GetComponent<EnemyData>().TakeDamage(Damage);
+                collider.GetComponent<EnemyData>().TakeDamage(Damage * (ProgressData.Instance.reinforcementCount + 1));
             }
             else if (collider.tag == "BOMB")
             {
@@ -75,11 +75,11 @@ public class PlayerAttackMelee : MonoBehaviour
                 Debug.Log("스위치 작동");
                 collider.GetComponent<ElevatorSwitch>().SwitchFlick();
             }
-            else if(collider.GetComponent<Chest>() != null)
+            else if (collider.GetComponent<Chest>() != null)
             {
                 collider.gameObject.GetComponent<Chest>().Distroyed();
             }
-            else if(collider.GetComponent<GeneralDoor>() != null)
+            else if (collider.GetComponent<GeneralDoor>() != null)
             {
                 collider.GetComponent<GeneralDoor>().OpenDoor();
             }
@@ -88,9 +88,9 @@ public class PlayerAttackMelee : MonoBehaviour
 
     void SlashAttack()
     {
-        Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(SlashPos.position, boxSize1, 0);;
+        Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(SlashPos.position, boxSize1, 0); ;
 
-        foreach(Collider2D collider in collider2Ds)
+        foreach (Collider2D collider in collider2Ds)
         {
             if (collider.tag == "Enemy")
             {
@@ -104,7 +104,7 @@ public class PlayerAttackMelee : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos() 
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(Pos.position, boxSize1);
