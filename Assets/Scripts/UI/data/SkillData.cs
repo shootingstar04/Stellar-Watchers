@@ -7,7 +7,7 @@ public class SkillData : MonoBehaviour
 {
     public static SkillData Instance;
 
-    [HideInInspector]
+    //[HideInInspector]
     public List<bool> Acquired = new List<bool>();
 
 
