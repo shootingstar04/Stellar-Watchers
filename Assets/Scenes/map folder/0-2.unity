@@ -102887,8 +102887,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 906802460}
-  - component: {fileID: 906802462}
   - component: {fileID: 906802461}
+  - component: {fileID: 906802462}
   m_Layer: 0
   m_Name: point (5)
   m_TagString: Untagged
@@ -102923,8 +102923,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 737ad11beab5f614e87b073b70674d34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!61 &906802462
-BoxCollider2D:
+--- !u!60 &906802462
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -102952,7 +102952,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -102965,9 +102965,17 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 2, y: 5.352261}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: -5.5600505, y: 7.254776}
+      - {x: -2.5071504, y: 5.373451}
+      - {x: -0.4516554, y: 2.0196838}
+      - {x: -0.45535368, y: -2.3117256}
+      - {x: 0.72043, y: -2.2855947}
+      - {x: 0.5972581, y: 2.4678879}
+      - {x: -1.7059679, y: 6.233528}
+      - {x: -5.6454196, y: 9.036785}
+  m_UseDelaunayMesh: 0
 --- !u!1 &921906883
 GameObject:
   m_ObjectHideFlags: 3
@@ -104363,6 +104371,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 889066016}
+  - {fileID: 1768572688}
   - {fileID: 750678490}
   - {fileID: 1601797357}
   - {fileID: 1273830250}
@@ -104371,7 +104380,6 @@ Transform:
   - {fileID: 783092425}
   - {fileID: 553020486}
   - {fileID: 386175803}
-  - {fileID: 1768572688}
   m_Father: {fileID: 972042149}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1674646256
