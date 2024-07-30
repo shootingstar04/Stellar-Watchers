@@ -84,6 +84,14 @@ public class PlayerMove : MonoBehaviour
             return ispause;
         }
     }
+
+    public float LastDirection
+    {
+        get
+        {
+            return lastDirection;
+        }
+    }
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();

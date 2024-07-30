@@ -7,11 +7,20 @@ public class PlayerSkill : MonoBehaviour
     [Header("스텔라 스트라이크")]
     public Transform stellaPos;
     public Vector2 stellaBox;
+    
     [Space(1)]
     [Header("메테오라이트 슬래시")]
     public Transform meteorPos;
     public Vector2 meteorBox;
 
+    [Space(1)]
+    [Header("프레이야")]
+    public Transform freyjaPos;
+    public GameObject freyjaBullet;
+
+    [Space(1)]
+    [Header("원거리 투사체")]
+    public GameObject soaringBullet;
 
 
 
@@ -20,7 +29,6 @@ public class PlayerSkill : MonoBehaviour
     private SkillSet.skill isUsingSkill = SkillSet.skill.none;
 
     private float skillCounter;
-    private float skillCool;
     private bool isAttacked = false;
     private bool inAir = false;
 
@@ -38,9 +46,13 @@ public class PlayerSkill : MonoBehaviour
     void Update()
     {
         check_input();
+        
         healing();
+        
         stella_strike();
         meteorite_slash();
+
+        freyja();
     }
 
     void check_input()
@@ -66,6 +78,8 @@ public class PlayerSkill : MonoBehaviour
             }
         }
     }
+  
+    
     private void start_skill(SkillSet.skill skilltype)
     {
         if (skilltype != SkillSet.skill.none)
@@ -97,13 +111,23 @@ public class PlayerSkill : MonoBehaviour
                         rigid.gravityScale = 3;
                         inAir = true;
                     }
+                }                
+                break;
+            case SkillSet.skill.bigShot:
+                if (PlayerSP.instance.CurSP > 0)
+                {
+                    PlayerSP.instance.modify_SP(-1);
+                    if (!playerMove.IsGrounded)
+                    {
+                        rigid.gravityScale = 0;
+                        inAir = true;
+                    }
                 }
                 break;
         }
 
         isUsingSkill = skilltype;
     }
-
     private void end_skill()
     {
         playerMove.UseSkill(false);
@@ -112,6 +136,8 @@ public class PlayerSkill : MonoBehaviour
         isAttacked = false;
         inAir = false;
     }
+   
+   
     private void healing()
     {
         if (isHealing)
@@ -138,6 +164,7 @@ public class PlayerSkill : MonoBehaviour
         }
 
     }
+
 
     private void stella_strike()
     {
@@ -168,7 +195,6 @@ public class PlayerSkill : MonoBehaviour
             }
         }
     }
-
     private void meteorite_slash()
     {
         if (isUsingSkill == SkillSet.skill.meteorliteSlash)
@@ -233,8 +259,32 @@ public class PlayerSkill : MonoBehaviour
             }
         }
     }
+   
 
+    private void freyja()
+    {
+        if (isUsingSkill == SkillSet.skill.bigShot)
+        {
+            skillCounter += Time.deltaTime;
 
+            if (!isAttacked)
+            {
+                Debug.Log(skillCounter);
+                isAttacked = true;
+                
+                GameObject instance = Instantiate(freyjaBullet, freyjaPos.position, freyjaPos.rotation);
+
+                instance.GetComponent<Freyja>().dir = (int)playerMove.LastDirection;
+            }
+
+            if (skillCounter > 1.5f)
+            {
+                end_skill();
+            }
+        }
+    }
+
+    
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
