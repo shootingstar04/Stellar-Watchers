@@ -8,32 +8,37 @@ public class DontDestroy : MonoBehaviour
 {
 
     public static DontDestroy thisIsPlayer;
-    private bool priviousMap;
-    private sbyte offset = 0;
+    private bool hasInstance;
+    public int numbering = 0;
+    public bool isTeleported = false;
 
     private void Awake()
     {
-        thisIsPlayer = this;
-        DontDestroyOnLoad(this.gameObject);
-    }
-
-    public void getLeftRight(bool isLR)
-    {
-        if (isLR)
+        if (hasInstance)
         {
-            offset = 1;
+            Destroy(gameObject);
         }
         else
         {
-            offset = -1;
+            hasInstance = true;
+            DontDestroyOnLoad(gameObject);
         }
-        priviousMap = isLR;
-        Debug.Log("priviousMap = " + priviousMap);
+
+        if (thisIsPlayer == null)
+        {
+            thisIsPlayer = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
-    public bool giveLeftRight()
+    public void GetNumbering(int num, bool temp)
     {
-        return priviousMap;
+        numbering = num;
+        isTeleported = temp;
     }
 
 

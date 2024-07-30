@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "sample nameSO", menuName = "MapSO", order = 9)]
-public class MapSO : MonoBehaviour
+[CreateAssetMenu (fileName = "Map num", menuName = "MapSO", order = 8)]
+public class MapSO : ScriptableObject
 {
-    
+    public List<bool> SpawnList = new List<bool>();
 }

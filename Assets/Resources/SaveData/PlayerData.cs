@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PlayerSO", menuName = "PlayerSO", order = 9)]
+//[CreateAssetMenu(fileName = "PlayerSO", menuName = "PlayerSO", order = 9)]
 public class PlayerData : ScriptableObject
 {
     [Header("General")]
@@ -12,6 +12,9 @@ public class PlayerData : ScriptableObject
     public int MaxHp;
     public int MaxSp;
     public int CurrentSp;
+
+    [Header("ItemData")]
+    public List<bool> Acquired_ItemData = new List<bool>();
 
     [Header("SkillData")]
     public List<bool> Acquired_SkillData = new List<bool>(9); //0~8까지 존재
