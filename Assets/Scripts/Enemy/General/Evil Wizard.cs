@@ -22,7 +22,7 @@ public class EvilWizard : MonoBehaviour
     public float attackRadius = 5f;
     public float moveSpeed = 2f;
     public float patrolDistance = 5f; // 순찰할 거리
-    public float attackDelay = 2f; // 공격 딜레이
+    public float attackDelay = 1f; // 공격 딜레이
 
     private Rigidbody2D rb;
     private Animator animator;
@@ -101,7 +101,7 @@ public class EvilWizard : MonoBehaviour
             if (distanceToPlayer <= attackRadius && currentState != State.ATTACK)
             {
                 currentState = State.ATTACK;
-                StartCoroutine(AttackDelay());
+                StartCoroutine(AttackRoutine());
             }
             else if (currentState == State.CHASE && distanceToPlayer > detectionRadius)
             {
@@ -180,17 +180,15 @@ public class EvilWizard : MonoBehaviour
         rb.velocity = Vector2.zero;
         animator.SetBool("Walk", false);
         animator.SetTrigger("Attack");
-
-        // 공격 애니메이션 실행 후 1초 뒤에 투사체 생성
-        StartCoroutine(DelayedProjectileSpawn());
     }
 
-    private IEnumerator AttackDelay()
+    private IEnumerator AttackRoutine()
     {
-        yield return new WaitForSeconds(attackDelay);
-        if (currentState == State.ATTACK)
+        while (currentState == State.ATTACK)
         {
             Attack();
+            yield return new WaitForSeconds(attackDelay); // 공격 딜레이 만큼 기다림
+            SpawnProjectile();
         }
     }
 
@@ -252,13 +250,11 @@ public class EvilWizard : MonoBehaviour
         return hit.collider == null; // 땅의 끝이면 true를 반환
     }
 
-    private IEnumerator DelayedProjectileSpawn()
+    private void SpawnProjectile()
     {
-        yield return new WaitForSeconds(1f); // 공격 딜레이 만큼 기다림
-
         if (currentState == State.ATTACK)
         {
-            GameObject projectile = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
+            Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
         }
     }
 

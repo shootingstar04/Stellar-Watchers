@@ -195,14 +195,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: 0
   player: {fileID: 5601640077373299387, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
-  detectionRadius: 10
-  attackRadius: 10
-  attackCooldown: 2
+  detectionRadius: 20
+  attackRadius: 20
+  attackCooldown: 5
   CurHP: 100
   projectiles:
   - {fileID: 8522138926694928871, guid: 099831c921ff04f40be263e17bb36237, type: 3}
-  - {fileID: 2649416008000187394, guid: 862037c7c71ec6347b71f9e57da7dbdb, type: 3}
   - {fileID: 6880222555565516658, guid: 5094d1557b7552c48a113895b688591a, type: 3}
-  - {fileID: 1407303529245236996, guid: d78d99ff754437e418458d860925d768, type: 3}
-  - {fileID: 3541389025446690452, guid: bfd76049dba696142be23023e04f1fde, type: 3}
-  - {fileID: 5944322810395051484, guid: 88ec24feb74d03746acf79c6467ce29b, type: 3}

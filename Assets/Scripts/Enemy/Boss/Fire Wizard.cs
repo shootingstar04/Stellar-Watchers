@@ -17,14 +17,14 @@ public class FireWizard : MonoBehaviour
     public Transform player;
     public float detectionRadius = 10f;
     public float attackRadius = 7f;
-    public float attackCooldown = 2f;
+    public float attackCooldown = 5f;
 
     public int CurHP = 100;
 
     private Rigidbody2D rb;
     private Animator animator;
 
-    public GameObject[] projectiles; // 6개의 투사체 프리팹을 저장하는 배열
+    public GameObject[] projectiles; // 5개의 투사체 프리팹을 저장하는 배열
 
     private bool isAttacking = false;
 

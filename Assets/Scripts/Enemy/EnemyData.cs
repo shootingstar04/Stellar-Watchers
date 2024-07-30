@@ -16,5 +16,29 @@ public class EnemyData : MonoBehaviour
         {
             this.GetComponent<Bringer>().TakeDamage(damage);
         }
+        if (EnemyName == "Evil Wizard")
+        {
+            this.GetComponent<EvilWizard>().TakeDamage(damage);
+        }
+        if (EnemyName == "Goblin")
+        {
+            this.GetComponent<Goblin>().TakeDamage(damage);
+        }
+        if (EnemyName == "Hider")
+        {
+            this.GetComponent<Hider>().TakeDamage(damage);
+        }
+        if (EnemyName == "Mushroom")
+        {
+            this.GetComponent<Mushroom>().TakeDamage(damage);
+        }
+        if (EnemyName == "Skeleton")
+        {
+            this.GetComponent<Skeleton>().TakeDamage(damage);
+        }
+        if (EnemyName == "Warrior")
+        {
+            this.GetComponent<Warrior>().TakeDamage(damage);
+        }
     }
 }

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8522138926694928864}
   - component: {fileID: 8522138926694928865}
   - component: {fileID: 8522138926694928870}
+  - component: {fileID: -592054791437271852}
   m_Layer: 0
   m_Name: Fire Bomb
   m_TagString: Untagged
@@ -106,3 +107,17 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-592054791437271852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8522138926694928871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8e3696a206d9d04d96c223809d4b9f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifetime: 1
+  projectileSpeed: 15
