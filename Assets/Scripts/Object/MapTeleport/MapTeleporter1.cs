@@ -43,12 +43,12 @@ public class MapTeleporter1 : MonoBehaviour
             SceneTransition.instance.FadeIn();
 
             Debug.Log("텔포판별시작");
-            bool temp = DontDestroy.thisIsPlayer.giveLeftRight();
-            if(temp != isLeftRight)
-            {
-                Debug.Log(this.name + "는 맞음.");
-                DontDestroy.thisIsPlayer.transform.position = new Vector3(this.transform.position.x +10, this.transform.position.y, DontDestroy.thisIsPlayer.transform.position.z);
-            }
+            //bool temp = DontDestroy.thisIsPlayer.giveLeftRight();
+            //if(temp != isLeftRight)
+            //{
+            //    Debug.Log(this.name + "는 맞음.");
+            //    DontDestroy.thisIsPlayer.transform.position = new Vector3(this.transform.position.x +10, this.transform.position.y, DontDestroy.thisIsPlayer.transform.position.z);
+            //}
         }
     }
 
@@ -69,7 +69,7 @@ public class MapTeleporter1 : MonoBehaviour
 
     public void Teleport(int MapNum)
     {
-        DontDestroy.thisIsPlayer.getLeftRight(isLeftRight);
+        //DontDestroy.thisIsPlayer.getLeftRight(isLeftRight);
         StartCoroutine( Transition(MapNum));
 
 

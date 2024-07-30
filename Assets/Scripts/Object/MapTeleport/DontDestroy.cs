@@ -8,8 +8,8 @@ public class DontDestroy : MonoBehaviour
 {
 
     public static DontDestroy thisIsPlayer;
-    private bool priviousMap;
-    private sbyte offset = 0;
+    public int numbering = 0;
+    public bool isTeleported = false;
 
     private void Awake()
     {
@@ -17,23 +17,10 @@ public class DontDestroy : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
-    public void getLeftRight(bool isLR)
+    public void GetNumbering(int num, bool temp)
     {
-        if (isLR)
-        {
-            offset = 1;
-        }
-        else
-        {
-            offset = -1;
-        }
-        priviousMap = isLR;
-        Debug.Log("priviousMap = " + priviousMap);
-    }
-
-    public bool giveLeftRight()
-    {
-        return priviousMap;
+        numbering = num;
+        isTeleported = temp;
     }
 
 
