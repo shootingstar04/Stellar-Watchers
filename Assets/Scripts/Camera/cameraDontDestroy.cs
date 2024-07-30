@@ -4,8 +4,29 @@ using UnityEngine;
 
 public class cameraDontDestroy : MonoBehaviour
 {
+    public cameraDontDestroy instance;
+    private static bool hasInstance = false;
+
     private void Awake()
     {
-        DontDestroyOnLoad(this.gameObject);
+        if (hasInstance)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            hasInstance = true;
+            DontDestroyOnLoad(gameObject);
+        }
+
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }

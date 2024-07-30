@@ -16,13 +16,14 @@ public class MapTeleporter : MonoBehaviour
     [Header("해당 텔레포터 위치가 오른쪽인지 왼쪽인지. 왼쪽이 1")]
     [Tooltip("오른쪽이 -1, 왼쪽이 1. 텔레포트 시 스폰 오프셋 조절")]
     [SerializeField] int offset;
+    [SerializeField] int offsetSize = 2;
 
     private void Awake()
     {
         if(DontDestroy.thisIsPlayer.isTeleported && DontDestroy.thisIsPlayer.numbering == Numbering)
         {
             SceneTransition.instance.FadeIn();
-            DontDestroy.thisIsPlayer.transform.position = new Vector3(this.transform.position.x + (10 * offset), this.transform.position.y, DontDestroy.thisIsPlayer.transform.position.z);
+            DontDestroy.thisIsPlayer.transform.position = new Vector3(this.transform.position.x + (offsetSize * offset), this.transform.position.y, DontDestroy.thisIsPlayer.transform.position.z);
         }
     }
 

@@ -8,13 +8,31 @@ public class DontDestroy : MonoBehaviour
 {
 
     public static DontDestroy thisIsPlayer;
+    private bool hasInstance;
     public int numbering = 0;
     public bool isTeleported = false;
 
     private void Awake()
     {
-        thisIsPlayer = this;
-        DontDestroyOnLoad(this.gameObject);
+        if (hasInstance)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            hasInstance = true;
+            DontDestroyOnLoad(gameObject);
+        }
+
+        if (thisIsPlayer == null)
+        {
+            thisIsPlayer = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void GetNumbering(int num, bool temp)
