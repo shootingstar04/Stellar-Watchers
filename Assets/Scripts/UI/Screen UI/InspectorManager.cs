@@ -40,6 +40,26 @@ public class InspectorManager : MonoBehaviour
             if (info[0].GetComponent<ProgressExplanatioon>())
                 info[0].GetComponent<ProgressExplanatioon>().Set_button_image();
         }
+        info[0].transform.position
+            = new Vector3(info[0].transform.position.x, info[0].transform.position.y, -3);
+        info[0].GetComponent<RectTransform>().offsetMin
+            = new Vector2(0, 0);
+        info[0].GetComponent<RectTransform>().offsetMax
+            = new Vector2(0, 0);
+
+        info[1].transform.position
+            = new Vector3(info[1].transform.position.x, info[0].transform.position.y, -2);
+        info[1].GetComponent<RectTransform>().offsetMin
+            = new Vector2(info[0].GetComponent<RectTransform>().offsetMin.x + 1920, 0);
+        info[1].GetComponent<RectTransform>().offsetMax
+            = new Vector2(info[0].GetComponent<RectTransform>().offsetMin.x + 1920, 0);
+
+        info[info.Count - 1].transform.position
+            = new Vector3(info[1].transform.position.x, info[0].transform.position.y, -2);
+        info[info.Count - 1].GetComponent<RectTransform>().offsetMin
+            = new Vector2(info[0].GetComponent<RectTransform>().offsetMin.x - 1920, 0);
+        info[info.Count - 1].GetComponent<RectTransform>().offsetMax
+            = new Vector2(info[0].GetComponent<RectTransform>().offsetMin.x - 1920, 0);
     }
 
 
@@ -81,7 +101,7 @@ public class InspectorManager : MonoBehaviour
 
     private void set_pos()
     {
-
+        if(info[0].GetComponent<RectTransform>().offsetMin != Vector2.zero)
         if (Mathf.Abs(info[0].GetComponent<RectTransform>().offsetMin.x) > 1)
         {
             info[0].transform.position

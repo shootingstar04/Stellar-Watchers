@@ -34,14 +34,14 @@ public class PlayerAttackMelee : MonoBehaviour
                 curTime = coolTime;
             }
         }
-        if (Input.GetKeyDown(KeyCode.A))
+        /*if (Input.GetKeyDown(KeyCode.A))
         {
             if (curTime <= 0)
             {
                 SlashAttack();
                 curTime = coolTime;
             }
-        }
+        }*/
 
         if (curTime > 0) curTime -= Time.deltaTime;
     }

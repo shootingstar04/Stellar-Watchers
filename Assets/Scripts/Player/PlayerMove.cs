@@ -106,6 +106,10 @@ public class PlayerMove : MonoBehaviour
             AnimationControl();
             CheckGround();//지형 확인
         }
+        if (isUsingSkill)
+        {
+            CheckGround();
+        }
     }
 
     void Move()

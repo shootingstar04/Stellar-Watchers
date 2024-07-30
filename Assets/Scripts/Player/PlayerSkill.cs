@@ -22,6 +22,7 @@ public class PlayerSkill : MonoBehaviour
     private float skillCounter;
     private float skillCool;
     private bool isAttacked = false;
+    private bool inAir = false;
 
     private PlayerMove playerMove;
     private Rigidbody2D rigid;
@@ -39,6 +40,7 @@ public class PlayerSkill : MonoBehaviour
         check_input();
         healing();
         stella_strike();
+        meteorite_slash();
     }
 
     void check_input()
@@ -66,22 +68,50 @@ public class PlayerSkill : MonoBehaviour
     }
     private void start_skill(SkillSet.skill skilltype)
     {
+        if (skilltype != SkillSet.skill.none)
+        {
+            playerMove.UseSkill(true);
+        }
+
         switch (skilltype)
         {
             case SkillSet.skill.stellarStrike:
-
-                playerMove.UseSkill(true);
-
-                if (!playerMove.IsGrounded)
+                if (PlayerSP.instance.CurSP > 0)
                 {
-                    rigid.gravityScale = 0;
+                    PlayerSP.instance.modify_SP(-1);
+                    if (!playerMove.IsGrounded)
+                    {
+                        rigid.gravityScale = 0;
+                        inAir = true;
+                    }
                 }
+                break;
 
-                isUsingSkill = skilltype;
+            case SkillSet.skill.meteorliteSlash:
+                if (PlayerSP.instance.CurSP > 2)
+                {
+                    PlayerSP.instance.modify_SP(-3);
+                    if (!playerMove.IsGrounded)
+                    {
+                        rigid.velocity = new Vector2(0, -30);
+                        rigid.gravityScale = 3;
+                        inAir = true;
+                    }
+                }
                 break;
         }
+
+        isUsingSkill = skilltype;
     }
 
+    private void end_skill()
+    {
+        playerMove.UseSkill(false);
+        isUsingSkill = SkillSet.skill.none;
+        skillCounter = 0;
+        isAttacked = false;
+        inAir = false;
+    }
     private void healing()
     {
         if (isHealing)
@@ -117,6 +147,8 @@ public class PlayerSkill : MonoBehaviour
 
             if (skillCounter > 0.3f && !isAttacked)
             {
+                Debug.Log(skillCounter > 0.3f && !isAttacked);
+
                 isAttacked = true;
                 Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(stellaPos.position, stellaBox, 0);
 
@@ -132,9 +164,72 @@ public class PlayerSkill : MonoBehaviour
 
             if (skillCounter > 1)
             {
-                playerMove.UseSkill(false);
-                isUsingSkill = SkillSet.skill.none;
-                skillCounter = 0;
+                end_skill();
+            }
+        }
+    }
+
+    private void meteorite_slash()
+    {
+        if (isUsingSkill == SkillSet.skill.meteorliteSlash)
+        {
+            skillCounter += Time.deltaTime;
+
+            if (!inAir)
+            {
+                if (skillCounter > 0.3f && !isAttacked)
+                {
+                    Debug.Log(skillCounter > 0.7f && !isAttacked);
+
+                    isAttacked = true;
+                    Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(meteorPos.position, meteorBox, 0);
+
+                    foreach (Collider2D collider in collider2Ds)
+                    {
+                        if (collider.tag == "Enemy")
+                        {
+                            collider.GetComponent<EnemyData>().TakeDamage(15 * (ProgressData.Instance.reinforcementCount + 1));
+                            Debug.Log(collider.name + " 에게 " + 15 * (ProgressData.Instance.reinforcementCount + 1) + "의 데미지를 입히고 2초간 스턴 효과 부여");
+                        }
+                    }
+                }
+
+                if (skillCounter > 1.7f)
+                {
+                    end_skill();
+                }
+            }
+
+            else
+            {
+                Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(meteorPos.position, meteorBox, 0);
+
+                foreach (Collider2D collider in collider2Ds)
+                {
+                    if (collider.tag == "Enemy")
+                    {
+                        if (collider.transform.position.y-1.8f > meteorPos.position.y)
+                        {
+                            collider.transform.position = new Vector2(collider.transform.position.x, meteorPos.position.y+1.8f);
+                        }
+                    }
+                }
+
+
+                Collider2D groundCheck = Physics2D.OverlapBox(meteorPos.position, meteorBox, 0, playerMove.groundLayer);
+
+                if (playerMove.IsGrounded || groundCheck != null)
+                {
+                    foreach (Collider2D collider in collider2Ds)
+                    {
+                        if (collider.tag == "Enemy")
+                        {
+                            collider.GetComponent<EnemyData>().TakeDamage(15 * (ProgressData.Instance.reinforcementCount + 1) + (int)(skillCounter / 0.3f) * 1);
+                            Debug.Log(collider.name + " 에게 " + (15 * (ProgressData.Instance.reinforcementCount + 1) + (int)(skillCounter / 0.3f) * 1) + "의 데미지를 입히고 2초간 스턴 효과 부여");
+                        }
+                    }
+                    end_skill();
+                }
             }
         }
     }
