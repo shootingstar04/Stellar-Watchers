@@ -20,7 +20,7 @@ public class Mushroom : MonoBehaviour
     public float patrolDistance = 10f;
     public float fallingAcceleration = 1000f;
     
-    public int CurHP = 8;
+    public float CurHP = 8;
 
     private Rigidbody2D rb;
     private Animator animator;
@@ -194,7 +194,7 @@ public class Mushroom : MonoBehaviour
         return hit.collider != null;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         animator.SetTrigger("Hit");
         currentState = State.FLEE;

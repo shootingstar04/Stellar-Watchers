@@ -24,7 +24,7 @@ public class Skeleton : MonoBehaviour
     public float moveSpeed = 5f;
     public float patrolDistance = 5f;
 
-    public int CurHP = 10;
+    public float CurHP = 10;
 
     private Rigidbody2D rb;
     private Animator animator;
@@ -270,7 +270,7 @@ public class Skeleton : MonoBehaviour
         return hit.collider == null;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         animator.SetTrigger("Hit");
         CurHP -= damage;

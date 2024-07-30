@@ -18,7 +18,7 @@ public class Bringer : MonoBehaviour
     public float detectionRadius = 10f;
     public float attackRadius = 2f;
 
-    public int CurHP = 20;
+    public float CurHP = 20;
 
     private Animator animator;
 
@@ -71,7 +71,7 @@ public class Bringer : MonoBehaviour
         // Attack2 상태에 필요한 행동을 여기 추가할 수 있습니다.
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         animator.SetTrigger("Hit");
         CurHP -= damage;

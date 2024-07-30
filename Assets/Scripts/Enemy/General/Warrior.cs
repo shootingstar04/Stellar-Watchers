@@ -24,7 +24,7 @@ public class Warrior : MonoBehaviour
     public float patrolDistance = 5f; // 순찰할 거리
     public float jumpForce = 5f; // 점프력
 
-    public int CurHP = 30;
+    public float CurHP = 30;
 
     private Rigidbody2D rb;
     private Animator animator;
@@ -300,7 +300,7 @@ public class Warrior : MonoBehaviour
         return hit.collider != null; // 바닥에 닿아 있으면 true를 반환
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         animator.SetTrigger("Hit");
 

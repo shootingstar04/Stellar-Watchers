@@ -6,7 +6,7 @@ public class EnemyData : MonoBehaviour
 {
     public string EnemyName = "";
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         if (EnemyName == "Bandit")
         {
@@ -18,7 +18,7 @@ public class EnemyData : MonoBehaviour
         }
         if (EnemyName == "Evil Wizard")
         {
-            this.GetComponent<EvilWizard>().TakeDamage(damage);
+            
         }
         if (EnemyName == "Goblin")
         {
@@ -26,7 +26,7 @@ public class EnemyData : MonoBehaviour
         }
         if (EnemyName == "Hider")
         {
-            this.GetComponent<Hider>().TakeDamage(damage);
+            
         }
         if (EnemyName == "Mushroom")
         {

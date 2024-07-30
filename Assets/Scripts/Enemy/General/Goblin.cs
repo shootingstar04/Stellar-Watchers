@@ -22,7 +22,7 @@ public class Goblin : MonoBehaviour
     public float patrolDistance = 5f; // 순찰할 거리
     public float attackDelay = 1f; // 공격 딜레이
 
-    public int CurHP = 20;
+    public float CurHP = 20;
 
     private Rigidbody2D rb;
     private Animator animator;
@@ -220,7 +220,7 @@ public class Goblin : MonoBehaviour
         return hit.collider == null; // 땅의 끝이면 true를 반환
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         animator.SetTrigger("Hit");
 

@@ -21,8 +21,8 @@ public class Bandit : MonoBehaviour
     public float moveSpeed = 4f;
     public float recoverTime = 5f;
 
-    public int CurHP = 20;
-    private int maxHP;
+    public float CurHP = 20;
+    private float maxHP = 20;
 
     private Rigidbody2D rb;
     private Animator animator;
@@ -115,7 +115,7 @@ public class Bandit : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         animator.SetTrigger("Hurt");
         if (isFullyKilled) return;
