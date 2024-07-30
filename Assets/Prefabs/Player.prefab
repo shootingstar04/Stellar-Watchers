@@ -31,6 +31,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5601640077373299387}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1149771299206647761
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4042788679408951549}
+  m_Layer: 7
+  m_Name: meteor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4042788679408951549
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1149771299206647761}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.007, y: 0.696, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1753012192705358774}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2195043715993445373
 GameObject:
   m_ObjectHideFlags: 0
@@ -118,7 +149,7 @@ Transform:
   m_GameObject: {fileID: 5905729104494320795}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.58, y: 0.7, z: 0}
+  m_LocalPosition: {x: 1.62, y: 0.61, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -185,6 +216,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2512897470640941337}
+  - {fileID: 4042788679408951549}
   m_Father: {fileID: 5601640077373299387}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6927538254496137994
@@ -782,10 +814,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fbeb88b328bc7f49ab3501569f68fa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stellaPos: {fileID: 0}
-  stellaBox: {x: 0, y: 0}
-  meteorPos: {fileID: 0}
-  meteorBox: {x: 0, y: 0}
+  stellaPos: {fileID: 2512897470640941337}
+  stellaBox: {x: 4, y: 4}
+  meteorPos: {fileID: 4042788679408951549}
+  meteorBox: {x: 2, y: 2}
 --- !u!1 &8641076700620156055
 GameObject:
   m_ObjectHideFlags: 0
