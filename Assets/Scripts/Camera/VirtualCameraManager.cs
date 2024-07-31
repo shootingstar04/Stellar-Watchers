@@ -4,13 +4,13 @@ using UnityEngine;
 using Cinemachine;
 using Unity.VisualScripting;
 
-public class asd : MonoBehaviour
+public class VirtualCameraManager : MonoBehaviour
 {
 
 
     [SerializeField] private CinemachineVirtualCamera cb;
 
-    public static asd Instance;
+    public static VirtualCameraManager Instance;
 
     private void Awake()
     {

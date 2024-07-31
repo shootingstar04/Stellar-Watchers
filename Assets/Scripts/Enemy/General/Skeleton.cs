@@ -13,7 +13,8 @@ public class Skeleton : MonoBehaviour
         ATTACK1,
         ATTACK2,
         SHIELD,
-        KILLED
+        KILLED,
+        DIE
     }
 
     public State currentState;
@@ -43,7 +44,7 @@ public class Skeleton : MonoBehaviour
     public float skeletonHeight = 2f; // Skeleton의 키 높이
 
     void Awake()
-    {   
+    {
         instance = this;
     }
 
@@ -221,8 +222,9 @@ public class Skeleton : MonoBehaviour
     {
         rb.velocity = Vector2.zero;
         animator.SetTrigger("Die");
-        
+        DropCoins();
         Destroy(gameObject, 1f);
+        currentState = State.DIE;
     }
 
     private void MoveTo(Vector2 target)
@@ -295,4 +297,52 @@ public class Skeleton : MonoBehaviour
         Vector2 directionToPlayer = player.position - transform.position;
         return (facingRight && directionToPlayer.x > 0) || (!facingRight && directionToPlayer.x < 0);
     }
+    
+
+    private void DropCoins()
+    {
+        int coins = 0;
+        Queue<int> CoinNumQueue = new Queue<int>();
+        CoinNumQueue.Enqueue(6);
+
+        while (CoinNumQueue.Count > 0)
+        {
+            coins += 1;
+            var count = CoinNumQueue.Dequeue();
+
+            for (int i = 0; i < count; i++)
+            {
+                var (q, obj) = WhatCoinCurrently(coins);
+                var Coin = CoinPool.GetObject(q, obj);
+
+                Coin.transform.position = this.transform.position;
+
+                float rotation = Random.Range(-90f, 90f);
+                Coin.transform.Rotate(0f, 0f, rotation);
+
+                var Xdirection = Random.Range(-1f, 1f);
+                var Ydirection = 1f;
+                Vector2 dir = new Vector2(Xdirection, Ydirection).normalized;
+                float force = Random.Range(100f, 300f);
+                Coin.GetComponent<Rigidbody2D>().AddForce(dir * force);
+            }
+
+        }
+    }
+    private (Queue<Coin>, GameObject) WhatCoinCurrently(int coin)
+    {
+        switch (coin)
+        {
+            case 1:
+                return (CoinPool.Instance.poolCoin1Queue, CoinPool.Instance.Coin1);
+            case 2:
+                return (CoinPool.Instance.poolCoinVQueue, CoinPool.Instance.CoinV);
+            case 3:
+                return (CoinPool.Instance.poolCoinXQueue, CoinPool.Instance.CoinX);
+
+        }
+        return (null, null);
+
+    }
+
 }

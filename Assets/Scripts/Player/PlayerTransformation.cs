@@ -11,7 +11,7 @@ public class PlayerTransformation : MonoBehaviour
     void Start()
     {
         currentTransform = gameObject.transform;
-        asd.Instance.ChangeCameraTarget(currentTransform);
+        VirtualCameraManager.Instance.ChangeCameraTarget(currentTransform);
     }
 
     void Update()
