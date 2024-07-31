@@ -26,7 +26,7 @@ public class ProgressExplanatioon : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        buttonParent = GameObject.Find("Progress").transform.Find("Buttons").gameObject;
+        buttonParent = this.transform.Find("Buttons").gameObject;
 
         for (int i = 0; i < buttonParent.transform.childCount; i++)
         {
@@ -117,10 +117,6 @@ public class ProgressExplanatioon : MonoBehaviour
 
     public void Set_button_image()
     {
-        HP.text = "x " + PlayerHealth.instance.MaxHP;
-        SP.text = "x " + PlayerSP.instance.MaxSP;
-
-
         buttons[0].GetComponent<Image>().sprite = ProgressData.Instance.weaponImage[gender == 1 ? 0 : 4 + ProgressData.Instance.reinforcementCount];
 
         for (int i = 1; i < buttonParent.transform.childCount - 1; i++)
@@ -133,6 +129,9 @@ public class ProgressExplanatioon : MonoBehaviour
             else
                 buttons[i].GetComponent<Image>().sprite = ProgressData.Instance.Image[ProgressData.Instance.Acquired.Count - 1];
         }
+
+        HP.text = "x " + PlayerHealth.instance.MaxHP;
+        SP.text = "x " + PlayerSP.instance.MaxSP;
     }
 
     public void change_gender()

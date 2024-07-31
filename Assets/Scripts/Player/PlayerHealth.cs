@@ -26,11 +26,14 @@ public class PlayerHealth : MonoBehaviour
 
     void Awake()
     {
-        if (!instance)
+        if (instance == null)
+        {
             instance = this;
+        }
         else
         {
-            Destroy(this);
+            Destroy(instance);
+            instance = this;
         }
 
         instance.curHP = 5;
