@@ -60,6 +60,11 @@ public class CollectInventory : MonoBehaviour
                             ProgressData.Instance.Acquired[item.itemNum] = true;
                         break;
 
+                    case CollectItem.type.skill:
+                        if (item.itemNum < SkillData.Instance.Acquired.Count)
+                            SkillData.Instance.Acquired[item.itemNum] = true;
+                        break;
+
                     case CollectItem.type.reinforcementStone:
                         if (item.itemNum < ProgressData.Instance.Acquired.Count)
                         {
