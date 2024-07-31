@@ -40,11 +40,12 @@ public class Skeleton : MonoBehaviour
 
     private bool isAttacking = false;
 
+    public float skeletonHeight = 2f; // Skeleton의 키 높이
+
     void Awake()
     {   
         instance = this;
     }
-
 
     private void Start()
     {
@@ -89,6 +90,7 @@ public class Skeleton : MonoBehaviour
         }
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+        float heightDifference = Mathf.Abs(transform.position.y - player.position.y);
 
         if (currentState != State.KILLED && currentState != State.SHIELD)
         {
@@ -96,29 +98,32 @@ public class Skeleton : MonoBehaviour
 
             if (currentState != State.ATTACK1 && currentState != State.ATTACK2) // 공격 중이 아닐 때만 상태 전환
             {
-                if (facingRight && directionToPlayer.x > 0 && directionToPlayer.magnitude <= detectionRadius)
+                if (heightDifference <= skeletonHeight) // 플레이어가 Skeleton의 키 높이 내에 있을 때만 감지
                 {
-                    currentState = State.CHASE;
-                }
-                else if (!facingRight && directionToPlayer.x < 0 && directionToPlayer.magnitude <= detectionRadius)
-                {
-                    currentState = State.CHASE;
-                }
+                    if (facingRight && directionToPlayer.x > 0 && directionToPlayer.magnitude <= detectionRadius)
+                    {
+                        currentState = State.CHASE;
+                    }
+                    else if (!facingRight && directionToPlayer.x < 0 && directionToPlayer.magnitude <= detectionRadius)
+                    {
+                        currentState = State.CHASE;
+                    }
 
-                if (distanceToPlayer <= attackRadius)
-                {
-                    if (player.GetComponent<Rigidbody2D>().velocity.y > 0 && Random.value < 0.3f) // 30% 확률로 Attack2 발동
+                    if (distanceToPlayer <= attackRadius)
                     {
-                        currentState = State.ATTACK2;
+                        if (player.GetComponent<Rigidbody2D>().velocity.y > 0 && Random.value < 0.3f) // 30% 확률로 Attack2 발동
+                        {
+                            currentState = State.ATTACK2;
+                        }
+                        else
+                        {
+                            currentState = State.ATTACK1;
+                        }
                     }
-                    else
+                    else if (currentState == State.CHASE && distanceToPlayer > detectionRadius)
                     {
-                        currentState = State.ATTACK1;
+                        currentState = State.PATROL;
                     }
-                }
-                else if (currentState == State.CHASE && distanceToPlayer > detectionRadius)
-                {
-                    currentState = State.PATROL;
                 }
             }
         }
@@ -216,7 +221,7 @@ public class Skeleton : MonoBehaviour
     {
         rb.velocity = Vector2.zero;
         animator.SetTrigger("Die");
-
+        
         Destroy(gameObject, 1f);
     }
 
