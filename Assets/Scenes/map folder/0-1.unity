@@ -45357,7 +45357,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 400f4df786553f642b278a24e6d6605d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isSpike: 0
+  isSpike: 1
   Damage: 1
 --- !u!483693784 &889066019
 TilemapRenderer:
