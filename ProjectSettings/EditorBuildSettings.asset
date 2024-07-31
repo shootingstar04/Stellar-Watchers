@@ -5,16 +5,16 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/sanghun/Test4ChallangeNDataSave.unity
     guid: e17f60f9ea43cbc49baefb71cb0d0238
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/sanghun/nothuman.unity
     guid: 5a74f440719bfb641b7e12cd959bb632
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/sanghun/nothuman_mapTPtest.unity
     guid: 83f5b2d200bd7a84c9687f96ee0da04f
   - enabled: 1

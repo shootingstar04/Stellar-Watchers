@@ -392,26 +392,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2127879994749552495, guid: 361c06886780cd54da96764156e20168, type: 3}
-      propertyPath: Image.Array.data[0]
-      value: 
-      objectReference: {fileID: 21300000, guid: 3f7ba9abb1f652a47a5aa20ac87d9475, type: 3}
-    - target: {fileID: 2127879994749552495, guid: 361c06886780cd54da96764156e20168, type: 3}
-      propertyPath: Image.Array.data[1]
-      value: 
-      objectReference: {fileID: 21300000, guid: a60236631d49d7946be4f462e60c47ee, type: 3}
-    - target: {fileID: 2127879994749552495, guid: 361c06886780cd54da96764156e20168, type: 3}
-      propertyPath: Image.Array.data[2]
-      value: 
-      objectReference: {fileID: 21300000, guid: 2c5ce848148293b4ab8396450d89a900, type: 3}
-    - target: {fileID: 2127879994749552495, guid: 361c06886780cd54da96764156e20168, type: 3}
-      propertyPath: Image.Array.data[3]
-      value: 
-      objectReference: {fileID: 21300000, guid: ba06ea7f37559b14c81e69e50bc6ceb4, type: 3}
-    - target: {fileID: 2127879994749552495, guid: 361c06886780cd54da96764156e20168, type: 3}
-      propertyPath: Acquired.Array.data[0]
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4289609093838808687, guid: 361c06886780cd54da96764156e20168, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -455,22 +435,6 @@ PrefabInstance:
     - target: {fileID: 5233115212220829375, guid: 361c06886780cd54da96764156e20168, type: 3}
       propertyPath: m_Name
       value: UI Data
-      objectReference: {fileID: 0}
-    - target: {fileID: 5233115212220829375, guid: 361c06886780cd54da96764156e20168, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8180986189108320125, guid: 361c06886780cd54da96764156e20168, type: 3}
-      propertyPath: Acquired.Array.data[0]
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8180986189108320125, guid: 361c06886780cd54da96764156e20168, type: 3}
-      propertyPath: Acquired.Array.data[1]
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8180986189108320125, guid: 361c06886780cd54da96764156e20168, type: 3}
-      propertyPath: Acquired.Array.data[2]
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2691,6 +2655,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 437227886}
+    - target: {fileID: 712282374106997551, guid: 8f6b40b50b1197d4a9987450aec2a558, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -146.6175
+      objectReference: {fileID: 0}
     - target: {fileID: 1664278193776312918, guid: 8f6b40b50b1197d4a9987450aec2a558, type: 3}
       propertyPath: m_Camera
       value: 

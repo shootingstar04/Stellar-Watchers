@@ -44,17 +44,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37d82718ed04e1b42acb11fa3dca60b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Acquired: 010101010100000001
   Image:
-  - {fileID: 21300000, guid: 35316ba0423f7c24db3eef54f8fa4e7d, type: 3}
-  - {fileID: 21300010, guid: 9ccf47ca968fc87479bd567bafb88d6b, type: 3}
-  - {fileID: 21300006, guid: 35316ba0423f7c24db3eef54f8fa4e7d, type: 3}
-  - {fileID: 21300024, guid: ccecc80d6c40e36489d87c27e279b905, type: 3}
+  - {fileID: 21300000, guid: 3f7ba9abb1f652a47a5aa20ac87d9475, type: 3}
+  - {fileID: 21300000, guid: a60236631d49d7946be4f462e60c47ee, type: 3}
+  - {fileID: 21300000, guid: 2c5ce848148293b4ab8396450d89a900, type: 3}
+  - {fileID: 21300000, guid: ba06ea7f37559b14c81e69e50bc6ceb4, type: 3}
   - {fileID: 21300000, guid: 35316ba0423f7c24db3eef54f8fa4e7d, type: 3}
   - {fileID: 21300000, guid: 35316ba0423f7c24db3eef54f8fa4e7d, type: 3}
   - {fileID: 21300000, guid: 35316ba0423f7c24db3eef54f8fa4e7d, type: 3}
   - {fileID: 21300000, guid: 35316ba0423f7c24db3eef54f8fa4e7d, type: 3}
   - {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  Acquired: 000101010100000001
   Name:
   - 1
   - 2
@@ -241,7 +241,6 @@ MonoBehaviour:
   - {fileID: 21300012, guid: ccecc80d6c40e36489d87c27e279b905, type: 3}
   - {fileID: 21300024, guid: ccecc80d6c40e36489d87c27e279b905, type: 3}
   - {fileID: 21300000, guid: a8372bd4015352842add5d1db3cd1190, type: 3}
-  Acquired: 00000000010100
   Name:
   - "\uC774\uB3D9 1"
   - "\uC774\uB3D9 2"
@@ -258,6 +257,7 @@ MonoBehaviour:
   - "\uC5F4\uC1E0 1"
   - "\uC5F4\uC1E0 2"
   - "\uC544\uC9C1 \uD68D\uB4DD\uD558\uC9C0 \uBABB\uD568"
+  Acquired: 01010100010100
   stoneCount: 0
   pointCount: 0
   reinforcementCount: 0
