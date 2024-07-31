@@ -14,7 +14,7 @@ public class MapTeleporter : MonoBehaviour
     [Tooltip("이름 받아서 LoadScene해줄 생각")]
     [SerializeField] string TargetMapName;
     [Header("해당 텔레포터 위치가 오른쪽인지 왼쪽인지. 왼쪽이 1")]
-    [Tooltip("오른쪽이 -1, 왼쪽이 1. 텔레포트 시 스폰 오프셋 조절")]
+    [Tooltip("오른쪽이 -1, 왼쪽이 1. 텔레포트 시 offset과 offsetSize를 곱해 스폰 오프셋 조절")]
     [SerializeField] int offset;
     [SerializeField] int offsetSize = 2;
 
@@ -24,6 +24,8 @@ public class MapTeleporter : MonoBehaviour
         {
             SceneTransition.instance.FadeIn();
             DontDestroy.thisIsPlayer.transform.position = new Vector3(this.transform.position.x + (offsetSize * offset), this.transform.position.y, DontDestroy.thisIsPlayer.transform.position.z);
+            restartmove();
+            
         }
     }
 
@@ -33,6 +35,7 @@ public class MapTeleporter : MonoBehaviour
         {
             DontDestroy.thisIsPlayer.GetNumbering(Numbering, true);
             StartCoroutine(Transition(TargetMapName));
+            collision.GetComponent<PlayerMove>().PauseMove();
         }
     }
     IEnumerator Transition(string MapName)
@@ -40,5 +43,11 @@ public class MapTeleporter : MonoBehaviour
         SceneTransition.instance.FadeOut();
         yield return new WaitForSeconds(0.5f);
         SceneManager.LoadScene(MapName);
+    }
+
+    void restartmove()
+    {
+        GameObject player = DontDestroy.thisIsPlayer.gameObject;
+        player.GetComponent<PlayerMove>().RestartMove();
     }
 }
