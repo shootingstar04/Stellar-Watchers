@@ -223,6 +223,7 @@ public class Skeleton : MonoBehaviour
         rb.velocity = Vector2.zero;
         animator.SetTrigger("Die");
         DropCoins();
+        PlayerSP.instance.modify_SP(1);
         Destroy(gameObject, 1f);
         currentState = State.DIE;
     }
