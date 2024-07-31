@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 
 public class Skeleton : MonoBehaviour
 {
@@ -220,7 +221,7 @@ public class Skeleton : MonoBehaviour
 
     private void Killed()
     {
-        rb.velocity = Vector2.zero;
+        this.tag = "Untagged"; //테그도 없애면 되지않을까 <-태그 없앴더니 됨
         animator.SetTrigger("Die");
         DropCoins();
         PlayerSP.instance.modify_SP(1);
