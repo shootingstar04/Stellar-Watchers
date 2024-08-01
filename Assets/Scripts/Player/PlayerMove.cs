@@ -311,7 +311,7 @@ public class PlayerMove : MonoBehaviour
 
         isGrounded = foothit.collider != null && !foothit.collider.isTrigger && !isJumping ? true : false;
 
-        if (headhit.collider != null && !headhit.collider.isTrigger && !headhit.collider.gameObject.CompareTag(Define.OneWayTag))
+        if (IsJumping && (headhit.collider != null && !headhit.collider.isTrigger && !headhit.collider.gameObject.CompareTag(Define.OneWayTag)))
         {
             isJumping = false;
             isWallJump = false;
