@@ -38268,7 +38268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
-  spawnList:
+  EnemySpawnList:
   - {fileID: 1756837436}
   - {fileID: 1014032361}
 --- !u!4 &1009925507

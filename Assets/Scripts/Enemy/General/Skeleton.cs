@@ -167,8 +167,18 @@ public class Skeleton : MonoBehaviour
 
     private void Chase()
     {
-        MoveTo(player.position);
+        float direction = player.position.x > transform.position.x ? 1f : -1f;
+    
+        // 플레이어 방향으로 이동
+        Vector2 moveDirection = new Vector2(direction, 0f);
+        rb.velocity = moveDirection * moveSpeed;
         animator.SetBool("Walk", true);
+
+        // 플레이어를 바라보도록 수정
+        if ((direction > 0 && !facingRight) || (direction < 0 && facingRight))
+        {
+            Flip();
+        }
 
         if (IsNearCliff())
         {
@@ -194,12 +204,27 @@ public class Skeleton : MonoBehaviour
         animator.SetBool("Walk", false);
         animator.SetTrigger(attackTrigger);
 
-        yield return new WaitForSeconds(1f); // 공격 애니메이션 재생 시간 대기
+        // 공격 애니메이션 재생 시간 대기
+        yield return new WaitForSeconds(1f);
 
-        yield return new WaitForSeconds(1f); // 공격 후 1초 딜레이
+        // 공격 범위 내의 충돌체 확인
+        Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(transform.position, attackRadius, LayerMask.GetMask("Player"));
+
+        foreach (var hitPlayer in hitPlayers)
+        {
+            Debug.Log(hitPlayer.CompareTag("Player"));
+            if (hitPlayer.CompareTag("Player"))
+            {
+                hitPlayer.GetComponent<PlayerHealth>().modify_HP(-1); // 예: 데미지를 1로 설정
+            }
+        }
+
+        // 공격 후 1초 딜레이
+        yield return new WaitForSeconds(1f);
 
         isAttacking = false;
 
+        // 플레이어가 공격 범위를 벗어난 경우 추격 상태로 전환
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
         if (distanceToPlayer > attackRadius)
         {
@@ -224,7 +249,7 @@ public class Skeleton : MonoBehaviour
 
     private void Killed()
     {
-        this.GetComponent<GetSOindex>().returnBool();
+        GetComponent<GetSOindex>().returnBool();
         this.tag = "Untagged"; //테그도 없애면 되지않을까 <-태그 없앴더니 됨
         animator.SetTrigger("Die");
         EnemyItemDrop drop = this.gameObject.GetComponent<EnemyItemDrop>();
@@ -352,4 +377,9 @@ public class Skeleton : MonoBehaviour
 
     }
 
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRadius);
+    }
 }

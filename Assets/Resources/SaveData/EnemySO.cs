@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu (fileName = "Map num", menuName = "MapSO", order = 8)]
-public class MapSO : ScriptableObject
+[CreateAssetMenu (fileName = "Enemy(Map num)", menuName = "EnemySO", order = 8)]
+public class EnemySO : ScriptableObject
 {
     public List<bool> spawnList = new List<bool>();
 }

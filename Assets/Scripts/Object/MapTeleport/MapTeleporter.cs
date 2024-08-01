@@ -46,6 +46,7 @@ public class MapTeleporter : MonoBehaviour
         {
             if (mapSpawnMGR != null)
             {
+                Debug.Log("맵스폰매니저존재함 저장시작");
                 mapSpawnMGR.GetComponent<mapSpawnMGR>().SaveMethod();
             }
 
