@@ -32,12 +32,19 @@ public class Coin : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("감지");
+        Debug.Log(collision.gameObject.name);
+        Debug.Log(collision.gameObject.tag);
         if (collision.gameObject.CompareTag(Define.PlayerTag))
         {
             Debug.Log(gold+"원 돈먹음");
             CollectInventory.Instance.get_coin(gold);
             DestroyCoin();
             
+        }
+        else
+        {
+            Debug.Log("플레이어아님");
         }
     }
     
