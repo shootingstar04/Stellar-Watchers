@@ -103,6 +103,8 @@ public class Interactable : MonoBehaviour
         Debug.Log(playerdata.Position + "위치, " + playerdata.Coin + "코인");
         TextPopUp.instance.show_PopUp("저장");
 
+
+
     }
 
     void RockMethod()

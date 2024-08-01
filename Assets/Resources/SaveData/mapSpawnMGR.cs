@@ -7,34 +7,37 @@ using UnityEngine.SceneManagement;
 
 public class mapSpawnMGR : MonoBehaviour
 {
-    private MapSO mapdata;
+    private EnemySO enemySOData;
     public mapSpawnMGR instance;
-    public List<GameObject> spawnList = new List<GameObject>();
+    public List<GameObject> EnemySpawnList = new List<GameObject>();
 
     private void Awake()
     {
         instance = this;
-        mapdata = Resources.Load<MapSO>("SaveData/Map" + SceneManager.GetActiveScene().buildIndex.ToString());
+        enemySOData = Resources.Load<EnemySO>("SaveData/Enemy" + SceneManager.GetActiveScene().buildIndex.ToString());
 
         LoadMethod();
     }
 
     public void LoadMethod()
     {
-        for (int i = 0; i < mapdata.spawnList.Count; i++)
+        for (int i = 0; i < enemySOData.spawnList.Count; i++)
         {
-            if (mapdata.spawnList[i])
+            if (enemySOData.spawnList[i])
             {
-                spawnList[i].GetComponent<SpawnPoint>().SpawnObject();
+                EnemySpawnList[i].GetComponent<SpawnPoint>().SpawnObject();
             }
         }
     }
 
     public void SaveMethod()
     {
-        for(int i = 0; i<spawnList.Count; i++)
+        Debug.Log("저장시작");
+        for(int i = 0; i < EnemySpawnList.Count; i++)
         {
-            mapdata.spawnList[i] = spawnList[i];
+            enemySOData.spawnList[i] = EnemySpawnList[i].GetComponent<SpawnPoint>().canSpawn;
         }
     }
+
+    
 }
