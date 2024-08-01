@@ -13,6 +13,7 @@ public class PlayerMove : MonoBehaviour
     public LayerMask wallLayer; // 추가된 부분: 벽 레이어
     public float dashForce = 20f;
     public float dashDuration = 0.2f;
+    public float dashCool = 0.2f;
     public float invincibilityDuration = 1f;
     public float fallMultiplier = 2.5f; // 낙하 속도 증가를 위한 계수
     public float wallJumpForce = 10f; // 추가된 부분: 벽 점프 힘
@@ -31,6 +32,7 @@ public class PlayerMove : MonoBehaviour
     private bool isUsingSkill;
     private float jumpTimeCounter;
     private float dashTimeCounter;
+    private float dashCoolCounter;
     private Transform groundCheck;
     private Transform wallCheck; // 추가된 부분: 벽 감지용 트랜스폼
     private Transform headingCheck; // 추가된 부분: 천장 감지용 트랜스폼
@@ -263,9 +265,15 @@ public class PlayerMove : MonoBehaviour
                     rigid.gravityScale = 1;
                 }
             }
-            else if (isGrounded || isGrabWall)
+            else if ((isGrounded || isGrabWall) && dashCoolCounter > dashCool)
             {
+                dashCoolCounter = 0;
                 canDash = true;
+            }
+
+            if (!canDash)
+            {
+                dashCoolCounter += Time.deltaTime;
             }
         }
     }
