@@ -19,7 +19,7 @@ public class FireWizard : MonoBehaviour
     public float attackRadius = 7f;
     public float attackCooldown = 5f;
 
-    public int CurHP = 100;
+    public float CurHP = 100;
 
     private Rigidbody2D rb;
     private Animator animator;
@@ -61,7 +61,6 @@ public class FireWizard : MonoBehaviour
     {
         currentState = State.ATTACK;
         isAttacking = true;
-        animator.SetTrigger("Attack");
 
         // 랜덤으로 투사체 발사
         int randomProjectileIndex = Random.Range(0, projectiles.Length);
@@ -74,7 +73,7 @@ public class FireWizard : MonoBehaviour
         isAttacking = false;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         if (currentState == State.KILLED) return;
 

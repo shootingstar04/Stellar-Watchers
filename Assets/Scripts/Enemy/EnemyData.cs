@@ -40,5 +40,17 @@ public class EnemyData : MonoBehaviour
         {
             this.GetComponent<Warrior>().TakeDamage(damage);
         }
+        if (EnemyName == "Flame Wizard")
+        {
+            this.GetComponent<FireWizard>().TakeDamage(damage);
+        }
+        if (EnemyName == "Heavy Armor1")
+        {
+            this.GetComponent<HeavyArmor1>().TakeDamage(damage);
+        }
+        if (EnemyName == "Heavy Armor2")
+        {
+            this.GetComponent<HeavyArmor2>().TakeDamage(damage);
+        }
     }
 }
