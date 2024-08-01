@@ -179,16 +179,7 @@ public class Skeleton : MonoBehaviour
 
     private void Attack1()
     {
-        rb.velocity = Vector2.zero;
-        animator.SetBool("Walk", false);
-        animator.SetTrigger("Attack1");
-
-        // 공격 중에도 플레이어와의 거리를 확인
-        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-        if (distanceToPlayer > attackRadius)
-        {
-            currentState = State.CHASE;
-        }
+        StartCoroutine(AttackCoroutine("Attack1"));
     }
 
     private void Attack2()
@@ -233,6 +224,7 @@ public class Skeleton : MonoBehaviour
 
     private void Killed()
     {
+        this.GetComponent<GetSOindex>().returnBool();
         this.tag = "Untagged"; //테그도 없애면 되지않을까 <-태그 없앴더니 됨
         animator.SetTrigger("Die");
         EnemyItemDrop drop = this.gameObject.GetComponent<EnemyItemDrop>();

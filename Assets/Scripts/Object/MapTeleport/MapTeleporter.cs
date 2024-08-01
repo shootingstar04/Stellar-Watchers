@@ -18,21 +18,37 @@ public class MapTeleporter : MonoBehaviour
     [SerializeField] int offset;
     [SerializeField] int offsetSize = 2;
 
+    [SerializeField] GameObject mapSpawnMGR;
+
     private void Awake()
     {
-        if(DontDestroy.thisIsPlayer.isTeleported && DontDestroy.thisIsPlayer.numbering == Numbering)
+        if (DontDestroy.thisIsPlayer.isTeleported && DontDestroy.thisIsPlayer.numbering == Numbering)
         {
             SceneTransition.instance.FadeIn();
             DontDestroy.thisIsPlayer.transform.position = new Vector3(this.transform.position.x + (offsetSize * offset), this.transform.position.y, DontDestroy.thisIsPlayer.transform.position.z);
             restartmove();
-            
+
         }
+    }
+
+    private void Start()
+    {
+        if (mapSpawnMGR == null)
+        {
+            mapSpawnMGR = GameObject.Find("SpawnMGR");
+        }
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag(Define.PlayerTag))
+        if (collision.CompareTag(Define.PlayerTag))
         {
+            if (mapSpawnMGR != null)
+            {
+                mapSpawnMGR.GetComponent<mapSpawnMGR>().SaveMethod();
+            }
+
             DontDestroy.thisIsPlayer.GetNumbering(Numbering, true);
             StartCoroutine(Transition(TargetMapName));
             collision.GetComponent<PlayerMove>().PauseMove();
