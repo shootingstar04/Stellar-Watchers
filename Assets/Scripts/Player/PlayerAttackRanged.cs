@@ -10,29 +10,42 @@ public class PlayerAttackRanged : MonoBehaviour
     public GameObject projectilePrefab;
     public Transform projectileSpawnPoint;
 
+    private PlayerMove playerMove;
+
     Animator animator;
+
+    private void Awake()
+    {
+        playerMove = this.GetComponent<PlayerMove>();
+    }
 
     void Start()
     {
         animator = GetComponent<Animator>();
     }
-    
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.X))
         {
-            if (curTime <= 0) 
+            if (curTime > coolTime)
             {
                 animator.SetTrigger("Attack2");
                 RangedAttack();
-                curTime = coolTime;
+                curTime = 0;
             }
         }
-        curTime -= Time.deltaTime;
+        if (curTime <= coolTime)
+        {
+            curTime += Time.deltaTime;
+        }
     }
 
     void RangedAttack()
     {
-        GameObject projectile = Instantiate(projectilePrefab, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
+
+        GameObject instance = Instantiate(projectilePrefab, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
+
+        instance.GetComponent<Projectile>().dir = (int)playerMove.LastDirection;
     }
 }

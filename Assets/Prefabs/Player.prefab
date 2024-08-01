@@ -702,6 +702,7 @@ MonoBehaviour:
     m_Bits: 8
   dashForce: 40
   dashDuration: 0.15
+  dashCool: 0.5
   invincibilityDuration: 1
   fallMultiplier: 2.5
   wallJumpForce: 10
@@ -854,6 +855,7 @@ MonoBehaviour:
   meteorBox: {x: 2.5, y: 2.5}
   freyjaPos: {fileID: 93056214812033774}
   freyjaBullet: {fileID: 1735533236137297643, guid: 963a942036369f641a0132c8462da90e, type: 3}
+  soaringPos: {fileID: 0}
   soaringBullet: {fileID: 0}
 --- !u!1 &8641076700620156055
 GameObject:
