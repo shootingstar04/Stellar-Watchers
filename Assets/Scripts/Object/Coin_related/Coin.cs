@@ -9,7 +9,7 @@ public class Coin : MonoBehaviour
     private int gold = 1;
 
 
-    private enum coins {oneCoin = 1, fiveCoin, tenCoin }
+    private enum coins {oneCoin = 1, tenCoin, fifteenCoin }
 
     [SerializeField] private coins coin;
 
@@ -21,10 +21,10 @@ public class Coin : MonoBehaviour
                 gold = 1;
                 break;
             case 2:
-                gold = 5;
+                gold = 10;
                 break;
             case 3:
-                gold = 10;
+                gold = 15;
                 break;
         }
     }
@@ -48,11 +48,11 @@ public class Coin : MonoBehaviour
             case 1:
                 CoinPool.ReturnObject(this, CoinPool.Instance.poolCoin1Queue);
                 break;
-            case 5:
-                CoinPool.ReturnObject(this, CoinPool.Instance.poolCoinVQueue);
-                break;
             case 10:
                 CoinPool.ReturnObject(this, CoinPool.Instance.poolCoinXQueue);
+                break;
+            case 15:
+                CoinPool.ReturnObject(this, CoinPool.Instance.poolCoinXVQueue);
                 break;
             default:
                 Debug.Log("코인 삭제 에러");

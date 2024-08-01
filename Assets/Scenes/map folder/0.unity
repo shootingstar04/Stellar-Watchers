@@ -37330,8 +37330,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Coin1: {fileID: 3056236344759517007, guid: 31499b3a20ecba84db26748c626cfc25, type: 3}
-  CoinV: {fileID: 8521507765578197123, guid: a3bcb45e73844cd48989f63e08949395, type: 3}
   CoinX: {fileID: 1398954244316027138, guid: 679dd118c5c3bc243856c59d542547a3, type: 3}
+  CoinXV: {fileID: 8521507765578197123, guid: a3bcb45e73844cd48989f63e08949395, type: 3}
 --- !u!4 &866185466
 Transform:
   m_ObjectHideFlags: 0

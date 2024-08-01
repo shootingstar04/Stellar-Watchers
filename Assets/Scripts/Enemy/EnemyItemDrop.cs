@@ -53,9 +53,9 @@ public class EnemyItemDrop : MonoBehaviour
             case 1:
                 return (CoinPool.Instance.poolCoin1Queue, CoinPool.Instance.Coin1);
             case 2:
-                return (CoinPool.Instance.poolCoinVQueue, CoinPool.Instance.CoinV);
-            case 3:
                 return (CoinPool.Instance.poolCoinXQueue, CoinPool.Instance.CoinX);
+            case 3:
+                return (CoinPool.Instance.poolCoinXVQueue, CoinPool.Instance.CoinXV);
 
         }
         return (null, null);

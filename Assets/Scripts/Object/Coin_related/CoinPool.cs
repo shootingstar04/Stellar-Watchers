@@ -7,13 +7,13 @@ public class CoinPool : MonoBehaviour
     public static CoinPool Instance;
 
     [SerializeField] public GameObject Coin1;
-    [SerializeField] public GameObject CoinV;
     [SerializeField] public GameObject CoinX;
+    [SerializeField] public GameObject CoinXV;
 
 
     public Queue<Coin> poolCoin1Queue = new Queue<Coin>();
-    public Queue<Coin> poolCoinVQueue = new Queue<Coin>();
     public Queue<Coin> poolCoinXQueue = new Queue<Coin>();
+    public Queue<Coin> poolCoinXVQueue = new Queue<Coin>();
 
     private void Awake()
     {
@@ -28,8 +28,8 @@ public class CoinPool : MonoBehaviour
         }
 
         Initialize(10, poolCoin1Queue, Coin1);
-        Initialize(10, poolCoinVQueue, CoinV);
         Initialize(10, poolCoinXQueue, CoinX);
+        Initialize(10, poolCoinXVQueue, CoinXV);
     }
 
     private void Initialize(int initCount, Queue<Coin> queue, GameObject obj)

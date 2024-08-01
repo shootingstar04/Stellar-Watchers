@@ -20,9 +20,10 @@ public class Chest : MonoBehaviour
     // B - 10코인 3
     // C - 10코인 5
 
-    enum coinKind { small= 1, big, chest }
+    enum coinKind { small = 1, big, chest }
 
     [SerializeField] coinKind _coinKind;
+    private int hitCount = 0;
 
     Queue<int> CoinNumQueue = new Queue<int>();
 
@@ -35,16 +36,34 @@ public class Chest : MonoBehaviour
         switch ((int)_coinKind)
         {
             case 1:
-                CoinNumQueue.Enqueue(10);
-                break; 
-            case 2:
+                CoinNumQueue.Enqueue(6);
                 CoinNumQueue.Enqueue(0);
-                CoinNumQueue.Enqueue(8);
+                CoinNumQueue.Enqueue(0);    //1사이클
+                CoinNumQueue.Enqueue(7);
+                CoinNumQueue.Enqueue(0);
+                CoinNumQueue.Enqueue(0);    //2사이클
+                CoinNumQueue.Enqueue(7);
+                CoinNumQueue.Enqueue(1);
+                CoinNumQueue.Enqueue(0);    //3사이클
+                hitCount = 3;
+                break;
+            case 2:
+                CoinNumQueue.Enqueue(3);
+                CoinNumQueue.Enqueue(1);
+                CoinNumQueue.Enqueue(0);    //1사이클
+                CoinNumQueue.Enqueue(3);
+                CoinNumQueue.Enqueue(0);
+                CoinNumQueue.Enqueue(1);    //2사이클
+                CoinNumQueue.Enqueue(4);
+                CoinNumQueue.Enqueue(0);
+                CoinNumQueue.Enqueue(1);    //3사이클
+                hitCount = 3;
                 break;
             case 3:
-                CoinNumQueue.Enqueue(0);
-                CoinNumQueue.Enqueue(4);
-                CoinNumQueue.Enqueue(5);
+                CoinNumQueue.Enqueue(10);
+                CoinNumQueue.Enqueue(3);
+                CoinNumQueue.Enqueue(4);    //1사이클 
+                hitCount = 1;
                 break;
             default:
                 CoinNumQueue.Enqueue(0);
@@ -80,6 +99,8 @@ public class Chest : MonoBehaviour
 
     public void Distroyed()
     {
+        coins = 0;
+        hitCount--;
         while (CoinNumQueue.Count > 0)
         {
             coins += 1;
@@ -102,8 +123,15 @@ public class Chest : MonoBehaviour
                 Coin.GetComponent<Rigidbody2D>().AddForce(dir * force);
             }
 
+            if (hitCount <= 0)
+            {
+                Destroy(this.gameObject);
+            }
+            else if(coins >= 3)
+            {
+                break;
+            }
         }
-        Destroy(this.gameObject);
     }
 
     private (Queue<Coin>, GameObject) WhatCoinCurrently(int coin)
@@ -113,9 +141,9 @@ public class Chest : MonoBehaviour
             case 1:
                 return (CoinPool.Instance.poolCoin1Queue, CoinPool.Instance.Coin1);
             case 2:
-                return (CoinPool.Instance.poolCoinVQueue, CoinPool.Instance.CoinV);
-            case 3:
                 return (CoinPool.Instance.poolCoinXQueue, CoinPool.Instance.CoinX);
+            case 3:
+                return (CoinPool.Instance.poolCoinXVQueue, CoinPool.Instance.CoinXV);
 
         }
         return (null, null);
