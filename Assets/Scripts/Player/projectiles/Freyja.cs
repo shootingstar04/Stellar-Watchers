@@ -31,6 +31,24 @@ public class Freyja : MonoBehaviour
                 collision.GetComponent<EnemyData>().TakeDamage(10 * (ProgressData.Instance.reinforcementCount + 1));
                 Debug.Log(collision.name + " 에게 " + 10 * (ProgressData.Instance.reinforcementCount + 1) + "의 데미지를 입힘");
             }
+            else if (collision.tag == "BOMB")
+            {
+                Debug.Log("폭탄 맞음");
+                Bomb.onFire();
+            }
+            else if (collision.GetComponent<ElevatorSwitch>() != null)
+            {
+                Debug.Log("스위치 작동");
+                collision.GetComponent<ElevatorSwitch>().SwitchFlick();
+            }
+            else if (collision.GetComponent<Chest>() != null)
+            {
+                collision.gameObject.GetComponent<Chest>().Distroyed();
+            }
+            else if (collision.GetComponent<GeneralDoor>() != null)
+            {
+                collision.GetComponent<GeneralDoor>().OpenDoor();
+            }
         }
     }
 
