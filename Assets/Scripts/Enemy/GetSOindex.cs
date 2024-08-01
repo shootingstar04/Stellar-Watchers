@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class GetSOindex : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    SpawnPoint spawnpoint;
+
+    private void Start()
     {
-        
+        spawnpoint = GetComponentInParent<SpawnPoint>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void returnBool()
     {
-        
+        spawnpoint.canSpawn = false;
     }
 }

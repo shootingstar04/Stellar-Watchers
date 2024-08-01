@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections.LowLevel.Unsafe;
@@ -18,9 +19,9 @@ public class mapSpawnMGR : MonoBehaviour
         LoadMethod();
     }
 
-    void LoadMethod()
+    public void LoadMethod()
     {
-        for(int i = 0; i < mapdata.spawnList.Count; i++)
+        for (int i = 0; i < mapdata.spawnList.Count; i++)
         {
             if (mapdata.spawnList[i])
             {
@@ -31,6 +32,9 @@ public class mapSpawnMGR : MonoBehaviour
 
     public void SaveMethod()
     {
-        
+        for(int i = 0; i<spawnList.Count; i++)
+        {
+            mapdata.spawnList[i] = spawnList[i];
+        }
     }
 }

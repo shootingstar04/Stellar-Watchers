@@ -7,9 +7,8 @@ public class SpawnPoint : MonoBehaviour
     public bool canSpawn;
     public GameObject spawnObject;
 
-
     public void SpawnObject()
-    {
-        Instantiate(spawnObject, new Vector3(this.transform.position.x, this.transform.position.y, Vector3.zero.z), Quaternion.identity);
+    {   
+        Instantiate(spawnObject, new Vector3(this.transform.position.x, this.transform.position.y, Vector3.zero.z), Quaternion.identity, this.transform);
     }
 }
