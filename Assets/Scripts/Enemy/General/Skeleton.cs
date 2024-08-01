@@ -179,7 +179,16 @@ public class Skeleton : MonoBehaviour
 
     private void Attack1()
     {
-        StartCoroutine(AttackCoroutine("Attack1"));
+        rb.velocity = Vector2.zero;
+        animator.SetBool("Walk", false);
+        animator.SetTrigger("Attack1");
+
+        // 공격 중에도 플레이어와의 거리를 확인
+        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+        if (distanceToPlayer > attackRadius)
+        {
+            currentState = State.CHASE;
+        }
     }
 
     private void Attack2()

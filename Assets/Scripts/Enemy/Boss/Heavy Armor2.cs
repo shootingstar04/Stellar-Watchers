@@ -27,7 +27,7 @@ public class HeavyArmor2 : MonoBehaviour
     public float moveSpeed = 3f;
     public float patrolDistance = 7f;
 
-    public float CurHP = 150;
+    public float CurHP = 250;
 
     private Rigidbody2D rb;
     private Animator animator;

@@ -34631,6 +34631,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 3398993735476731684, guid: 8f6b40b50b1197d4a9987450aec2a558, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3644889916202361671, guid: 8f6b40b50b1197d4a9987450aec2a558, type: 3}
       propertyPath: m_LocalPosition.x
       value: 27.101686
@@ -34726,8 +34730,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Coin1: {fileID: 3056236344759517007, guid: 31499b3a20ecba84db26748c626cfc25, type: 3}
-  CoinV: {fileID: 8521507765578197123, guid: a3bcb45e73844cd48989f63e08949395, type: 3}
   CoinX: {fileID: 1398954244316027138, guid: 679dd118c5c3bc243856c59d542547a3, type: 3}
+  CoinXV: {fileID: 0}
 --- !u!4 &866185466
 Transform:
   m_ObjectHideFlags: 0
