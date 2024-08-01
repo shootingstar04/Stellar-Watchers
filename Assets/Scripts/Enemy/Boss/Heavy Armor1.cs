@@ -30,7 +30,7 @@ public class HeavyArmor1 : MonoBehaviour
     public float skill1MoveInterval = 0.4f; // 이동 간격
     public int skill1TotalMoves = 9; // 총 이동 횟수
 
-    public int CurHP = 50;
+    public float CurHP = 150;
 
     private Rigidbody2D rb;
     private Animator animator;
@@ -298,7 +298,7 @@ public class HeavyArmor1 : MonoBehaviour
         return hit.collider == null;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         animator.SetTrigger("Hit");
         CurHP -= damage;

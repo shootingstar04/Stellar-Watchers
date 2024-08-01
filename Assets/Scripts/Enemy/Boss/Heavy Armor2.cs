@@ -27,7 +27,7 @@ public class HeavyArmor2 : MonoBehaviour
     public float moveSpeed = 3f;
     public float patrolDistance = 7f;
 
-    public int CurHP = 50;
+    public float CurHP = 150;
 
     private Rigidbody2D rb;
     private Animator animator;
@@ -279,7 +279,7 @@ public class HeavyArmor2 : MonoBehaviour
         return hit.collider == null;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         animator.SetTrigger("Hit");
         CurHP -= damage;
