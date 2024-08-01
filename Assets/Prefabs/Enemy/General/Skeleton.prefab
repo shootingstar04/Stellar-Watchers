@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4667013234782123463}
   - component: {fileID: 7113861341511024440}
   - component: {fileID: 7232191066264138671}
+  - component: {fileID: 4207856963513812260}
   m_Layer: 6
   m_Name: Skeleton
   m_TagString: Enemy
@@ -196,6 +197,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  skeletonHeight: 2
+  coinYield: 6
+  spYield: 1
 --- !u!114 &7232191066264138671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,3 +213,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyName: Skeleton
+--- !u!114 &4207856963513812260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 710732280266172486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82aad9f22529bdc4ea1e94592ed5e11c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

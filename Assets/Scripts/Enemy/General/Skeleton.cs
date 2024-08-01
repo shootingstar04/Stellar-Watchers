@@ -44,6 +44,9 @@ public class Skeleton : MonoBehaviour
 
     public float skeletonHeight = 2f; // Skeleton의 키 높이
 
+    public int coinYield;
+    public int spYield;
+
     void Awake()
     {
         instance = this;
@@ -223,8 +226,9 @@ public class Skeleton : MonoBehaviour
     {
         this.tag = "Untagged"; //테그도 없애면 되지않을까 <-태그 없앴더니 됨
         animator.SetTrigger("Die");
-        DropCoins();
-        PlayerSP.instance.modify_SP(1);
+        EnemyItemDrop drop = this.gameObject.GetComponent<EnemyItemDrop>();
+        if (drop == null) Debug.Log("nocomponent");
+        drop.DropCoins(coinYield, spYield);
         Destroy(gameObject, 1f);
         currentState = State.DIE;
     }

@@ -37211,6 +37211,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1377793426}
+    - target: {fileID: 712282374106997551, guid: 8f6b40b50b1197d4a9987450aec2a558, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -146.61751
+      objectReference: {fileID: 0}
     - target: {fileID: 1664278193776312918, guid: 8f6b40b50b1197d4a9987450aec2a558, type: 3}
       propertyPath: m_Camera
       value: 
@@ -38217,6 +38221,23 @@ Transform:
   - {fileID: 1661749459}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1024183432 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 710732280266172486, guid: ffab101f00697b648b79925990406f56, type: 3}
+  m_PrefabInstance: {fileID: 1570558528}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1024183433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1024183432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82aad9f22529bdc4ea1e94592ed5e11c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1146001042
 GameObject:
   m_ObjectHideFlags: 0
@@ -38777,10 +38798,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7113861341511024440, guid: ffab101f00697b648b79925990406f56, type: 3}
+      propertyPath: spYield
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7113861341511024440, guid: ffab101f00697b648b79925990406f56, type: 3}
+      propertyPath: coinYield
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 710732280266172486, guid: ffab101f00697b648b79925990406f56, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1024183433}
   m_SourcePrefab: {fileID: 100100000, guid: ffab101f00697b648b79925990406f56, type: 3}
 --- !u!1 &1661749458
 GameObject:
