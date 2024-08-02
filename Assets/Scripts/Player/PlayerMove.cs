@@ -335,6 +335,13 @@ public class PlayerMove : MonoBehaviour
         animator.SetBool("Grounded", isGrounded);
         animator.SetBool("WallSlide", isGrabWall);
         animator.SetInteger("AnimState", rigid.velocity.x != 0 ? 1 : 0);
+
+        if (PlayerHealth.instance.CurHP < 1)
+        {
+            animator.SetBool("Death", true);
+            SceneTransition.instance.FadeOut();
+            PauseMove();
+        }
     }
 
     public void PlayAnimation(animationType type, float isPlay)
