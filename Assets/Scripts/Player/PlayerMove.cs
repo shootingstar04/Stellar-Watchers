@@ -339,6 +339,7 @@ public class PlayerMove : MonoBehaviour
         if (PlayerHealth.instance.CurHP < 1)
         {
             animator.SetBool("Death", true);
+            SceneTransition.instance.FadeOut();
             PauseMove();
         }
     }
