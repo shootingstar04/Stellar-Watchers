@@ -95,6 +95,9 @@ public class Skeleton : MonoBehaviour
             case State.SHIELD:
                 Shield();
                 break;
+            case State.KILLED:
+                Killed();
+                break;
         }
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
@@ -314,16 +317,20 @@ public class Skeleton : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        animator.SetTrigger("Hit");
-        CurHP -= damage;
+        if (IsFacingPlayer() && Random.value < 0.1f && currentState != State.KILLED) // 10% 확률로 방어 행동
+        {
+            currentState = State.SHIELD;
+        }
+        else
+        {
+            animator.SetTrigger("Hit");
+            CurHP -= damage;
+        }
 
         if (CurHP <= 0)
         {
+            Invoke("Killed", 0.5f);
             currentState = State.KILLED;
-        }
-        else if (IsFacingPlayer() && Random.value < 0.1f && currentState != State.KILLED) // 10% 확률로 방어 행동
-        {
-            currentState = State.SHIELD;
         }
     }
 
