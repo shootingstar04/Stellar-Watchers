@@ -40,6 +40,7 @@ public class GeneralDoor : Door
     {
         isDisabled = true;
         this.gameObject.SetActive(false);
+
     }
     public override void CloseDoor()
     {
