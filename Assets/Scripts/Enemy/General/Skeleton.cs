@@ -71,6 +71,9 @@ public class Skeleton : MonoBehaviour
 
         switch (currentState)
         {
+            case State.KILLED:
+                Killed();
+                break;
             case State.IDLE:
                 Idle();
                 break;
@@ -88,9 +91,6 @@ public class Skeleton : MonoBehaviour
                 break;
             case State.SHIELD:
                 Shield();
-                break;
-            case State.KILLED:
-                Killed();
                 break;
         }
 
