@@ -61,6 +61,7 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         check_input();
+        Debug.Log(Cursor.lockState);
     }
 
     void check_input()
