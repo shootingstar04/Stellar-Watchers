@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using Unity.VisualScripting;
+using System.ComponentModel;
 
 public class VirtualCameraManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class VirtualCameraManager : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera cb;
 
     public static VirtualCameraManager Instance;
+
 
     private void Awake()
     {
@@ -24,12 +26,15 @@ public class VirtualCameraManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+        
+
     }
 
     private void Start()
     {
         cb = GetComponent<CinemachineVirtualCamera>();
 
+ 
     }
 
     public void ChangeCameraTarget(Transform t)
@@ -38,5 +43,7 @@ public class VirtualCameraManager : MonoBehaviour
         cb.Follow = t;
         cb.LookAt = t;
     }
+
+   
 }
 

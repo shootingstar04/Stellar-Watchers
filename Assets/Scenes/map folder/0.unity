@@ -37382,6 +37382,7 @@ GameObject:
   - component: {fileID: 757410896}
   - component: {fileID: 757410895}
   - component: {fileID: 757410899}
+  - component: {fileID: 757410900}
   m_Layer: 0
   m_Name: Virtual Camera
   m_TagString: Untagged
@@ -37484,9 +37485,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f453f694addf4275988fac205bc91968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BoundingShape2D: {fileID: 1799273867}
+  m_BoundingShape2D: {fileID: 0}
   m_Damping: 0.5
   m_MaxWindowSize: -1
+--- !u!114 &757410900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 757410894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0c8f35c723e4904fbd71d50570c814d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &814141784
 GameObject:
   m_ObjectHideFlags: 0
@@ -39315,11 +39328,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5601640077373299387, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.05
+      value: -2.3
       objectReference: {fileID: 0}
     - target: {fileID: 5601640077373299387, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.85
+      value: 2.4
       objectReference: {fileID: 0}
     - target: {fileID: 5601640077373299387, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
       propertyPath: m_LocalPosition.z
@@ -39457,7 +39470,7 @@ GameObject:
   - component: {fileID: 1799273867}
   m_Layer: 0
   m_Name: MapEdge
-  m_TagString: Untagged
+  m_TagString: MapEdge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -12,6 +12,7 @@ TagManager:
   - BOMB
   - Teleporter
   - OneWay
+  - MapEdge
   layers:
   - Default
   - TransparentFX

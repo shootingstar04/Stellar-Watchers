@@ -24,6 +24,7 @@ public class MapTeleporter : MonoBehaviour
     {
         if (DontDestroy.thisIsPlayer.isTeleported && DontDestroy.thisIsPlayer.numbering == Numbering)
         {
+
             SceneTransition.instance.FadeIn();
             DontDestroy.thisIsPlayer.transform.position = new Vector3(this.transform.position.x + (offsetSize * offset), this.transform.position.y, DontDestroy.thisIsPlayer.transform.position.z);
             restartmove();
@@ -33,6 +34,15 @@ public class MapTeleporter : MonoBehaviour
 
     private void Start()
     {
+        if (changeConfinder.instance != null)
+        {
+            changeConfinder.instance.ChangeConf();
+        }
+        else
+        {
+            Debug.Log("¾øÀ½");
+        }
+
         if (mapSpawnMGR == null)
         {
             mapSpawnMGR = GameObject.Find("SpawnMGR");
