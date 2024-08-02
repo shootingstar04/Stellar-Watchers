@@ -67,6 +67,12 @@ public class Skeleton : MonoBehaviour
 
     private void Update()
     {
+        // KILLED 상태일 경우 다른 상태로 바뀌지 않도록 함
+        if (currentState == State.KILLED || currentState == State.DIE)
+        {
+            return;
+        }
+
         if (isAttacking) return; // 공격 중일 때는 다른 상태로 전환되지 않도록 함
 
         switch (currentState)
@@ -97,7 +103,7 @@ public class Skeleton : MonoBehaviour
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
         float heightDifference = Mathf.Abs(transform.position.y - player.position.y);
 
-        if (currentState != State.KILLED && currentState != State.SHIELD)
+        if (currentState != State.SHIELD)
         {
             Vector2 directionToPlayer = player.position - transform.position;
 
@@ -311,16 +317,20 @@ public class Skeleton : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        animator.SetTrigger("Hit");
-        CurHP -= damage;
+        if (IsFacingPlayer() && Random.value < 0.1f && currentState != State.KILLED) // 10% 확률로 방어 행동
+        {
+            currentState = State.SHIELD;
+        }
+        else
+        {
+            animator.SetTrigger("Hit");
+            CurHP -= damage;
+        }
 
         if (CurHP <= 0)
         {
+            Invoke("Killed", 0.5f);
             currentState = State.KILLED;
-        }
-        else if (IsFacingPlayer() && Random.value < 0.1f && currentState != State.KILLED) // 10% 확률로 방어 행동
-        {
-            currentState = State.SHIELD;
         }
     }
 
