@@ -249,7 +249,7 @@ public class Skeleton : MonoBehaviour
 
     private void Killed()
     {
-        GetComponent<GetSOindex>().returnBool();
+        //GetComponent<GetSOindex>().returnBool();
         this.tag = "Untagged"; //테그도 없애면 되지않을까 <-태그 없앴더니 됨
         animator.SetTrigger("Die");
         EnemyItemDrop drop = this.gameObject.GetComponent<EnemyItemDrop>();
@@ -318,7 +318,7 @@ public class Skeleton : MonoBehaviour
         {
             currentState = State.KILLED;
         }
-        else if (IsFacingPlayer() && Random.value < 0.1f) // 10% 확률로 방어 행동
+        else if (IsFacingPlayer() && Random.value < 0.1f && currentState != State.KILLED) // 10% 확률로 방어 행동
         {
             currentState = State.SHIELD;
         }
