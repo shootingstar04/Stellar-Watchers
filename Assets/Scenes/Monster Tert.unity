@@ -171,6 +171,7 @@ MonoBehaviour:
   TargetMapName: 0-1
   offset: -1
   offsetSize: 2
+  mapSpawnMGR: {fileID: 0}
 --- !u!61 &323811111
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -34497,6 +34498,63 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!1001 &637758894
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 409896821434637142, guid: 69862aacf9f074a409873126a7bc8c2e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -7.049074
+      objectReference: {fileID: 0}
+    - target: {fileID: 409896821434637142, guid: 69862aacf9f074a409873126a7bc8c2e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.529163
+      objectReference: {fileID: 0}
+    - target: {fileID: 409896821434637142, guid: 69862aacf9f074a409873126a7bc8c2e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 409896821434637142, guid: 69862aacf9f074a409873126a7bc8c2e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 409896821434637142, guid: 69862aacf9f074a409873126a7bc8c2e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 409896821434637142, guid: 69862aacf9f074a409873126a7bc8c2e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 409896821434637142, guid: 69862aacf9f074a409873126a7bc8c2e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 409896821434637142, guid: 69862aacf9f074a409873126a7bc8c2e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 409896821434637142, guid: 69862aacf9f074a409873126a7bc8c2e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 409896821434637142, guid: 69862aacf9f074a409873126a7bc8c2e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1785844052176553722, guid: 69862aacf9f074a409873126a7bc8c2e, type: 3}
+      propertyPath: m_Name
+      value: Heavy Armor1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 69862aacf9f074a409873126a7bc8c2e, type: 3}
 --- !u!1 &757410894
 GameObject:
   m_ObjectHideFlags: 0
@@ -34611,6 +34669,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1377793426}
+    - target: {fileID: 712282374106997551, guid: 8f6b40b50b1197d4a9987450aec2a558, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -146.6175
+      objectReference: {fileID: 0}
     - target: {fileID: 1664278193776312918, guid: 8f6b40b50b1197d4a9987450aec2a558, type: 3}
       propertyPath: m_Camera
       value: 
@@ -36543,3 +36605,4 @@ SceneRoots:
   - {fileID: 827046030}
   - {fileID: 1570558528}
   - {fileID: 1681493418}
+  - {fileID: 637758894}

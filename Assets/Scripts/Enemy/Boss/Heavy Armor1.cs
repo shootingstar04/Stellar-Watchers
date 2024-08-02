@@ -15,7 +15,6 @@ public class HeavyArmor1 : MonoBehaviour
         SKILL1,
         SKILL2,
         SKILL3,
-        HIT,
         KILLED
     }
 
@@ -74,9 +73,6 @@ public class HeavyArmor1 : MonoBehaviour
             case State.CHASE:
                 Chase();
                 break;
-            case State.HIT:
-                Hit();
-                break;
             case State.KILLED:
                 Killed();
                 break;
@@ -106,7 +102,14 @@ public class HeavyArmor1 : MonoBehaviour
             {
                 Flip();
             }
-        }
+    }
+
+    // 플레이어가 공격 범위에 들어왔는지 지속적으로 체크
+    if (distanceToPlayer <= attackRadius)
+    {
+        currentState = State.ATTACK1; // 예: 공격1 상태로 전환
+        StartCoroutine(PerformAction(State.ATTACK1, 1f));
+    }
     }
 
     private void Idle()
@@ -143,6 +146,7 @@ public class HeavyArmor1 : MonoBehaviour
             Flip();
         }   
 
+        // 플레이어를 향해 이동
         MoveTo(player.position);
         animator.SetBool("Walk", true);
 
@@ -187,6 +191,23 @@ public class HeavyArmor1 : MonoBehaviour
         }
 
         yield return new WaitForSeconds(actionDuration); // 행동 애니메이션 시간 대기
+
+        // 공격 범위 내의 충돌체 확인
+        float offsetX = facingRight ? attackRadius / 2 : -attackRadius / 2;
+        Vector2 attackCenter = new Vector2(transform.position.x + offsetX, transform.position.y);
+
+        Collider2D[] hitPlayers = Physics2D.OverlapBoxAll(attackCenter, new Vector2(attackRadius, attackRadius), 0, LayerMask.GetMask("Player"));
+
+        foreach (var hitPlayer in hitPlayers)
+        {
+            Debug.Log(hitPlayer.CompareTag("Player"));
+            if (hitPlayer.CompareTag("Player"))
+            {
+                hitPlayer.GetComponent<PlayerHealth>().modify_HP(-1); // 예: 데미지를 1로 설정
+            }
+        }
+
+        yield return new WaitForSeconds(1f); // 1초 후딜레이 추가
 
         isPerformingAction = false;
         currentState = State.IDLE;
@@ -247,12 +268,6 @@ public class HeavyArmor1 : MonoBehaviour
         }
     }
 
-    private void Hit()
-    {
-        animator.SetTrigger("Hit");
-        currentState = State.IDLE;
-    }
-
     private void Killed()
     {
         rb.velocity = Vector2.zero;
@@ -300,16 +315,19 @@ public class HeavyArmor1 : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        animator.SetTrigger("Hit");
         CurHP -= damage;
 
         if (CurHP <= 0)
         {
             currentState = State.KILLED;
         }
-        else
-        {
-            currentState = State.HIT;
-        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        float offsetX = facingRight ? attackRadius / 2 : -attackRadius / 2;
+        Vector2 attackCenter = new Vector2(transform.position.x + offsetX, transform.position.y);
+        Gizmos.DrawWireCube(attackCenter, new Vector3(attackRadius, attackRadius, 0));
     }
 }
