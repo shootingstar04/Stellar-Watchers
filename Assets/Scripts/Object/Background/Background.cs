@@ -12,9 +12,9 @@ public class Background : MonoBehaviour
 
     private void Start()
     {
-        cam = GameObject.Find("Player");
+        cam = GameObject.FindGameObjectWithTag(Define.PlayerTag);
         startPos = transform.position.x;
-        length = GetComponent<SpriteRenderer>().bounds.size.x;
+        length = gameObject.GetComponent<SpriteRenderer>().bounds.size.x;
 
     }
 
