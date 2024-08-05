@@ -125,6 +125,7 @@ public class Chest : MonoBehaviour
 
             if (hitCount <= 0)
             {
+                GetComponent<GetSOindex>().returnBool();
                 Destroy(this.gameObject);
             }
             else if(coins >= 3)

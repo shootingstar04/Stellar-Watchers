@@ -19,7 +19,18 @@ public class Telescope : MonoBehaviour
     {
         Player = GameObject.FindGameObjectWithTag(Define.PlayerTag);
         playermove = Player.GetComponent<PlayerMove>();
-        cam = Cam.GetComponent<cam_deadzone_test>();
+
+        if (Cam == null)
+        {
+            GameObject cam_temp = GameObject.Find("Virtual Camera");
+            Debug.Log(cam_temp);
+            cam = cam_temp.GetComponent<cam_deadzone_test>();
+        }
+        else
+        {
+            cam = Cam.GetComponent<cam_deadzone_test>();
+        }
+
 
     }
 

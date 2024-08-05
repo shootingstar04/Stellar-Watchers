@@ -99,6 +99,8 @@ public class Interactable : MonoBehaviour
     void SaveMethod()
     {
         int lastSceneIndex = playerdata.SceneIndex;
+
+
         playerdata.Position = this.transform.position;
         UnityEngine.SceneManagement.Scene scene = SceneManager.GetActiveScene();
         playerdata.SceneIndex = scene.buildIndex;

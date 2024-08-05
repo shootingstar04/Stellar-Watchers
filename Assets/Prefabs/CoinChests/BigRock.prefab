@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 67946482575457609}
   - component: {fileID: 5406853492639350193}
   - component: {fileID: 6774589428857019469}
+  - component: {fileID: 9010803675907674409}
   m_Layer: 0
   m_Name: BigRock
   m_TagString: Untagged
@@ -144,3 +145,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.2, y: 1.2}
   m_EdgeRadius: 0
+--- !u!114 &9010803675907674409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7386028105364834408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c1f8a0116d4d53409f11cee9ff12739, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
