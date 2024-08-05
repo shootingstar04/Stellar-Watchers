@@ -214,7 +214,9 @@ public class Skeleton : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         // 공격 범위 내의 충돌체 확인
-        Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(transform.position, attackRadius, LayerMask.GetMask("Player"));
+        float offsetX = facingRight ? attackRadius / 2 : -attackRadius / 2;
+        Vector2 attackCenter = new Vector2(transform.position.x + offsetX, transform.position.y);
+        Collider2D[] hitPlayers = Physics2D.OverlapBoxAll(attackCenter, new Vector2(attackRadius, attackRadius), 0, LayerMask.GetMask("Player"));
 
         foreach (var hitPlayer in hitPlayers)
         {
@@ -255,7 +257,7 @@ public class Skeleton : MonoBehaviour
 
     private void Killed()
     {
-        GetComponent<GetSOindex>().returnBool();
+        //GetComponent<GetSOindex>().returnBool();
         this.tag = "Untagged"; //테그도 없애면 되지않을까 <-태그 없앴더니 됨
         animator.SetTrigger("Die");
         EnemyItemDrop drop = this.gameObject.GetComponent<EnemyItemDrop>();
@@ -390,6 +392,8 @@ public class Skeleton : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRadius);
+        float offsetX = facingRight ? attackRadius / 2 : -attackRadius / 2;
+        Vector2 attackCenter = new Vector2(transform.position.x + offsetX, transform.position.y);
+        Gizmos.DrawWireCube(attackCenter, new Vector3(attackRadius, attackRadius, 0));
     }
 }

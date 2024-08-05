@@ -34498,63 +34498,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!1001 &637758894
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 409896821434637142, guid: 69862aacf9f074a409873126a7bc8c2e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -7.049074
-      objectReference: {fileID: 0}
-    - target: {fileID: 409896821434637142, guid: 69862aacf9f074a409873126a7bc8c2e, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -2.529163
-      objectReference: {fileID: 0}
-    - target: {fileID: 409896821434637142, guid: 69862aacf9f074a409873126a7bc8c2e, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 409896821434637142, guid: 69862aacf9f074a409873126a7bc8c2e, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 409896821434637142, guid: 69862aacf9f074a409873126a7bc8c2e, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 409896821434637142, guid: 69862aacf9f074a409873126a7bc8c2e, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 409896821434637142, guid: 69862aacf9f074a409873126a7bc8c2e, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 409896821434637142, guid: 69862aacf9f074a409873126a7bc8c2e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 409896821434637142, guid: 69862aacf9f074a409873126a7bc8c2e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 409896821434637142, guid: 69862aacf9f074a409873126a7bc8c2e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1785844052176553722, guid: 69862aacf9f074a409873126a7bc8c2e, type: 3}
-      propertyPath: m_Name
-      value: Heavy Armor1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 69862aacf9f074a409873126a7bc8c2e, type: 3}
 --- !u!1 &757410894
 GameObject:
   m_ObjectHideFlags: 0
@@ -34695,7 +34638,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3398993735476731684, guid: 8f6b40b50b1197d4a9987450aec2a558, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3644889916202361671, guid: 8f6b40b50b1197d4a9987450aec2a558, type: 3}
       propertyPath: m_LocalPosition.x
@@ -35827,7 +35770,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03f02b75c2d5a3d479895fa91bf659b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  door: []
+  door: {fileID: 0}
   isDisabled: 0
   isInteractable: 1
   interactTrigger: {fileID: 0}
@@ -35876,6 +35819,63 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1001 &1193269540
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7217171646765849595, guid: 9706820f60d8ea54aa3bfce2230c90e9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -8.105818
+      objectReference: {fileID: 0}
+    - target: {fileID: 7217171646765849595, guid: 9706820f60d8ea54aa3bfce2230c90e9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.7930143
+      objectReference: {fileID: 0}
+    - target: {fileID: 7217171646765849595, guid: 9706820f60d8ea54aa3bfce2230c90e9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7217171646765849595, guid: 9706820f60d8ea54aa3bfce2230c90e9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7217171646765849595, guid: 9706820f60d8ea54aa3bfce2230c90e9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7217171646765849595, guid: 9706820f60d8ea54aa3bfce2230c90e9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7217171646765849595, guid: 9706820f60d8ea54aa3bfce2230c90e9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7217171646765849595, guid: 9706820f60d8ea54aa3bfce2230c90e9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7217171646765849595, guid: 9706820f60d8ea54aa3bfce2230c90e9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7217171646765849595, guid: 9706820f60d8ea54aa3bfce2230c90e9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8620967928958012075, guid: 9706820f60d8ea54aa3bfce2230c90e9, type: 3}
+      propertyPath: m_Name
+      value: Warrior
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9706820f60d8ea54aa3bfce2230c90e9, type: 3}
 --- !u!1 &1366419290
 GameObject:
   m_ObjectHideFlags: 0
@@ -36584,7 +36584,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03f02b75c2d5a3d479895fa91bf659b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  door: []
+  door: {fileID: 0}
   isDisabled: 0
   isInteractable: 0
   interactTrigger: {fileID: 0}
@@ -36605,4 +36605,4 @@ SceneRoots:
   - {fileID: 827046030}
   - {fileID: 1570558528}
   - {fileID: 1681493418}
-  - {fileID: 637758894}
+  - {fileID: 1193269540}
