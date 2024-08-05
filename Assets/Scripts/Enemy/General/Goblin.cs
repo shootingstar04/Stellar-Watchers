@@ -152,6 +152,19 @@ public class Goblin : MonoBehaviour
 
         yield return new WaitForSeconds(attackDelay);
 
+        float offsetX = facingRight ? attackRadius / 2 : -attackRadius / 2;
+        Vector2 attackCenter = new Vector2(transform.position.x + offsetX, transform.position.y - 0.4f);
+        Collider2D[] hitPlayers = Physics2D.OverlapBoxAll(attackCenter, new Vector2(attackRadius, attackRadius), 0, LayerMask.GetMask("Player"));
+
+        foreach (var hitPlayer in hitPlayers)
+        {
+            Debug.Log(hitPlayer.CompareTag("Player"));
+            if (hitPlayer.CompareTag("Player"))
+            {
+                hitPlayer.GetComponent<PlayerHealth>().modify_HP(-1); // 예: 데미지를 1로 설정
+            }
+        }
+
         // 공격 중에도 플레이어와의 거리를 확인
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
         if (distanceToPlayer > attackRadius)
@@ -232,4 +245,11 @@ public class Goblin : MonoBehaviour
         }
     }
 
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        float offsetX = facingRight ? attackRadius / 2 : -attackRadius / 2;
+        Vector2 attackCenter = new Vector2(transform.position.x + offsetX, transform.position.y - 0.4f);
+        Gizmos.DrawWireCube(attackCenter, new Vector3(attackRadius, attackRadius, 0));
+    }
 }
