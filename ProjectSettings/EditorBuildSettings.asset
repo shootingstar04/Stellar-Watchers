@@ -20,9 +20,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/map folder/0.unity
     guid: 996077eaac7c09742b50ffd5d01c898b
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/map folder/0 1.unity
     guid: 9f36bcc2b01f8cb48abe3b4cd7ef4c94
+  - enabled: 1
+    path: Assets/Scenes/map folder/edited 0.unity
+    guid: c4aea48a59c1c6644a5a30c22b1d51fb
   - enabled: 1
     path: Assets/Scenes/map folder/0-1.unity
     guid: 7b50d33db691652428ac0d50b64f6757
