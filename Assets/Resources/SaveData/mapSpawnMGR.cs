@@ -13,11 +13,23 @@ public class mapSpawnMGR : MonoBehaviour
     public List<GameObject> EnemySpawnList = new List<GameObject>();
     public List<GameObject> ObjectSpawnList = new List<GameObject>();
 
+    private Scene currentScene;
+
     private void Awake()
     {
         instance = this;
-        enemySOData = Resources.Load<EnemySO>("SaveData/Enemy" + SceneManager.GetActiveScene().buildIndex.ToString());
-        mapSOData = Resources.Load<MapSO>("SaveData/mapSO" + SceneManager.GetActiveScene().buildIndex.ToString());
+        currentScene = SceneManager.GetActiveScene();
+
+        if (currentScene.name == "First0")
+        {
+            enemySOData = Resources.Load<EnemySO>("SaveData/Enemy" + 0);
+            mapSOData = Resources.Load<MapSO>("SaveData/mapSO" + 0);
+        }
+        else
+        {
+            enemySOData = Resources.Load<EnemySO>("SaveData/Enemy" + (SceneManager.GetActiveScene().buildIndex - 2));
+            mapSOData = Resources.Load<MapSO>("SaveData/mapSO" + (SceneManager.GetActiveScene().buildIndex - 2));
+        }
 
         Debug.Log(mapSOData);
 
@@ -50,7 +62,7 @@ public class mapSpawnMGR : MonoBehaviour
     public void SaveMethod()
     {
         Debug.Log("저장시작");
-        for(int i = 0; i < EnemySpawnList.Count; i++)
+        for (int i = 0; i < EnemySpawnList.Count; i++)
         {
             enemySOData.spawnList[i] = EnemySpawnList[i].GetComponent<SpawnPoint>().canSpawn;
         }
@@ -59,11 +71,11 @@ public class mapSpawnMGR : MonoBehaviour
         {
             return;
         }
-        for (int i = 0; i < EnemySpawnList.Count; i++)
+        for (int i = 0; i < ObjectSpawnList.Count; i++)
         {
             mapSOData.objects[i] = ObjectSpawnList[i].GetComponent<SpawnPoint>().canSpawn;
         }
     }
 
-    
+
 }

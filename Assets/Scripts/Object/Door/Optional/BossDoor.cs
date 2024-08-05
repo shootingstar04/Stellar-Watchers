@@ -8,41 +8,47 @@ public class BossDoor : Door
     public static Action bossdoorOpen;
     public static Action bossdoorClose;
 
+    [SerializeField] private GameObject Enterancedoor;
+    [SerializeField] private GameObject ExitDoor;
+
     private void Awake()
     {
-        if (door.Count == 0)
+        if (door == null)
         {
-            CollectChildObjects(this.gameObject);
+            door = GameObject.FindGameObjectWithTag("Boss");
         }
 
         bossdoorOpen = () => OpenDoor();
         bossdoorClose = () => CloseDoor();
     }
 
-    void CollectChildObjects(GameObject parent)
+    private void Start()
     {
-        foreach (Transform child in parent.transform)
+        if (door == null)
         {
-            if(child.GetComponent<EnteranceTrigger>() == null)
-            door.Add(child.gameObject);
+            door = GameObject.FindGameObjectWithTag("Boss");
         }
     }
 
     public override void OpenDoor()
     {
-        isDisabled = true;
-        Destroy(this.gameObject.transform.GetComponentInChildren<EnteranceTrigger>());
-        foreach (GameObject obj in door)
-        {
-            obj.SetActive(false);
-        }
+        Destroy(Enterancedoor);
+        Destroy(ExitDoor);
+        Destroy(this.gameObject);
+        
     }
 
     public override void CloseDoor()
     {
-        foreach(GameObject obj in door)
+        Enterancedoor.SetActive(true);
+        ExitDoor.SetActive(true);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag(Define.PlayerTag))
         {
-            obj.SetActive(true);
+            bossdoorClose();
         }
     }
 }
