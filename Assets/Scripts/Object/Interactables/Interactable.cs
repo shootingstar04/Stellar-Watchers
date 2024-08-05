@@ -107,13 +107,11 @@ public class Interactable : MonoBehaviour
         playerdata.Coin = itemdata.GetComponent<ItemData>().CurrentGold;
         Debug.Log(playerdata.Position + "위치, " + playerdata.Coin + "코인");
 
-        TextPopUp.instance.show_PopUp("저장");
-
-        if (scene.buildIndex != 0)
+        if (scene.buildIndex != 2)
         {
             if (scene.buildIndex > lastSceneIndex)
             {
-                for (int i = lastSceneIndex; i <= scene.buildIndex; i++)
+                for (int i = (lastSceneIndex - 2); i <= (scene.buildIndex - 2); i++)
                 {
                     MapSO mapso = Resources.Load<MapSO>("SaveData/MapSO" + i);
                     for (int j = 0; j < mapso.objects.Count; j++)
@@ -124,7 +122,7 @@ public class Interactable : MonoBehaviour
             }
             else
             {
-                for (int i = scene.buildIndex; i <= lastSceneIndex; i++)
+                for (int i = (scene.buildIndex - 2); i <= (lastSceneIndex - 2); i++)
                 {
                     MapSO mapso = Resources.Load<MapSO>("SaveData/MapSO" + i);
                     for (int j = 0; j < mapso.objects.Count; j++)
@@ -143,6 +141,10 @@ public class Interactable : MonoBehaviour
                 savedata.Objects[0][i] = mapso.objects[i];
             }
         }
+
+
+        TextPopUp.instance.show_PopUp("저장");
+
     }
 
     void RockMethod()
