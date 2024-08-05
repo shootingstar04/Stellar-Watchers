@@ -19,6 +19,7 @@ public class Interactable : MonoBehaviour
     [SerializeField] private Canvas canvas;
 
     private PlayerData playerdata;
+    private SaveData savedata;
 
     [SerializeField] private GameObject itemdata;
 
@@ -33,6 +34,7 @@ public class Interactable : MonoBehaviour
         cam = Cam.GetComponent<cam_deadzone_test>();
 
         playerdata = Resources.Load<PlayerData>("SaveData/PlayerSO");
+        savedata = Resources.Load<SaveData>("SaveData/SaveData");
     }
 
     private void Update()
@@ -96,13 +98,49 @@ public class Interactable : MonoBehaviour
 
     void SaveMethod()
     {
+        int lastSceneIndex = playerdata.SceneIndex;
         playerdata.Position = this.transform.position;
         UnityEngine.SceneManagement.Scene scene = SceneManager.GetActiveScene();
         playerdata.SceneIndex = scene.buildIndex;
         playerdata.Coin = itemdata.GetComponent<ItemData>().CurrentGold;
         Debug.Log(playerdata.Position + "위치, " + playerdata.Coin + "코인");
-        
+
         TextPopUp.instance.show_PopUp("저장");
+
+        if (scene.buildIndex != 0)
+        {
+            if (scene.buildIndex > lastSceneIndex)
+            {
+                for (int i = lastSceneIndex; i <= scene.buildIndex; i++)
+                {
+                    MapSO mapso = Resources.Load<MapSO>("SaveData/MapSO" + i);
+                    for (int j = 0; j < mapso.objects.Count; j++)
+                    {
+                        savedata.Objects[i][j] = mapso.objects[j];
+                    }
+                }
+            }
+            else
+            {
+                for (int i = scene.buildIndex; i <= lastSceneIndex; i++)
+                {
+                    MapSO mapso = Resources.Load<MapSO>("SaveData/MapSO" + i);
+                    for (int j = 0; j < mapso.objects.Count; j++)
+                    {
+                        savedata.Objects[i][j] = mapso.objects[j];
+                    }
+                }
+            }
+
+        }
+        else
+        {
+            MapSO mapso = Resources.Load<MapSO>("SaveData/MapSO0");
+            for (int i = 0; i < mapso.objects.Count; i++)
+            {
+                savedata.Objects[0][i] = mapso.objects[i];
+            }
+        }
     }
 
     void RockMethod()
