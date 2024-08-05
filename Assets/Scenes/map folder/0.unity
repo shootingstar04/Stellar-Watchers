@@ -40871,7 +40871,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.51290494, g: 0.9622642, b: 0.51290494, a: 1}
+  m_Color: {r: 0.95364565, g: 1, b: 0.051886797, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -40880,18 +40880,18 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 30
-    m_FontStyle: 0
+    m_FontSize: 50
+    m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 3
-    m_MaxSize: 40
+    m_MaxSize: 60
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "[\uC870\uC5B8] \uD68C\uBCF5\uD558\uB824\uBA74 S\uD0A4\uB97C \uAFB9 \uB204\uB974\uC138\uC694 "
+  m_Text: "[tip] \uD68C\uBCF5\uD558\uB824\uBA74 S\uD0A4\uB97C \uAFB9 \uB204\uB974\uC138\uC694 "
 --- !u!222 &684516135
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -41928,52 +41928,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!1 &889167614
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 889167615}
-  - component: {fileID: 889167616}
-  m_Layer: 0
-  m_Name: SpawnPoint (2)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &889167615
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 889167614}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.09, y: 10.64, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1816056186}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &889167616
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 889167614}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43ba328973bee2247a129a90eaeef874, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canSpawn: 1
-  spawnObject: {fileID: 710732280266172486, guid: ffab101f00697b648b79925990406f56, type: 3}
 --- !u!1 &898968375
 GameObject:
   m_ObjectHideFlags: 0
@@ -42355,7 +42309,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.000030518}
+  m_AnchoredPosition: {x: 0, y: 70}
   m_SizeDelta: {x: 533.5659, y: 84.8489}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1630190486
@@ -42371,7 +42325,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9433962, g: 0.9433962, b: 0.9433962, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -42380,11 +42334,11 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 30
-    m_FontStyle: 0
+    m_FontSize: 100
+    m_FontStyle: 3
     m_BestFit: 0
-    m_MinSize: 3
-    m_MaxSize: 40
+    m_MinSize: 1
+    m_MaxSize: 100
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -42496,18 +42450,18 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 53.198887, y: 25.903091}
+    - - {x: 65.068085, y: 26.183468}
       - {x: 15.98928, y: 25.741383}
       - {x: 15.859936, y: -2.5486126}
-      - {x: 180.86618, y: -2.7450752}
-      - {x: 180.20561, y: 20.642822}
+      - {x: 184.50775, y: -2.6312752}
+      - {x: 184.6438, y: 20.98422}
       - {x: 144.75726, y: 20.67907}
-      - {x: 144.82188, y: 12.06002}
-      - {x: 139.2555, y: 12.248112}
+      - {x: 144.45549, y: 14.624769}
+      - {x: 139.03566, y: 14.666304}
       - {x: 138.99033, y: 44.808205}
       - {x: 85.90978, y: 44.598984}
       - {x: 85.72831, y: 13.860363}
-      - {x: 53.120697, y: 13.606781}
+      - {x: 65.08335, y: 13.793697}
   m_UseDelaunayMesh: 0
 --- !u!4 &1799273868
 Transform:
@@ -42557,7 +42511,6 @@ MonoBehaviour:
   EnemySpawnList:
   - {fileID: 873287746}
   - {fileID: 774042095}
-  - {fileID: 889167614}
   ObjectSpawnList:
   - {fileID: 1548497992}
   - {fileID: 330353390}
@@ -42576,9 +42529,39 @@ Transform:
   m_Children:
   - {fileID: 873287748}
   - {fileID: 774042097}
-  - {fileID: 889167615}
   - {fileID: 1548497994}
   - {fileID: 330353392}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1827818769
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1827818770}
+  m_Layer: 0
+  m_Name: Popup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1827818770
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1827818769}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 75.27, y: 3.91, z: 0.033591695}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1969842971
@@ -42618,7 +42601,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 591.9089, y: 500}
+  m_SizeDelta: {x: 1200, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1969842973
 MonoBehaviour:
@@ -42633,7 +42616,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6945633, g: 0.6897472, b: 0.9433962, a: 0.4}
+  m_Color: {r: 0.33962262, g: 0.33962262, b: 0.33962262, a: 0.4}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -42749,4 +42732,5 @@ SceneRoots:
   - {fileID: 1799273868}
   - {fileID: 2291955303706062759}
   - {fileID: 814141786}
+  - {fileID: 1827818770}
   - {fileID: 1816056186}
