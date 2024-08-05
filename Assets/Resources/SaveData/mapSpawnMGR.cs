@@ -17,7 +17,9 @@ public class mapSpawnMGR : MonoBehaviour
     {
         instance = this;
         enemySOData = Resources.Load<EnemySO>("SaveData/Enemy" + SceneManager.GetActiveScene().buildIndex.ToString());
-       // mapSOData = Resources.Load<MapSO>("SaveData/mapSO" + SceneManager.GetActiveScene().buildIndex.ToString());
+        mapSOData = Resources.Load<MapSO>("SaveData/mapSO" + SceneManager.GetActiveScene().buildIndex.ToString());
+
+        Debug.Log(mapSOData);
 
         LoadMethod();
     }
@@ -32,13 +34,17 @@ public class mapSpawnMGR : MonoBehaviour
             }
         }
         /*
+        if(mapSOData == null)
+        {
+            return;
+        }*/
         for (int i = 0; i < mapSOData.objects.Count; i++)
         {
             if (mapSOData.objects[i])
             {
-                //ObjectSpawnList[i].GetComponent<SpawnPoint>().SpawnObject();
+                ObjectSpawnList[i].GetComponent<SpawnPoint>().SpawnObject();
             }
-        }*/
+        }
     }
 
     public void SaveMethod()
@@ -48,11 +54,15 @@ public class mapSpawnMGR : MonoBehaviour
         {
             enemySOData.spawnList[i] = EnemySpawnList[i].GetComponent<SpawnPoint>().canSpawn;
         }
-        /*
+
+        if (mapSOData == null)
+        {
+            return;
+        }
         for (int i = 0; i < EnemySpawnList.Count; i++)
         {
-            //mapSOData.objects[i] = ObjectSpawnList[i].GetComponent<SpawnPoint>().canSpawn;
-        }*/
+            mapSOData.objects[i] = ObjectSpawnList[i].GetComponent<SpawnPoint>().canSpawn;
+        }
     }
 
     

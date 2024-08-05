@@ -8,6 +8,7 @@ public class GeneralDoor : Door
     [SerializeField] bool isInteractable = true;
     [SerializeField] Collider2D interactTrigger;
 
+    SpawnPoint spawnpoint;
 
     private void Awake()
     {
@@ -36,10 +37,16 @@ public class GeneralDoor : Door
         }
     }
 
+    private void Start()
+    {
+        spawnpoint = GetComponentInParent<SpawnPoint>();
+    }
+
     public override void OpenDoor()
     {
         isDisabled = true;
         this.gameObject.SetActive(false);
+        returnBool();
 
     }
     public override void CloseDoor()
@@ -60,6 +67,9 @@ public class GeneralDoor : Door
         }
     }
 
-
+    public void returnBool()
+    {
+        spawnpoint.canSpawn = false;
+    }
 
 }
