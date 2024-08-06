@@ -108,6 +108,10 @@ public class Interactable : MonoBehaviour
 
     void SaveMethod()
     {
+        Resurrect();
+        mapSpawnMGR spawnmanager = GameObject.Find("SpawnMGR").GetComponent<mapSpawnMGR>();
+        spawnmanager.SaveMethod();
+
         int lastSceneIndex = playerdata.SceneIndex;
         Debug.Log(lastSceneIndex);
 
@@ -118,8 +122,15 @@ public class Interactable : MonoBehaviour
         playerdata.Coin = ItemData.Instance.CurrentGold;
         Debug.Log(playerdata.Position + "위치, " + playerdata.Coin + "코인");
 
+        if(savedata.Objects == null)
+        {
+            savedata.Objects = new List<List<bool>>();
+        }
+
         if (scene.buildIndex != 2)
         {
+            savedata.Objects.Clear();   
+
             for (int i = 0; i < 4; i++)
             {
                 MapSO mapso = Resources.Load<MapSO>("SaveData/MapSO" + i);
@@ -128,7 +139,7 @@ public class Interactable : MonoBehaviour
 
                 for (int j = 0; j < mapso.objects.Count; j++)
                 {
-                    savedata.Objects[i][j] = (mapso.objects[j]);
+                    savedata.Objects[i].Add(mapso.objects[j]);
                 }
             }
 
@@ -172,6 +183,7 @@ public class Interactable : MonoBehaviour
 
         for (int i = 0; i < savedata.Objects.Count; i++)
         {
+            Debug.Log("map"+i+", " + savedata.Objects[i]);
             for (int j = 0; j < savedata.Objects[i].Count; j++)
             {
                 Debug.Log(savedata.Objects[i][j]);
@@ -278,4 +290,17 @@ public class Interactable : MonoBehaviour
         }
     }
 
+
+    public void Resurrect()
+    {
+        Debug.Log("몬스터부활");
+        for (int i = 0; i < 4; i++)
+        {
+            MapSO mapso = Resources.Load<MapSO>("SaveData/MapSO" + i);
+            for(int j = 0; j<mapso.objects.Count; j++)
+            {
+                mapso.objects[j] = true;
+            }
+        }
+    }
 }

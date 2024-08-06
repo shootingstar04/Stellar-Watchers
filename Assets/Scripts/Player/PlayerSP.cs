@@ -40,7 +40,7 @@ public class PlayerSP : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(attackCount);
+        //Debug.Log(attackCount);
 
         if (attackCount >= 3)
         {
