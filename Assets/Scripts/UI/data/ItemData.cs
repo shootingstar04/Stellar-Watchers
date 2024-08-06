@@ -51,4 +51,10 @@ public class ItemData : MonoBehaviour
         currentGold += gold;
         if (currentGold > 999999999) currentGold = 999999999;
     }
+
+    public void set_gold(int gold)
+    {
+        currentGold = gold;
+        if (currentGold > 999999999) currentGold = 999999999;
+    }
 }
