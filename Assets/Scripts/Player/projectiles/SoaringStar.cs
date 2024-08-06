@@ -65,11 +65,6 @@ public class SoaringStar : MonoBehaviour
                         Debug.Log("ÆøÅº ¸ÂÀ½");
                         Bomb.onFire();
                     }
-                    else if (collider.GetComponent<ElevatorSwitch>() != null)
-                    {
-                        Debug.Log("½ºÀ§Ä¡ ÀÛµ¿");
-                        collider.GetComponent<ElevatorSwitch>().SwitchFlick();
-                    }
                     else if (collider.GetComponent<Chest>() != null)
                     {
                         collider.gameObject.GetComponent<Chest>().Distroyed();
