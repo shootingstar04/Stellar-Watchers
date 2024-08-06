@@ -29,13 +29,14 @@ public class ItemData : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        if (!Instance)
+        if (Instance == null)
         {
             Instance = this;
         }
         else
         {
-            Destroy(this.gameObject);
+            Destroy(Instance.gameObject);
+            Instance = this;
         }
     }
 

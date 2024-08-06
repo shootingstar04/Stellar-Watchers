@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Freyja : MonoBehaviour
+public class TwinStars : MonoBehaviour
 {
-    public int dir=0;
+    public int dir = 0;
 
     private bool islaunched = false;
     // Start is called before the first frame update
@@ -28,8 +28,8 @@ public class Freyja : MonoBehaviour
             }
             else if (collision.CompareTag(Define.EnemyTag))
             {
-                collision.GetComponent<EnemyData>().TakeDamage(10 * (ProgressData.Instance.reinforcementCount + 1));
-                Debug.Log(collision.name + " 에게 " + 10 * (ProgressData.Instance.reinforcementCount + 1) + "의 데미지를 입힘");
+                collision.GetComponent<EnemyData>().TakeDamage(7.5f * (ProgressData.Instance.reinforcementCount + 1));
+                Debug.Log(collision.name + " 에게 " + 7.5f * (ProgressData.Instance.reinforcementCount + 1) + "의 데미지를 입힘");
             }
             else if (collision.tag == "BOMB")
             {
@@ -51,9 +51,9 @@ public class Freyja : MonoBehaviour
     {
         Rigidbody2D rigid = this.GetComponent<Rigidbody2D>();
 
-        rigid.velocity = new Vector2(dir * 15, 0);
+        rigid.velocity = new Vector2(dir * 50, 0);
 
-        Collider2D[] collider2Ds = Physics2D.OverlapCircleAll(this.transform.position, 1.25f);
+        Collider2D[] collider2Ds = Physics2D.OverlapCircleAll(this.transform.position, 0.5f);
 
         foreach (Collider2D collider in collider2Ds)
         {
@@ -65,21 +65,25 @@ public class Freyja : MonoBehaviour
                 }
                 else if (collider.CompareTag(Define.EnemyTag))
                 {
-                    collider.GetComponent<EnemyData>().TakeDamage(10 * (ProgressData.Instance.reinforcementCount + 1));
-                    Debug.Log(collider.name + " 에게 " + 10 * (ProgressData.Instance.reinforcementCount + 1) + "의 데미지를 입힘");
+                    collider.GetComponent<EnemyData>().TakeDamage(7.5f * (ProgressData.Instance.reinforcementCount + 1));
+                    Debug.Log(collider.name + " 에게 " + 7.5f * (ProgressData.Instance.reinforcementCount + 1) + "의 데미지를 입힘");
+                    Destroy(this.gameObject);
                 }
                 else if (collider.tag == "BOMB")
                 {
                     Debug.Log("폭탄 맞음");
                     Bomb.onFire();
+                    Destroy(this.gameObject);
                 }
                 else if (collider.GetComponent<Chest>() != null)
                 {
                     collider.gameObject.GetComponent<Chest>().Distroyed();
+                    Destroy(this.gameObject);
                 }
                 else if (collider.GetComponent<GeneralDoor>() != null)
                 {
                     collider.GetComponent<GeneralDoor>().OpenDoor();
+                    Destroy(this.gameObject);
                 }
             }
         }
@@ -108,6 +112,6 @@ public class Freyja : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(this.transform.position, 1.25f);
+        Gizmos.DrawWireSphere(this.transform.position, 0.5f);
     }
 }

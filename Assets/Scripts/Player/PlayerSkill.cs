@@ -9,7 +9,7 @@ public class PlayerSkill : MonoBehaviour
     //public float healDelay2 = 0.7f;
 
     //[Space(1)]
-    [Header("스텔라 스트라이크")]
+    [Header("강 휘두르기")]
     public Transform stellaPos;
     public Vector2 stellaBox;
     public float stellaDelay1 = 0.3f;
@@ -23,23 +23,30 @@ public class PlayerSkill : MonoBehaviour
     public float pointDelay2 = 2f;
 
     [Space(1)]
-    [Header("메테오라이트 슬래시")]
+    [Header("강타")]
     public Transform meteorPos;
     public Vector2 meteorBox;
     public float meteorDelay1 = 0.7f;
     public float meteorDelay2 = 1f;
 
     [Space(1)]
-    [Header("프레이야")]
+    [Header("유성탄")]
     public Transform freyjaPos;
     public GameObject freyjaBullet;
     public float freyjaDelay1 = 1.5f;
 
     [Space(1)]
-    [Header("소어링 스타")]
+    [Header("빛의 기둥")]
     public Transform soaringPos;
     public GameObject soaringBullet;
     public float soaringDelay1 = 2f;
+
+    [Space(1)]
+    [Header("트윈 스타즈")]
+    public Transform stunPos;
+    public GameObject stunBullet;
+    public float stunDelay1 = 0.3f;
+    public float stunDelay2 = 1.2f;
 
 
 
@@ -74,6 +81,7 @@ public class PlayerSkill : MonoBehaviour
 
         freyja();
         soaring_star();
+        twin_stars();
     }
 
     void check_input()
@@ -103,9 +111,14 @@ public class PlayerSkill : MonoBehaviour
 
     private void start_skill(SkillSet.skill skilltype)
     {
+        if (skilltype != SkillSet.skill.none)
+        {
+            playerMove.UseSkill(true);
+        }
+
         switch (skilltype)
         {
-            case SkillSet.skill.stellarStrike:
+            case SkillSet.skill.hardSwing:
                 if (PlayerSP.instance.CurSP > 0)
                 {
                     PlayerSP.instance.modify_SP(-1);
@@ -129,7 +142,7 @@ public class PlayerSkill : MonoBehaviour
                     isUsingSkill = skilltype;
                 }
                 break;
-            case SkillSet.skill.meteorliteSlash:
+            case SkillSet.skill.smite:
                 if (PlayerSP.instance.CurSP > 2)
                 {
                     PlayerSP.instance.modify_SP(-3);
@@ -142,7 +155,7 @@ public class PlayerSkill : MonoBehaviour
                     isUsingSkill = skilltype;
                 }
                 break;
-            case SkillSet.skill.bigShot:
+            case SkillSet.skill.meteorBomb:
                 if (PlayerSP.instance.CurSP > 0)
                 {
                     PlayerSP.instance.modify_SP(-1);
@@ -154,7 +167,7 @@ public class PlayerSkill : MonoBehaviour
                     isUsingSkill = skilltype;
                 }
                 break;
-            case SkillSet.skill.laserAttack:
+            case SkillSet.skill.pillarOfLight:
                 if (PlayerSP.instance.CurSP > 2)
                 {
                     PlayerSP.instance.modify_SP(-3);
@@ -166,13 +179,19 @@ public class PlayerSkill : MonoBehaviour
                     isUsingSkill = skilltype;
                 }
                 break;
+            case SkillSet.skill.twinstars:
+                if (PlayerSP.instance.CurSP > 0)
+                {
+                    PlayerSP.instance.modify_SP(-1);
+                    if (!playerMove.IsGrounded)
+                    {
+                        rigid.gravityScale = 0;
+                        inAir = true;
+                    }
+                    isUsingSkill = skilltype;
+                }
+                break;
         }
-
-        if (isUsingSkill != SkillSet.skill.none)
-        {
-            playerMove.UseSkill(true);
-        }
-
     }
     private void end_skill()
     {
@@ -214,7 +233,7 @@ public class PlayerSkill : MonoBehaviour
 
     private void stella_strike()
     {
-        if (isUsingSkill == SkillSet.skill.stellarStrike)
+        if (isUsingSkill == SkillSet.skill.hardSwing)
         {
             skillCounter += Time.deltaTime;
 
@@ -234,11 +253,6 @@ public class PlayerSkill : MonoBehaviour
                     {
                         Debug.Log("폭탄 맞음");
                         Bomb.onFire();
-                    }
-                    else if (collider.GetComponent<ElevatorSwitch>() != null)
-                    {
-                        Debug.Log("스위치 작동");
-                        collider.GetComponent<ElevatorSwitch>().SwitchFlick();
                     }
                     else if (collider.GetComponent<Chest>() != null)
                     {
@@ -280,11 +294,6 @@ public class PlayerSkill : MonoBehaviour
                         Debug.Log("폭탄 맞음");
                         Bomb.onFire();
                     }
-                    else if (collider.GetComponent<ElevatorSwitch>() != null)
-                    {
-                        Debug.Log("스위치 작동");
-                        collider.GetComponent<ElevatorSwitch>().SwitchFlick();
-                    }
                     else if (collider.GetComponent<Chest>() != null)
                     {
                         collider.gameObject.GetComponent<Chest>().Distroyed();
@@ -304,7 +313,7 @@ public class PlayerSkill : MonoBehaviour
     }
     private void meteorite_slash()
     {
-        if (isUsingSkill == SkillSet.skill.meteorliteSlash)
+        if (isUsingSkill == SkillSet.skill.smite)
         {
             skillCounter += Time.deltaTime;
 
@@ -327,11 +336,6 @@ public class PlayerSkill : MonoBehaviour
                         {
                             Debug.Log("폭탄 맞음");
                             Bomb.onFire();
-                        }
-                        else if (collider.GetComponent<ElevatorSwitch>() != null)
-                        {
-                            Debug.Log("스위치 작동");
-                            collider.GetComponent<ElevatorSwitch>().SwitchFlick();
                         }
                         else if (collider.GetComponent<Chest>() != null)
                         {
@@ -387,7 +391,7 @@ public class PlayerSkill : MonoBehaviour
 
     private void freyja()
     {
-        if (isUsingSkill == SkillSet.skill.bigShot)
+        if (isUsingSkill == SkillSet.skill.meteorBomb)
         {
             skillCounter += Time.deltaTime;
 
@@ -409,7 +413,7 @@ public class PlayerSkill : MonoBehaviour
     }
     private void soaring_star()
     {
-        if (isUsingSkill == SkillSet.skill.laserAttack)
+        if (isUsingSkill == SkillSet.skill.pillarOfLight)
         {
             skillCounter += Time.deltaTime;
 
@@ -465,6 +469,32 @@ public class PlayerSkill : MonoBehaviour
             }
 
             if (skillCounter > soaringDelay1)
+            {
+                end_skill();
+            }
+        }
+    }
+    private void twin_stars()
+    {
+        if (isUsingSkill == SkillSet.skill.twinstars)
+        {
+            if (skillCounter == 0)
+            {
+                GameObject instance = Instantiate(stunBullet, stunPos.position, stunPos.rotation);
+                instance.GetComponent<TwinStars>().dir = (int)playerMove.LastDirection;
+            }
+
+            skillCounter += Time.deltaTime;
+
+            if (!isAttacked && skillCounter > stunDelay1)
+            {
+                isAttacked = true;
+
+                GameObject instance = Instantiate(stunBullet, stunPos.position, stunPos.rotation);
+                instance.GetComponent<TwinStars>().dir = (int)playerMove.LastDirection;
+            }
+
+            if (skillCounter > freyjaDelay1)
             {
                 end_skill();
             }

@@ -19,9 +19,7 @@ public class SoaringStar : MonoBehaviour
 
     void FixedUpdate()
     {
-        Debug.Log("a");
         move_to_target();
-        Debug.Log("b");
     }
 
     private void move_to_target()
@@ -66,11 +64,6 @@ public class SoaringStar : MonoBehaviour
                     {
                         Debug.Log("ÆøÅº ¸ÂÀ½");
                         Bomb.onFire();
-                    }
-                    else if (collider.GetComponent<ElevatorSwitch>() != null)
-                    {
-                        Debug.Log("½ºÀ§Ä¡ ÀÛµ¿");
-                        collider.GetComponent<ElevatorSwitch>().SwitchFlick();
                     }
                     else if (collider.GetComponent<Chest>() != null)
                     {

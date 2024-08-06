@@ -37,6 +37,7 @@ public class Projectile : MonoBehaviour
         {
             collision.GetComponent<EnemyData>().TakeDamage(5 * (ProgressData.Instance.reinforcementCount + 1));
             Debug.Log(collision.name + " 에게 " + 5 * (ProgressData.Instance.reinforcementCount + 1) + "의 데미지를 입힘");
+            PlayerSP.instance.attackCount += 1;
             Destroy(this.gameObject, 0);
         }
         else if (collision.tag == "BOMB")
