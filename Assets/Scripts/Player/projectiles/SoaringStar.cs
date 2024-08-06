@@ -5,89 +5,88 @@ using UnityEngine;
 public class SoaringStar : MonoBehaviour
 {
     public Transform bottom;
+    public int hitCount = 30;
 
     private GameObject target = null;
 
-    private float skillcount = 0;
     private float xRange = 0;
 
-    private List<GameObject> hitted;
     // Start is called before the first frame update
     void Start()
     {
-        //StartCoroutine(attack());
+        StartCoroutine(attack());
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+        Debug.Log("a");
         move_to_target();
-        charge();
+        Debug.Log("b");
     }
 
     private void move_to_target()
-    { 
+    {
         if (target != null)
         {
-            
             Vector2 Pos = target.transform.position;
+            Pos.y += 3.5f;
 
-            Pos.y += 3f;
+            RaycastHit2D Hit = Physics2D.Raycast((Vector2)Pos, Vector2.down, 50, LayerMask.GetMask("Ground"));
+
+            if (Hit.collider != null)
+            {
+                Pos = Hit.point;
+                Pos.y += 3.5f;
+            }
 
             this.transform.position = Pos;
-
-            Collider2D ground = Physics2D.OverlapCircle(bottom.position, 0.1f, LayerMask.NameToLayer("Ground"));
-
-            while (ground == null)
-            {
-                Debug.Log(1);
-                Pos.y -= 0.1f;
-                this.transform.position = Pos;
-
-                ground = Physics2D.OverlapCircle(bottom.position, 0.1f, LayerMask.NameToLayer("Ground"));
-            }
-        }
-    }
-
-    private void charge()
-    {
-        if (skillcount > 4f)
-        {
-            Destroy(this.gameObject);
-        }
-
-        skillcount += Time.deltaTime;
-        if (skillcount > 2f)
-        {
-            xRange += 1.5f * Time.deltaTime;
-            Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(this.transform.position, new Vector2(xRange, 7), 0);
-
-            foreach (Collider2D collider in collider2Ds)
-            {
-                if (collider != null && collider.tag == "Enemy")
-                {
-                    if (!hitted.Contains(collider.gameObject))
-                    {
-                        hitted.Add(collider.gameObject);
-                    }
-                }
-            }
         }
     }
 
     IEnumerator attack()
     {
-        while (true)
+        yield return new WaitForSeconds(2);
+
+        for (int i = 0; i < hitCount; i++)
         {
-            foreach (GameObject enemy in hitted)
+            xRange += 3f / hitCount;
+
+            Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(this.transform.position, new Vector2(xRange, 7), 0);
+
+            foreach (Collider2D collider in collider2Ds)
             {
-                Debug.Log(enemy.name);
-                enemy.GetComponent<EnemyData>().TakeDamage(5);
-                Debug.Log(enemy.name + " 에게 " + 10 * (ProgressData.Instance.reinforcementCount + 1) + "의 데미지를 입힘");
+                if (collider != null)
+                {
+                    if (collider.CompareTag(Define.EnemyTag))
+                    {
+                        collider.GetComponent<EnemyData>().TakeDamage(5);
+                        Debug.Log(collider.name + " 에게 " + 5 + "의 데미지를 입힘");
+                    }
+                    else if (collider.tag == "BOMB")
+                    {
+                        Debug.Log("폭탄 맞음");
+                        Bomb.onFire();
+                    }
+                    else if (collider.GetComponent<ElevatorSwitch>() != null)
+                    {
+                        Debug.Log("스위치 작동");
+                        collider.GetComponent<ElevatorSwitch>().SwitchFlick();
+                    }
+                    else if (collider.GetComponent<Chest>() != null)
+                    {
+                        collider.gameObject.GetComponent<Chest>().Distroyed();
+                    }
+                    else if (collider.GetComponent<GeneralDoor>() != null)
+                    {
+                        collider.GetComponent<GeneralDoor>().OpenDoor();
+                    }
+                }
             }
 
-            yield return new WaitForSeconds(1 / 15);
+            yield return new WaitForSeconds((float)2 / hitCount);
         }
+
+        Destroy(this.gameObject);
     }
 
     public void set_target(GameObject enemy)
@@ -96,6 +95,13 @@ public class SoaringStar : MonoBehaviour
         if (enemy != null)
         {
             Debug.Log("set target, " + enemy.name);
+
+            Vector2 Pos = target.transform.position;
+            Pos.y += 3f;
+
+            this.transform.position = Pos;
+
+            move_to_target();
         }
     }
     private void OnDrawGizmos()

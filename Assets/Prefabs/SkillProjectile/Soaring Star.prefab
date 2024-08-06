@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bottom: {fileID: 995660434341608496}
+  hitCount: 30
 --- !u!1 &5458795313873268466
 GameObject:
   m_ObjectHideFlags: 0

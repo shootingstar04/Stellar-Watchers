@@ -316,6 +316,7 @@ public class PlayerMove : MonoBehaviour
 
         RaycastHit2D headhit = Physics2D.Raycast((Vector2)headingCheck.position - new Vector2(lastDirection * foot_size / 2, 0), Vector2.right * lastDirection, foot_size, groundLayer);
 
+        //Debug.Log(foothit.collider + " " + headhit.collider);
 
         isGrounded = foothit.collider != null && !foothit.collider.isTrigger && !isJumping ? true : false;
 
