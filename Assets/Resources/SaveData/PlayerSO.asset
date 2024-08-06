@@ -12,7 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d8580b566d57e642b677106a7f27dea, type: 3}
   m_Name: PlayerSO
   m_EditorClassIdentifier: 
-  position: {fileID: 0}
-  SceneIndex: 0
+  Position: {x: 0, y: 0, z: 0}
+  SceneIndex: 3
   Coin: 0
-  Health: 0
+  MaxHp: 5
+  MaxSp: 5
+  CurrentSp: 5
+  Acquired_ItemData: 
+  Acquired_SkillData: 
+  Aquired_ProgressData: 
+  stoneCount: 0
+  pointCount: 0
+  reinforcementCount: 0

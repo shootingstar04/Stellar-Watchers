@@ -341,7 +341,13 @@ public class PlayerMove : MonoBehaviour
         {
             animator.SetBool("Death", true);
             SceneTransition.instance.FadeOut();
+            
             PauseMove();
+
+            if(Input.GetKeyDown(KeyCode.R))
+            {
+                SaveLoadManager.instance.LoadData();
+            }
         }
     }
 
