@@ -8,8 +8,9 @@ public class SPUI : MonoBehaviour
     // Start is called before the first frame update
 
     GameObject currentSP;
-    GameObject maxSP;
-    GameObject currentSPText;
+    Animator animator;
+    //GameObject maxSP;
+    //GameObject currentSPText;
 
     private int currentSPValue = 5;
     private int maxSPValue = 5;
@@ -25,8 +26,10 @@ public class SPUI : MonoBehaviour
         }
 
         currentSP = GameObject.Find("Current SP");
-        maxSP = GameObject.Find("Max SP");
-        currentSPText = GameObject.Find("Current SP Text");
+        animator = currentSP.GetComponent<Animator>();
+        animator.SetInteger("curSP", currentSPValue);
+        //maxSP = GameObject.Find("Max SP");
+        //currentSPText = GameObject.Find("Current SP Text");
     }
 
     // Update is called once per frame
@@ -40,11 +43,12 @@ public class SPUI : MonoBehaviour
         { 
             currentSPValue = SP;
 
-            currentSPText.GetComponent<Text>().text = currentSPValue.ToString();
+            animator.SetInteger("curSP", currentSPValue);
+            //currentSPText.GetComponent<Text>().text = currentSPValue.ToString();
 
 
-            StopCoroutine(smoth_change());
-            StartCoroutine(smoth_change());
+            //StopCoroutine(smoth_change());
+            //StartCoroutine(smoth_change());
 
             return true;
         }
@@ -58,11 +62,12 @@ public class SPUI : MonoBehaviour
 
             refresh_sp(MaxSP);
 
-            maxSP.GetComponent<ChangeImage>().set_image(MaxSP - 5);
-            currentSP.GetComponent<ChangeImage>().set_image(MaxSP - 5);
+            //maxSP.GetComponent<ChangeImage>().set_image(MaxSP - 5);
+            //currentSP.GetComponent<ChangeImage>().set_image(MaxSP - 5);
         }
     }
 
+    /*
     IEnumerator smoth_change()
     {
         if ((currentSP.GetComponent<Image>().fillAmount * maxSPValue) != currentSPValue)
@@ -82,5 +87,5 @@ public class SPUI : MonoBehaviour
             }
         }
     }
-
+    */
 }

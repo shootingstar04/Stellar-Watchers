@@ -415,63 +415,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1154399262
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4289609093838808687, guid: 361c06886780cd54da96764156e20168, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4289609093838808687, guid: 361c06886780cd54da96764156e20168, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4289609093838808687, guid: 361c06886780cd54da96764156e20168, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4289609093838808687, guid: 361c06886780cd54da96764156e20168, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4289609093838808687, guid: 361c06886780cd54da96764156e20168, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4289609093838808687, guid: 361c06886780cd54da96764156e20168, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4289609093838808687, guid: 361c06886780cd54da96764156e20168, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4289609093838808687, guid: 361c06886780cd54da96764156e20168, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4289609093838808687, guid: 361c06886780cd54da96764156e20168, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4289609093838808687, guid: 361c06886780cd54da96764156e20168, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5233115212220829375, guid: 361c06886780cd54da96764156e20168, type: 3}
-      propertyPath: m_Name
-      value: UI Data
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 361c06886780cd54da96764156e20168, type: 3}
 --- !u!1 &1232793871
 GameObject:
   m_ObjectHideFlags: 0
@@ -2919,10 +2862,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 437227886}
-    - target: {fileID: 712282374106997551, guid: 8f6b40b50b1197d4a9987450aec2a558, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -146.6175
-      objectReference: {fileID: 0}
     - target: {fileID: 1664278193776312918, guid: 8f6b40b50b1197d4a9987450aec2a558, type: 3}
       propertyPath: m_Camera
       value: 
@@ -2934,10 +2873,6 @@ PrefabInstance:
     - target: {fileID: 3398993735476731684, guid: 8f6b40b50b1197d4a9987450aec2a558, type: 3}
       propertyPath: m_Name
       value: UI
-      objectReference: {fileID: 0}
-    - target: {fileID: 3398993735476731684, guid: 8f6b40b50b1197d4a9987450aec2a558, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3644889916202361671, guid: 8f6b40b50b1197d4a9987450aec2a558, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2983,10 +2918,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 237887124}
-    - target: {fileID: 6418072824545809942, guid: 8f6b40b50b1197d4a9987450aec2a558, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: off_PopUp
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3054,7 +2985,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 437227887}
-  - {fileID: 1154399262}
   - {fileID: 1984242406}
   - {fileID: 74216268}
   - {fileID: 249977077}

@@ -19,9 +19,7 @@ public class SoaringStar : MonoBehaviour
 
     void FixedUpdate()
     {
-        Debug.Log("a");
         move_to_target();
-        Debug.Log("b");
     }
 
     private void move_to_target()
