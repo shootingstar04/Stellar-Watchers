@@ -4,24 +4,42 @@ using UnityEngine;
 
 public class PlayerSkill : MonoBehaviour
 {
+    //[Header("힐")]
+    //public float healDelay1 = 0.3f;
+    //public float healDelay2 = 0.7f;
+
+    //[Space(1)]
     [Header("스텔라 스트라이크")]
     public Transform stellaPos;
     public Vector2 stellaBox;
+    public float stellaDelay1 = 0.3f;
+    public float stellaDelay2 = 0.7f;
+
+    [Space(1)]
+    [Header("일점 찌르기")]
+    public Transform pointPos;
+    public Vector2 pointBox;
+    public float pointDelay1 = 1f;
+    public float pointDelay2 = 2f;
 
     [Space(1)]
     [Header("메테오라이트 슬래시")]
     public Transform meteorPos;
     public Vector2 meteorBox;
+    public float meteorDelay1 = 0.7f;
+    public float meteorDelay2 = 1f;
 
     [Space(1)]
     [Header("프레이야")]
     public Transform freyjaPos;
     public GameObject freyjaBullet;
+    public float freyjaDelay1 = 1.5f;
 
     [Space(1)]
     [Header("소어링 스타")]
     public Transform soaringPos;
     public GameObject soaringBullet;
+    public float soaringDelay1 = 2f;
 
 
 
@@ -51,6 +69,7 @@ public class PlayerSkill : MonoBehaviour
         healing();
 
         stella_strike();
+        point_sting();
         meteorite_slash();
 
         freyja();
@@ -84,7 +103,6 @@ public class PlayerSkill : MonoBehaviour
 
     private void start_skill(SkillSet.skill skilltype)
     {
-
         switch (skilltype)
         {
             case SkillSet.skill.stellarStrike:
@@ -99,7 +117,18 @@ public class PlayerSkill : MonoBehaviour
                     isUsingSkill = skilltype;
                 }
                 break;
-
+            case SkillSet.skill.pointSting:
+                if (PlayerSP.instance.CurSP > 0)
+                {
+                    PlayerSP.instance.modify_SP(-1);
+                    if (!playerMove.IsGrounded)
+                    {
+                        rigid.gravityScale = 0;
+                        inAir = true;
+                    }
+                    isUsingSkill = skilltype;
+                }
+                break;
             case SkillSet.skill.meteorliteSlash:
                 if (PlayerSP.instance.CurSP > 2)
                 {
@@ -128,7 +157,7 @@ public class PlayerSkill : MonoBehaviour
             case SkillSet.skill.laserAttack:
                 if (PlayerSP.instance.CurSP > 2)
                 {
-                    PlayerSP.instance.modify_SP(0);
+                    PlayerSP.instance.modify_SP(-3);
                     if (!playerMove.IsGrounded)
                     {
                         rigid.gravityScale = 0;
@@ -189,10 +218,8 @@ public class PlayerSkill : MonoBehaviour
         {
             skillCounter += Time.deltaTime;
 
-            if (skillCounter > 0.3f && !isAttacked)
+            if (skillCounter > stellaDelay1 && !isAttacked)
             {
-                Debug.Log(skillCounter > 0.3f && !isAttacked);
-
                 isAttacked = true;
                 Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(stellaPos.position, stellaBox, 0);
 
@@ -224,7 +251,52 @@ public class PlayerSkill : MonoBehaviour
                 }
             }
 
-            if (skillCounter > 1)
+            if (skillCounter > stellaDelay1+stellaDelay2)
+            {
+                end_skill();
+            }
+        }
+    }
+    private void point_sting()
+    {
+        if (isUsingSkill == SkillSet.skill.pointSting)
+        {
+            skillCounter += Time.deltaTime;
+
+            if (skillCounter > pointDelay1 && !isAttacked)
+            {
+                isAttacked = true;
+                Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(stellaPos.position, stellaBox, 0);
+
+                foreach (Collider2D collider in collider2Ds)
+                {
+                    if (collider.tag == "Enemy")
+                    {
+                        collider.GetComponent<EnemyData>().TakeDamage(9 * (ProgressData.Instance.reinforcementCount + 1));
+                        Debug.Log(collider.name + " 에게 " + 9 * (ProgressData.Instance.reinforcementCount + 1) + "의 데미지를 입힘");
+                    }
+                    else if (collider.tag == "BOMB")
+                    {
+                        Debug.Log("폭탄 맞음");
+                        Bomb.onFire();
+                    }
+                    else if (collider.GetComponent<ElevatorSwitch>() != null)
+                    {
+                        Debug.Log("스위치 작동");
+                        collider.GetComponent<ElevatorSwitch>().SwitchFlick();
+                    }
+                    else if (collider.GetComponent<Chest>() != null)
+                    {
+                        collider.gameObject.GetComponent<Chest>().Distroyed();
+                    }
+                    else if (collider.GetComponent<GeneralDoor>() != null)
+                    {
+                        collider.GetComponent<GeneralDoor>().OpenDoor();
+                    }
+                }
+            }
+
+            if (skillCounter > pointDelay1+pointDelay2)
             {
                 end_skill();
             }
@@ -238,9 +310,8 @@ public class PlayerSkill : MonoBehaviour
 
             if (!inAir)
             {
-                if (skillCounter > 0.3f && !isAttacked)
+                if (skillCounter > meteorDelay1 && !isAttacked)
                 {
-                    Debug.Log(skillCounter > 0.7f && !isAttacked);
 
                     isAttacked = true;
                     Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(meteorPos.position, meteorBox, 0);
@@ -273,7 +344,7 @@ public class PlayerSkill : MonoBehaviour
                     }
                 }
 
-                if (skillCounter > 1.7f)
+                if (skillCounter > meteorDelay1+meteorDelay2)
                 {
                     end_skill();
                 }
@@ -307,7 +378,7 @@ public class PlayerSkill : MonoBehaviour
                             Debug.Log(collider.name + " 에게 " + (15 * (ProgressData.Instance.reinforcementCount + 1) + (int)(skillCounter / 0.3f) * 1) + "의 데미지를 입히고 2초간 스턴 효과 부여");
                         }
                     }
-                    end_skill();
+                    Invoke("end_skill", meteorDelay2);
                 }
             }
         }
@@ -330,7 +401,7 @@ public class PlayerSkill : MonoBehaviour
                 instance.GetComponent<Freyja>().dir = (int)playerMove.LastDirection;
             }
 
-            if (skillCounter > 1.5f)
+            if (skillCounter > freyjaDelay1)
             {
                 end_skill();
             }
@@ -393,12 +464,12 @@ public class PlayerSkill : MonoBehaviour
                 }
             }
 
-            if (skillCounter > 2f)
+            if (skillCounter > soaringDelay1)
             {
                 end_skill();
             }
         }
-    }//not complete
+    }
 
 
     private void OnDrawGizmos()
@@ -406,5 +477,6 @@ public class PlayerSkill : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(stellaPos.position, stellaBox);
         Gizmos.DrawWireCube(meteorPos.position, meteorBox);
+        Gizmos.DrawWireCube(pointPos.position, pointBox);
     }
 }
