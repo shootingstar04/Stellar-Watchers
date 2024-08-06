@@ -14,5 +14,6 @@ public class GetSOindex : MonoBehaviour
     public void returnBool()
     {
         spawnpoint.canSpawn = false;
+        Debug.Log("canSpawnπŸ≤„¡‹");
     }
 }

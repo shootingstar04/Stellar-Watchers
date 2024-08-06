@@ -42395,6 +42395,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 898968375}
   m_CullTransparentMesh: 1
+--- !u!4 &911696545 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2512897470640941337, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
+  m_PrefabInstance: {fileID: 1722831354}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &921906883
 GameObject:
   m_ObjectHideFlags: 3
@@ -43023,6 +43028,14 @@ PrefabInstance:
       propertyPath: Damage
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 3599624433234362489, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
+      propertyPath: pointPos
+      value: 
+      objectReference: {fileID: 911696545}
+    - target: {fileID: 3599624433234362489, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
+      propertyPath: soaringPos
+      value: 
+      objectReference: {fileID: 911696545}
     - target: {fileID: 5601640077373299387, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5

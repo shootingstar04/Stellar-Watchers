@@ -31,6 +31,7 @@ public class mapSpawnMGR : MonoBehaviour
             mapSOData = Resources.Load<MapSO>("SaveData/mapSO" + (SceneManager.GetActiveScene().buildIndex - 2));
         }
 
+        Debug.Log(enemySOData);
         Debug.Log(mapSOData);
 
         LoadMethod();
@@ -40,18 +41,16 @@ public class mapSpawnMGR : MonoBehaviour
     {
         for (int i = 0; i < enemySOData.spawnList.Count; i++)
         {
-            if (enemySOData.spawnList[i])
-            {
-                EnemySpawnList[i].GetComponent<SpawnPoint>().SpawnObject();
-            }
+            Debug.Log(enemySOData.spawnList[i]);
+            EnemySpawnList[i].GetComponent<SpawnPoint>().canSpawn = enemySOData.spawnList[i];
+            EnemySpawnList[i].GetComponent<SpawnPoint>().SpawnObject();
         }
 
         for (int i = 0; i < mapSOData.objects.Count; i++)
         {
-            if (mapSOData.objects[i])
-            {
-                ObjectSpawnList[i].GetComponent<SpawnPoint>().SpawnObject();
-            }
+            ObjectSpawnList[i].GetComponent<SpawnPoint>().canSpawn = mapSOData.objects[i];
+            ObjectSpawnList[i].GetComponent<SpawnPoint>().SpawnObject();
+
         }
     }
 
