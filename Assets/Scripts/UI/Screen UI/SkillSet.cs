@@ -15,15 +15,15 @@ public class SkillSet : MonoBehaviour
     {
         none = -1,
 
-        stellarStrike,
+        hardSwing,
         pointSting,
-        meteorliteSlash,
+        smite,
         galaxySlash,
 
-        bigShot,
+        meteorBomb,
         speedyShot,
-        laserAttack,
-        stunShot
+        pillarOfLight,
+        twinstars
     }
 
     public SkillSet.skill[,] settedSkill = new SkillSet.skill[2, 2];

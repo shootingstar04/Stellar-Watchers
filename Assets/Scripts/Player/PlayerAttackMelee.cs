@@ -65,6 +65,7 @@ public class PlayerAttackMelee : MonoBehaviour
             {
                 collider.GetComponent<EnemyData>().TakeDamage(Damage * (ProgressData.Instance.reinforcementCount + 1));
                 Debug.Log(collider.name + "에게 " + (Damage * (ProgressData.Instance.reinforcementCount + 1)) +"의 데미지를 입힘");
+                PlayerSP.instance.attackCount += 1;
             }
             else if (collider.tag == "BOMB")
             {

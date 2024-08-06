@@ -9,6 +9,8 @@ public class PlayerSP : MonoBehaviour
     private int curSP;
     private int maxSP;
 
+    public int attackCount = 0;
+
     public int CurSP
     {
         get
@@ -38,6 +40,13 @@ public class PlayerSP : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(attackCount);
+
+        if (attackCount >= 3)
+        {
+            attackCount = 0;
+            modify_SP(1);
+        }
     }
 
     public void modify_SP(int value)
