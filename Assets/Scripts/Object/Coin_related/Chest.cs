@@ -1,13 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Pool;
-using UnityEngine.Scripting;
-using static Unity.VisualScripting.Member;
-
-
-
 
 public class Chest : MonoBehaviour
 {
@@ -20,9 +13,9 @@ public class Chest : MonoBehaviour
     // B - 10코인 3
     // C - 10코인 5
 
-    enum coinKind { small = 1, big, chest }
+    public enum coinKind { small = 1, big, chest }
 
-    [SerializeField] coinKind _coinKind;
+    [SerializeField] public coinKind _coinKind;
     private int hitCount = 0;
 
     Queue<int> CoinNumQueue = new Queue<int>();
@@ -31,11 +24,16 @@ public class Chest : MonoBehaviour
 
     int coins = 0;
 
+    [SerializeField] private Collider2D col;
+    [SerializeField] private GameObject popup;
+
     private void Awake()
     {
         switch ((int)_coinKind)
         {
             case 1:
+                Destroy(col);
+                Destroy(popup);
                 CoinNumQueue.Enqueue(6);
                 CoinNumQueue.Enqueue(0);
                 CoinNumQueue.Enqueue(0);    //1사이클
@@ -48,6 +46,8 @@ public class Chest : MonoBehaviour
                 hitCount = 3;
                 break;
             case 2:
+                Destroy(col);
+                Destroy(popup);
                 CoinNumQueue.Enqueue(3);
                 CoinNumQueue.Enqueue(1);
                 CoinNumQueue.Enqueue(0);    //1사이클
@@ -128,11 +128,84 @@ public class Chest : MonoBehaviour
                 GetComponent<GetSOindex>().returnBool();
                 Destroy(this.gameObject);
             }
-            else if(coins >= 3)
+            else if (coins >= 3)
             {
                 break;
             }
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if ((int)_coinKind != 3)
+        {
+            return;
+        }
+
+        if (collision.CompareTag(Define.PlayerTag))
+        {
+            popup.SetActive(true);
+        }
+
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if ((int)_coinKind != 3)
+        {
+            return;
+        }
+
+        if (other.CompareTag(Define.PlayerTag))
+        {
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+                coins = 0;
+                while (CoinNumQueue.Count > 0)
+                {
+                    coins += 1;
+                    var count = CoinNumQueue.Dequeue();
+
+                    for (int i = 0; i < count; i++)
+                    {
+                        var (q, obj) = WhatCoinCurrently(coins);
+                        var Coin = CoinPool.GetObject(q, obj);
+
+                        Coin.transform.position = this.transform.position;
+
+                        float rotation = Random.Range(-90f, 90f);
+                        Coin.transform.Rotate(0f, 0f, rotation);
+
+                        var Xdirection = Random.Range(-1f, 1f);
+                        var Ydirection = 1f;
+                        Vector2 dir = new Vector2(Xdirection, Ydirection).normalized;
+                        float force = Random.Range(100f, 300f);
+                        Coin.GetComponent<Rigidbody2D>().AddForce(dir * force);
+                    }
+
+
+                    GetComponent<GetSOindex>().returnBool();
+                    Destroy(this.gameObject);
+
+                }
+            }
+
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+
+        if ((int)_coinKind != 3)
+        {
+            return;
+        }
+
+        if (collision.CompareTag(Define.PlayerTag))
+        {
+            popup.SetActive(false);
+        }
+
     }
 
     private (Queue<Coin>, GameObject) WhatCoinCurrently(int coin)
