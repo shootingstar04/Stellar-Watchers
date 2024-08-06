@@ -16,8 +16,6 @@ public class Interactable : MonoBehaviour
     bool inside = false;
     [SerializeField] bool isSave;
 
-    [SerializeField] private Canvas canvas;
-
     private PlayerData playerdata;
     private SaveData savedata;
 
@@ -240,8 +238,6 @@ public class Interactable : MonoBehaviour
             playermove.maxJumpTime = 0.4f;
             */
             cam.isInCutScene = false;
-            canvas.gameObject.SetActive(false);
-
         }
     }
 
