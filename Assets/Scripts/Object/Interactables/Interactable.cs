@@ -109,6 +109,7 @@ public class Interactable : MonoBehaviour
     void SaveMethod()
     {
         Resurrect();
+        PlayerHealth.instance.modify_HP(5);
         mapSpawnMGR spawnmanager = GameObject.Find("SpawnMGR").GetComponent<mapSpawnMGR>();
         spawnmanager.SaveMethod();
 

@@ -50,6 +50,8 @@ public class SaveLoadManager : MonoBehaviour
         int gold = ItemData.Instance.CurrentGold - playerdata.Coin;
         ItemData.Instance.modify_gold(-gold);
 
+        PlayerHealth.instance.modify_HP(5);
+
         SceneTransition.instance.FadeIn();
     }
 

@@ -30,6 +30,7 @@ public class PlayerMove : MonoBehaviour
     private bool isGrabWall;
     private bool ispause;
     private bool isUsingSkill;
+    private bool isDead = false;
     private float jumpTimeCounter;
     private float dashTimeCounter;
     private float dashCoolCounter;
@@ -120,6 +121,7 @@ public class PlayerMove : MonoBehaviour
         {
             CheckGround();
         }
+        restart();
     }
 
     void Move()
@@ -337,17 +339,22 @@ public class PlayerMove : MonoBehaviour
         animator.SetBool("WallSlide", isGrabWall);
         animator.SetInteger("AnimState", rigid.velocity.x != 0 ? 1 : 0);
 
-        if (PlayerHealth.instance.CurHP < 1)
+        if (PlayerHealth.instance.CurHP < 1 && !isDead)
         {
             animator.SetBool("Death", true);
             SceneTransition.instance.FadeOut();
-            
+            isDead = true;
             PauseMove();
+        }
+    }
 
-            if(Input.GetKeyDown(KeyCode.R))
-            {
-                SaveLoadManager.instance.LoadData();
-            }
+    void restart()
+    {
+        if (isDead && Input.GetKeyDown(KeyCode.R))
+        {
+            animator.SetBool("Death", false);
+            SaveLoadManager.instance.LoadData();
+            RestartMove();
         }
     }
 
