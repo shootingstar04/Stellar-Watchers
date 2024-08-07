@@ -16,10 +16,12 @@ public class PlayerAttackMelee : MonoBehaviour
     public Vector2 boxSize2;
     public Vector2 boxSize3;
 
+    PlayerMove playerMove;
     Animator animator;
 
     void Start()
     {
+        playerMove = this.GetComponent<PlayerMove>();
         animator = GetComponent<Animator>();
     }
 
@@ -27,23 +29,31 @@ public class PlayerAttackMelee : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.X))
         {
-            if (curTime <= 0)
+            if (curTime <= 0 && !(playerMove.IsDashing || playerMove.IsGrabWall))
             {
+                playerMove.isAttacking = true;
                 animator.SetTrigger("Attack1");
                 MeleeAttack();
                 curTime = coolTime;
             }
+            //}
+            //if (Input.GetKeyDown(KeyCode.A))
+            //{
+            //    if (curTime <= 0)
+            //    {
+            //        SlashAttack();
+            //        curTime = coolTime;
+            //    }
         }
-        /*if (Input.GetKeyDown(KeyCode.A))
-        {
-            if (curTime <= 0)
-            {
-                SlashAttack();
-                curTime = coolTime;
-            }
-        }*/
 
-        if (curTime > 0) curTime -= Time.deltaTime;
+        if (curTime > 0)
+        {
+            curTime -= Time.deltaTime;
+        }
+        else if (playerMove.isAttacking)
+        {
+            playerMove.isAttacking = false;
+        }
     }
 
     void MeleeAttack()
@@ -64,7 +74,7 @@ public class PlayerAttackMelee : MonoBehaviour
             if (collider.tag == "Enemy")
             {
                 collider.GetComponent<EnemyData>().TakeDamage(Damage * (ProgressData.Instance.reinforcementCount + 1));
-                Debug.Log(collider.name + "에게 " + (Damage * (ProgressData.Instance.reinforcementCount + 1)) +"의 데미지를 입힘");
+                Debug.Log(collider.name + "에게 " + (Damage * (ProgressData.Instance.reinforcementCount + 1)) + "의 데미지를 입힘");
                 PlayerSP.instance.attackCount += 1;
             }
             else if (collider.tag == "BOMB")
@@ -115,3 +125,4 @@ public class PlayerAttackMelee : MonoBehaviour
         Gizmos.DrawWireCube(SlashPos.position, boxSize3);
     }
 }
+

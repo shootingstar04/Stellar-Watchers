@@ -9,6 +9,7 @@ public class PlayerHealth : MonoBehaviour
     private int curHP;
     private int maxHP;
 
+    private PlayerMove playerMove;
     public int CurHP
     {
         get
@@ -36,6 +37,8 @@ public class PlayerHealth : MonoBehaviour
             instance = this;
         }
 
+        playerMove = this.GetComponent<PlayerMove>();
+
         instance.curHP = 5;
         instance.maxHP = 5;
     }
@@ -47,6 +50,11 @@ public class PlayerHealth : MonoBehaviour
 
     public void modify_HP(int value)
     {
+        if (value < 0)
+        {
+            playerMove.Hitted();
+        }
+
         curHP += value;
         if (curHP > maxHP) curHP = maxHP;
         else if (curHP < 0) curHP = 0;

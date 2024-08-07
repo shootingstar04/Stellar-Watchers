@@ -18,6 +18,13 @@ public class PlayerMove : MonoBehaviour
     public float fallMultiplier = 2.5f; // 낙하 속도 증가를 위한 계수
     public float wallJumpForce = 10f; // 추가된 부분: 벽 점프 힘
     public float foot_size = 0.5f;
+    public float hittedTime = 0.3f;
+    public float hittedForceX = 10;
+    public float hittedForceY = 15;
+    public float hittedDelay = 0.3f;
+
+    [HideInInspector]
+    public bool isAttacking;
 
     private Rigidbody2D rigid;
     private bool isGrounded;
@@ -31,6 +38,8 @@ public class PlayerMove : MonoBehaviour
     private bool ispause;
     private bool isUsingSkill;
     private bool isDead = false;
+    private bool isHitted;
+    private float hittedCounter;
     private float jumpTimeCounter;
     private float dashTimeCounter;
     private float dashCoolCounter;
@@ -87,7 +96,6 @@ public class PlayerMove : MonoBehaviour
             return ispause;
         }
     }
-
     public float LastDirection
     {
         get
@@ -95,6 +103,7 @@ public class PlayerMove : MonoBehaviour
             return lastDirection;
         }
     }
+
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -105,11 +114,8 @@ public class PlayerMove : MonoBehaviour
         animator = this.GetComponent<Animator>();
     }
 
-
     void Update()
     {
-        Debug.Log(Time.deltaTime);
-
         if (!(Time.timeScale == 0 || ispause || isUsingSkill))
         {
             Move();
@@ -128,22 +134,39 @@ public class PlayerMove : MonoBehaviour
 
     void Move()
     {
+        if (isHitted)
+        {
+            hittedCounter += Time.deltaTime;
+            if (hittedCounter > hittedTime)
+            {
+                isHitted = false;
+            }
+        }
+        else
+        {
+            hittedCounter = 0;
+        }
+
         float moveInput = Input.GetAxis("Horizontal");
 
-        if (moveInput != 0)
+        if (!isAttacking)
         {
-            lastDirection = moveInput > 0 ? 1f : -1f;
+            if (moveInput != 0)
+            {
+                lastDirection = moveInput > 0 ? 1f : -1f;
+            }
+
+            if (moveInput < 0)
+            {
+                transform.localEulerAngles = new Vector3(0, 180, 0);
+            }
+            else if (moveInput > 0)
+            {
+                transform.localEulerAngles = new Vector3(0, 0, 0);
+            }
         }
 
-        if (moveInput < 0)
-        {
-            transform.localEulerAngles = new Vector3(0, 180, 0);
-        }
-        else if (moveInput > 0)
-        {
-            transform.localEulerAngles = new Vector3(0, 0, 0);
-        }
-        if (!isDashing && !isWallJump)
+        if (!isDashing && !isWallJump && !isHitted)
         {
 
             if (Mathf.Abs(rigid.velocity.x) > moveSpeed && rigid.velocity.x * moveInput > 0)
@@ -156,7 +179,6 @@ public class PlayerMove : MonoBehaviour
             }
         }
     }
-
     void Jump()
     {
         if ((isGrounded || isGrabWall))
@@ -178,6 +200,7 @@ public class PlayerMove : MonoBehaviour
 
         if (canJump > 0 && Input.GetButtonDown("Jump"))
         {
+            isHitted = false;
             isJumping = true;
             jumpTimeCounter = 0f;
             rigid.velocity = new Vector2(rigid.velocity.x, jumpForce);
@@ -248,6 +271,7 @@ public class PlayerMove : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.C) && canDash)
             {
+                isHitted = false;
                 isDashing = true;
                 isJumping = false;
                 isWallJump = false;
@@ -311,6 +335,7 @@ public class PlayerMove : MonoBehaviour
         if (wall != null && !wall.isTrigger)
         {
             isTouchingWall = true;
+            isHitted = false;
         }
         else
         {
@@ -341,7 +366,6 @@ public class PlayerMove : MonoBehaviour
         animator.SetBool("WallSlide", isGrabWall);
         animator.SetInteger("AnimState", rigid.velocity.x != 0 ? 1 : 0);
     }
-
     void Death()
     {
         if (PlayerHealth.instance.CurHP < 1 && !isDead)
@@ -359,6 +383,36 @@ public class PlayerMove : MonoBehaviour
             RestartMove();
         }
     }
+    public void Hitted()
+    {
+        Collider2D[] hitted = Physics2D.OverlapCircleAll(this.transform.position, 5);
+
+        animator.SetTrigger("Hurt");
+
+        Time.timeScale = 0;
+        StartCoroutine(hit_delay(hittedDelay));
+
+        foreach (Collider2D collider in hitted)
+        {
+            if (collider.CompareTag(Define.EnemyTag))
+            {
+                isHitted = true;
+
+                int dir;
+
+                if (collider.transform.position.x - this.transform.position.x > 0)
+                {
+                    dir = -1;
+                }
+                else
+                {
+                    dir = 1;
+                }
+
+                rigid.velocity = new Vector2(hittedForceX * dir, hittedForceY);
+            }
+        }
+    }
 
     public void PlayAnimation(animationType type, float isPlay)
     {
@@ -370,7 +424,6 @@ public class PlayerMove : MonoBehaviour
                 break;
         }
     }
-
     public void PauseMove()
     {
         rigid.velocity = Vector2.zero;
@@ -378,12 +431,10 @@ public class PlayerMove : MonoBehaviour
         GrabWall();
         AnimationControl();
     }
-
     public void RestartMove()
     {
         ispause = false;
     }
-
     public void UseSkill(bool isStopMove)
     {
         rigid.velocity = Vector2.zero;
@@ -395,5 +446,12 @@ public class PlayerMove : MonoBehaviour
         isGrabWall = false;
 
         isUsingSkill = isStopMove;
+    }
+
+    IEnumerator hit_delay(float delay)
+    {
+        yield return new WaitForSecondsRealtime(delay);
+
+        Time.timeScale = 1;
     }
 }
