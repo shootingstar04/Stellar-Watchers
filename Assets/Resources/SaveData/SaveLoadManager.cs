@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -29,6 +30,12 @@ public class SaveLoadManager : MonoBehaviour
     public void LoadData()
     {
         savedata = Resources.Load<SaveData>("SaveData/SaveData");
+
+        if (savedata.Objects.Count == 0 )
+        {
+            LoadDefault();
+            return;
+        }
 
         for (int i = 0; i < 4; i++)
         {
@@ -61,5 +68,17 @@ public class SaveLoadManager : MonoBehaviour
         {
             LoadData();
         }
+    }
+
+    public void LoadDefault()
+    {
+        playerdata = Resources.Load<PlayerData>("SaveData/PlayerSO");
+
+        DontDestroy.thisIsPlayer.isTeleported = false;
+        SceneManager.LoadScene(playerdata.SceneIndex);
+        DontDestroy.thisIsPlayer.transform.position = new Vector3(playerdata.Position.x, playerdata.Position.y, playerdata.Position.z);
+        ItemData.Instance.set_gold(0);
+        PlayerHealth.instance.modify_HP(5);
+        SceneTransition.instance.FadeIn();
     }
 }

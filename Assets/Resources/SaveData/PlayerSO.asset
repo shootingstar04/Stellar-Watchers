@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerSO
   m_EditorClassIdentifier: 
   Position: {x: 0, y: 0, z: 0}
-  SceneIndex: 3
+  SceneIndex: 2
   Coin: 0
   MaxHp: 5
   MaxSp: 5

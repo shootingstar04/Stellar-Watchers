@@ -352,6 +352,7 @@ public class PlayerMove : MonoBehaviour
     {
         if (isDead && Input.GetKeyDown(KeyCode.R))
         {
+            isDead = false;
             animator.SetBool("Death", false);
             SaveLoadManager.instance.LoadData();
             RestartMove();
