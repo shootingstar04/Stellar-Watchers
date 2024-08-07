@@ -108,6 +108,8 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(Time.deltaTime);
+
         if (!(Time.timeScale == 0 || ispause || isUsingSkill))
         {
             Move();
@@ -121,7 +123,7 @@ public class PlayerMove : MonoBehaviour
         {
             CheckGround();
         }
-        restart();
+        Death();
     }
 
     void Move()
@@ -338,22 +340,21 @@ public class PlayerMove : MonoBehaviour
         animator.SetBool("Grounded", isGrounded);
         animator.SetBool("WallSlide", isGrabWall);
         animator.SetInteger("AnimState", rigid.velocity.x != 0 ? 1 : 0);
+    }
 
+    void Death()
+    {
         if (PlayerHealth.instance.CurHP < 1 && !isDead)
         {
-            animator.SetBool("Death", true);
+            animator.SetTrigger("Death");
             SceneTransition.instance.FadeOut();
             isDead = true;
             PauseMove();
         }
-    }
 
-    void restart()
-    {
         if (isDead && Input.GetKeyDown(KeyCode.R))
         {
             isDead = false;
-            animator.SetBool("Death", false);
             SaveLoadManager.instance.LoadData();
             RestartMove();
         }
