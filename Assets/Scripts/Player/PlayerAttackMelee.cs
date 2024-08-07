@@ -36,15 +36,16 @@ public class PlayerAttackMelee : MonoBehaviour
                 MeleeAttack();
                 curTime = coolTime;
             }
-            //}
-            //if (Input.GetKeyDown(KeyCode.A))
-            //{
-            //    if (curTime <= 0)
-            //    {
-            //        SlashAttack();
-            //        curTime = coolTime;
-            //    }
         }
+
+        //if (Input.GetKeyDown(KeyCode.A))
+        //{
+        //    if (curTime <= 0)
+        //    {
+        //        SlashAttack();
+        //        curTime = coolTime;
+        //    }
+        //}       
 
         if (curTime > 0)
         {
