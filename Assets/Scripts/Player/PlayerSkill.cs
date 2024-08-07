@@ -111,11 +111,6 @@ public class PlayerSkill : MonoBehaviour
 
     private void start_skill(SkillSet.skill skilltype)
     {
-        if (skilltype != SkillSet.skill.none)
-        {
-            playerMove.UseSkill(true);
-        }
-
         switch (skilltype)
         {
             case SkillSet.skill.hardSwing:
@@ -128,6 +123,7 @@ public class PlayerSkill : MonoBehaviour
                         inAir = true;
                     }
                     isUsingSkill = skilltype;
+                    playerMove.UseSkill(true);
                 }
                 break;
             case SkillSet.skill.pointSting:
@@ -140,6 +136,7 @@ public class PlayerSkill : MonoBehaviour
                         inAir = true;
                     }
                     isUsingSkill = skilltype;
+                    playerMove.UseSkill(true);
                 }
                 break;
             case SkillSet.skill.smite:
@@ -153,6 +150,7 @@ public class PlayerSkill : MonoBehaviour
                         inAir = true;
                     }
                     isUsingSkill = skilltype;
+                    playerMove.UseSkill(true);
                 }
                 break;
             case SkillSet.skill.meteorBomb:
@@ -165,6 +163,7 @@ public class PlayerSkill : MonoBehaviour
                         inAir = true;
                     }
                     isUsingSkill = skilltype;
+                    playerMove.UseSkill(true);
                 }
                 break;
             case SkillSet.skill.pillarOfLight:
@@ -177,6 +176,7 @@ public class PlayerSkill : MonoBehaviour
                         inAir = true;
                     }
                     isUsingSkill = skilltype;
+                    playerMove.UseSkill(true);
                 }
                 break;
             case SkillSet.skill.twinstars:
@@ -189,6 +189,7 @@ public class PlayerSkill : MonoBehaviour
                         inAir = true;
                     }
                     isUsingSkill = skilltype;
+                    playerMove.UseSkill(true);
                 }
                 break;
         }
