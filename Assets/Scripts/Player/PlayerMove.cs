@@ -374,15 +374,20 @@ public class PlayerMove : MonoBehaviour
             SceneTransition.instance.FadeOut();
             isDead = true;
             PauseMove();
-        }
 
-        if (isDead && Input.GetKeyDown(KeyCode.R))
-        {
-            isDead = false;
-            SaveLoadManager.instance.LoadData();
-            RestartMove();
+            DeathScreen.Instance.ShowDeathScreen();
         }
     }
+
+    public void respawn()
+    {
+
+        isDead = false;
+        SaveLoadManager.instance.LoadData();
+        RestartMove();
+
+    }
+
     public void Hitted()
     {
         Collider2D[] hitted = Physics2D.OverlapCircleAll(this.transform.position, 5);
