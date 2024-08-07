@@ -867,6 +867,12 @@ MonoBehaviour:
   fallMultiplier: 2.5
   wallJumpForce: 10
   foot_size: 0.7
+  hittedTime: 0.3
+  hittedForceX: 10
+  hittedForceY: 15
+  hittedDelay1: 0.01
+  hittedDelay2: 0.17
+  isAttacking: 0
 --- !u!114 &4314836703254164502
 MonoBehaviour:
   m_ObjectHideFlags: 0
