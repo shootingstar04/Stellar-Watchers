@@ -37,6 +37,8 @@ public class Goblin : MonoBehaviour
     private Vector2 patrolLeftLimit;
     private Vector2 patrolRightLimit;
 
+    private bool isAttacking = false;
+
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -70,6 +72,8 @@ public class Goblin : MonoBehaviour
                 Killed();
                 break;
         }
+
+        if (isAttacking) return; // 공격 중일 때는 다른 상태로 전환되지 않도록 함
 
         // 상태 전환 로직
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
@@ -146,41 +150,45 @@ public class Goblin : MonoBehaviour
 
     private IEnumerator Attack()
     {
-        rb.velocity = Vector2.zero;
+        isAttacking = true;
+        rb.velocity = Vector2.zero; // 공격 중 이동하지 않음
         animator.SetBool("Walk", false);
-        animator.SetTrigger("Attack1");
+        animator.SetTrigger("Attack");
 
-        yield return new WaitForSeconds(attackDelay);
+        // 공격 애니메이션 재생 시간 대기
+        yield return new WaitForSeconds(1f);
 
+        // 공격 범위 내의 충돌체 확인
         float offsetX = facingRight ? attackRadius / 2 : -attackRadius / 2;
-        Vector2 attackCenter = new Vector2(transform.position.x + offsetX, transform.position.y - 0.4f);
+        Vector2 attackCenter = new Vector2(transform.position.x + offsetX, transform.position.y);
         Collider2D[] hitPlayers = Physics2D.OverlapBoxAll(attackCenter, new Vector2(attackRadius, attackRadius), 0, LayerMask.GetMask("Player"));
 
         foreach (var hitPlayer in hitPlayers)
         {
-            Debug.Log(hitPlayer.CompareTag("Player"));
             if (hitPlayer.CompareTag("Player"))
             {
                 hitPlayer.GetComponent<PlayerHealth>().modify_HP(-1); // 예: 데미지를 1로 설정
             }
         }
 
-        // 공격 중에도 플레이어와의 거리를 확인
+        // 공격 후 1초 딜레이
+        yield return new WaitForSeconds(1f);
+
+        isAttacking = false;
+
+        // 플레이어가 공격 범위를 벗어난 경우 추격 상태로 전환
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
         if (distanceToPlayer > attackRadius)
         {
             currentState = State.CHASE;
         }
-
-        // 여기서 플레이어에게 데미지를 주는 로직을 추가할 수 있습니다.
     }
 
     private void Killed()
     {
-        rb.velocity = Vector2.zero;
+        this.tag = "Untagged"; //테그도 없애면 되지않을까 <-태그 없앴더니 됨
         animator.SetTrigger("Die");
-
-        // 죽음 처리를 여기서 수행합니다. 예: 파괴, 리스폰 등
+        Destroy(gameObject, 1f);
     }
 
     private void MoveTo(Vector2 target)
@@ -236,7 +244,7 @@ public class Goblin : MonoBehaviour
     public void TakeDamage(float damage)
     {
         animator.SetTrigger("Hit");
-
+        GetComponent<AudioSource>().Play(); 
         CurHP -= damage;
 
         if (CurHP <= 0)

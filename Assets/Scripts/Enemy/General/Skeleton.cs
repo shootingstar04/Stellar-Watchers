@@ -220,7 +220,6 @@ public class Skeleton : MonoBehaviour
 
         foreach (var hitPlayer in hitPlayers)
         {
-            Debug.Log(hitPlayer.CompareTag("Player"));
             if (hitPlayer.CompareTag("Player"))
             {
                 hitPlayer.GetComponent<PlayerHealth>().modify_HP(-1); // 예: 데미지를 1로 설정
@@ -257,8 +256,7 @@ public class Skeleton : MonoBehaviour
 
     private void Killed()
     {
-        GetComponent<GetSOindex>().returnBool();
-
+        //GetComponent<GetSOindex>().returnBool();
         this.tag = "Untagged"; //테그도 없애면 되지않을까 <-태그 없앴더니 됨
         animator.SetTrigger("Die");
         EnemyItemDrop drop = this.gameObject.GetComponent<EnemyItemDrop>();
@@ -327,6 +325,7 @@ public class Skeleton : MonoBehaviour
         else
         {
             animator.SetTrigger("Hit");
+            GetComponent<AudioSource>().Play(); 
             CurHP -= damage;
         }
 
