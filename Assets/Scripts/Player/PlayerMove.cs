@@ -21,7 +21,8 @@ public class PlayerMove : MonoBehaviour
     public float hittedTime = 0.3f;
     public float hittedForceX = 10;
     public float hittedForceY = 15;
-    public float hittedDelay = 0.3f;
+    public float hittedDelay1 = 0.3f;
+    public float hittedDelay2 = 0.3f;
 
     [HideInInspector]
     public bool isAttacking;
@@ -394,8 +395,8 @@ public class PlayerMove : MonoBehaviour
 
         animator.SetTrigger("Hurt");
 
-        Time.timeScale = 0;
-        StartCoroutine(hit_delay(hittedDelay));
+        ParticleManager.instance.particle_generation(ParticleManager.particleType.Hitted, this.transform);
+        StartCoroutine(hit_delay(hittedDelay1 , hittedDelay2));
 
         foreach (Collider2D collider in hitted)
         {
@@ -453,9 +454,13 @@ public class PlayerMove : MonoBehaviour
         isUsingSkill = isStopMove;
     }
 
-    IEnumerator hit_delay(float delay)
+    IEnumerator hit_delay(float delay1, float delay2)
     {
-        yield return new WaitForSecondsRealtime(delay);
+        yield return new WaitForSecondsRealtime(delay1);
+
+        Time.timeScale = 0;
+
+        yield return new WaitForSecondsRealtime(delay2);
 
         Time.timeScale = 1;
     }
