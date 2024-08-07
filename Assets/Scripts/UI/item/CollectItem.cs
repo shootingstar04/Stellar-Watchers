@@ -21,6 +21,7 @@ public class CollectItem : MonoBehaviour
 
     private GameObject interact;
     private GameObject item;
+    [HideInInspector]
     public bool isActived = false;
 
     private ParticleSystem p1;

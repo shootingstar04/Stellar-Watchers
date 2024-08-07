@@ -7,16 +7,19 @@ public class PlayerTransformation : MonoBehaviour
     public string PlayerType = "Melee";
 
     private Transform currentTransform;
+    private PlayerMove playerMove;
 
     void Start()
     {
+        playerMove = this.GetComponent<PlayerMove>();
+
         currentTransform = gameObject.transform;
         VirtualCameraManager.Instance.ChangeCameraTarget(currentTransform);
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
+        if ((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)) && !playerMove.isAttacking)
         {
             Transform();
             PlayerAttackCombo.instance.ComboInvocation();
