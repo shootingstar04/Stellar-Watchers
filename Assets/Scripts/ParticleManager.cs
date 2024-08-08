@@ -8,10 +8,12 @@ public class ParticleManager : MonoBehaviour
 
     public enum particleType
     {
-        Hitted   
+        Hitted,
+        EnemyHit
     }
 
     public GameObject hittedParticle;
+    public GameObject enemyHittedParticle;
 
     private void Awake()
     {
@@ -36,12 +38,16 @@ public class ParticleManager : MonoBehaviour
 
     public void particle_generation(particleType type, Transform pos)
     {
+        GameObject particle;
         switch (type)
         {
             case particleType.Hitted:
-                GameObject particle = Instantiate(hittedParticle, pos.position, pos.rotation);
+                particle = Instantiate(hittedParticle, pos.position, pos.rotation);
                 break;
-        }    
+            case particleType.EnemyHit:
+                particle = Instantiate(enemyHittedParticle, pos.position, new Quaternion(0,0,1,Random.Range(0f,180f)));
+                break;
+        }
     }
 
 }

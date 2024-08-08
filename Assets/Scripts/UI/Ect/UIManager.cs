@@ -170,6 +170,6 @@ public class UIManager : MonoBehaviour
         Show_screen(-1);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
-        Destroy(this.gameObject.transform.parent);
+        Destroy(this.gameObject.transform.parent.gameObject);
     }
 }

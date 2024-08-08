@@ -13844,6 +13844,26 @@ PrefabInstance:
     m_TransformParent: {fileID: 3644889916202361671}
     m_Modifications:
     - target: {fileID: 2127879994749552495, guid: 361c06886780cd54da96764156e20168, type: 3}
+      propertyPath: Image.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: e7b9e355af922f94591f558d887beb55, type: 3}
+    - target: {fileID: 2127879994749552495, guid: 361c06886780cd54da96764156e20168, type: 3}
+      propertyPath: Image.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 985b3caf82047cd4f8d4b38d49a9ea68, type: 3}
+    - target: {fileID: 2127879994749552495, guid: 361c06886780cd54da96764156e20168, type: 3}
+      propertyPath: Image.Array.data[4]
+      value: 
+      objectReference: {fileID: 21300000, guid: a4321d6e33ae02144ae87526b0e2125c, type: 3}
+    - target: {fileID: 2127879994749552495, guid: 361c06886780cd54da96764156e20168, type: 3}
+      propertyPath: Image.Array.data[7]
+      value: 
+      objectReference: {fileID: 21300000, guid: 87f26b18cef0e6e409b8e25a80f3f39d, type: 3}
+    - target: {fileID: 2127879994749552495, guid: 361c06886780cd54da96764156e20168, type: 3}
+      propertyPath: Image.Array.data[8]
+      value: 
+      objectReference: {fileID: 21300000, guid: a8372bd4015352842add5d1db3cd1190, type: 3}
+    - target: {fileID: 2127879994749552495, guid: 361c06886780cd54da96764156e20168, type: 3}
       propertyPath: Acquired.Array.data[0]
       value: 1
       objectReference: {fileID: 0}
