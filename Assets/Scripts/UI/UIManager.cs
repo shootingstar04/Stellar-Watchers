@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     //0 : Inspector, 1 : Map
 
     private bool isShowingUI = false;
+    [HideInInspector]
     public bool showingPopUp = false;
     private GameObject pauseScreen;
     private bool isPause = false;
@@ -66,12 +67,12 @@ public class UIManager : MonoBehaviour
 
     void check_input()
     {
-        if (Input.GetKeyDown(KeyCode.I)) show_screen(0);
-        else if (Input.GetKeyDown(KeyCode.M)) show_screen(1);
-        else if (Input.GetKeyDown(KeyCode.Escape)) show_screen(-1);
+        if (Input.GetKeyDown(KeyCode.I)) Show_screen(0);
+        else if (Input.GetKeyDown(KeyCode.M)) Show_screen(1);
+        else if (Input.GetKeyDown(KeyCode.Escape)) Show_screen(-1);
         else if (Input.GetKeyDown(KeyCode.X) && showingPopUp) showingPopUp = false;
     }
-    void show_screen(int a)
+    public void Show_screen(int a)
     {
         if (a == -1) 
         {
@@ -162,5 +163,13 @@ public class UIManager : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         Time.timeScale = 1;
+    }
+
+    public void Go_Title()
+    {
+        Show_screen(-1);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        Destroy(this.gameObject);
     }
 }
