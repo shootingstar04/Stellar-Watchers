@@ -30,12 +30,14 @@ public class StartBTN : MonoBehaviour
 
     void preStep()
     {
-        if (PlayerPrefs.GetInt(Define.sceneIndex) != 2 || PlayerPrefs.HasKey(Define.maxHp))
+        if (PlayerPrefs.HasKey(Define.maxHp))
         {
+            Debug.Log("진행상황 있음");
             continueCanvas.SetActive(true);
         }
         else
         {
+            Debug.Log("진행상황 없음.새로만듦");
             ResetData();
         }
     }
@@ -51,7 +53,9 @@ public class StartBTN : MonoBehaviour
     {
         if (GameObject.Find("Player"))
         {
-            SceneManager.LoadScene(2);
+            PlayerPrefs.SetInt(Define.sceneIndex, 2);
+            SaveLoadManager.instance.LoadMapData();
+            SaveLoadManager.instance.LoadPlayerData();
         }
         else
         {

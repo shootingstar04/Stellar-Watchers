@@ -109,87 +109,12 @@ public class Interactable : MonoBehaviour
     void SaveMethod()
     {
         Resurrect();
-        PlayerHealth.instance.modify_HP(5);
+        PlayerHealth.instance.modify_HP(99);
         mapSpawnMGR spawnmanager = GameObject.Find("SpawnMGR").GetComponent<mapSpawnMGR>();
         spawnmanager.SaveMethod();
 
-        int lastSceneIndex = playerdata.SceneIndex;
-        Debug.Log(lastSceneIndex);
-
-
-        playerdata.Position = this.transform.position;
-        Scene scene = SceneManager.GetActiveScene();
-        playerdata.SceneIndex = scene.buildIndex;
-        playerdata.Coin = ItemData.Instance.CurrentGold;
-        Debug.Log(playerdata.Position + "위치, " + playerdata.Coin + "코인");
-
-        if(savedata.Objects == null)
-        {
-            savedata.Objects = new List<List<bool>>();
-        }
-
-        if (scene.buildIndex != 2)
-        {
-            savedata.Objects.Clear();   
-
-            for (int i = 0; i < 4; i++)
-            {
-                MapSO mapso = Resources.Load<MapSO>("SaveData/MapSO" + i);
-                Debug.Log(mapso);
-                savedata.Objects.Add(new List<bool>());
-
-                for (int j = 0; j < mapso.objects.Count; j++)
-                {
-                    savedata.Objects[i].Add(mapso.objects[j]);
-                }
-            }
-
-            /*
-            if (scene.buildIndex > lastSceneIndex)
-            {
-                for (int i = (scene.buildIndex - 2); i <= (lastSceneIndex - 2); i++)
-                {
-                    MapSO mapso = Resources.Load<MapSO>("SaveData/MapSO" + i);
-
-                    for (int j = 0; j < mapso.objects.Count; j++)
-                    {
-                        savedata.Objects[i][j].Add( mapso.objects[j]);
-                    }
-                }
-
-            }
-            else//씬 이하
-            {
-                for (int i = (scene.buildIndex - 2); i <= (lastSceneIndex - 2); i++)
-                {
-                    MapSO mapso = Resources.Load<MapSO>("SaveData/MapSO" + i);
-
-                    for (int j = 0; j < mapso.objects.Count; j++)
-                    {
-                        savedata.Objects[i][j].Add( mapso.objects[j]);
-                    }
-                }
-            }
-            */
-
-        }
-        else
-        {
-            MapSO mapso = Resources.Load<MapSO>("SaveData/MapSO0");
-            for (int i = 0; i < mapso.objects.Count; i++)
-            {
-                savedata.Objects[0][i] = (mapso.objects[i]);
-            }
-        }
-
-        for (int i = 0; i < savedata.Objects.Count; i++)
-        {
-            Debug.Log("map"+i+", " + savedata.Objects[i]);
-            for (int j = 0; j < savedata.Objects[i].Count; j++)
-            {
-                Debug.Log(savedata.Objects[i][j]);
-            }
-        }
+        SaveLoadManager.instance.SavePlayerData(this.transform);
+        SaveLoadManager.instance.SaveMapData();
 
         TextPopUp.instance.show_PopUp("저장");
 

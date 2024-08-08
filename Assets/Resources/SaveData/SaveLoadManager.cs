@@ -46,7 +46,23 @@ public class SaveLoadManager : MonoBehaviour
 
     public void LoadPlayerData()
     {
+        DontDestroy.thisIsPlayer.isTeleported = false;
+        SceneManager.LoadScene(PlayerPrefs.GetInt(Define.sceneIndex));
+        DontDestroy.thisIsPlayer.transform.position = new Vector3(PlayerPrefs.GetFloat(Define.posX), PlayerPrefs.GetFloat(Define.posY), PlayerPrefs.GetFloat(Define.posZ));
+        ItemData.Instance.modify_gold(PlayerPrefs.GetInt(Define.coins));
+        PlayerSP.instance.set_max_SP(PlayerPrefs.GetInt(Define.maxSp));
+        PlayerHealth.instance.set_max_HP(PlayerPrefs.GetInt(Define.maxHp));
+        PlayerSP.instance.set_SP(PlayerPrefs.GetInt(Define.curSp));
+    }
 
+    public void LoadNewPlayerData()
+    {
+        SceneManager.LoadScene(PlayerPrefs.GetInt(Define.sceneIndex));
+        DontDestroy.thisIsPlayer.transform.position = new Vector3(PlayerPrefs.GetFloat(Define.posX), PlayerPrefs.GetFloat(Define.posY), PlayerPrefs.GetFloat(Define.posZ));
+        ItemData.Instance.modify_gold(PlayerPrefs.GetInt(Define.coins));
+        PlayerSP.instance.set_max_SP(PlayerPrefs.GetInt(Define.maxSp));
+        PlayerHealth.instance.set_max_HP(PlayerPrefs.GetInt(Define.maxHp));
+        PlayerSP.instance.set_SP(PlayerPrefs.GetInt(Define.curSp));
     }
 
 
