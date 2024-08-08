@@ -92884,6 +92884,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: backGround_temp
       objectReference: {fileID: 0}
+    - target: {fileID: 8623670825183002447, guid: 4633e5bd68adbf84b8e1b61541bee61f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 15.998
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
