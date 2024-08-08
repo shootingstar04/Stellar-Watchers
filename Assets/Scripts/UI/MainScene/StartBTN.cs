@@ -54,7 +54,17 @@ public class StartBTN : MonoBehaviour
         playerdata.MaxSp = 5;
         playerdata.CurrentSp = 5;
         playerdata.Position = new Vector3(0, 0, 0);
-        SceneManager.LoadScene("First0");
+        playerdata.Reseted = true;
+
+        if (GameObject.Find("Player"))
+        {
+            SceneManager.LoadScene("0");
+        }
+        else
+        {
+            SceneManager.LoadScene("First0");
+        }
+
     }
 
     public void ContinueGame()

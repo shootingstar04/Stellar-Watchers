@@ -20,8 +20,12 @@ public class MapTeleporter : MonoBehaviour
 
     [SerializeField] GameObject mapSpawnMGR;
 
+    private PlayerData playerdata;
+
     private void Awake()
     {
+
+        playerdata = Resources.Load<PlayerData>("SaveData/PlayerSO");
         if (DontDestroy.thisIsPlayer.isTeleported && DontDestroy.thisIsPlayer.numbering == Numbering)
         {
 
@@ -29,6 +33,13 @@ public class MapTeleporter : MonoBehaviour
             DontDestroy.thisIsPlayer.transform.position = new Vector3(this.transform.position.x + (offsetSize * offset), this.transform.position.y, DontDestroy.thisIsPlayer.transform.position.z);
             restartmove();
 
+        }
+
+        Scene scene = SceneManager.GetActiveScene();
+
+        if(playerdata.Reseted && scene.buildIndex == 2)
+        {
+            DontDestroy.thisIsPlayer.transform.position = playerdata.Position;
         }
     }
 

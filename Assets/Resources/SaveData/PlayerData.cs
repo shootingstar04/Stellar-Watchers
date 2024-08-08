@@ -12,6 +12,7 @@ public class PlayerData : ScriptableObject
     public int MaxHp;
     public int MaxSp;
     public int CurrentSp;
+    public bool Reseted;
 
     [Header("ItemData")]
     public List<bool> Acquired_ItemData = new List<bool>();

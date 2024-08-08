@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ExistOne : MonoBehaviour
 {
@@ -8,6 +9,13 @@ public class ExistOne : MonoBehaviour
 
     private void Awake()
     {
+        Scene scene = SceneManager.GetActiveScene();
+        Debug.Log(scene);
+        if(scene.buildIndex == 0)
+        {
+            Destroy(this);
+            return;
+        }
         if (instance != null)
         {
             Debug.Log(this.name);
