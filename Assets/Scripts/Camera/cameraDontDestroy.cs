@@ -28,5 +28,13 @@ public class cameraDontDestroy : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        Camera camera = GetComponent<Camera>();
+        Camera[] cameras = FindObjectsOfType<Camera>();
+        if(cameras.Length > 1)
+        {
+            Debug.Log("2∞≥¿ÃªÛ");
+            Destroy(camera);
+        }
     }
 }

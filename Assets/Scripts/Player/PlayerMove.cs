@@ -384,7 +384,7 @@ public class PlayerMove : MonoBehaviour
     {
 
         isDead = false;
-        SaveLoadManager.instance.LoadData();
+        //SaveLoadManager.instance.LoadData();
         RestartMove();
 
     }
