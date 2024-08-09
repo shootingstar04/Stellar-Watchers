@@ -8,7 +8,7 @@ public class mapSpawnMGR : MonoBehaviour
 {
     private EnemySO enemySOData;
     private MapSO mapSOData;
-    public mapSpawnMGR instance;
+    public static mapSpawnMGR instance;
     public List<GameObject> EnemySpawnList = new List<GameObject>();
     public List<GameObject> ObjectSpawnList = new List<GameObject>();
 
@@ -33,10 +33,11 @@ public class mapSpawnMGR : MonoBehaviour
         Debug.Log(enemySOData);
         Debug.Log(mapSOData);
 
-        LoadMethod();
+        LoadEnemyMethod();
+        LoadObjectMethod();
     }
 
-    public void LoadMethod()
+    public void LoadEnemyMethod()
     {
         for (int i = 0; i < enemySOData.spawnList.Count; i++)
         {
@@ -44,7 +45,9 @@ public class mapSpawnMGR : MonoBehaviour
             EnemySpawnList[i].GetComponent<SpawnPoint>().canSpawn = enemySOData.spawnList[i];
             EnemySpawnList[i].GetComponent<SpawnPoint>().SpawnObject();
         }
-
+    }
+    public void LoadObjectMethod() 
+    { 
         for (int i = 0; i < mapSOData.objects.Count; i++)
         {
             ObjectSpawnList[i].GetComponent<SpawnPoint>().canSpawn = mapSOData.objects[i];

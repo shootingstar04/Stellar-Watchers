@@ -118,6 +118,8 @@ public class Interactable : MonoBehaviour
 
         TextPopUp.instance.show_PopUp("¿˙¿Â");
 
+        mapSpawnMGR.instance.LoadEnemyMethod();
+
     }
 
     void RockMethod()

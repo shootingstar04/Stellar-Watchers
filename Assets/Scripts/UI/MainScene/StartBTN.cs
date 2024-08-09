@@ -41,7 +41,28 @@ public class StartBTN : MonoBehaviour
             ResetData();
         }
     }
+    public void ResetData()
+    {
+        SaveLoadManager.instance.ResetPlayerData();
+        SaveLoadManager.instance.ResetMapData();
 
+        SaveLoadManager.instance.LoadMapData();
+        SaveLoadManager.instance.LoadPlayerData();
+    }
+
+    public void StartGame()
+    {
+        if (PlayerPrefs.GetInt(Define.sceneIndex) == 1)
+        {
+            PlayerPrefs.SetInt(Define.sceneIndex, 2);
+        }
+
+        SaveLoadManager.instance.LoadMapData();
+        SaveLoadManager.instance.LoadPlayerData();
+
+    }
+
+    /*
     public void ResetData()
     {
         SaveLoadManager.instance.ResetPlayerData();
@@ -51,6 +72,7 @@ public class StartBTN : MonoBehaviour
 
     public void StartGame()
     {
+
         if (GameObject.Find("Player"))
         {
             if (PlayerPrefs.GetInt(Define.sceneIndex) == 1)
@@ -66,6 +88,7 @@ public class StartBTN : MonoBehaviour
             SceneManager.LoadScene(PlayerPrefs.GetInt(Define.sceneIndex));
         }
     }
+    */
 
 
 }

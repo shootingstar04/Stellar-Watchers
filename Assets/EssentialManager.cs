@@ -15,8 +15,9 @@ public class EssentialManager : MonoBehaviour
 
     private void Start()
     {
-        if(GameObject.FindGameObjectWithTag(Define.PlayerTag))
+        if (GameObject.FindGameObjectWithTag(Define.PlayerTag))
         {
+            Debug.Log("다 있음. " + this.gameObject.name + " 삭제");
             Destroy(this.gameObject);
         }
         else

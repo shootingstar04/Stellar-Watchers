@@ -1,8 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Build.Content;
-//using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -46,11 +43,17 @@ public class SaveLoadManager : MonoBehaviour
 
     public void LoadPlayerData()
     {
+        /*
         if(GameObject.FindGameObjectWithTag(Define.PlayerTag) == null)
         {
             return;
+        }*/
+
+        if (GameObject.FindGameObjectWithTag(Define.PlayerTag) != null)
+        {
+            DontDestroy.thisIsPlayer.isTeleported = false;
         }
-        DontDestroy.thisIsPlayer.isTeleported = false;
+
         SceneManager.LoadScene(PlayerPrefs.GetInt(Define.sceneIndex));
         DontDestroy.thisIsPlayer.transform.position = new Vector3(PlayerPrefs.GetFloat(Define.posX), PlayerPrefs.GetFloat(Define.posY), PlayerPrefs.GetFloat(Define.posZ));
         ItemData.Instance.set_gold(PlayerPrefs.GetInt(Define.coins));
