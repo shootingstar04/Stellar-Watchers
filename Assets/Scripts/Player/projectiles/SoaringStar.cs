@@ -29,7 +29,9 @@ public class SoaringStar : MonoBehaviour
             Vector2 Pos = target.transform.position;
             Pos.y += 3.5f;
 
-            RaycastHit2D Hit = Physics2D.Raycast((Vector2)Pos, Vector2.down, 50, LayerMask.GetMask("Ground"));
+            this.transform.position = Pos;
+
+            RaycastHit2D Hit = Physics2D.Raycast(bottom.position, Vector2.down, 50, LayerMask.GetMask("Ground"));
 
             if (Hit.collider != null)
             {
