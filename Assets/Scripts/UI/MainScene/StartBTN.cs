@@ -53,7 +53,11 @@ public class StartBTN : MonoBehaviour
     {
         if (GameObject.Find("Player"))
         {
-            PlayerPrefs.SetInt(Define.sceneIndex, 2);
+            if (PlayerPrefs.GetInt(Define.sceneIndex) == 1)
+            {
+                PlayerPrefs.SetInt(Define.sceneIndex, 2);
+            }
+
             SaveLoadManager.instance.LoadMapData();
             SaveLoadManager.instance.LoadPlayerData();
         }

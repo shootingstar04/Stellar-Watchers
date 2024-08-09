@@ -41,6 +41,8 @@ public class MapTeleporter : MonoBehaviour
         {
             DontDestroy.thisIsPlayer.transform.position = playerdata.Position;
         }
+
+        Debug.Log(ItemData.Instance.CurrentGold + " ¿ø");
     }
 
     private void Start()
