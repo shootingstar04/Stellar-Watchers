@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerAttackRanged : MonoBehaviour
 {
     private float curTime = 0f;
-    public float coolTime = 0.5f;
+    public float coolTime = 2f / 3f;
 
     public GameObject projectilePrefab;
     public Transform projectileSpawnPoint;

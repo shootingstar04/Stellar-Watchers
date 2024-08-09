@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerAttackMelee : MonoBehaviour
 {
     private float curTime = 0f;
-    private float coolTime = 0.5f;
+    private float coolTime = 2f / 5f;
     public int Damage = 5;
 
     public Transform Pos;

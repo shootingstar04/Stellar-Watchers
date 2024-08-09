@@ -854,7 +854,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e038dd3a0442f44fbfb8833926888c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coolTime: 0.5
+  coolTime: 0.6666667
   projectilePrefab: {fileID: 5779890570710995444, guid: ab73d3f8275fb324d98b41a587007b0a, type: 3}
   projectileSpawnPoint: {fileID: 6104272888100841712}
 --- !u!114 &-6802952785210973611
