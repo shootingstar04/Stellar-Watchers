@@ -54770,7 +54770,7 @@ GameObject:
   - component: {fileID: 1404823999}
   - component: {fileID: 1404823998}
   m_Layer: 0
-  m_Name: 0-4 move point
+  m_Name: 1 move point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
