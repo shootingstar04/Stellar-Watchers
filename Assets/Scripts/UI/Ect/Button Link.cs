@@ -14,6 +14,14 @@ public class ButtonLink : MonoBehaviour
         this.GetComponent<Button>().onClick.AddListener(inventory.off_PopUp);  
     }
 
+    public void A()
+    {
+        if (inventory != null)
+            return;
+        inventory = GameObject.FindGameObjectWithTag(Define.PlayerTag).transform.Find("Inventory").GetComponent<ItemPopUp>();
+
+        this.GetComponent<Button>().onClick.AddListener(inventory.off_PopUp);
+    }
 
     void Start()
     {

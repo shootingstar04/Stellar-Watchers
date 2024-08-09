@@ -41,9 +41,14 @@ public class CollectInventory : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        if(collection == null)
+        {
+            collection = GameObject.Find("Collection");
+        }
         GameObject other = collision.gameObject;
         if (other.GetComponent<CollectItem>() != null && !other.GetComponent<CollectItem>().isActived)
         {
+            Debug.Log("아이템 닿았음");
             if (Input.GetKey(KeyCode.UpArrow))
             {
                 CollectItem item = other.GetComponent<CollectItem>();

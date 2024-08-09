@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5281207008072981382
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9121715969494086452}
+  - component: {fileID: 8830035796513734777}
+  m_Layer: 0
+  m_Name: EssentialManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9121715969494086452
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5281207008072981382}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -6.76, y: -1127.542, z: 19.800564}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8830035796513734777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5281207008072981382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 927f7b8523d51ce40a43245515fef69b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 8550617144831936086, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
+  sceneManager: {fileID: 7913693658891523833, guid: db3b45a623a154043b5b3ba2d60f9d8e, type: 3}
+  ui: {fileID: 3398993735476731684, guid: 8f6b40b50b1197d4a9987450aec2a558, type: 3}
+  deathScreen: {fileID: 7987389783920334734, guid: f2e4be6570fc9b647809caf2ed5c98a3, type: 3}
+  particleManager: {fileID: 7446388422060613706, guid: 1645d20d06585bb41bdc1c27a27fd25c, type: 3}
+  coinPool: {fileID: 5214964265216619264, guid: d7a7f6974dc7ba84e9cf4b63ae415b54, type: 3}
+  mainCamera: {fileID: 3840660774895694059, guid: 232a8d69bfea59146beede5154596884, type: 3}
+  virtualCamera: {fileID: 552153548530299124, guid: da5d83983379844469a97a0a2aa1a22a, type: 3}
