@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -382,9 +383,20 @@ public class PlayerMove : MonoBehaviour
 
     public void respawn()
     {
-
         isDead = false;
-        SaveLoadManager.instance.LoadData();
+
+        DontDestroy.thisIsPlayer.isTeleported = false;
+
+        if(SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            Debug.Log("first0");
+            PlayerPrefs.SetInt(Define.sceneIndex, 2);
+        }
+        
+        SaveLoadManager.instance.LoadPlayerData();
+        PlayerHealth.instance.modify_HP(99);
+        SaveLoadManager.instance.LoadMapData();
+        SceneTransition.instance.FadeIn();
         RestartMove();
 
     }

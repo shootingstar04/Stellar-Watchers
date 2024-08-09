@@ -15,4 +15,12 @@ public class Define : MonoBehaviour
     public const string TPtag = "Teleporter";
     public const string OneWayTag = "OneWay";
 
+    public const string sceneIndex = "sceneIndex";
+    public const string maxSp = "maxSp";
+    public const string maxHp = "maxHp";
+    public const string curSp = "curSp";
+    public const string coins = "coins";
+    public const string posX = "posX";
+    public const string posY = "posY";
+    public const string posZ = "posZ";
 }

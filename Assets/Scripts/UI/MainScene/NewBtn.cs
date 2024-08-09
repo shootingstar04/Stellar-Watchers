@@ -14,6 +14,6 @@ public class NewBtn : MonoBehaviour
 
     private void Start()
     {
-        btnNew.onClick.AddListener(() => StartBTN.instance.ResetGame());
+        btnNew.onClick.AddListener(() => StartBTN.instance.ResetData());
     }
 }

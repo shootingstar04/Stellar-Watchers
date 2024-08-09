@@ -61,6 +61,26 @@ public class PlayerHealth : MonoBehaviour
 
         HPUI.Instance.refresh_hp(CurHP);
     }
+
+    public void set_HP(int value)
+    {
+        curHP = value;
+        if (curHP > maxHP) curHP = maxHP;
+        else if (curHP < 0) curHP = 0;
+
+        HPUI.Instance.refresh_hp(CurHP);
+    }
+
+    public void set_max_HP(int value)
+    {
+
+        maxHP = value;
+        if (maxHP > 8) maxHP = 8;
+        else if (maxHP < 1) maxHP = 1;
+
+        HPUI.Instance.set_max_HP(maxHP);
+    }
+
     public void modify_max_HP(int value)
     {
         maxHP += value;
@@ -69,6 +89,6 @@ public class PlayerHealth : MonoBehaviour
 
         curHP = maxHP;
 
-        HPUI.Instance.add_max_HP(maxHP);
+        HPUI.Instance.set_max_HP(maxHP);
     }
 }

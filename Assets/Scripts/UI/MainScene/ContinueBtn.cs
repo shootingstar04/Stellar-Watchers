@@ -14,6 +14,6 @@ public class ContinueBtn : MonoBehaviour
 
     private void Start()
     {
-        btnContinue.onClick.AddListener(() => StartBTN.instance.ContinueGame());
+        btnContinue.onClick.AddListener(() => StartBTN.instance.StartGame());
     }
 }

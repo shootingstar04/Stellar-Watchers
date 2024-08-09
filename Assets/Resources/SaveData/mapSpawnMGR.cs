@@ -57,6 +57,7 @@ public class mapSpawnMGR : MonoBehaviour
     {
         Debug.Log("저장시작");
 
+        /*
         for (int i = 0; i < EnemySpawnList.Count; i++)
         {
             Debug.Log(EnemySpawnList[i].GetComponent<SpawnPoint>().canSpawn);
@@ -66,7 +67,7 @@ public class mapSpawnMGR : MonoBehaviour
         {
             Debug.Log(ObjectSpawnList[i].GetComponent<SpawnPoint>().canSpawn);
         }
-
+        */
         for (int i = 0; i < EnemySpawnList.Count; i++)
         {
             enemySOData.spawnList[i] = EnemySpawnList[i].GetComponent<SpawnPoint>().canSpawn;
@@ -76,7 +77,7 @@ public class mapSpawnMGR : MonoBehaviour
         {
             mapSOData.objects[i] = ObjectSpawnList[i].GetComponent<SpawnPoint>().canSpawn;
         }
-
+        /*
         for (int i = 0; i < EnemySpawnList.Count; i++)
         {
             Debug.Log(enemySOData.spawnList[i]);
@@ -86,6 +87,7 @@ public class mapSpawnMGR : MonoBehaviour
         {
             Debug.Log(mapSOData.objects[i]);
         }
+        */
     }
 
     

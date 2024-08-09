@@ -8,9 +8,6 @@ public class StartBTN : MonoBehaviour
 {
     private Button btnStart;
 
-    private SaveData savedata;
-    private PlayerData playerdata;
-
     [SerializeField] private GameObject continueCanvas;
 
     public static StartBTN instance;
@@ -24,51 +21,51 @@ public class StartBTN : MonoBehaviour
             btnStart = GetComponent<Button>();
         }
 
-        savedata = Resources.Load<SaveData>("SaveData/SaveData");
-        playerdata = Resources.Load<PlayerData>("SaveData/PlayerSO");
     }
 
     private void Start()
     {
-        btnStart.onClick.AddListener(() => startMap());
+        btnStart.onClick.AddListener(() => preStep());
     }
 
-    void startMap()
+    void preStep()
     {
-        if (savedata.Objects.Count == 0)
+        if (PlayerPrefs.HasKey(Define.maxHp))
         {
-            ResetGame();
-        }
-        else
-        {
+            Debug.Log("진행상황 있음");
             continueCanvas.SetActive(true);
         }
-
+        else
+        {
+            Debug.Log("진행상황 없음.새로만듦");
+            ResetData();
+        }
     }
 
-    public void ResetGame()
+    public void ResetData()
     {
-        playerdata.Coin = 0;
-        playerdata.SceneIndex = 2;
-        playerdata.MaxHp = 5;
-        playerdata.MaxSp = 5;
-        playerdata.CurrentSp = 5;
-        playerdata.Position = new Vector3(0, 0, 0);
-        playerdata.Reseted = true;
+        SaveLoadManager.instance.ResetPlayerData();
+        SaveLoadManager.instance.ResetMapData();
+        StartGame();
+    }
 
+    public void StartGame()
+    {
         if (GameObject.Find("Player"))
         {
-            SceneManager.LoadScene("0");
+            if (PlayerPrefs.GetInt(Define.sceneIndex) == 1)
+            {
+                PlayerPrefs.SetInt(Define.sceneIndex, 2);
+            }
+
+            SaveLoadManager.instance.LoadMapData();
+            SaveLoadManager.instance.LoadPlayerData();
         }
         else
         {
-            SceneManager.LoadScene("First0");
+            SceneManager.LoadScene(PlayerPrefs.GetInt(Define.sceneIndex));
         }
-
     }
 
-    public void ContinueGame()
-    {
-        SaveLoadManager.instance.LoadData();
-    }
+
 }

@@ -1,84 +1,122 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Build.Content;
 //using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SaveLoadManager : MonoBehaviour
 {
-    private SaveData savedata;
-    private PlayerData playerdata;
-
     public static SaveLoadManager instance;
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        instance = this;
+    }
+
+    public void SavePlayerData(Transform trans)
+    {
+        PlayerPrefs.SetInt(Define.sceneIndex, SceneManager.GetActiveScene().buildIndex);
+
+        PlayerPrefs.SetFloat(Define.posX, trans.position.x);
+        PlayerPrefs.SetFloat(Define.posY, trans.position.y);
+        PlayerPrefs.SetFloat(Define.posZ, trans.position.z);
+
+        PlayerPrefs.SetInt(Define.coins, ItemData.Instance.CurrentGold);
+        PlayerPrefs.SetInt(Define.maxSp, PlayerSP.instance.MaxSP);
+        PlayerPrefs.SetInt(Define.maxHp, PlayerHealth.instance.MaxHP);
+        PlayerPrefs.SetInt(Define.curSp, PlayerSP.instance.CurSP);
 
     }
 
-
-    public void LoadData()
+    public void ResetPlayerData()
     {
-        savedata = Resources.Load<SaveData>("SaveData/SaveData");
+        PlayerPrefs.SetInt(Define.sceneIndex, 1);
 
-        if (savedata.Objects.Count == 0 )
+        PlayerPrefs.SetFloat(Define.posX, 0);
+        PlayerPrefs.SetFloat(Define.posY, 0);
+        PlayerPrefs.SetFloat(Define.posZ, 0);
+
+        PlayerPrefs.SetInt(Define.coins, 0);
+        PlayerPrefs.SetInt(Define.maxSp, 5);
+        PlayerPrefs.SetInt(Define.maxHp, 5);
+        PlayerPrefs.SetInt(Define.curSp, 5);
+    }
+
+    public void LoadPlayerData()
+    {
+        if(GameObject.FindGameObjectWithTag(Define.PlayerTag) == null)
         {
-            LoadDefault();
             return;
         }
+        DontDestroy.thisIsPlayer.isTeleported = false;
+        SceneManager.LoadScene(PlayerPrefs.GetInt(Define.sceneIndex));
+        DontDestroy.thisIsPlayer.transform.position = new Vector3(PlayerPrefs.GetFloat(Define.posX), PlayerPrefs.GetFloat(Define.posY), PlayerPrefs.GetFloat(Define.posZ));
+        ItemData.Instance.set_gold(PlayerPrefs.GetInt(Define.coins));
+        PlayerSP.instance.set_max_SP(PlayerPrefs.GetInt(Define.maxSp));
+        PlayerHealth.instance.set_max_HP(PlayerPrefs.GetInt(Define.maxHp));
+        PlayerSP.instance.set_SP(PlayerPrefs.GetInt(Define.curSp));
+    }
 
-        for (int i = 0; i < 4; i++)
+    public void LoadNewPlayerData()
+    {
+        SceneManager.LoadScene(PlayerPrefs.GetInt(Define.sceneIndex));
+        DontDestroy.thisIsPlayer.transform.position = new Vector3(PlayerPrefs.GetFloat(Define.posX), PlayerPrefs.GetFloat(Define.posY), PlayerPrefs.GetFloat(Define.posZ));
+        ItemData.Instance.modify_gold(PlayerPrefs.GetInt(Define.coins));
+        PlayerSP.instance.set_max_SP(PlayerPrefs.GetInt(Define.maxSp));
+        PlayerHealth.instance.set_max_HP(PlayerPrefs.GetInt(Define.maxHp));
+        PlayerSP.instance.set_SP(PlayerPrefs.GetInt(Define.curSp));
+    }
+
+
+    public void SaveMapData()
+    {
+        for (int index = 0; index < 4; index++)
         {
-            MapSO mapso = Resources.Load<MapSO>("SaveData/mapSO" + i);
+            MapSO mapso = Resources.Load<MapSO>("SaveData/mapSO" + index);
+            for (int objects = 0; objects < mapso.objects.Count; objects++)
             {
-                for (int j = 0; j < savedata.Objects[i].Count; j++)
+                if (mapso.objects[objects])
                 {
-                    mapso.objects[j] = savedata.Objects[i][j];
+                    PlayerPrefs.SetInt("Map" + index + "." + objects, 1);
+                }
+                else
+                {
+                    PlayerPrefs.SetInt("Map" + index + "." + objects, 0);
                 }
             }
         }
-
-
-        playerdata = Resources.Load<PlayerData>("SaveData/PlayerSO");
-
-        DontDestroy.thisIsPlayer.isTeleported = false;
-        SceneManager.LoadScene(playerdata.SceneIndex);
-        DontDestroy.thisIsPlayer.transform.position = new Vector3(playerdata.Position.x, playerdata.Position.y, playerdata.Position.z);
-        int gold = ItemData.Instance.CurrentGold - playerdata.Coin;
-        ItemData.Instance.modify_gold(-gold);
-
-        PlayerHealth.instance.modify_HP(5);
-
-        SceneTransition.instance.FadeIn();
     }
 
-    private void Update()
+    public void ResetMapData()
     {
-        if(Input.GetKeyDown(KeyCode.T))
+        for (int index = 0; index < 4; index++)
         {
-            LoadData();
+            MapSO mapso = Resources.Load<MapSO>("SaveData/mapSO" + index);
+            for (int objects = 0; objects < mapso.objects.Count; objects++)
+            {
+                PlayerPrefs.SetInt("Map" + index + "." + objects, 1);
+            }
         }
     }
 
-    public void LoadDefault()
+    public void LoadMapData()
     {
-        playerdata = Resources.Load<PlayerData>("SaveData/PlayerSO");
-
-        DontDestroy.thisIsPlayer.isTeleported = false;
-        SceneManager.LoadScene(playerdata.SceneIndex);
-        DontDestroy.thisIsPlayer.transform.position = new Vector3(playerdata.Position.x, playerdata.Position.y, playerdata.Position.z);
-        ItemData.Instance.set_gold(0);
-        PlayerHealth.instance.modify_HP(5);
-        SceneTransition.instance.FadeIn();
+        for (int index = 0; index < 4; index++)
+        {
+            MapSO mapso = Resources.Load<MapSO>("SaveData/mapSO" + index);
+            for (int objects = 0; objects < mapso.objects.Count; objects++)
+            {
+                if (PlayerPrefs.GetInt("Map" + index + "." + objects) == 1)
+                {
+                    mapso.objects[objects] = true;
+                }
+                else
+                {
+                    mapso.objects[objects] = false;
+                }
+            }
+        }
     }
 }

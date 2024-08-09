@@ -57,6 +57,26 @@ public class PlayerSP : MonoBehaviour
 
         SPUI.Instance.refresh_sp(curSP);
     }
+
+    public void set_SP(int value)
+    {
+        curSP = value;
+        if (curSP > maxSP) curSP = maxSP;
+        else if (curSP < 0) curSP = 0;
+
+        SPUI.Instance.refresh_sp(curSP);
+    }
+
+    public void set_max_SP(int value)
+    {
+
+        maxSP = value;
+        if (maxSP > 7) maxSP = 7;
+        else if (maxSP < 1) maxSP = 1;
+
+        SPUI.Instance.add_max_SP(maxSP);
+    }
+
     public void modify_max_SP(int value)
     {
         maxSP += value;

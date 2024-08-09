@@ -63,7 +63,7 @@ public class HPUI : MonoBehaviour
         else return false;
     }
 
-    public void add_max_HP(int MaxHP) 
+    public void set_max_HP(int MaxHP) 
     {
         if (MaxHP < 9)
         {
