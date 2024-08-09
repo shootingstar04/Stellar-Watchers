@@ -139932,7 +139932,7 @@ GameObject:
   - component: {fileID: 1485705159}
   - component: {fileID: 1485705158}
   m_Layer: 0
-  m_Name: elibater
+  m_Name: elivator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -62,37 +62,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1753012192705358774}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1280714412560727513
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 9008535996534343746}
-  m_Layer: 7
-  m_Name: soaringstar
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &9008535996534343746
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1280714412560727513}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.75, y: 2, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1753012192705358774}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2195043715993445373
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,37 +92,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5601640077373299387}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &3931763581418098769
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1226543638905491308}
-  m_Layer: 7
-  m_Name: pointsting
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1226543638905491308
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3931763581418098769}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.65, y: 0.65, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1753012192705358774}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4495720041197294905
 GameObject:
@@ -211,7 +149,7 @@ Transform:
   m_GameObject: {fileID: 5018666938969599622}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.65, y: 0.65, z: 0}
+  m_LocalPosition: {x: 2.621, y: 0.65, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -341,11 +279,9 @@ Transform:
   m_Children:
   - {fileID: 2512897470640941337}
   - {fileID: 7521820517261555069}
-  - {fileID: 1226543638905491308}
   - {fileID: 4042788679408951549}
   - {fileID: 93056214812033774}
   - {fileID: 5437173054525394808}
-  - {fileID: 9008535996534343746}
   - {fileID: 3772454157834407936}
   m_Father: {fileID: 5601640077373299387}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1021,7 +957,7 @@ MonoBehaviour:
   stellaDelay1: 0.3
   stellaDelay2: 0.7
   pointPos: {fileID: 7521820517261555069}
-  pointBox: {x: 4, y: 1}
+  pointBox: {x: 7, y: 1}
   pointDelay1: 1
   pointDelay2: 2
   meteorPos: {fileID: 4042788679408951549}
@@ -1031,7 +967,7 @@ MonoBehaviour:
   freyjaPos: {fileID: 93056214812033774}
   freyjaBullet: {fileID: 1735533236137297643, guid: 963a942036369f641a0132c8462da90e, type: 3}
   freyjaDelay1: 1.5
-  soaringPos: {fileID: 9008535996534343746}
+  soaringPos: {fileID: 5437173054525394808}
   soaringBullet: {fileID: 1713190172057619881, guid: 4e20461a206c96c40a8569db7ac2d7c4, type: 3}
   soaringDelay1: 2
   stunPos: {fileID: 3772454157834407936}
