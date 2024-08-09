@@ -8,7 +8,7 @@ public class EnemyData : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        ParticleManager.instance.particle_generation(ParticleManager.particleType.Hitted, this.transform);
+        ParticleManager.instance.particle_generation(ParticleManager.particleType.EnemyHit, this.transform);
 
         if (EnemyName == "Bandit")
         {
