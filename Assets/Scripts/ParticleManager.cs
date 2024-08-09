@@ -45,7 +45,7 @@ public class ParticleManager : MonoBehaviour
                 particle = Instantiate(hittedParticle, pos.position, pos.rotation);
                 break;
             case particleType.EnemyHit:
-                particle = Instantiate(enemyHittedParticle, pos.position, new Quaternion(0,0,1,Random.Range(0f,180f)));
+                particle = Instantiate(enemyHittedParticle, pos.position, Quaternion.AngleAxis(Random.Range(-40f, 220f), Vector3.forward));
                 break;
         }
     }
