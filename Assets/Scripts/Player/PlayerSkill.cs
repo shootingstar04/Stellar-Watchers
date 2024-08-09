@@ -116,6 +116,7 @@ public class PlayerSkill : MonoBehaviour
             case SkillSet.skill.hardSwing:
                 if (PlayerSP.instance.CurSP > 0)
                 {
+                    playerMove.UseSkill(true);
                     PlayerSP.instance.modify_SP(-1);
                     if (!playerMove.IsGrounded)
                     {
@@ -123,12 +124,12 @@ public class PlayerSkill : MonoBehaviour
                         inAir = true;
                     }
                     isUsingSkill = skilltype;
-                    playerMove.UseSkill(true);
                 }
                 break;
             case SkillSet.skill.pointSting:
                 if (PlayerSP.instance.CurSP > 0)
                 {
+                    playerMove.UseSkill(true);
                     PlayerSP.instance.modify_SP(-1);
                     if (!playerMove.IsGrounded)
                     {
@@ -136,12 +137,12 @@ public class PlayerSkill : MonoBehaviour
                         inAir = true;
                     }
                     isUsingSkill = skilltype;
-                    playerMove.UseSkill(true);
                 }
                 break;
             case SkillSet.skill.smite:
                 if (PlayerSP.instance.CurSP > 2)
                 {
+                    playerMove.UseSkill(true);
                     PlayerSP.instance.modify_SP(-3);
                     if (!playerMove.IsGrounded)
                     {
@@ -150,12 +151,12 @@ public class PlayerSkill : MonoBehaviour
                         inAir = true;
                     }
                     isUsingSkill = skilltype;
-                    playerMove.UseSkill(true);
                 }
                 break;
             case SkillSet.skill.meteorBomb:
                 if (PlayerSP.instance.CurSP > 0)
                 {
+                    playerMove.UseSkill(true);
                     PlayerSP.instance.modify_SP(-1);
                     if (!playerMove.IsGrounded)
                     {
@@ -163,12 +164,12 @@ public class PlayerSkill : MonoBehaviour
                         inAir = true;
                     }
                     isUsingSkill = skilltype;
-                    playerMove.UseSkill(true);
                 }
                 break;
             case SkillSet.skill.pillarOfLight:
                 if (PlayerSP.instance.CurSP > 2)
                 {
+                    playerMove.UseSkill(true);
                     PlayerSP.instance.modify_SP(-3);
                     if (!playerMove.IsGrounded)
                     {
@@ -176,12 +177,12 @@ public class PlayerSkill : MonoBehaviour
                         inAir = true;
                     }
                     isUsingSkill = skilltype;
-                    playerMove.UseSkill(true);
                 }
                 break;
             case SkillSet.skill.twinstars:
                 if (PlayerSP.instance.CurSP > 0)
                 {
+                    playerMove.UseSkill(true);
                     PlayerSP.instance.modify_SP(-1);
                     if (!playerMove.IsGrounded)
                     {
@@ -189,7 +190,6 @@ public class PlayerSkill : MonoBehaviour
                         inAir = true;
                     }
                     isUsingSkill = skilltype;
-                    playerMove.UseSkill(true);
                 }
                 break;
         }
