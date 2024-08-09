@@ -8,10 +8,12 @@ public class PlayerTransformation : MonoBehaviour
 
     private Transform currentTransform;
     private PlayerMove playerMove;
+    private SpriteRenderer spriteRenderer;
 
     void Start()
     {
         playerMove = this.GetComponent<PlayerMove>();
+        spriteRenderer = this.GetComponent<SpriteRenderer>();
 
         currentTransform = gameObject.transform;
         VirtualCameraManager.Instance.ChangeCameraTarget(currentTransform);
@@ -30,6 +32,7 @@ public class PlayerTransformation : MonoBehaviour
     {
         Vector3 position = currentTransform.position;
         Quaternion rotation = currentTransform.rotation;
+        StartCoroutine(color_change());
 
         if (PlayerType == "Melee")
         {
@@ -46,5 +49,14 @@ public class PlayerTransformation : MonoBehaviour
         }
 
         currentTransform = gameObject.transform;
+    }
+
+    IEnumerator color_change()
+    {
+        spriteRenderer.color = Color.yellow;
+        Debug.Log(1);
+        yield return new WaitForSeconds(0.1f);
+
+        spriteRenderer.color = Color.white;        
     }
 }

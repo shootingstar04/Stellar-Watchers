@@ -139244,6 +139244,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5422954983266928744, guid: 3041cc87c28bfae4fa8586b946299946, type: 3}
+      propertyPath: itemNum
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5422954983266928744, guid: 3041cc87c28bfae4fa8586b946299946, type: 3}
+      propertyPath: itemType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5422954983266928744, guid: 3041cc87c28bfae4fa8586b946299946, type: 3}
+      propertyPath: showPopUp
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7429739860003294065, guid: 3041cc87c28bfae4fa8586b946299946, type: 3}
       propertyPath: m_LocalPosition.x
       value: 92.050514
@@ -139757,7 +139769,7 @@ GameObject:
   - component: {fileID: 1282426802}
   - component: {fileID: 1282426801}
   m_Layer: 0
-  m_Name: coin
+  m_Name: smallllll coin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -140072,6 +140084,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5422954983266928744, guid: 3041cc87c28bfae4fa8586b946299946, type: 3}
+      propertyPath: itemNum
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5422954983266928744, guid: 3041cc87c28bfae4fa8586b946299946, type: 3}
+      propertyPath: itemType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7429739860003294065, guid: 3041cc87c28bfae4fa8586b946299946, type: 3}
       propertyPath: m_LocalPosition.x
       value: 63.30941
