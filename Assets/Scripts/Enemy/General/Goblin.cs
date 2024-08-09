@@ -153,7 +153,7 @@ public class Goblin : MonoBehaviour
         isAttacking = true;
         rb.velocity = Vector2.zero; // 공격 중 이동하지 않음
         animator.SetBool("Walk", false);
-        animator.SetTrigger("Attack");
+        animator.SetTrigger("Attack1");
 
         // 공격 애니메이션 재생 시간 대기
         yield return new WaitForSeconds(1f);

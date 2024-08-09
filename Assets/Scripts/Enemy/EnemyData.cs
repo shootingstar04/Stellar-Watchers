@@ -8,7 +8,7 @@ public class EnemyData : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        ParticleManager.instance.particle_generation(ParticleManager.particleType.EnemyHit, this.transform);
+        ParticleManager.instance.particle_generation(ParticleManager.particleType.Hitted, this.transform);
 
         if (EnemyName == "Bandit")
         {
@@ -28,7 +28,7 @@ public class EnemyData : MonoBehaviour
         }
         if (EnemyName == "Hider")
         {
-            
+            this.GetComponent<Hider>().TakeDamage(damage);
         }
         if (EnemyName == "Mushroom")
         {
