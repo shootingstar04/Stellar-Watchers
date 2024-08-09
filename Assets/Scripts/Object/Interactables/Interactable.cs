@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
@@ -20,16 +21,18 @@ public class Interactable : MonoBehaviour
     private PlayerData playerdata;
     private SaveData savedata;
 
-    [SerializeField] private GameObject itemdata;
-
     //private float timer = 0f;
     //private const float StatusActive = 2f;
 
 
     private void Awake()
     {
-        Player = GameObject.FindGameObjectWithTag(Define.PlayerTag);
-        playermove = Player.GetComponent<PlayerMove>();
+        /*
+
+        if(Player == null)
+        {
+            Debug.Log(this.gameObject.name + "플레이어 못받음");
+        }
 
         if (cam == null)
         {
@@ -37,13 +40,9 @@ public class Interactable : MonoBehaviour
             GameObject cam_temp = GameObject.Find("Virtual Camera");
             cam = cam_temp.GetComponent<cam_deadzone_test>();
         }
+        */
 
-        if (cam == null)
-        {
-            Debug.Log("시도2");
-        }
-
-        playerdata = Resources.Load<PlayerData>("SaveData/PlayerSO");
+        //playerdata = Resources.Load<PlayerData>("SaveData/PlayerSO");
         savedata = Resources.Load<SaveData>("SaveData/SaveData");
     }
 
@@ -108,6 +107,7 @@ public class Interactable : MonoBehaviour
 
     void SaveMethod()
     {
+        Debug.Log("저장중");
         Resurrect();
         PlayerHealth.instance.modify_HP(99);
         mapSpawnMGR spawnmanager = GameObject.Find("SpawnMGR").GetComponent<mapSpawnMGR>();
@@ -184,6 +184,18 @@ public class Interactable : MonoBehaviour
     */
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if(Player == null)
+        {
+            Player = GameObject.FindGameObjectWithTag(Define.PlayerTag);
+            playermove = Player.GetComponent<PlayerMove>();
+        }
+
+        if (cam == null)
+        {
+            Debug.Log("시도1");
+            GameObject cam_temp = GameObject.FindObjectOfType<CinemachineVirtualCamera>().gameObject;
+            cam = cam_temp.GetComponent<cam_deadzone_test>();
+        }
         if (collision.CompareTag(Define.PlayerTag))
         {
             inside = true;

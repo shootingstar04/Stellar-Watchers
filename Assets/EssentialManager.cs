@@ -29,9 +29,9 @@ public class EssentialManager : MonoBehaviour
 
     void CreateEssentials()
     {
-        Instantiate(player);
         Instantiate(sceneManager);
         Instantiate(ui);
+        Instantiate(player);
         Instantiate(deathScreen);
         Instantiate(particleManager);
         Instantiate(coinPool);
