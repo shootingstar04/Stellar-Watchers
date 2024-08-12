@@ -180,7 +180,7 @@ Transform:
   m_GameObject: {fileID: 5905729104494320795}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.62, y: 0.61, z: 0}
+  m_LocalPosition: {x: 1.62, y: 0.77, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -596,6 +596,7 @@ GameObject:
   - component: {fileID: 7242322318207948754}
   - component: {fileID: 4073959861003734554}
   - component: {fileID: 3599624433234362489}
+  - component: {fileID: 1326846938289014414}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -787,9 +788,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 7
   wallSlidingSpeed: 5
-  jumpForce: 18
+  jumpForce: 20
   maxJumpTime: 0.4
-  maxJumpHeight: 2.5
+  maxJumpHeight: 3
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -967,13 +968,26 @@ MonoBehaviour:
   freyjaPos: {fileID: 93056214812033774}
   freyjaBullet: {fileID: 1735533236137297643, guid: 963a942036369f641a0132c8462da90e, type: 3}
   freyjaDelay1: 1.5
-  soaringPos: {fileID: 5437173054525394808}
+  soaringPos: {fileID: 2512897470640941337}
   soaringBullet: {fileID: 1713190172057619881, guid: 4e20461a206c96c40a8569db7ac2d7c4, type: 3}
   soaringDelay1: 2
   stunPos: {fileID: 3772454157834407936}
   stunBullet: {fileID: 1735533236137297643, guid: 2f5d172539b5e7f4ebbbdb72dfe071b0, type: 3}
   stunDelay1: 0.1
   stunDelay2: 1.2
+--- !u!114 &1326846938289014414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8550617144831936086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e009be8ee8f2972439c9f62aef8b5af9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerType: Melee
 --- !u!1 &8641076700620156055
 GameObject:
   m_ObjectHideFlags: 0

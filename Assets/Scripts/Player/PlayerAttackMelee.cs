@@ -121,9 +121,9 @@ public class PlayerAttackMelee : MonoBehaviour
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(Pos.position, boxSize1);
-        Gizmos.DrawWireCube(UpPos.position, boxSize2);
-        Gizmos.DrawWireCube(DownPos.position, boxSize2);
-        Gizmos.DrawWireCube(SlashPos.position, boxSize3);
+        //Gizmos.DrawWireCube(UpPos.position, boxSize2);
+        //Gizmos.DrawWireCube(DownPos.position, boxSize2);
+        //Gizmos.DrawWireCube(SlashPos.position, boxSize3);
     }
 }
 
