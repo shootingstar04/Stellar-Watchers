@@ -18,11 +18,14 @@ public class SPUI : MonoBehaviour
     public static SPUI Instance;
     void Awake()
     {
-        if (!Instance)
+        if (Instance == null)
+        {
             Instance = this;
+        }
         else
         {
-            Destroy(this);
+            Destroy(Instance);
+            Instance = this;
         }
 
         currentSP = GameObject.Find("Current SP");
