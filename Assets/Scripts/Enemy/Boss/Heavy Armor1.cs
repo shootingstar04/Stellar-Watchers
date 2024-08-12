@@ -104,12 +104,12 @@ public class HeavyArmor1 : MonoBehaviour
             }
     }
 
-    // 플레이어가 공격 범위에 들어왔는지 지속적으로 체크
-    if (distanceToPlayer <= attackRadius)
-    {
-        currentState = State.ATTACK1; // 예: 공격1 상태로 전환
-        StartCoroutine(PerformAction(State.ATTACK1, 1f));
-    }
+        // 플레이어가 공격 범위에 들어왔는지 지속적으로 체크
+        if (distanceToPlayer <= attackRadius)
+        {
+            currentState = State.ATTACK1; // 예: 공격1 상태로 전환
+            StartCoroutine(PerformAction(State.ATTACK1, 1f));
+        }
     }
 
     private void Idle()

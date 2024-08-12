@@ -70,6 +70,7 @@ public class Skeleton : MonoBehaviour
         // KILLED 상태일 경우 다른 상태로 바뀌지 않도록 함
         if (currentState == State.KILLED || currentState == State.DIE)
         {
+            Debug.Log("Death");
             return;
         }
 
@@ -261,7 +262,7 @@ public class Skeleton : MonoBehaviour
         animator.SetTrigger("Die");
         EnemyItemDrop drop = this.gameObject.GetComponent<EnemyItemDrop>();
         if (drop == null) Debug.Log("nocomponent");
-        drop.DropCoins(coinYield, spYield);
+        else if(currentState != State.DIE)drop.DropCoins(coinYield, spYield);
         Destroy(gameObject, 1f);
         currentState = State.DIE;
     }
