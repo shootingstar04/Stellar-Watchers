@@ -15,7 +15,8 @@ public class HeavyArmor1 : MonoBehaviour
         SKILL1,
         SKILL2,
         SKILL3,
-        KILLED
+        KILLED,
+        Dead
     }
 
     public State currentState;
@@ -60,6 +61,12 @@ public class HeavyArmor1 : MonoBehaviour
 
     private void Update()
     {
+        if (currentState == State.KILLED || currentState == State.Dead)
+        {
+            Killed();
+            return;
+        }
+
         if (isPerformingAction) return; // 행동 중일 때는 다른 상태로 전환되지 않도록 함
 
         switch (currentState)
@@ -72,9 +79,6 @@ public class HeavyArmor1 : MonoBehaviour
                 break;
             case State.CHASE:
                 Chase();
-                break;
-            case State.KILLED:
-                Killed();
                 break;
         }
 
@@ -270,9 +274,17 @@ public class HeavyArmor1 : MonoBehaviour
 
     private void Killed()
     {
-        rb.velocity = Vector2.zero;
-        animator.SetTrigger("Die");
-        // 죽음 처리를 여기서 수행합니다. 예: 파괴, 리스폰 등
+        if (currentState != State.Dead)
+        {
+            animator.SetTrigger("Die");
+            currentState = State.Dead;
+            rb.velocity = Vector2.zero;
+            Destroy(this.gameObject, 4f);
+        }
+        else 
+        {
+            animator.SetBool("Death", true);
+        }
     }
 
     private void MoveTo(Vector2 target)
