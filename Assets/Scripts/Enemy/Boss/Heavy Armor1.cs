@@ -193,7 +193,7 @@ public class HeavyArmor1 : MonoBehaviour
         yield return new WaitForSeconds(actionDuration); // 행동 애니메이션 시간 대기
 
         // 공격 범위 내의 충돌체 확인
-        float offsetX = facingRight ? attackRadius / 2 : -attackRadius / 2;
+        float offsetX = facingRight ? attackRadius / 2f : -attackRadius / 2f;
         Vector2 attackCenter = new Vector2(transform.position.x + offsetX, transform.position.y);
 
         Collider2D[] hitPlayers = Physics2D.OverlapBoxAll(attackCenter, new Vector2(attackRadius, attackRadius), 0, LayerMask.GetMask("Player"));
