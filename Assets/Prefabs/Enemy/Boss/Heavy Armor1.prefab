@@ -203,7 +203,7 @@ MonoBehaviour:
   skill1MoveDistance: 1
   skill1MoveInterval: 0.4
   skill1TotalMoves: 9
-  CurHP: 350
+  CurHP: 300
   cliffDetectionDistance: 3
   wallDetectionDistance: 2
   groundLayer:
