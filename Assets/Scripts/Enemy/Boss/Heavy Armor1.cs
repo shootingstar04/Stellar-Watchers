@@ -240,37 +240,40 @@ public class HeavyArmor1 : MonoBehaviour
         isPerformingAction = true;
         //yield return new WaitForSeconds(3f); // 3초 대기
 
-        float randomValue = Random.value;
-        if (randomValue < 0.166666f)
-        {
-            currentState = State.ATTACK1;
-            StartCoroutine(PerformAction(State.ATTACK1, 0.65f));
-        }
-        else if (randomValue < 0.333333f)
-        {
-            currentState = State.ATTACK2;
-            StartCoroutine(PerformAction(State.ATTACK2, 0.65f));
-        }
-        else if (randomValue < 0.5f)
-        {
-            currentState = State.ATTACK3;
-            StartCoroutine(PerformAction(State.ATTACK3, 1.2f));
-        }
-        else if (randomValue < 0.666666f)
-        {
-            currentState = State.SKILL1;
-            StartCoroutine(PerformAction(State.SKILL1, 2f));
-        }
-        else if (randomValue < 0.833333f)
-        {
             currentState = State.SKILL2;
             StartCoroutine(PerformAction(State.SKILL2, 2f));
-        }
-        else
-        {
-            currentState = State.SKILL3;
-            StartCoroutine(PerformAction(State.SKILL3, 2f));
-        }
+
+        //float randomValue = Random.value;
+        //if (randomValue < 0.166666f)
+        //{
+        //    currentState = State.ATTACK1;
+        //    StartCoroutine(PerformAction(State.ATTACK1, 0.65f));
+        //}
+        //else if (randomValue < 0.333333f)
+        //{
+        //    currentState = State.ATTACK2;
+        //    StartCoroutine(PerformAction(State.ATTACK2, 0.65f));
+        //}
+        //else if (randomValue < 0.5f)
+        //{
+        //    currentState = State.ATTACK3;
+        //    StartCoroutine(PerformAction(State.ATTACK3, 1.2f));
+        //}
+        //else if (randomValue < 0.666666f)
+        //{
+        //    currentState = State.SKILL1;
+        //    StartCoroutine(PerformAction(State.SKILL1, 2f));
+        //}
+        //else if (randomValue < 0.833333f)
+        //{
+        //    currentState = State.SKILL2;
+        //    StartCoroutine(PerformAction(State.SKILL2, 2f));
+        //}
+        //else
+        //{
+        //currentState = State.SKILL3;
+        //StartCoroutine(PerformAction(State.SKILL3, 1.3f));
+        //}
     }
 
     private void Killed()
