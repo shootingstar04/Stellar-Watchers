@@ -106,10 +106,10 @@ public class HeavyArmor1 : MonoBehaviour
             {
                 Flip();
             }
-    }
+        }
 
         // 플레이어가 공격 범위에 들어왔는지 지속적으로 체크
-        
+
         //if (distanceToPlayer <= attackRadius)
         //{
         //    currentState = State.ATTACK1; // 예: 공격1 상태로 전환
@@ -149,7 +149,7 @@ public class HeavyArmor1 : MonoBehaviour
         if ((direction > 0 && !facingRight) || (direction < 0 && facingRight))
         {
             Flip();
-        }   
+        }
 
         // 플레이어를 향해 이동
         MoveTo(player.position);
@@ -164,6 +164,11 @@ public class HeavyArmor1 : MonoBehaviour
 
     private IEnumerator PerformAction(State actionState, float actionDuration)
     {
+        if ((player.position.x - this.transform.position.x) * this.transform.localScale.x < 0)
+        {
+            Flip();
+        }
+
         isPerformingAction = true;
         rb.velocity = Vector2.zero;
         animator.SetBool("Walk", false);
@@ -183,12 +188,13 @@ public class HeavyArmor1 : MonoBehaviour
                 animator.SetTrigger("Attack3");
                 break;
             case State.SKILL1:
-                yield return StartCoroutine(PerformSkill1());
-                break;
+                Debug.Log("S-1");
+                StartCoroutine(PerformSkill1());
+                yield break;
             case State.SKILL2:
                 Debug.Log("S-2");
-                animator.SetTrigger("Skill2");
-                break;
+                StartCoroutine(PerformSkill2());
+                yield break;
             case State.SKILL3:
                 Debug.Log("S-3");
                 animator.SetTrigger("Skill3");
@@ -208,7 +214,9 @@ public class HeavyArmor1 : MonoBehaviour
             Debug.Log(hitPlayer.CompareTag("Player"));
             if (hitPlayer.CompareTag("Player"))
             {
-                hitPlayer.GetComponent<PlayerHealth>().modify_HP(-1); // 예: 데미지를 1로 설정
+                int damage = 1;
+                if (actionState == State.SKILL3) damage = 2;
+                hitPlayer.GetComponent<PlayerHealth>().modify_HP(-damage); // 예: 데미지를 1로 설정
             }
         }
 
@@ -222,17 +230,87 @@ public class HeavyArmor1 : MonoBehaviour
     {
         animator.SetTrigger("Skill1");
 
-        Vector2 initialPosition = transform.position;
-        Vector2 targetPosition = player.position;
-
         for (int i = 0; i < skill1TotalMoves; i++)
         {
+            if (i == 0) yield return new WaitForSeconds(0.3f);
+            else if (i == 1) yield return new WaitForSeconds(0.5f);
+            else if (i == 2) yield return new WaitForSeconds(0.7f);
+            else if (i == 3) yield return new WaitForSeconds(0.6f);
+            else if (i == 4) yield return new WaitForSeconds(0.5f);
+            else if (i == 5) yield return new WaitForSeconds(0.7f);
+            else if (i == 6) yield return new WaitForSeconds(0.6f);
+            else if (i == 7) yield return new WaitForSeconds(0.5f);
+            else if (i == 8) yield return new WaitForSeconds(0.7f);
+
+            Debug.Log(i);
+
+            float offsetX = facingRight ? attackRadius / 2f : -attackRadius / 2f;
+            Vector2 attackCenter = new Vector2(transform.position.x + offsetX, transform.position.y);
+
+            Collider2D[] hitPlayers = Physics2D.OverlapBoxAll(attackCenter, new Vector2(attackRadius, attackRadius), 0, LayerMask.GetMask("Player"));
+
+            foreach (var hitPlayer in hitPlayers)
+            {
+                Debug.Log(hitPlayer.CompareTag("Player"));
+                if (hitPlayer.CompareTag("Player"))
+                {
+                    //ParticleManager.instance.particle_generation(ParticleManager.particleType.Hitted, this.transform);
+                    hitPlayer.GetComponent<PlayerHealth>().modify_HP(-1); // 예: 데미지를 1로 설정
+                }
+            }
+
+            Vector2 initialPosition = transform.position;
+            Vector2 targetPosition = player.position;
+
             // 플레이어 방향으로 이동
             Vector2 moveDirection = (targetPosition - initialPosition).normalized;
+            moveDirection.y = 0;
             transform.position += (Vector3)moveDirection * skill1MoveDistance;
 
-            yield return new WaitForSeconds(skill1MoveInterval);
+            if ((player.position.x - this.transform.position.x) * this.transform.localScale.x < 0)
+            {
+                Flip();
+            }
         }
+
+        yield return new WaitForSeconds(3f);
+        isPerformingAction = false;
+        currentState = State.IDLE;
+    }
+    private IEnumerator PerformSkill2()
+    {
+        animator.SetTrigger("Skill2");
+
+
+        for (int i = 0; i < 3; i++)
+        {
+            yield return new WaitForSeconds(0.6f);
+
+            if (i == 2)
+            {
+                yield return new WaitForSeconds(0.8f);
+            }
+
+            Debug.Log(1);
+
+            float offsetX = facingRight ? attackRadius / 2f : -attackRadius / 2f;
+            Vector2 attackCenter = new Vector2(transform.position.x + offsetX, transform.position.y);
+
+            Collider2D[] hitPlayers = Physics2D.OverlapBoxAll(attackCenter, new Vector2(attackRadius, attackRadius), 0, LayerMask.GetMask("Player"));
+
+            foreach (var hitPlayer in hitPlayers)
+            {
+                Debug.Log(hitPlayer.CompareTag("Player"));
+                if (hitPlayer.CompareTag("Player"))
+                {
+                    hitPlayer.GetComponent<PlayerHealth>().modify_HP(-1); // 예: 데미지를 1로 설정
+                }
+            }
+        }
+
+        yield return new WaitForSeconds(2f);
+        isPerformingAction = false;
+        currentState = State.IDLE;
     }
 
     private void RandomAttackOrSkill()
@@ -240,40 +318,40 @@ public class HeavyArmor1 : MonoBehaviour
         isPerformingAction = true;
         //yield return new WaitForSeconds(3f); // 3초 대기
 
-            currentState = State.SKILL2;
-            StartCoroutine(PerformAction(State.SKILL2, 2f));
 
         //float randomValue = Random.value;
-        //if (randomValue < 0.166666f)
-        //{
-        //    currentState = State.ATTACK1;
-        //    StartCoroutine(PerformAction(State.ATTACK1, 0.65f));
-        //}
-        //else if (randomValue < 0.333333f)
-        //{
-        //    currentState = State.ATTACK2;
-        //    StartCoroutine(PerformAction(State.ATTACK2, 0.65f));
-        //}
-        //else if (randomValue < 0.5f)
-        //{
-        //    currentState = State.ATTACK3;
-        //    StartCoroutine(PerformAction(State.ATTACK3, 1.2f));
-        //}
-        //else if (randomValue < 0.666666f)
-        //{
-        //    currentState = State.SKILL1;
-        //    StartCoroutine(PerformAction(State.SKILL1, 2f));
-        //}
-        //else if (randomValue < 0.833333f)
-        //{
-        //    currentState = State.SKILL2;
-        //    StartCoroutine(PerformAction(State.SKILL2, 2f));
-        //}
-        //else
-        //{
-        //currentState = State.SKILL3;
-        //StartCoroutine(PerformAction(State.SKILL3, 1.3f));
-        //}
+        float randomValue = 0.9f;
+
+        if (randomValue < 0.166666f)
+        {
+            currentState = State.ATTACK1;
+            StartCoroutine(PerformAction(State.ATTACK1, 0.65f));
+        }
+        else if (randomValue < 0.333333f)
+        {
+            currentState = State.ATTACK2;
+            StartCoroutine(PerformAction(State.ATTACK2, 0.65f));
+        }
+        else if (randomValue < 0.5f)
+        {
+            currentState = State.ATTACK3;
+            StartCoroutine(PerformAction(State.ATTACK3, 1.2f));
+        }
+        else if (randomValue < 0.666666f && CurHP < 180)
+        {
+            currentState = State.SKILL1;
+            StartCoroutine(PerformAction(State.SKILL1, 2f));
+        }
+        else if (randomValue < 0.833333f)
+        {
+            currentState = State.SKILL2;
+            StartCoroutine(PerformAction(State.SKILL2, 2f));
+        }
+        else
+        {
+            currentState = State.SKILL3;
+            StartCoroutine(PerformAction(State.SKILL3, 1.3f)); 
+        }
     }
 
     private void Killed()
@@ -285,7 +363,7 @@ public class HeavyArmor1 : MonoBehaviour
             rb.velocity = Vector2.zero;
             Destroy(this.gameObject, 4f);
         }
-        else 
+        else
         {
             animator.SetBool("Death", true);
         }
