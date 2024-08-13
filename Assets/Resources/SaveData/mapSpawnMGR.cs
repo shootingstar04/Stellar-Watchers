@@ -41,6 +41,7 @@ public class mapSpawnMGR : MonoBehaviour
     {
         for (int i = 0; i < enemySOData.spawnList.Count; i++)
         {
+            Debug.Log(enemySOData.spawnList.Count);
             Debug.Log(enemySOData.spawnList[i]);
             EnemySpawnList[i].GetComponent<SpawnPoint>().canSpawn = enemySOData.spawnList[i];
             EnemySpawnList[i].GetComponent<SpawnPoint>().SpawnObject();

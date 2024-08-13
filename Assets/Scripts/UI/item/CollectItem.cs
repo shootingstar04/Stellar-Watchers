@@ -73,6 +73,7 @@ public class CollectItem : MonoBehaviour
 
             yield return new WaitForSeconds(3);
         }
+        GetComponent<GetSOindex>().returnBool();
         Destroy(this.gameObject);
     }
 }
