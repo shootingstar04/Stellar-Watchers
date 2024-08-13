@@ -52,3 +52,4 @@ MonoBehaviour:
   coinPool: {fileID: 5214964265216619264, guid: d7a7f6974dc7ba84e9cf4b63ae415b54, type: 3}
   mainCamera: {fileID: 3840660774895694059, guid: 232a8d69bfea59146beede5154596884, type: 3}
   virtualCamera: {fileID: 552153548530299124, guid: da5d83983379844469a97a0a2aa1a22a, type: 3}
+  saveLoadManager: {fileID: 1866604114643160781, guid: c19a646b57a833348aa3bec7147bbef7, type: 3}

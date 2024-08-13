@@ -13,8 +13,19 @@ public class EssentialManager : MonoBehaviour
     [SerializeField] private GameObject mainCamera;
     [SerializeField] private GameObject virtualCamera;
 
+    [SerializeField] private GameObject saveLoadManager;
+
     private void Start()
     {
+        if (GameObject.Find("SaveLoadManager"))
+        {
+
+        }
+        else
+        {
+            Instantiate(saveLoadManager);
+        }
+
         if (GameObject.FindGameObjectWithTag(Define.PlayerTag))
         {
             Debug.Log("다 있음. " + this.gameObject.name + " 삭제");
@@ -26,6 +37,7 @@ public class EssentialManager : MonoBehaviour
             SaveLoadManager.instance.LoadPlayerData();
             changeConfinder.instance.ChangeConf();
         }
+
     }
 
     void CreateEssentials()
