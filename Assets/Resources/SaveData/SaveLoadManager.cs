@@ -75,7 +75,7 @@ public class SaveLoadManager : MonoBehaviour
 
     public void SaveMapData()
     {
-        for (int index = 0; index < 4; index++)
+        for (int index = 0; index < 6; index++)
         {
             MapSO mapso = Resources.Load<MapSO>("SaveData/mapSO" + index);
             for (int objects = 0; objects < mapso.objects.Count; objects++)

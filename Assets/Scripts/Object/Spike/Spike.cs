@@ -21,6 +21,10 @@ public class Spike : MonoBehaviour
             {
                 Debug.Log("µ¥¹ÌÁö");
                 PlayerHealth.instance.modify_HP(-Damage);
+                if(PlayerHealth.instance.CurHP <= 0)
+                {
+                    return;
+                }
                 StartCoroutine(PlayHitEffect(collision.gameObject));
             }
             else

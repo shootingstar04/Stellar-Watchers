@@ -42,10 +42,15 @@ public class DeathScreen : MonoBehaviour
             return;
         }
         if(Input.anyKeyDown)
-        {
+         {
+            Debug.Log("입력o");
             iamActive = false;
 
             GameObject player = GameObject.FindGameObjectWithTag(Define.PlayerTag);
+            if(player==null)
+            {
+                Debug.Log("플레이어 못받음 ");
+            }
             player.GetComponent<PlayerMove>().respawn();
             canvas.SetActive(false);
         }

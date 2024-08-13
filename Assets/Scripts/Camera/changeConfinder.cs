@@ -6,7 +6,9 @@ using UnityEngine;
 public class changeConfinder : MonoBehaviour
 {
 
+    private GameObject[] objs;
     private GameObject obj;
+    private GameObject Secret;
     [SerializeField] private PolygonCollider2D mapEdge;
     public static CinemachineConfiner2D conf;
 
@@ -19,9 +21,7 @@ public class changeConfinder : MonoBehaviour
 
         CameraBorder(null);
 
-        obj = GameObject.FindGameObjectWithTag("MapEdge");
-        Debug.Log(obj);
-        mapEdge = obj.GetComponent<PolygonCollider2D>();
+        FindObj();
 
         ChangeConf();
     }
@@ -30,9 +30,7 @@ public class changeConfinder : MonoBehaviour
     {
         if (mapEdge == null)
         {
-            obj = GameObject.FindGameObjectWithTag("MapEdge");
-            Debug.Log(obj);
-            mapEdge = obj.GetComponent<PolygonCollider2D>();
+            FindObj();
         }
         CameraBorder(mapEdge);
     }
@@ -40,6 +38,33 @@ public class changeConfinder : MonoBehaviour
     public static void CameraBorder(PolygonCollider2D newConfiner)
     {
         conf.m_BoundingShape2D = newConfiner;
+    }
+
+    public void ChangeConfAsSecret()
+    {
+        if(Secret == null)
+        {
+            return;
+        }
+        CameraBorder(Secret.GetComponent<PolygonCollider2D>());
+    }
+
+    public void FindObj()
+    {
+        objs = GameObject.FindGameObjectsWithTag("MapEdge");
+        Debug.Log(objs);
+        for (int i = 0; i < objs.Length; i++)
+        {
+            if (objs[i].name == "MapEdge")
+            {
+                obj = objs[i];
+            }
+            else
+            {
+                Secret = objs[i];
+            }
+        }
+        mapEdge = obj.GetComponent<PolygonCollider2D>();
     }
 
 }
