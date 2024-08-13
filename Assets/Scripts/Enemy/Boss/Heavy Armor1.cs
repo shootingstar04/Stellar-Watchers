@@ -214,7 +214,9 @@ public class HeavyArmor1 : MonoBehaviour
             Debug.Log(hitPlayer.CompareTag("Player"));
             if (hitPlayer.CompareTag("Player"))
             {
-                hitPlayer.GetComponent<PlayerHealth>().modify_HP(-1); // 예: 데미지를 1로 설정
+                int damage = 1;
+                if (actionState == State.SKILL3) damage = 2;
+                hitPlayer.GetComponent<PlayerHealth>().modify_HP(-damage); // 예: 데미지를 1로 설정
             }
         }
 
@@ -318,7 +320,7 @@ public class HeavyArmor1 : MonoBehaviour
 
 
         //float randomValue = Random.value;
-        float randomValue = 0.6f;
+        float randomValue = 0.9f;
 
         if (randomValue < 0.166666f)
         {
@@ -335,7 +337,7 @@ public class HeavyArmor1 : MonoBehaviour
             currentState = State.ATTACK3;
             StartCoroutine(PerformAction(State.ATTACK3, 1.2f));
         }
-        else if (randomValue < 0.666666f)
+        else if (randomValue < 0.666666f && CurHP < 180)
         {
             currentState = State.SKILL1;
             StartCoroutine(PerformAction(State.SKILL1, 2f));
@@ -348,7 +350,7 @@ public class HeavyArmor1 : MonoBehaviour
         else
         {
             currentState = State.SKILL3;
-            StartCoroutine(PerformAction(State.SKILL3, 1.3f));
+            StartCoroutine(PerformAction(State.SKILL3, 1.3f)); 
         }
     }
 
