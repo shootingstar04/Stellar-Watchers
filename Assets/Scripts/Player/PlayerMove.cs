@@ -410,12 +410,18 @@ public class PlayerMove : MonoBehaviour
 
     public void Hitted(float force)
     {
+        Debug.Log("hit호출");
         isHitted = true;
 
         animator.SetTrigger("Hurt");
 
+        
         ParticleManager.instance.particle_generation(ParticleManager.particleType.Hitted, this.transform);
+
+        GetComponent<ImpulseSource>().ShakeEffect();
+
         StartCoroutine(hit_delay(hittedDelay1, hittedDelay2));
+        
 
 
         Collider2D[] hitted = Physics2D.OverlapCircleAll(this.transform.position, 5);
@@ -483,5 +489,7 @@ public class PlayerMove : MonoBehaviour
         yield return new WaitForSecondsRealtime(delay2);
 
         Time.timeScale = 1;
+        
+        
     }
 }

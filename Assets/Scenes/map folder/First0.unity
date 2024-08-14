@@ -41267,6 +41267,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1377793426}
+    - target: {fileID: 712282374106997551, guid: 8f6b40b50b1197d4a9987450aec2a558, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -146.61751
+      objectReference: {fileID: 0}
     - target: {fileID: 1664278193776312918, guid: 8f6b40b50b1197d4a9987450aec2a558, type: 3}
       propertyPath: m_Camera
       value: 
@@ -42259,11 +42263,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e337024a23651f4ba4ac70ff2b4cd42, type: 3}
---- !u!4 &911696545 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2512897470640941337, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
-  m_PrefabInstance: {fileID: 1722831354}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &972042147
 GameObject:
   m_ObjectHideFlags: 0
@@ -42894,26 +42893,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3580204661211083259, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
-      propertyPath: Damage
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3599624433234362489, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
-      propertyPath: pointPos
-      value: 
-      objectReference: {fileID: 911696545}
-    - target: {fileID: 3599624433234362489, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
-      propertyPath: soaringPos
-      value: 
-      objectReference: {fileID: 911696545}
-    - target: {fileID: 5601640077373299387, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5601640077373299387, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.5
-      objectReference: {fileID: 0}
     - target: {fileID: 5601640077373299387, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -42954,22 +42933,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5854748761432140204, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
-      propertyPath: jumpForce
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 5854748761432140204, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
-      propertyPath: moveSpeed
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 5854748761432140204, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
-      propertyPath: maxJumpTime
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5854748761432140204, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
-      propertyPath: maxJumpHeight
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 8550617144831936086, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
       propertyPath: m_Name
       value: Player
@@ -42977,29 +42940,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8550617144831936086, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1722831356}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
 --- !u!1 &1722831355 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8550617144831936086, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
   m_PrefabInstance: {fileID: 1722831354}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1722831356
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1722831355}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e009be8ee8f2972439c9f62aef8b5af9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlayerType: Melee
 --- !u!1 &1799273866
 GameObject:
   m_ObjectHideFlags: 0

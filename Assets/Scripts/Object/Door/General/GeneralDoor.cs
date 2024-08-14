@@ -79,7 +79,7 @@ public class GeneralDoor : Door
         if (collision.CompareTag(Define.PlayerTag))
         {
             bool isInput = Input.GetKey(KeyCode.UpArrow);
-            Debug.Log(isInput);
+            //Debug.Log(isInput);
             if (isInput)
             {
                 OpenDoor();
