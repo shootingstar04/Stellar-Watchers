@@ -15,6 +15,7 @@ public class HeavyArmor1 : MonoBehaviour
         SKILL1,
         SKILL2,
         SKILL3,
+        SKILL4,
         KILLED,
         Dead
     }
