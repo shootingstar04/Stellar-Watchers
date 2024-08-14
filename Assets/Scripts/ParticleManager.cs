@@ -9,11 +9,13 @@ public class ParticleManager : MonoBehaviour
     public enum particleType
     {
         Hitted,
-        EnemyHit
+        EnemyHit,
+        WallDebris
     }
 
     public GameObject hittedParticle;
     public GameObject enemyHittedParticle;
+    public GameObject wallDebris;
 
     private void Awake()
     {
@@ -46,6 +48,9 @@ public class ParticleManager : MonoBehaviour
                 break;
             case particleType.EnemyHit:
                 particle = Instantiate(enemyHittedParticle, pos.position, Quaternion.AngleAxis(Random.Range(-40f, 220f), Vector3.forward));
+                break;
+            case particleType.WallDebris:
+                particle = Instantiate(wallDebris, pos.position, pos.rotation.normalized);
                 break;
         }
     }

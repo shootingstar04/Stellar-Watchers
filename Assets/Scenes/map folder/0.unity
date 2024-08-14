@@ -42564,7 +42564,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 900652bed51748a4abfa9595d0715e7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  instance: {fileID: 0}
   EnemySpawnList:
   - {fileID: 873287746}
   - {fileID: 774042095}
@@ -42716,7 +42715,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2849886967415968665, guid: 4633e5bd68adbf84b8e1b61541bee61f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.2856219
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 2849886967415968665, guid: 4633e5bd68adbf84b8e1b61541bee61f, type: 3}
       propertyPath: m_LocalRotation.w

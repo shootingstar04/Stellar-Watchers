@@ -102,6 +102,7 @@ MonoBehaviour:
   isDisabled: 0
   isInteractable: 0
   interactTrigger: {fileID: 0}
+  duration: 100
 --- !u!61 &5123171857744191444
 BoxCollider2D:
   m_ObjectHideFlags: 0
