@@ -18,23 +18,43 @@ public class HeavyArmor1 : MonoBehaviour
         KILLED,
         Dead
     }
-
+    [Header("State")]
     public State currentState;
-
+    public float CurHP = 250;
+    [Space(2)]
+    [Header("Move")]
     public Transform player;
     public float detectionRadius = 15f;
     public float attackRadius = 5f;
     public float moveSpeed = 3f;
     public float patrolDistance = 7f;
+
+    [Space(2)]
+    [Header("Attack Range")]
+    public Transform AttackPos1_1;
+    public Vector2 AttackRange1_1;
+    [Space(1)]
+    public Transform AttackPos1_2;
+    public Vector2 AttackRange1_2;
+    [Space(1)]
+    public Transform AttackPos2;
+    public Vector2 AttackRange2;
+    [Space(1)]
+    public Transform AttackPos3;
+    public Vector2 AttackRange3;
+    [Space(1)]
+    public Transform SkillPos3;
+    public Vector2 SkillRange3;
+
+    [Space(2)]
+    [Header("Skill 1")]
     public float skill1MoveDistance = 1f; // 이동 거리
     public float skill1MoveInterval = 0.4f; // 이동 간격
     public int skill1TotalMoves = 9; // 총 이동 횟수
+    public float skill3Speed = 40f;
 
-    public float CurHP = 250;
-
-    private Rigidbody2D rb;
-    private Animator animator;
-    private bool facingRight = true;
+    [Space(2)]
+    [Header("ECT")]
 
     public float cliffDetectionDistance = 2f;
     public float wallDetectionDistance = 1f;
@@ -43,6 +63,10 @@ public class HeavyArmor1 : MonoBehaviour
     private Vector2 startPos;
     private Vector2 patrolLeftLimit;
     private Vector2 patrolRightLimit;
+
+    private Rigidbody2D rb;
+    private Animator animator;
+    private bool facingRight = true;
 
     private bool isPerformingAction = false;
 
@@ -197,26 +221,55 @@ public class HeavyArmor1 : MonoBehaviour
                 yield break;
             case State.SKILL3:
                 Debug.Log("S-3");
-                animator.SetTrigger("Skill3");
+                StartCoroutine(PerformSkill3());
+                yield break;
                 break;
         }
 
         yield return new WaitForSeconds(actionDuration); // 행동 애니메이션 시간 대기
 
-        // 공격 범위 내의 충돌체 확인
-        float offsetX = facingRight ? attackRadius / 2f : -attackRadius / 2f;
-        Vector2 attackCenter = new Vector2(transform.position.x + offsetX, transform.position.y);
 
-        Collider2D[] hitPlayers = Physics2D.OverlapBoxAll(attackCenter, new Vector2(attackRadius, attackRadius), 0, LayerMask.GetMask("Player"));
+        List<Collider2D> hitPlayers = new List<Collider2D>();
+
+        if (actionState == State.ATTACK1)
+        {
+            Collider2D[] collider1 = Physics2D.OverlapBoxAll(AttackPos1_1.position, AttackRange1_1, 0, LayerMask.GetMask("Player"));
+            Collider2D[] collider2 = Physics2D.OverlapBoxAll(AttackPos1_2.position, AttackRange1_2, 0, LayerMask.GetMask("Player"));
+
+            foreach (Collider2D collider in collider1)
+            {
+                hitPlayers.Add(collider);
+            }
+            foreach (Collider2D collider in collider2)
+            {
+                hitPlayers.Add(collider);
+            }
+        }
+        else if (actionState == State.ATTACK2)
+        {
+            Collider2D[] collider2D = Physics2D.OverlapBoxAll(AttackPos2.position, AttackRange2, 0, LayerMask.GetMask("Player"));
+
+            foreach (Collider2D collider in collider2D)
+            {
+                hitPlayers.Add(collider);
+            }
+        }
+        else
+        {
+            Collider2D[] collider2D = Physics2D.OverlapBoxAll(AttackPos3.position, AttackRange3, 0, LayerMask.GetMask("Player"));
+
+            foreach (Collider2D collider in collider2D)
+            {
+                hitPlayers.Add(collider);
+            }
+        }
 
         foreach (var hitPlayer in hitPlayers)
         {
             Debug.Log(hitPlayer.CompareTag("Player"));
             if (hitPlayer.CompareTag("Player"))
             {
-                int damage = 1;
-                if (actionState == State.SKILL3) damage = 2;
-                hitPlayer.GetComponent<PlayerHealth>().modify_HP(-damage); // 예: 데미지를 1로 설정
+                hitPlayer.GetComponent<PlayerHealth>().modify_HP(-1); // 예: 데미지를 1로 설정
             }
         }
 
@@ -242,12 +295,42 @@ public class HeavyArmor1 : MonoBehaviour
             else if (i == 7) yield return new WaitForSeconds(0.5f);
             else if (i == 8) yield return new WaitForSeconds(0.7f);
 
-            Debug.Log(i);
 
-            float offsetX = facingRight ? attackRadius / 2f : -attackRadius / 2f;
-            Vector2 attackCenter = new Vector2(transform.position.x + offsetX, transform.position.y);
+            List<Collider2D> hitPlayers = new List<Collider2D>();
 
-            Collider2D[] hitPlayers = Physics2D.OverlapBoxAll(attackCenter, new Vector2(attackRadius, attackRadius), 0, LayerMask.GetMask("Player"));
+            //Collider2D[] hitPlayers;
+            if (i % 3 == 0)
+            {
+                Collider2D[] collider1 = Physics2D.OverlapBoxAll(AttackPos1_1.position, AttackRange1_1, 0, LayerMask.GetMask("Player"));
+                Collider2D[] collider2 = Physics2D.OverlapBoxAll(AttackPos1_2.position, AttackRange1_2, 0, LayerMask.GetMask("Player"));
+
+                foreach (Collider2D collider in collider1)
+                {
+                    hitPlayers.Add(collider);
+                }
+                foreach (Collider2D collider in collider2)
+                {
+                    hitPlayers.Add(collider);
+                }
+            }
+            else if (i % 3 == 1)
+            {
+                Collider2D[] collider2D = Physics2D.OverlapBoxAll(AttackPos2.position, AttackRange2, 0, LayerMask.GetMask("Player"));
+
+                foreach (Collider2D collider in collider2D)
+                {
+                    hitPlayers.Add(collider);
+                }
+            }
+            else
+            {
+                Collider2D[] collider2D = Physics2D.OverlapBoxAll(AttackPos3.position, AttackRange3, 0, LayerMask.GetMask("Player"));
+
+                foreach (Collider2D collider in collider2D)
+                {
+                    hitPlayers.Add(collider);
+                }
+            }
 
             foreach (var hitPlayer in hitPlayers)
             {
@@ -284,19 +367,22 @@ public class HeavyArmor1 : MonoBehaviour
 
         for (int i = 0; i < 3; i++)
         {
-            yield return new WaitForSeconds(0.6f);
-
-            if (i == 2)
+            if (i == 0)
             {
-                yield return new WaitForSeconds(0.8f);
+                yield return new WaitForSeconds(0.6f);
+            }
+            else if (i == 1)
+            {
+                yield return new WaitForSeconds(0.45f);
+            }
+            else if (i == 2)
+            {
+                yield return new WaitForSeconds(1.2f);
             }
 
-            Debug.Log(1);
+            Debug.Log("Hit");
 
-            float offsetX = facingRight ? attackRadius / 2f : -attackRadius / 2f;
-            Vector2 attackCenter = new Vector2(transform.position.x + offsetX, transform.position.y);
-
-            Collider2D[] hitPlayers = Physics2D.OverlapBoxAll(attackCenter, new Vector2(attackRadius, attackRadius), 0, LayerMask.GetMask("Player"));
+            Collider2D[] hitPlayers = Physics2D.OverlapBoxAll(AttackPos3.position, AttackRange3, 0, LayerMask.GetMask("Player"));
 
             foreach (var hitPlayer in hitPlayers)
             {
@@ -306,21 +392,79 @@ public class HeavyArmor1 : MonoBehaviour
                     hitPlayer.GetComponent<PlayerHealth>().modify_HP(-1); // 예: 데미지를 1로 설정
                 }
             }
+            if (i == 0)
+            {
+                yield return new WaitForSeconds(0.15f);
+                Flip();
+            }
+            if (i == 1)
+            {
+                yield return new WaitForSeconds(0.3f);
+                Flip();
+            }
         }
 
         yield return new WaitForSeconds(2f);
         isPerformingAction = false;
         currentState = State.IDLE;
     }
+    private IEnumerator PerformSkill3()
+    {
+        if ((player.position.x - this.transform.position.x) * this.transform.localScale.x < 0)
+        {
+            Flip();
+        }
+
+        animator.SetTrigger("Skill3");
+
+        yield return new WaitForSeconds(1.3f);
+
+        rb.velocity = new Vector2((facingRight ? 1 : -1) * skill3Speed, rb.velocity.y);
+
+        while (true)
+        {
+            rb.velocity = new Vector2((facingRight ? 1 : -1) * skill3Speed, rb.velocity.y);
+
+            if (IsWallAhead())
+            {
+                rb.velocity = new Vector2((facingRight ? -1 : 1) * skill3Speed / 2f, 5);
+                yield return new WaitForSeconds(0.3f);
+
+                rb.velocity = new Vector2(0, rb.velocity.y);
+                yield return new WaitForSeconds(3f);
+                isPerformingAction = false;
+                currentState = State.IDLE;
+                yield break;
+            }
+
+
+            Collider2D[] hitPlayers = Physics2D.OverlapBoxAll(SkillPos3.position, SkillRange3, 0, LayerMask.GetMask("Player"));
+            foreach (var hitPlayer in hitPlayers)
+            {
+                Debug.Log(hitPlayer.CompareTag("Player"));
+                if (hitPlayer.CompareTag("Player"))
+                {
+                    hitPlayer.GetComponent<PlayerHealth>().modify_HP(-2);
+                    yield return new WaitForSeconds(0.3f);
+                    rb.velocity = new Vector2(0, rb.velocity.y);
+                    yield return new WaitForSeconds(1f);
+                    isPerformingAction = false;
+                    currentState = State.IDLE;
+                    yield break;
+                }
+            }
+
+            yield return null;
+        }
+    }
 
     private void RandomAttackOrSkill()
     {
         isPerformingAction = true;
-        //yield return new WaitForSeconds(3f); // 3초 대기
 
 
-        //float randomValue = Random.value;
-        float randomValue = 0.9f;
+        float randomValue = Random.value;
+        //float randomValue = 0.6f;
 
         if (randomValue < 0.166666f)
         {
@@ -337,7 +481,7 @@ public class HeavyArmor1 : MonoBehaviour
             currentState = State.ATTACK3;
             StartCoroutine(PerformAction(State.ATTACK3, 1.2f));
         }
-        else if (randomValue < 0.666666f && CurHP < 180)
+        else if (randomValue < 0.666666f && CurHP < 150)
         {
             currentState = State.SKILL1;
             StartCoroutine(PerformAction(State.SKILL1, 2f));
@@ -350,7 +494,7 @@ public class HeavyArmor1 : MonoBehaviour
         else
         {
             currentState = State.SKILL3;
-            StartCoroutine(PerformAction(State.SKILL3, 1.3f)); 
+            StartCoroutine(PerformAction(State.SKILL3, 1.3f));
         }
     }
 
@@ -375,7 +519,6 @@ public class HeavyArmor1 : MonoBehaviour
         Vector2 moveDirection = new Vector2(direction, 0f);
         rb.velocity = moveDirection * moveSpeed;
     }
-
     private void Flip()
     {
         facingRight = !facingRight;
@@ -383,7 +526,6 @@ public class HeavyArmor1 : MonoBehaviour
         scale.x *= -1;
         transform.localScale = scale;
     }
-
     private bool IsWallAhead()
     {
         Vector2 position = transform.position;
@@ -394,7 +536,6 @@ public class HeavyArmor1 : MonoBehaviour
 
         return hit.collider != null;
     }
-
     private bool IsEdgeAhead()
     {
         Vector2 position = transform.position;
@@ -416,12 +557,21 @@ public class HeavyArmor1 : MonoBehaviour
             currentState = State.KILLED;
         }
     }
-
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         float offsetX = facingRight ? attackRadius / 2 : -attackRadius / 2;
         Vector2 attackCenter = new Vector2(transform.position.x + offsetX, transform.position.y);
         Gizmos.DrawWireCube(attackCenter, new Vector3(attackRadius, attackRadius, 0));
+
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireCube(AttackPos1_1.position, AttackRange1_1);
+        Gizmos.DrawWireCube(AttackPos1_2.position, AttackRange1_2);
+        Gizmos.DrawWireCube(AttackPos2.position, AttackRange2);
+        Gizmos.DrawWireCube(AttackPos3.position, AttackRange3);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(SkillPos3.position, SkillRange3);
     }
 }

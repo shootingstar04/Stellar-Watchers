@@ -52,7 +52,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (value < 0)
         {
-            playerMove.Hitted();
+            playerMove.Hitted(value == -2 ? 5 : 1);
         }
 
         curHP += value;

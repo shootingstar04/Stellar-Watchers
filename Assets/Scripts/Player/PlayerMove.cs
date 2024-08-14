@@ -19,9 +19,9 @@ public class PlayerMove : MonoBehaviour
     public float fallMultiplier = 2.5f; // 낙하 속도 증가를 위한 계수
     public float wallJumpForce = 10f; // 추가된 부분: 벽 점프 힘
     public float foot_size = 0.5f;
+    public float hittedForceX = 10f;
+    public float hittedForceY = 15f;
     public float hittedTime = 0.3f;
-    public float hittedForceX = 10;
-    public float hittedForceY = 15;
     public float hittedDelay1 = 0.3f;
     public float hittedDelay2 = 0.3f;
 
@@ -279,7 +279,14 @@ public class PlayerMove : MonoBehaviour
                 isWallJump = false;
                 canDash = false;
                 dashTimeCounter = dashDuration;
-                rigid.velocity = new Vector2(dashForce * lastDirection, 0);
+                if (Input.GetAxis("Horizontal") != 0)
+                {
+                    rigid.velocity = new Vector2(dashForce * (Input.GetAxis("Horizontal") > 0 ? 1 : -1), 0);
+                }
+                else
+                {
+                    rigid.velocity = new Vector2(dashForce * lastDirection, 0);
+                }
                 rigid.gravityScale = 0;
             }
 
@@ -387,12 +394,12 @@ public class PlayerMove : MonoBehaviour
 
         DontDestroy.thisIsPlayer.isTeleported = false;
 
-        if(SceneManager.GetActiveScene().buildIndex == 1)
+        if (SceneManager.GetActiveScene().buildIndex == 1)
         {
             Debug.Log("first0");
             PlayerPrefs.SetInt(Define.sceneIndex, 2);
         }
-        
+
         SaveLoadManager.instance.LoadPlayerData();
         PlayerHealth.instance.modify_HP(99);
         SaveLoadManager.instance.LoadMapData();
@@ -401,21 +408,22 @@ public class PlayerMove : MonoBehaviour
 
     }
 
-    public void Hitted()
+    public void Hitted(float force)
     {
-        Collider2D[] hitted = Physics2D.OverlapCircleAll(this.transform.position, 5);
+        isHitted = true;
 
         animator.SetTrigger("Hurt");
 
         ParticleManager.instance.particle_generation(ParticleManager.particleType.Hitted, this.transform);
-        StartCoroutine(hit_delay(hittedDelay1 , hittedDelay2));
+        StartCoroutine(hit_delay(hittedDelay1, hittedDelay2));
+
+
+        Collider2D[] hitted = Physics2D.OverlapCircleAll(this.transform.position, 5);
 
         foreach (Collider2D collider in hitted)
         {
             if (collider.CompareTag(Define.EnemyTag))
             {
-                isHitted = true;
-
                 int dir;
 
                 if (collider.transform.position.x - this.transform.position.x > 0)
@@ -427,7 +435,7 @@ public class PlayerMove : MonoBehaviour
                     dir = 1;
                 }
 
-                rigid.velocity = new Vector2(hittedForceX * dir, hittedForceY);
+                rigid.velocity = new Vector2(hittedForceX * dir * force, hittedForceY);
             }
         }
     }
