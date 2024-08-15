@@ -10,12 +10,16 @@ public class ParticleManager : MonoBehaviour
     {
         Hitted,
         EnemyHit,
-        WallDebris
+        WallDebris,
+        DoorDust,
+        CoinDust
     }
 
     public GameObject hittedParticle;
     public GameObject enemyHittedParticle;
     public GameObject wallDebris;
+    public GameObject doorDust;
+    public GameObject coinDust;
 
     private void Awake()
     {
@@ -51,6 +55,12 @@ public class ParticleManager : MonoBehaviour
                 break;
             case particleType.WallDebris:
                 particle = Instantiate(wallDebris, pos.position, pos.rotation.normalized);
+                break;
+            case particleType.DoorDust:
+                particle = Instantiate(doorDust, pos.position,pos.rotation.normalized);
+                break;
+            case particleType.CoinDust:
+                particle = Instantiate(coinDust, pos.position, pos.rotation.normalized);
                 break;
         }
     }

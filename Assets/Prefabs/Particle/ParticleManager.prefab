@@ -47,3 +47,4 @@ MonoBehaviour:
   hittedParticle: {fileID: 905237726963229797, guid: 785676a35c77fcb4d9be0d5a8d5b2ebf, type: 3}
   enemyHittedParticle: {fileID: 715838194848144543, guid: ef9f245e5d8d57342962d7ef7ac96b97, type: 3}
   wallDebris: {fileID: 4776483127725288096, guid: c758ea35448a7fe43a30a5aaf9836d21, type: 3}
+  doorDust: {fileID: 8051449941747834898, guid: 75985c6a1a4573e4dbd05e29ff765320, type: 3}

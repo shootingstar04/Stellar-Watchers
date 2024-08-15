@@ -55,6 +55,7 @@ public class GeneralDoor : Door
         }
         else
         {
+            ParticleManager.instance.particle_generation(ParticleManager.particleType.DoorDust, this.transform);
             Vector3 pos = new Vector3(this.transform.position.x, this.transform.position.y + Mathf.Abs(this.transform.position.y) + 3f, this.transform.position.z);
             isDisabled = true;
             this.transform.DOMove(pos, duration).OnComplete(() => Endfunction());
