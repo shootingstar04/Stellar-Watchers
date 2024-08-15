@@ -257,7 +257,7 @@ public class Skeleton : MonoBehaviour
 
     private void Killed()
     {
-        //GetComponent<GetSOindex>().returnBool();
+        GetComponent<GetSOindex>().returnBool();
         this.tag = "Untagged"; //테그도 없애면 되지않을까 <-태그 없앴더니 됨
         animator.SetTrigger("Die");
         EnemyItemDrop drop = this.gameObject.GetComponent<EnemyItemDrop>();
