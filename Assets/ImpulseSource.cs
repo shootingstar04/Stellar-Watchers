@@ -16,4 +16,6 @@ public class ImpulseSource : MonoBehaviour
     {
         ImpulseManger.Instance.CameraShake(source);
     }
+
+
 }

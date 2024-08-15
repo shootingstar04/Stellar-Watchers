@@ -326,6 +326,7 @@ public class Skeleton : MonoBehaviour
         else
         {
             animator.SetTrigger("Hit");
+            GetComponent<ImpulseSource>().ShakeEffect();
             GetComponent<AudioSource>().Play(); 
             CurHP -= damage;
         }

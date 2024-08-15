@@ -416,7 +416,7 @@ public class PlayerMove : MonoBehaviour
         animator.SetTrigger("Hurt");
 
         
-        ParticleManager.instance.particle_generation(ParticleManager.particleType.Hitted, this.transform);
+        ParticleManager.instance.particle_generation(ParticleManager.particleType.Hitted, this.transform.position);
 
         GetComponent<ImpulseSource>().ShakeEffect();
 

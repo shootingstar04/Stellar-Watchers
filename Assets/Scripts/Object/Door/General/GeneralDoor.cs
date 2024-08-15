@@ -48,14 +48,14 @@ public class GeneralDoor : Door
     {
         if (!isInteractable)
         {
-            ParticleManager.instance.particle_generation(ParticleManager.particleType.WallDebris, this.transform);
+            ParticleManager.instance.particle_generation(ParticleManager.particleType.WallDebris, this.transform.position);
             isDisabled = true;
             this.gameObject.SetActive(false);
             returnBool();
         }
         else
         {
-            ParticleManager.instance.particle_generation(ParticleManager.particleType.DoorDust, this.transform);
+            ParticleManager.instance.particle_generation(ParticleManager.particleType.DoorDust, this.transform.position);
             Vector3 pos = new Vector3(this.transform.position.x, this.transform.position.y + Mathf.Abs(this.transform.position.y) + 3f, this.transform.position.z);
             isDisabled = true;
             this.transform.DOMove(pos, duration).OnComplete(() => Endfunction());

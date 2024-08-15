@@ -50,16 +50,19 @@ public class PlayerSkill : MonoBehaviour
 
 
 
+    private float skillCounter;
 
-    private bool isHealing;
     private SkillSet.skill isUsingSkill = SkillSet.skill.none;
 
-    private float skillCounter;
+    private bool isHealing;
     private bool isAttacked = false;
     private bool inAir = false;
+    private bool isEffectOnce = true;
 
     private PlayerMove playerMove;
     private Rigidbody2D rigid;
+
+    private GameObject effectObj;
 
     // Start is called before the first frame update
     void Start()
@@ -94,7 +97,7 @@ public class PlayerSkill : MonoBehaviour
                 playerMove.PlayAnimation(PlayerMove.animationType.block, 1);
                 Debug.Log(playerMove.name);
                 isHealing = true;
-            }
+                }
             else if (Input.GetKeyDown(KeyCode.A))
             {
                 int index = (this.GetComponent<PlayerTransformation>().PlayerType == "Melee" ? 0 : 1);
@@ -208,29 +211,54 @@ public class PlayerSkill : MonoBehaviour
     {
         if (isHealing)
         {
+
+
             skillCounter += Time.deltaTime;
 
+            if (isEffectOnce)
+            {
+                effectObj = ParticleManager.instance.particle_generation(ParticleManager.particleType.HealEffect, new Vector3(this.transform.position.x, this.transform.position.y + 0.75f, this.transform.position.z));
+                isEffectOnce = false;
+            }
             if (skillCounter > 1.5f)
             {
                 if (PlayerSP.instance.CurSP > 0)
                 {
                     PlayerSP.instance.modify_SP(-1);
-                    if (PlayerHealth.instance.CurHP < PlayerHealth.instance.MaxHP) PlayerHealth.instance.modify_HP(1);
+                    if (PlayerHealth.instance.CurHP < PlayerHealth.instance.MaxHP)
+                    {
+                        PlayerHealth.instance.modify_HP(1);
+                    }
                 }
                 skillCounter = 0;
             }
 
             if (Input.GetKeyUp(KeyCode.S))
             {
-                isHealing = false;
+                isHealing = false; 
+                isEffectOnce = true;
                 skillCounter = 0;
                 playerMove.RestartMove();
                 playerMove.PlayAnimation(PlayerMove.animationType.block, 0);
+                Destroy(effectObj);
             }
         }
 
     }
 
+    private IEnumerator Heal_Effect()
+    {
+        while (!Input.GetKeyUp(KeyCode.S))
+        {
+            GameObject obj = ParticleManager.instance.particle_generation(ParticleManager.particleType.HealEffect, new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z));
+
+            yield return 1.0f;
+
+            Destroy(obj);
+        }
+
+        yield return null;
+    }
 
     private void stella_strike()
     {
@@ -266,7 +294,7 @@ public class PlayerSkill : MonoBehaviour
                 }
             }
 
-            if (skillCounter > stellaDelay1+stellaDelay2)
+            if (skillCounter > stellaDelay1 + stellaDelay2)
             {
                 end_skill();
             }
@@ -306,7 +334,7 @@ public class PlayerSkill : MonoBehaviour
                 }
             }
 
-            if (skillCounter > pointDelay1+pointDelay2)
+            if (skillCounter > pointDelay1 + pointDelay2)
             {
                 end_skill();
             }
@@ -349,7 +377,7 @@ public class PlayerSkill : MonoBehaviour
                     }
                 }
 
-                if (skillCounter > meteorDelay1+meteorDelay2)
+                if (skillCounter > meteorDelay1 + meteorDelay2)
                 {
                     end_skill();
                 }

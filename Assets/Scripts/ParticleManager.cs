@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class ParticleManager : MonoBehaviour
@@ -12,7 +13,8 @@ public class ParticleManager : MonoBehaviour
         EnemyHit,
         WallDebris,
         DoorDust,
-        CoinDust
+        CoinDust,
+        HealEffect
     }
 
     public GameObject hittedParticle;
@@ -20,6 +22,7 @@ public class ParticleManager : MonoBehaviour
     public GameObject wallDebris;
     public GameObject doorDust;
     public GameObject coinDust;
+    public GameObject healEffect;
 
     private void Awake()
     {
@@ -33,36 +36,40 @@ public class ParticleManager : MonoBehaviour
     }
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    public void particle_generation(particleType type, Transform pos)
+    public GameObject particle_generation(particleType type, Vector3 pos)
     {
-        GameObject particle;
+        GameObject particle = null;
         switch (type)
         {
             case particleType.Hitted:
-                particle = Instantiate(hittedParticle, pos.position, pos.rotation);
+                particle = Instantiate(hittedParticle, pos, Quaternion.identity);
                 break;
             case particleType.EnemyHit:
-                particle = Instantiate(enemyHittedParticle, pos.position, Quaternion.AngleAxis(Random.Range(-40f, 220f), Vector3.forward));
+                particle = Instantiate(enemyHittedParticle, pos, Quaternion.AngleAxis(Random.Range(-40f, 220f), Vector3.forward));
                 break;
             case particleType.WallDebris:
-                particle = Instantiate(wallDebris, pos.position, pos.rotation.normalized);
+                particle = Instantiate(wallDebris, pos, Quaternion.identity);
                 break;
             case particleType.DoorDust:
-                particle = Instantiate(doorDust, pos.position,pos.rotation.normalized);
+                particle = Instantiate(doorDust, pos, Quaternion.identity);
                 break;
             case particleType.CoinDust:
-                particle = Instantiate(coinDust, pos.position, pos.rotation.normalized);
+                particle = Instantiate(coinDust, pos, Quaternion.identity);
+                break;
+            case particleType.HealEffect:
+                particle = Instantiate(healEffect, pos, Quaternion.identity);
                 break;
         }
+        return particle;
     }
 
 }
