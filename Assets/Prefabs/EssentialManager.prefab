@@ -53,3 +53,4 @@ MonoBehaviour:
   mainCamera: {fileID: 3840660774895694059, guid: 232a8d69bfea59146beede5154596884, type: 3}
   virtualCamera: {fileID: 552153548530299124, guid: da5d83983379844469a97a0a2aa1a22a, type: 3}
   saveLoadManager: {fileID: 1866604114643160781, guid: c19a646b57a833348aa3bec7147bbef7, type: 3}
+  impulseManager: {fileID: 93365319023720334, guid: 2eaabaf6059cedd40bef49229322f7c5, type: 3}

@@ -15,6 +15,8 @@ public class EssentialManager : MonoBehaviour
 
     [SerializeField] private GameObject saveLoadManager;
 
+    [SerializeField] private GameObject impulseManager;
+
     private void Start()
     {
         if (GameObject.Find("SaveLoadManager"))
@@ -24,6 +26,15 @@ public class EssentialManager : MonoBehaviour
         else
         {
             Instantiate(saveLoadManager);
+        }
+
+        if(GameObject.Find("ImpulseManager"))
+        {
+
+        }
+        else
+        {
+            Instantiate(impulseManager);
         }
 
         if (GameObject.FindGameObjectWithTag(Define.PlayerTag))
