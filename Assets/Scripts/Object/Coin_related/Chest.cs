@@ -123,6 +123,8 @@ public class Chest : MonoBehaviour
                 Coin.GetComponent<Rigidbody2D>().AddForce(dir * force);
             }
 
+            ParticleManager.instance.particle_generation(ParticleManager.particleType.CoinDust, this.transform);
+
             if (hitCount <= 0)
             {
                 GetComponent<GetSOindex>().returnBool();

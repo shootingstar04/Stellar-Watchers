@@ -47,6 +47,22 @@ public class mapSpawnMGR : MonoBehaviour
             EnemySpawnList[i].GetComponent<SpawnPoint>().SpawnObject();
         }
     }
+
+    public void RespawnEnemyMethod()
+    {
+        for(int i = 0; i < enemySOData.spawnList.Count; i++)
+        {
+            Debug.Log(enemySOData.spawnList.Count);
+            Debug.Log(enemySOData.spawnList[i]);
+            if(!EnemySpawnList[i].GetComponent<SpawnPoint>().canSpawn)
+            {
+                EnemySpawnList[i].GetComponent<SpawnPoint>().canSpawn = enemySOData.spawnList[i];
+                EnemySpawnList[i].GetComponent<SpawnPoint>().SpawnObject();
+            }
+            
+        }
+    }
+
     public void LoadObjectMethod() 
     { 
         for (int i = 0; i < mapSOData.objects.Count; i++)

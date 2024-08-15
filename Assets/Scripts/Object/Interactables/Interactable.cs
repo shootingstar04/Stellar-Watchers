@@ -118,7 +118,7 @@ public class Interactable : MonoBehaviour
 
         TextPopUp.instance.show_PopUp("¿˙¿Â");
 
-        mapSpawnMGR.instance.LoadEnemyMethod();
+        mapSpawnMGR.instance.RespawnEnemyMethod();
 
     }
 
