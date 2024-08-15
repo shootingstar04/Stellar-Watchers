@@ -227,6 +227,7 @@ public class PlayerSkill : MonoBehaviour
                     PlayerSP.instance.modify_SP(-1);
                     if (PlayerHealth.instance.CurHP < PlayerHealth.instance.MaxHP)
                     {
+                        ParticleManager.instance.particle_generation(ParticleManager.particleType.SendHelp, new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z));
                         PlayerHealth.instance.modify_HP(1);
                     }
                 }
