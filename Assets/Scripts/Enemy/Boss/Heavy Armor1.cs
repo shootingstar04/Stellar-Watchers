@@ -73,11 +73,13 @@ public class HeavyArmor1 : MonoBehaviour
     private bool isDetectedPlayaer = false;
     private bool isGround;
     private float chaseTime = 0;
+    private ImpulseSource impulse;
 
     private bool isPerformingAction = false;
 
     private void Start()
     {
+        impulse = this.GetComponent<ImpulseSource>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -217,7 +219,7 @@ public class HeavyArmor1 : MonoBehaviour
             }
 
             // 플레이어를 향해 이동
-            MoveTo(player.position, 6);
+            MoveTo(player.position, 5);
             animator.SetBool("Walk", true);
 
             if (IsEdgeAhead())
@@ -441,6 +443,7 @@ public class HeavyArmor1 : MonoBehaviour
             Debug.Log("Hit");
 
             Collider2D[] hitPlayers = Physics2D.OverlapBoxAll(AttackPos3.position, AttackRange3, 0, LayerMask.GetMask("Player"));
+            impulse.ShakeEffect();
 
             foreach (var hitPlayer in hitPlayers)
             {
@@ -485,6 +488,7 @@ public class HeavyArmor1 : MonoBehaviour
             {
                 animator.SetTrigger("Skill3-2");
                 rb.velocity = new Vector2((facingRight ? -1 : 1) * skill3Speed / 2f, 5);
+                impulse.ShakeEffect();
                 yield return new WaitForSeconds(0.3f);
 
                 rb.velocity = new Vector2(0, rb.velocity.y);
@@ -576,6 +580,7 @@ public class HeavyArmor1 : MonoBehaviour
         }
 
 
+        impulse.ShakeEffect();
         rb.velocity = new Vector2(0, rb.velocity.y);
 
         yield return new WaitForSeconds(coolTime);
