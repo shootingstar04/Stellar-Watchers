@@ -587,7 +587,7 @@ public class HeavyArmor1 : MonoBehaviour
         }
         else if (type == 2)
         {
-            if (randomValue < 0.5f)
+            if (randomValue < 0.3f)
             {
                 currentState = State.SKILL3;
                 StartCoroutine(PerformAction(State.SKILL3, 1.3f));
