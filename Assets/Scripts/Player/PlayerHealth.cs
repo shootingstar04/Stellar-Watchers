@@ -62,6 +62,20 @@ public class PlayerHealth : MonoBehaviour
         HPUI.Instance.refresh_hp(CurHP);
     }
 
+    public void modify_HP(int value, float force)
+    {
+        if (value < 0)
+        {
+            playerMove.Hitted(force);
+        }
+
+        curHP += value;
+        if (curHP > maxHP) curHP = maxHP;
+        else if (curHP < 0) curHP = 0;
+
+        HPUI.Instance.refresh_hp(CurHP);
+    }
+
     public void set_HP(int value)
     {
         curHP = value;

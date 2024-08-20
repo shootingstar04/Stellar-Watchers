@@ -472,7 +472,7 @@ public class HeavyArmor1 : MonoBehaviour
     }
     private IEnumerator PerformSkill4()
     {
-        SKILL4:
+    SKILL4:
 
         float direction = player.position.x > transform.position.x ? 1f : -1f;
 
@@ -502,7 +502,7 @@ public class HeavyArmor1 : MonoBehaviour
 
         foreach (var hitPlayer in collider2D)
         {
-            hitPlayer.GetComponent<PlayerHealth>().modify_HP(-1);
+            hitPlayer.GetComponent<PlayerHealth>().modify_HP(-1, 2);
         }
 
         Collider2D ground = Physics2D.OverlapBox(footPos.position, new Vector2(2, 0.1f), 0, LayerMask.GetMask("Ground"));
@@ -522,7 +522,7 @@ public class HeavyArmor1 : MonoBehaviour
                 foreach (var hitPlayer in hitPlayers)
                 {
                     attacked = true;
-                    hitPlayer.GetComponent<PlayerHealth>().modify_HP(-1);
+                    hitPlayer.GetComponent<PlayerHealth>().modify_HP(-2, 5);
                     coolTime = 0.5f;
                     break;
                 }
