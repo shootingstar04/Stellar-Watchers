@@ -282,7 +282,7 @@ MonoBehaviour:
   CurHP: 300
   player: {fileID: 5601640077373299387, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
   detectionRadius: 15
-  attackRadius: 8
+  attackRadius: 6
   moveSpeed: 3
   patrolDistance: 7
   footPos: {fileID: 789463986295275132}

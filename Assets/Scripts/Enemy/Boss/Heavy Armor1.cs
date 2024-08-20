@@ -72,6 +72,7 @@ public class HeavyArmor1 : MonoBehaviour
 
     private bool isDetectedPlayaer = false;
     private bool isGround;
+    private float chaseTime = 0;
 
     private bool isPerformingAction = false;
 
@@ -80,6 +81,7 @@ public class HeavyArmor1 : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        animator.SetBool("Skill3", false);
 
         currentState = State.PATROL;
 
@@ -194,6 +196,49 @@ public class HeavyArmor1 : MonoBehaviour
             Flip();
             currentState = State.PATROL;
         }
+    }
+
+    private IEnumerator Chase(float time)
+    {
+        chaseTime = 0;
+        while (chaseTime < time)
+        {
+            chaseTime += Time.deltaTime;
+
+            Debug.Log(chaseTime);
+
+            // 이동할 방향 결정
+            float direction = player.position.x > transform.position.x ? 1f : -1f;
+
+            // 현재 facingRight와 이동할 방향 비교
+            if ((direction > 0 && !facingRight) || (direction < 0 && facingRight))
+            {
+                Flip();
+            }
+
+            // 플레이어를 향해 이동
+            MoveTo(player.position, 6);
+            animator.SetBool("Walk", true);
+
+            if (IsEdgeAhead())
+            {
+                Flip();
+                currentState = State.PATROL;
+            }
+
+
+            float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+
+            if (distanceToPlayer <= attackRadius)
+            {
+                isPerformingAction = false;
+                RandomAttackOrSkill(1);
+                yield break;
+            }
+
+            yield return null;
+        }
+        isPerformingAction = false;
     }
 
     private IEnumerator PerformAction(State actionState, float actionDuration)
@@ -428,11 +473,9 @@ public class HeavyArmor1 : MonoBehaviour
             Flip();
         }
 
-        animator.SetTrigger("Skill3");
+        animator.SetTrigger("Skill3-1");
 
         yield return new WaitForSeconds(1.3f);
-
-        rb.velocity = new Vector2((facingRight ? 1 : -1) * skill3Speed, rb.velocity.y);
 
         while (true)
         {
@@ -440,6 +483,7 @@ public class HeavyArmor1 : MonoBehaviour
 
             if (IsWallAhead())
             {
+                animator.SetTrigger("Skill3-2");
                 rb.velocity = new Vector2((facingRight ? -1 : 1) * skill3Speed / 2f, 5);
                 yield return new WaitForSeconds(0.3f);
 
@@ -459,6 +503,7 @@ public class HeavyArmor1 : MonoBehaviour
                 {
                     hitPlayer.GetComponent<PlayerHealth>().modify_HP(-2);
                     yield return new WaitForSeconds(0.3f);
+                    animator.SetTrigger("Skill3-2");
                     rb.velocity = new Vector2(0, rb.velocity.y);
                     yield return new WaitForSeconds(1f);
                     isPerformingAction = false;
@@ -592,10 +637,15 @@ public class HeavyArmor1 : MonoBehaviour
                 currentState = State.SKILL3;
                 StartCoroutine(PerformAction(State.SKILL3, 1.3f));
             }
-            else
+            else if (randomValue < 0.6f)
             {
                 currentState = State.SKILL3;
                 StartCoroutine(PerformAction(State.SKILL4, 1.3f));
+            }
+            else
+            {
+                currentState = State.CHASE;
+                StartCoroutine(Chase(Random.value * 2 + 1f));
             }
         }
     }
@@ -620,6 +670,12 @@ public class HeavyArmor1 : MonoBehaviour
         float direction = target.x > transform.position.x ? 1f : -1f;
         Vector2 moveDirection = new Vector2(direction, 0f);
         rb.velocity = moveDirection * moveSpeed;
+    }
+    private void MoveTo(Vector2 target, float speed)
+    {
+        float direction = target.x > transform.position.x ? 1f : -1f;
+        Vector2 moveDirection = new Vector2(direction, 0f);
+        rb.velocity = moveDirection * speed;
     }
     private void Flip()
     {
