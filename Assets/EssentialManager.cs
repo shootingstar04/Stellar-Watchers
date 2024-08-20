@@ -1,5 +1,7 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security;
 using UnityEngine;
 
 public class EssentialManager : MonoBehaviour
@@ -19,7 +21,35 @@ public class EssentialManager : MonoBehaviour
 
     private void Start()
     {
-        if (GameObject.Find("SaveLoadManager"))
+
+        if (GameObject.FindGameObjectWithTag(Define.PlayerTag))
+        {
+
+        }
+        else
+        {
+            Instantiate(player);
+        }
+
+        if (GameObject.FindObjectOfType(typeof(Camera)))
+        {
+
+        }
+        else
+        {
+            Instantiate(mainCamera);
+        }
+
+        if (GameObject.FindObjectOfType(typeof(CinemachineVirtualCamera)))
+        {
+
+        }
+        else
+        {
+            Instantiate(virtualCamera);
+        }
+
+        if (GameObject.FindObjectOfType(typeof(SaveLoadManager)))
         {
 
         }
@@ -28,38 +58,67 @@ public class EssentialManager : MonoBehaviour
             Instantiate(saveLoadManager);
         }
 
-        if(GameObject.Find("ImpulseManager"))
+        if (GameObject.FindObjectOfType(typeof(ExistOne)))
         {
 
         }
         else
         {
-            Instantiate(impulseManager);
+            Instantiate(ui);
         }
 
-        if (GameObject.FindGameObjectWithTag(Define.PlayerTag))
+        if (GameObject.FindObjectOfType(typeof(SceneTransition)))
         {
-            Debug.Log("다 있음. " + this.gameObject.name + " 삭제");
-            Destroy(this.gameObject);
+
         }
         else
         {
-            CreateEssentials();
-            SaveLoadManager.instance.LoadPlayerData();
+            Instantiate(sceneManager);
+        }
+
+        if (GameObject.FindObjectOfType(typeof(DeathScreen)))
+        {
+
+        }
+        else
+        {
+            Instantiate(deathScreen);
+        }
+
+        if (GameObject.FindObjectOfType(typeof(ParticleManager)))
+        {
+
+        }
+        else
+        {
+            Instantiate(particleManager);
+        }
+
+        if (GameObject.FindObjectOfType(typeof(CoinPool)))
+        {
+
+        }
+        else
+        {
+            Instantiate(coinPool);
+        }
+
+        if (GameObject.FindGameObjectWithTag(Define.PlayerTag) && GameObject.FindObjectOfType(typeof(SaveLoadManager)) && PlayerPrefs.HasKey("isLoadedProperly"))
+        {
+            if (PlayerPrefs.GetInt("isLoadedProperly") == 1)
+            {
+                SaveLoadManager.instance.LoadPlayerData();
+            }
+        }
+
+        if (GameObject.FindGameObjectWithTag(Define.PlayerTag) && GameObject.FindObjectOfType(typeof(CinemachineVirtualCamera)))
+        {
             changeConfinder.instance.ChangeConf();
         }
 
+        Debug.Log("다 있음. " + this.gameObject.name + " 삭제");
+        Destroy(this.gameObject);
+
     }
 
-    void CreateEssentials()
-    {
-        Instantiate(sceneManager);
-        Instantiate(ui);
-        Instantiate(player);
-        Instantiate(deathScreen);
-        Instantiate(particleManager);
-        Instantiate(coinPool);
-        Instantiate(mainCamera);
-        Instantiate(virtualCamera);
-    }
 }

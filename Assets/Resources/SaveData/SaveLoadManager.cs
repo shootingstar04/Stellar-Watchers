@@ -25,6 +25,8 @@ public class SaveLoadManager : MonoBehaviour
         PlayerPrefs.SetInt(Define.maxHp, PlayerHealth.instance.MaxHP);
         PlayerPrefs.SetInt(Define.curSp, PlayerSP.instance.CurSP);
 
+        PlayerPrefs.SetInt("isLoadedProperly", 1);
+
     }
 
     public void ResetPlayerData()
@@ -39,6 +41,8 @@ public class SaveLoadManager : MonoBehaviour
         PlayerPrefs.SetInt(Define.maxSp, 5);
         PlayerPrefs.SetInt(Define.maxHp, 5);
         PlayerPrefs.SetInt(Define.curSp, 5);
+
+        PlayerPrefs.SetInt("isLoadedProperly", 0);
     }
 
     public void LoadPlayerData()
