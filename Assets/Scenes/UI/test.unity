@@ -493,21 +493,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1766819875822016812, guid: 69862aacf9f074a409873126a7bc8c2e, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 4723107735738678597, guid: 61aa0321f30a8c342903cb9eac62b2e5, type: 3}
     - target: {fileID: 1785844052176553722, guid: 69862aacf9f074a409873126a7bc8c2e, type: 3}
       propertyPath: m_Name
       value: Heavy Armor1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1785844052176553722, guid: 69862aacf9f074a409873126a7bc8c2e, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3091007888481144741, guid: 69862aacf9f074a409873126a7bc8c2e, type: 3}
-      propertyPath: skill3Speed
-      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

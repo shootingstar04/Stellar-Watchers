@@ -38,6 +38,16 @@ public class PlayerCollision : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy" && !isInvincible)
+        {
+            Debug.Log("Player hit");
+            PlayerHealth.instance.modify_HP(-1);
+            isInvincible = true;
+            invincibilityCounter = invincibilityDuration;
+        }
+    }
     void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag == "Enemy" && !isInvincible)

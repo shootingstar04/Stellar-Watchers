@@ -26,9 +26,10 @@ public class HeavyArmor1 : MonoBehaviour
     [Header("Move")]
     public Transform player;
     public float detectionRadius = 15f;
-    public float attackRadius = 5f;
+    public float attackRadius = 7.5f;
     public float moveSpeed = 3f;
     public float patrolDistance = 7f;
+    public Transform footPos;
 
     [Space(2)]
     [Header("Attack Range")]
@@ -68,6 +69,9 @@ public class HeavyArmor1 : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
     private bool facingRight = true;
+
+    private bool isDetectedPlayaer = false;
+    private bool isGround;
 
     private bool isPerformingAction = false;
 
@@ -109,15 +113,20 @@ public class HeavyArmor1 : MonoBehaviour
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
+        if (distanceToPlayer <= detectionRadius)
+        {
+            isDetectedPlayaer = true;
+        }
+
         if (currentState != State.KILLED && !isPerformingAction)
         {
             if (distanceToPlayer <= attackRadius)
             {
-                RandomAttackOrSkill();
+                RandomAttackOrSkill(1);
             }
-            else if (distanceToPlayer <= detectionRadius)
+            else if (isDetectedPlayaer)
             {
-                currentState = State.CHASE;
+                RandomAttackOrSkill(2);
             }
             else if (currentState != State.PATROL)
             {
@@ -224,7 +233,10 @@ public class HeavyArmor1 : MonoBehaviour
                 Debug.Log("S-3");
                 StartCoroutine(PerformSkill3());
                 yield break;
-                break;
+            case State.SKILL4:
+                Debug.Log("S-4");
+                StartCoroutine(PerformSkill4());
+                yield break;
         }
 
         yield return new WaitForSeconds(actionDuration); // 행동 애니메이션 시간 대기
@@ -458,44 +470,133 @@ public class HeavyArmor1 : MonoBehaviour
             yield return null;
         }
     }
+    private IEnumerator PerformSkill4()
+    {
+        SKILL4:
 
-    private void RandomAttackOrSkill()
+        float direction = player.position.x > transform.position.x ? 1f : -1f;
+
+        float groundY = this.transform.position.y;
+
+        rb.velocity = new Vector2(direction * 5, 17);
+
+        animator.SetTrigger("Skill4-1");
+
+        while (rb.velocity.y > 0)
+        {
+            yield return null;
+        }
+        rb.velocity = new Vector2(0, rb.velocity.y);
+
+        animator.SetTrigger("Skill4-2");
+        float direction2 = player.position.x > transform.position.x ? 1f : -1f;
+        Vector2 dir = new Vector3(player.position.x - direction2 * 2, groundY, 0) - this.transform.position;
+        dir = dir.normalized;
+
+        if (direction != direction2) Flip();
+        rb.gravityScale = 0;
+        rb.velocity = dir * 30;
+
+        yield return new WaitForSeconds(0.1f);
+        Collider2D[] collider2D = Physics2D.OverlapBoxAll(AttackPos3.position, AttackRange3, 0, LayerMask.GetMask("Player"));
+
+        foreach (var hitPlayer in collider2D)
+        {
+            hitPlayer.GetComponent<PlayerHealth>().modify_HP(-1);
+        }
+
+        Collider2D ground = Physics2D.OverlapBox(footPos.position, new Vector2(2, 0.1f), 0, LayerMask.GetMask("Ground"));
+        isGround = ground != null ? true : false;
+
+        bool attacked = false;
+        float coolTime = 2f;
+
+        while (!isGround)
+        {
+            ground = Physics2D.OverlapBox(footPos.position, new Vector2(2, 0.1f), 0, LayerMask.GetMask("Ground"));
+            isGround = ground != null ? true : false;
+
+            if (!attacked)
+            {
+                Collider2D[] hitPlayers = Physics2D.OverlapBoxAll(SkillPos3.position, SkillRange3, 0, LayerMask.GetMask("Player"));
+                foreach (var hitPlayer in hitPlayers)
+                {
+                    attacked = true;
+                    hitPlayer.GetComponent<PlayerHealth>().modify_HP(-1);
+                    coolTime = 0.5f;
+                    break;
+                }
+            }
+            yield return null;
+        }
+
+
+        rb.velocity = new Vector2(0, rb.velocity.y);
+
+        yield return new WaitForSeconds(coolTime);
+
+        if (coolTime == 0.5f) goto SKILL4;
+
+        rb.gravityScale = 2;
+        rb.velocity = new Vector2(0, rb.velocity.y);
+        isPerformingAction = false;
+        currentState = State.IDLE;
+    }
+
+    private void RandomAttackOrSkill(int type)
     {
         isPerformingAction = true;
 
 
         float randomValue = Random.value;
+
         //float randomValue = 0.6f;
 
-        if (randomValue < 0.166666f)
+        if (type == 1)
         {
-            currentState = State.ATTACK1;
-            StartCoroutine(PerformAction(State.ATTACK1, 0.65f));
+            if (randomValue < 0.166666f)
+            {
+                currentState = State.ATTACK1;
+                StartCoroutine(PerformAction(State.ATTACK1, 0.65f));
+            }
+            else if (randomValue < 0.333333f)
+            {
+                currentState = State.ATTACK2;
+                StartCoroutine(PerformAction(State.ATTACK2, 0.65f));
+            }
+            else if (randomValue < 0.5f)
+            {
+                currentState = State.ATTACK3;
+                StartCoroutine(PerformAction(State.ATTACK3, 1.2f));
+            }
+            else if (randomValue < 0.666666f && CurHP < 150)
+            {
+                currentState = State.SKILL1;
+                StartCoroutine(PerformAction(State.SKILL1, 2f));
+            }
+            else if (randomValue < 0.833333f)
+            {
+                currentState = State.SKILL2;
+                StartCoroutine(PerformAction(State.SKILL2, 2f));
+            }
+            else
+            {
+                isPerformingAction = false;
+                currentState = State.CHASE;
+            }
         }
-        else if (randomValue < 0.333333f)
+        else if (type == 2)
         {
-            currentState = State.ATTACK2;
-            StartCoroutine(PerformAction(State.ATTACK2, 0.65f));
-        }
-        else if (randomValue < 0.5f)
-        {
-            currentState = State.ATTACK3;
-            StartCoroutine(PerformAction(State.ATTACK3, 1.2f));
-        }
-        else if (randomValue < 0.666666f && CurHP < 150)
-        {
-            currentState = State.SKILL1;
-            StartCoroutine(PerformAction(State.SKILL1, 2f));
-        }
-        else if (randomValue < 0.833333f)
-        {
-            currentState = State.SKILL2;
-            StartCoroutine(PerformAction(State.SKILL2, 2f));
-        }
-        else
-        {
-            currentState = State.SKILL3;
-            StartCoroutine(PerformAction(State.SKILL3, 1.3f));
+            if (randomValue < 0.5f)
+            {
+                currentState = State.SKILL3;
+                StartCoroutine(PerformAction(State.SKILL3, 1.3f));
+            }
+            else
+            {
+                currentState = State.SKILL3;
+                StartCoroutine(PerformAction(State.SKILL4, 1.3f));
+            }
         }
     }
 
@@ -561,9 +662,7 @@ public class HeavyArmor1 : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        float offsetX = facingRight ? attackRadius / 2 : -attackRadius / 2;
-        Vector2 attackCenter = new Vector2(transform.position.x + offsetX, transform.position.y);
-        Gizmos.DrawWireCube(attackCenter, new Vector3(attackRadius, attackRadius, 0));
+        Gizmos.DrawWireSphere(this.transform.position, attackRadius);
 
 
         Gizmos.color = Color.blue;
