@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 7074611812640934606}
   - component: {fileID: 3091007888481144741}
   - component: {fileID: 1014581035257836157}
+  - component: {fileID: 7207189320340252051}
   m_Layer: 6
   m_Name: Heavy Armor1
   m_TagString: Enemy
@@ -116,7 +117,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1409549213185883415, guid: 8b3ffd44d4f5fe8498ac0cc5835aa91d, type: 3}
+  m_Sprite: {fileID: 4723107735738678597, guid: 61aa0321f30a8c342903cb9eac62b2e5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -204,7 +205,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.008689702, y: 0.004999995}
+  m_Offset: {x: 0.010994196, y: 0.004999995}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -215,7 +216,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.36951745, y: 0.55}
+  m_Size: {x: 0.20631742, y: 0.55}
   m_EdgeRadius: 0
 --- !u!50 &8814699678836280632
 Rigidbody2D:
@@ -317,6 +318,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyName: Heavy Armor1
+--- !u!61 &7207189320340252051
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1785844052176553722}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.009683132, y: 0.14265582}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2, y: 2}
+    newSize: {x: 2, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.3662603, y: 0.27468842}
+  m_EdgeRadius: 0
 --- !u!1 &2289017296095316959
 GameObject:
   m_ObjectHideFlags: 0
