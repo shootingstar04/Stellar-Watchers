@@ -15,7 +15,7 @@ public class InspectorManager : MonoBehaviour
     {
         info.Add(this.gameObject.transform.Find("Progress").gameObject);
         info.Add(this.gameObject.transform.Find("Astrology").gameObject);
-        info.Add(this.gameObject.transform.Find("Collection").gameObject);
+        //info.Add(this.gameObject.transform.Find("Collection").gameObject);
 
         UIManager = GameObject.Find("Screen UI").GetComponent<UIManager>();
     }
@@ -76,6 +76,27 @@ public class InspectorManager : MonoBehaviour
 
     public void move_info(int dir)
     {
+        if (info.Count < 3)
+        {
+            if (dir > 0)
+            {
+                info[1].transform.position
+                  = new Vector3(info[1].transform.position.x, info[0].transform.position.y, -2);
+                info[1].GetComponent<RectTransform>().offsetMin
+                    = new Vector2(info[0].GetComponent<RectTransform>().offsetMin.x + 1920, 0);
+                info[1].GetComponent<RectTransform>().offsetMax
+                    = new Vector2(info[0].GetComponent<RectTransform>().offsetMin.x + 1920, 0);
+            }
+            else
+            {
+                info[1].transform.position
+                  = new Vector3(info[1].transform.position.x, info[0].transform.position.y, -2);
+                info[1].GetComponent<RectTransform>().offsetMin
+                    = new Vector2(info[0].GetComponent<RectTransform>().offsetMin.x - 1920, 0);
+                info[1].GetComponent<RectTransform>().offsetMax
+                    = new Vector2(info[0].GetComponent<RectTransform>().offsetMin.x - 1920, 0);
+            }
+        }
 
         if (dir > 0)//>����
         {
@@ -87,6 +108,7 @@ public class InspectorManager : MonoBehaviour
             info.Insert(0, info[info.Count - 1]);
             info.RemoveAt(info.Count - 1);
         }
+
 
         if (info[0].GetComponent<CollectPopUp>())
             info[0].GetComponent<CollectPopUp>().set_button_image();
@@ -118,28 +140,53 @@ public class InspectorManager : MonoBehaviour
                 info[0].GetComponent<RectTransform>().offsetMin = Vector2.zero;
                 info[0].GetComponent<RectTransform>().offsetMax = Vector2.zero;
             }
-            info[1].transform.position
-                = new Vector3(info[1].transform.position.x, info[0].transform.position.y, -2);
-            info[1].GetComponent<RectTransform>().offsetMin
-                = new Vector2(info[0].GetComponent<RectTransform>().offsetMin.x + 1920, 0);
-            info[1].GetComponent<RectTransform>().offsetMax
-                = new Vector2(info[0].GetComponent<RectTransform>().offsetMin.x + 1920, 0);
 
-            info[info.Count - 1].transform.position
-                = new Vector3(info[1].transform.position.x, info[0].transform.position.y, -2);
-            info[info.Count - 1].GetComponent<RectTransform>().offsetMin
-                = new Vector2(info[0].GetComponent<RectTransform>().offsetMin.x - 1920, 0);
-            info[info.Count - 1].GetComponent<RectTransform>().offsetMax
-                = new Vector2(info[0].GetComponent<RectTransform>().offsetMin.x - 1920, 0);
-
-
-
-            for (int i = 2; i < info.Count - 1; i++)
+            if (info.Count >= 3)
             {
-                info[i].GetComponent<RectTransform>().offsetMin
-                    = new Vector2(1920, 0);
-                info[i].GetComponent<RectTransform>().offsetMax
-                    = new Vector2(1920, 0);
+                info[1].transform.position
+                  = new Vector3(info[1].transform.position.x, info[0].transform.position.y, -2);
+                info[1].GetComponent<RectTransform>().offsetMin
+                    = new Vector2(info[0].GetComponent<RectTransform>().offsetMin.x + 1920, 0);
+                info[1].GetComponent<RectTransform>().offsetMax
+                    = new Vector2(info[0].GetComponent<RectTransform>().offsetMin.x + 1920, 0);
+
+                info[info.Count - 1].transform.position
+                    = new Vector3(info[1].transform.position.x, info[0].transform.position.y, -2);
+                info[info.Count - 1].GetComponent<RectTransform>().offsetMin
+                    = new Vector2(info[0].GetComponent<RectTransform>().offsetMin.x - 1920, 0);
+                info[info.Count - 1].GetComponent<RectTransform>().offsetMax
+                    = new Vector2(info[0].GetComponent<RectTransform>().offsetMin.x - 1920, 0);
+
+
+
+                for (int i = 2; i < info.Count - 1; i++)
+                {
+                    info[i].GetComponent<RectTransform>().offsetMin
+                        = new Vector2(1920, 0);
+                    info[i].GetComponent<RectTransform>().offsetMax
+                        = new Vector2(1920, 0);
+                }
+            }
+            else
+            {
+                if (info[0].transform.position.x < 0)
+                {
+                    info[1].transform.position
+                      = new Vector3(info[1].transform.position.x, info[0].transform.position.y, -2);
+                    info[1].GetComponent<RectTransform>().offsetMin
+                        = new Vector2(info[0].GetComponent<RectTransform>().offsetMin.x + 1920, 0);
+                    info[1].GetComponent<RectTransform>().offsetMax
+                        = new Vector2(info[0].GetComponent<RectTransform>().offsetMin.x + 1920, 0);
+                }
+                else
+                {
+                    info[1].transform.position
+                      = new Vector3(info[1].transform.position.x, info[0].transform.position.y, -2);
+                    info[1].GetComponent<RectTransform>().offsetMin
+                        = new Vector2(info[0].GetComponent<RectTransform>().offsetMin.x - 1920, 0);
+                    info[1].GetComponent<RectTransform>().offsetMax
+                        = new Vector2(info[0].GetComponent<RectTransform>().offsetMin.x - 1920, 0);
+                }
             }
         }
     }

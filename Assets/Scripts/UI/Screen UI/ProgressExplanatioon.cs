@@ -33,7 +33,7 @@ public class ProgressExplanatioon : MonoBehaviour
             buttons.Add(buttonParent.transform.GetChild(i).gameObject);
         }
 
-        GameObject a = this.transform.Find("BackGround").transform.Find("BG 3").gameObject;
+        GameObject a = this.transform.Find("BackGround").transform.Find("BG 2").gameObject;
         GameObject b = this.transform.Find("BackGround").transform.Find("BG 1").gameObject;
 
         HP = b.transform.Find("HP").transform.Find("text").GetComponent<Text>();
