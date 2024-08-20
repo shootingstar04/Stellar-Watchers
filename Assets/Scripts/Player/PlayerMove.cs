@@ -418,6 +418,7 @@ public class PlayerMove : MonoBehaviour
         
         ParticleManager.instance.particle_generation(ParticleManager.particleType.Hitted, this.transform.position);
 
+        Debug.Log("플레이어 피격 진동효과");
         GetComponent<ImpulseSource>().ShakeEffect();
 
         StartCoroutine(hit_delay(hittedDelay1, hittedDelay2));

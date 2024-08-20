@@ -14,6 +14,7 @@ public class ImpulseSource : MonoBehaviour
 
     public void ShakeEffect()
     {
+        Debug.Log(this.gameObject.name + "¿Ã »£√‚");
         ImpulseManger.Instance.CameraShake(source);
     }
 
