@@ -17,7 +17,7 @@ public class ItemPopUp : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        UIManager = GameObject.Find("Screen UI").GetComponent<UIManager>();
+        UIManager = GameObject.FindWithTag("UI").transform.Find("Screen UI").GetComponent<UIManager>();
 
         itemPopUp = GameObject.Find("Item PopUp");
         itemPopUp.SetActive(false);

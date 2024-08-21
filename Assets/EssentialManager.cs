@@ -19,7 +19,7 @@ public class EssentialManager : MonoBehaviour
 
     [SerializeField] private GameObject impulseManager;
 
-    private void Start()
+    private void Awake()
     {
 
         if (GameObject.FindGameObjectWithTag(Define.PlayerTag))
@@ -49,15 +49,6 @@ public class EssentialManager : MonoBehaviour
             Instantiate(virtualCamera);
         }
 
-        if (GameObject.FindObjectOfType(typeof(SaveLoadManager)))
-        {
-
-        }
-        else
-        {
-            Instantiate(saveLoadManager);
-        }
-
         if (GameObject.FindObjectOfType(typeof(ExistOne)))
         {
 
@@ -65,6 +56,15 @@ public class EssentialManager : MonoBehaviour
         else
         {
             Instantiate(ui);
+        }
+
+        if (GameObject.FindObjectOfType(typeof(SaveLoadManager)))
+        {
+
+        }
+        else
+        {
+            Instantiate(saveLoadManager);
         }
 
         if (GameObject.FindObjectOfType(typeof(SceneTransition)))
@@ -103,13 +103,13 @@ public class EssentialManager : MonoBehaviour
             Instantiate(coinPool);
         }
 
-        if (GameObject.FindGameObjectWithTag(Define.PlayerTag) && GameObject.FindObjectOfType(typeof(SaveLoadManager)) && PlayerPrefs.HasKey("isLoadedProperly"))
-        {
-            if (PlayerPrefs.GetInt("isLoadedProperly") == 1)
-            {
-                SaveLoadManager.instance.LoadPlayerData();
-            }
-        }
+        //if (GameObject.FindGameObjectWithTag(Define.PlayerTag) && GameObject.FindObjectOfType(typeof(SaveLoadManager)) && PlayerPrefs.HasKey("isLoadedProperly"))
+        //{
+        //    if (PlayerPrefs.GetInt("isLoadedProperly") == 1)
+        //    {
+        //        SaveLoadManager.instance.LoadPlayerData();
+        //    }
+        //}
 
         if (GameObject.FindGameObjectWithTag(Define.PlayerTag) && GameObject.FindObjectOfType(typeof(CinemachineVirtualCamera)))
         {

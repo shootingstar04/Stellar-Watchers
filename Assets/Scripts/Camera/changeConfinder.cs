@@ -14,7 +14,7 @@ public class changeConfinder : MonoBehaviour
 
     public static changeConfinder instance;
 
-    private void Start()
+    private void Awake()
     {
         instance = this;
         conf = GetComponent<CinemachineConfiner2D>();

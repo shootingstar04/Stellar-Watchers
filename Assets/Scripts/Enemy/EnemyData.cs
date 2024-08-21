@@ -28,7 +28,7 @@ public class EnemyData : MonoBehaviour
         }
         if (EnemyName == "Hider")
         {
-            this.GetComponent<Hider>().TakeDamage(damage);
+            StartCoroutine(this.GetComponent<Hider>().TakeDamage(damage));
         }
         if (EnemyName == "Mushroom")
         {
