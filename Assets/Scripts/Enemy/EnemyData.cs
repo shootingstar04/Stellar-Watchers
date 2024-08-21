@@ -20,7 +20,7 @@ public class EnemyData : MonoBehaviour
         }
         if (EnemyName == "Evil Wizard")
         {
-            
+            this.GetComponent<EvilWizard>().TakeDamage(damage);
         }
         if (EnemyName == "Goblin")
         {

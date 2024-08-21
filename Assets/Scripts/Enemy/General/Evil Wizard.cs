@@ -19,13 +19,14 @@ public class EvilWizard : MonoBehaviour
     public Transform player;
     public GameObject projectilePrefab; // 원거리 공격에 사용할 투사체 프리팹
     public Transform firePoint; // 투사체 발사 위치
+    public float currentHP = 18;
     public float detectionRadius = 10f;
     public float runRadius = 10f;
     public float attackRadius = 5f;
     public float moveSpeed = 2f;
     public float patrolDistance = 5f; // 순찰할 거리
     public float attackCoolTime = 2f;
-    
+
     private float attackDelay = 1f; // 공격 딜레이
 
     private Rigidbody2D rb;
@@ -48,6 +49,7 @@ public class EvilWizard : MonoBehaviour
     private float flipCooldown = 0.5f; // 방향 전환 쿨다운
     private float flipTimer;
     private bool isPerforming;
+    private bool dead = false;
 
     private void Start()
     {
@@ -69,9 +71,19 @@ public class EvilWizard : MonoBehaviour
 
     private void Update()
     {
+        if (currentState == State.KILLED)
+        {
+            StopAllCoroutines();
+            if (!dead)
+            {
+                Killed();
+                dead = true;
+            }
+            return;
+        }
+
         if (isPerforming)
         {
-            Debug.Log("공격중");
             return;
         }
 
@@ -94,9 +106,6 @@ public class EvilWizard : MonoBehaviour
             case State.Run:
                 StartCoroutine(run());
                 break;
-            case State.KILLED:
-                Killed();
-                break;
         }
 
         // 상태 전환 로직
@@ -115,16 +124,17 @@ public class EvilWizard : MonoBehaviour
                 currentState = State.CHASE;
             }
 
-            if (distanceToPlayer <= attackRadius && attackCount > attackCoolTime )
+            if (distanceToPlayer < runRadius)
+            {
+                currentState = State.Run;
+            }
+
+            if (distanceToPlayer <= attackRadius && attackCount > attackCoolTime)
             {
                 attackCount = 0;
                 currentState = State.ATTACK;
             }
 
-            if (distanceToPlayer < runRadius)
-            {
-                currentState = State.Run;
-            }
 
             if (currentState == State.CHASE && distanceToPlayer > detectionRadius)
             {
@@ -147,10 +157,15 @@ public class EvilWizard : MonoBehaviour
 
     private IEnumerator run()
     {
+        animator.SetBool("Run", true);
         isPerforming = true;
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-        while(distanceToPlayer < runRadius + 1)
+        while (distanceToPlayer < runRadius + 1)
         {
+            distanceToPlayer = Vector2.Distance(transform.position, player.position);
+
+            Debug.Log(distanceToPlayer - runRadius + 1);
+
             if (player.transform.position.x - this.transform.position.x > 0 && facingRight)
             {
                 Flip();
@@ -165,6 +180,8 @@ public class EvilWizard : MonoBehaviour
             rb.velocity = speed;
             yield return null;
         }
+        animator.SetBool("Run", false);
+        Debug.Log("end");
         currentState = State.PATROL;
         isPerforming = false;
     }
@@ -251,8 +268,10 @@ public class EvilWizard : MonoBehaviour
     private void Killed()
     {
         rb.velocity = Vector2.zero;
-        animator.SetTrigger("Die");
-        Destroy(this.gameObject);
+        animator.SetTrigger("Death");
+        Destroy(this.GetComponent<EnemyData>());
+        Destroy(this.gameObject, 2f);
+        Destroy(this);
         // 죽음 처리를 여기서 수행합니다. 예: 파괴, 리스폰 등
     }
 
@@ -316,10 +335,15 @@ public class EvilWizard : MonoBehaviour
 
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
-        // 체력 감소 로직을 추가하고 체력이 0 이하가 되면 KILLED 상태로 전환합니다.
-        currentState = State.KILLED;
+        currentHP -= damage;
+        if (currentHP < 0)
+        {
+            rb.gravityScale = 0;
+            Destroy(this.GetComponent<CapsuleCollider2D>());
+            currentState = State.KILLED;
+        }
     }
 
     private void OnDrawGizmosSelected()
