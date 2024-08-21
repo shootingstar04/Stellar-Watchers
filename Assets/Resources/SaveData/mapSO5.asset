@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab7aef13b3179c24784966379f52f714, type: 3}
   m_Name: mapSO5
   m_EditorClassIdentifier: 
-  objects: 010101010101
+  objects: 0101010101

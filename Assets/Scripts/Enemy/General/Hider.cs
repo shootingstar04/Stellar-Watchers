@@ -86,11 +86,11 @@ public class Hider : MonoBehaviour
         animator.SetTrigger("Idle");
 
         // 공격 후 딜레이
+        currentState = State.IDLE; // 공격 후 IDLE 상태로 돌아감
         yield return new WaitForSeconds(attackDelay);
 
         isAttacking = false;
 
-        currentState = State.IDLE; // 공격 후 IDLE 상태로 돌아감
     }
 
     private void Killed()

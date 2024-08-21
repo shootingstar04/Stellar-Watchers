@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,85 +7,31 @@ using UnityEngine.SceneManagement;
 
 public class MapTeleporter1 : MonoBehaviour
 {
-    private GameObject player;
-    private Scene currentScene;
-    private int currentIndex;
-    private int targetIndex;
-
-    [SerializeField] int DoNotLoadInThisIndex = 2;
-
-    [Header("목표 텔레포트 위치")]
-    [Tooltip("맵 순서 따라 다음 맵이면 true, 이전 맵이면 fasle")]
-    [SerializeField] bool isLeftRight;
-
-    private static bool returnLR;
-
-    public static MapTeleporter1 mapTP;
-
-    private void Awake()
-    {
-        /*
-        player = GameObject.FindGameObjectWithTag(Define.PlayerTag);
-        if(player== null)
-            Instantiate(player);
-        */
-        mapTP = this;
-        currentScene = SceneManager.GetActiveScene();
-        currentIndex = currentScene.buildIndex;
-        targetIndex = currentIndex;
-        Debug.Log(currentIndex + "는 현재 buildindex");
-
-        returnLR = isLeftRight;
-
-        Debug.Log("objname = " + this.name + ", isLeftRight = " + isLeftRight + ", returnLR = " + returnLR);
-
-        if(currentIndex != DoNotLoadInThisIndex)
-        {
-            SceneTransition.instance.FadeIn();
-
-            Debug.Log("텔포판별시작");
-            //bool temp = DontDestroy.thisIsPlayer.giveLeftRight();
-            //if(temp != isLeftRight)
-            //{
-            //    Debug.Log(this.name + "는 맞음.");
-            //    DontDestroy.thisIsPlayer.transform.position = new Vector3(this.transform.position.x +10, this.transform.position.y, DontDestroy.thisIsPlayer.transform.position.z);
-            //}
-        }
-    }
+    public GameObject TargetTp;
+    public float offset;
+    [SerializeField] private int MapNum;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (isLeftRight) //enum순서상 다음 맵
+        if(collision.CompareTag(Define.PlayerTag))
         {
-            targetIndex += 1;
+            SceneTransition.instance.FadeOut();
+            collision.transform.position = new Vector3(TargetTp.transform.position.x + offset, TargetTp.transform.position.y, collision.transform.position.z);
+            TargetTp.GetComponent<MapTeleporter1>().Teleported();
         }
-        else
-        {
-            targetIndex -= 1;
-        }
-        Debug.Log(targetIndex);
-        Teleport(targetIndex);
-        Destroy(this.GetComponent<Collider2D>());
     }
 
-    public void Teleport(int MapNum)
+    public void Teleported()
     {
-        //DontDestroy.thisIsPlayer.getLeftRight(isLeftRight);
-        StartCoroutine( Transition(MapNum));
-
-
+        Effect();
+        confinderChange.instance.ConfinderChange(MapNum);
+        
     }
 
-    public static bool GiveIsLR()
+    IEnumerator Effect()
     {
-        Debug.Log("텔레포터 호출, " + returnLR);
-        return returnLR;
-    }
-
-    IEnumerator Transition(int MapNum)
-    {
-        SceneTransition.instance.FadeOut();
         yield return new WaitForSeconds(0.5f);
-        SceneManager.LoadScene(MapNum);
+
+        SceneTransition.instance.FadeIn();
     }
 }

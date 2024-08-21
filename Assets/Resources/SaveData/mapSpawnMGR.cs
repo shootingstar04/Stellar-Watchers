@@ -14,6 +14,10 @@ public class mapSpawnMGR : MonoBehaviour
 
     private Scene currentScene;
 
+    public int MapNum;
+
+
+
     private void Awake()
     {
         instance = this;

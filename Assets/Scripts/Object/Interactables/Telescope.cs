@@ -1,5 +1,7 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -22,7 +24,7 @@ public class Telescope : MonoBehaviour
 
         if (Cam == null)
         {
-            GameObject cam_temp = GameObject.Find("Virtual Camera");
+            GameObject cam_temp = (GameObject)FindObjectOfType(typeof(CinemachineVirtualCamera));
             Debug.Log(cam_temp);
             cam = cam_temp.GetComponent<cam_deadzone_test>();
         }

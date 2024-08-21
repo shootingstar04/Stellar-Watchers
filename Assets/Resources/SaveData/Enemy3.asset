@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3366962351526274abb3850af597a298, type: 3}
   m_Name: Enemy3
   m_EditorClassIdentifier: 
-  spawnList: 010101010101
+  spawnList: 010101
