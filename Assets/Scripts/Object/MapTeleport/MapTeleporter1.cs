@@ -23,7 +23,7 @@ public class MapTeleporter1 : MonoBehaviour
 
     public void Teleported()
     {
-        Effect();
+        StartCoroutine(Effect());
         confinderChange.instance.ConfinderChange(MapNum);
         
     }
