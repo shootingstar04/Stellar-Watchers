@@ -10,7 +10,8 @@ public class EvilWizard : MonoBehaviour
         PATROL,
         CHASE,
         ATTACK,
-        KILLED
+        KILLED,
+        Run
     }
 
     public State currentState;
@@ -18,15 +19,20 @@ public class EvilWizard : MonoBehaviour
     public Transform player;
     public GameObject projectilePrefab; // 원거리 공격에 사용할 투사체 프리팹
     public Transform firePoint; // 투사체 발사 위치
+    public float currentHP = 18;
     public float detectionRadius = 10f;
+    public float runRadius = 10f;
     public float attackRadius = 5f;
     public float moveSpeed = 2f;
     public float patrolDistance = 5f; // 순찰할 거리
-    public float attackDelay = 1f; // 공격 딜레이
+    public float attackCoolTime = 2f;
+
+    private float attackDelay = 1f; // 공격 딜레이
 
     private Rigidbody2D rb;
     private Animator animator;
     private bool facingRight = true;
+    private float attackCount = 0;
 
     // 추가된 부분: 낭떠러지 및 벽 감지를 위한 변수
     public float cliffDetectionDistance = 1f;
@@ -42,6 +48,8 @@ public class EvilWizard : MonoBehaviour
     private float stopTimer;
     private float flipCooldown = 0.5f; // 방향 전환 쿨다운
     private float flipTimer;
+    private bool isPerforming;
+    private bool dead = false;
 
     private void Start()
     {
@@ -63,6 +71,24 @@ public class EvilWizard : MonoBehaviour
 
     private void Update()
     {
+        if (currentState == State.KILLED)
+        {
+            StopAllCoroutines();
+            if (!dead)
+            {
+                Killed();
+                dead = true;
+            }
+            return;
+        }
+
+        if (isPerforming)
+        {
+            return;
+        }
+
+        attackCount += Time.deltaTime;
+
         switch (currentState)
         {
             case State.IDLE:
@@ -75,10 +101,10 @@ public class EvilWizard : MonoBehaviour
                 Chase();
                 break;
             case State.ATTACK:
-                Attack();
+                StartCoroutine(AttackRoutine());
                 break;
-            case State.KILLED:
-                Killed();
+            case State.Run:
+                StartCoroutine(run());
                 break;
         }
 
@@ -98,12 +124,19 @@ public class EvilWizard : MonoBehaviour
                 currentState = State.CHASE;
             }
 
-            if (distanceToPlayer <= attackRadius && currentState != State.ATTACK)
+            if (distanceToPlayer < runRadius)
             {
-                currentState = State.ATTACK;
-                StartCoroutine(AttackRoutine());
+                currentState = State.Run;
             }
-            else if (currentState == State.CHASE && distanceToPlayer > detectionRadius)
+
+            if (distanceToPlayer <= attackRadius && attackCount > attackCoolTime)
+            {
+                attackCount = 0;
+                currentState = State.ATTACK;
+            }
+
+
+            if (currentState == State.CHASE && distanceToPlayer > detectionRadius)
             {
                 currentState = State.PATROL;
             }
@@ -120,6 +153,37 @@ public class EvilWizard : MonoBehaviour
                 flipTimer = flipCooldown; // 쿨다운 타이머 리셋
             }
         }
+    }
+
+    private IEnumerator run()
+    {
+        animator.SetBool("Run", true);
+        isPerforming = true;
+        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+        while (distanceToPlayer < runRadius + 1)
+        {
+            distanceToPlayer = Vector2.Distance(transform.position, player.position);
+
+            Debug.Log(distanceToPlayer - runRadius + 1);
+
+            if (player.transform.position.x - this.transform.position.x > 0 && facingRight)
+            {
+                Flip();
+            }
+            if (player.transform.position.x - this.transform.position.x < 0 && !facingRight)
+            {
+                Flip();
+            }
+
+            Vector2 speed = new Vector2((facingRight ? 2 : -2) * moveSpeed, rb.velocity.y);
+
+            rb.velocity = speed;
+            yield return null;
+        }
+        animator.SetBool("Run", false);
+        Debug.Log("end");
+        currentState = State.PATROL;
+        isPerforming = false;
     }
 
     private void Idle()
@@ -177,6 +241,14 @@ public class EvilWizard : MonoBehaviour
 
     private void Attack()
     {
+        if (player.transform.position.x - this.transform.position.x < 0 && facingRight)
+        {
+            Flip();
+        }
+        if (player.transform.position.x - this.transform.position.x > 0 && !facingRight)
+        {
+            Flip();
+        }
         rb.velocity = Vector2.zero;
         animator.SetBool("Walk", false);
         animator.SetTrigger("Attack");
@@ -184,19 +256,22 @@ public class EvilWizard : MonoBehaviour
 
     private IEnumerator AttackRoutine()
     {
-        while (currentState == State.ATTACK)
-        {
-            Attack();
-            yield return new WaitForSeconds(attackDelay); // 공격 딜레이 만큼 기다림
-            SpawnProjectile();
-        }
+        isPerforming = true;
+        Attack();
+        yield return new WaitForSeconds(attackDelay); // 공격 딜레이 만큼 기다림
+        currentState = State.IDLE;
+        isPerforming = false;
+        SpawnProjectile();
+
     }
 
     private void Killed()
     {
         rb.velocity = Vector2.zero;
-        animator.SetTrigger("Die");
-
+        animator.SetTrigger("Death");
+        Destroy(this.GetComponent<EnemyData>());
+        Destroy(this.gameObject, 2f);
+        Destroy(this);
         // 죽음 처리를 여기서 수행합니다. 예: 파괴, 리스폰 등
     }
 
@@ -252,15 +327,34 @@ public class EvilWizard : MonoBehaviour
 
     private void SpawnProjectile()
     {
-        if (currentState == State.ATTACK)
+        isPerforming = false;
+
+        GameObject instance = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
+
+        instance.GetComponent<EnemyProjectile>().dir = facingRight ? 1 : -1;
+
+    }
+
+    public void TakeDamage(float damage)
+    {
+        currentHP -= damage;
+        if (currentHP < 0)
         {
-            Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
+            rb.gravityScale = 0;
+            Destroy(this.GetComponent<CapsuleCollider2D>());
+            currentState = State.KILLED;
         }
     }
 
-    public void TakeDamage(int damage)
+    private void OnDrawGizmosSelected()
     {
-        // 체력 감소 로직을 추가하고 체력이 0 이하가 되면 KILLED 상태로 전환합니다.
-        currentState = State.KILLED;
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(this.transform.position, detectionRadius);
+
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(this.transform.position, runRadius);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(this.transform.position, attackRadius);
     }
 }

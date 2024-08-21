@@ -13,7 +13,6 @@ public class Projectile : MonoBehaviour
     private float lifeCounter = 0;
     void Start()
     {
-        Debug.Log(1);
         Rigidbody2D rigid = this.GetComponent<Rigidbody2D>();
 
         rigid.velocity = new Vector2(dir * projectileSpeed, 0);
@@ -22,7 +21,7 @@ public class Projectile : MonoBehaviour
     void Update()
     {
         lifeCounter += Time.deltaTime;
-        if (lifeCounter > 4f)
+        if (lifeCounter > lifetime)
         {
             Destroy(gameObject);
         }

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 501130617512443862}
   - component: {fileID: 7451294382109878571}
   - component: {fileID: 3362111532430232748}
+  - component: {fileID: 7049090468417171892}
   - component: {fileID: 356960919426515732}
   - component: {fileID: 5416304268614155052}
   - component: {fileID: 3714505796571263953}
@@ -105,7 +106,7 @@ CapsuleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8183
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -120,6 +121,41 @@ CapsuleCollider2D:
     serializedVersion: 2
     m_Bits: 4294967295
   m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.03, y: 0}
+  m_Size: {x: 0.2, y: 0.54}
+  m_Direction: 0
+--- !u!70 &7049090468417171892
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4326881662528759200}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 128
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.03, y: 0}
@@ -189,11 +225,13 @@ MonoBehaviour:
   player: {fileID: 5601640077373299387, guid: c08b80088bbd32c4db6d2f891ee8f374, type: 3}
   projectilePrefab: {fileID: 7062000989716058343, guid: 1e7ae4ed35eb6184ea4a874b192e2dc6, type: 3}
   firePoint: {fileID: 5411417890931771823}
-  detectionRadius: 10
-  attackRadius: 5
+  currentHP: 18
+  detectionRadius: 15
+  runRadius: 5
+  attackRadius: 12
   moveSpeed: 2
   patrolDistance: 5
-  attackDelay: 5
+  attackCoolTime: 2
   cliffDetectionDistance: 2
   wallDetectionDistance: 1
   groundLayer:

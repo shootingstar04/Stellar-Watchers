@@ -72,7 +72,7 @@ public class PlayerAttackMelee : MonoBehaviour
 
         foreach (Collider2D collider in collider2Ds)
         {
-            if (collider.tag == "Enemy")
+            if (collider.tag == "Enemy" && !collider.isTrigger)
             {
                 collider.GetComponent<EnemyData>().TakeDamage(Damage * (ProgressData.Instance.reinforcementCount + 1));
                 Debug.Log(collider.name + "에게 " + (Damage * (ProgressData.Instance.reinforcementCount + 1)) + "의 데미지를 입힘");
