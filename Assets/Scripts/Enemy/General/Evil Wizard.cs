@@ -73,12 +73,6 @@ public class EvilWizard : MonoBehaviour
     {
         if (currentState == State.KILLED)
         {
-            StopAllCoroutines();
-            if (!dead)
-            {
-                Killed();
-                dead = true;
-            }
             return;
         }
 
@@ -337,12 +331,28 @@ public class EvilWizard : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        GetComponent<ImpulseSource>().ShakeEffect();
         currentHP -= damage;
+        animator.ResetTrigger("hurt");
         if (currentHP < 0)
         {
+            this.tag = "Untagged";
             rb.gravityScale = 0;
             Destroy(this.GetComponent<CapsuleCollider2D>());
             currentState = State.KILLED;
+            StopAllCoroutines();
+            if (!dead)
+            {
+                Killed();
+                dead = true;
+            }
+        }
+        else
+        {
+            animator.SetTrigger("hurt");
+            StopAllCoroutines();
+            isPerforming = false;
+            currentState = State.IDLE;
         }
     }
 

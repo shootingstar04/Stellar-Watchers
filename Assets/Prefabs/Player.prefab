@@ -975,7 +975,8 @@ MonoBehaviour:
   soaringBullet: {fileID: 1713190172057619881, guid: 4e20461a206c96c40a8569db7ac2d7c4, type: 3}
   soaringDelay1: 2
   stunPos: {fileID: 3772454157834407936}
-  stunBullet: {fileID: 1735533236137297643, guid: 2f5d172539b5e7f4ebbbdb72dfe071b0, type: 3}
+  stunBullet1: {fileID: 1735533236137297643, guid: 2f5d172539b5e7f4ebbbdb72dfe071b0, type: 3}
+  stunBullet2: {fileID: 1735533236137297643, guid: bc8c939087825cf4689d95077443503a, type: 3}
   stunDelay1: 0.1
   stunDelay2: 1.2
 --- !u!114 &1326846938289014414

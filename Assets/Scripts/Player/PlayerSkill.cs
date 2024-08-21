@@ -44,7 +44,8 @@ public class PlayerSkill : MonoBehaviour
     [Space(1)]
     [Header("트윈 스타즈")]
     public Transform stunPos;
-    public GameObject stunBullet;
+    public GameObject stunBullet1;
+    public GameObject stunBullet2;
     public float stunDelay1 = 0.3f;
     public float stunDelay2 = 1.2f;
 
@@ -465,13 +466,15 @@ public class PlayerSkill : MonoBehaviour
 
                 foreach (GameObject enemy in enemys)
                 {
-
-                    float dis = ((Vector2)(this.transform.position - enemy.transform.position)).sqrMagnitude;
-
-                    if (dis < shortestDis)
+                    if(enemy.TryGetComponent<EnemyData>(out EnemyData a))
                     {
-                        target = enemy;
-                        shortestDis = dis;
+                        float dis = ((Vector2)(this.transform.position - enemy.transform.position)).sqrMagnitude;
+
+                        if (dis < shortestDis)
+                        {
+                            target = enemy;
+                            shortestDis = dis;
+                        }
                     }
                 }
 
@@ -509,7 +512,7 @@ public class PlayerSkill : MonoBehaviour
         {
             if (skillCounter == 0)
             {
-                GameObject instance = Instantiate(stunBullet, stunPos.position, stunPos.rotation);
+                GameObject instance = Instantiate(stunBullet1, stunPos.position, stunPos.rotation);
                 instance.GetComponent<TwinStars>().dir = (int)playerMove.LastDirection;
             }
 
@@ -519,7 +522,7 @@ public class PlayerSkill : MonoBehaviour
             {
                 isAttacked = true;
 
-                GameObject instance = Instantiate(stunBullet, stunPos.position, stunPos.rotation);
+                GameObject instance = Instantiate(stunBullet2, stunPos.position, stunPos.rotation);
                 instance.GetComponent<TwinStars>().dir = (int)playerMove.LastDirection;
             }
 
