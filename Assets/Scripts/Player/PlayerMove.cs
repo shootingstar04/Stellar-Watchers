@@ -415,14 +415,14 @@ public class PlayerMove : MonoBehaviour
 
         animator.SetTrigger("Hurt");
 
-        
+
         ParticleManager.instance.particle_generation(ParticleManager.particleType.Hitted, this.transform.position);
 
         Debug.Log("플레이어 피격 진동효과");
         GetComponent<ImpulseSource>().ShakeEffect();
 
         StartCoroutine(hit_delay(hittedDelay1, hittedDelay2));
-        
+
 
 
         Collider2D[] hitted = Physics2D.OverlapCircleAll(this.transform.position, 5);
@@ -442,7 +442,8 @@ public class PlayerMove : MonoBehaviour
                     dir = 1;
                 }
 
-                rigid.velocity = new Vector2(hittedForceX * dir * force, hittedForceY);
+                if (!(ispause || isUsingSkill)) 
+                    rigid.velocity = new Vector2(hittedForceX * dir * force, hittedForceY);
             }
         }
     }
@@ -490,7 +491,7 @@ public class PlayerMove : MonoBehaviour
         yield return new WaitForSecondsRealtime(delay2);
 
         Time.timeScale = 1;
-        
-        
+
+
     }
 }

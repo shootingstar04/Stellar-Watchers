@@ -105,7 +105,7 @@ public class Hider : MonoBehaviour
     {
         GetComponent<ImpulseSource>().ShakeEffect();
         CurHP -= damage;
-
+        animator.ResetTrigger("Hit");
         if (CurHP <= 0)
         {
             currentState = State.KILLED;
