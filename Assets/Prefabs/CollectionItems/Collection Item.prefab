@@ -9976,7 +9976,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a77e2fca462af524b815a139b155dc1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemType: 0
+  itemType: 2
   itemNum: 0
   showPopUp: 0
   isActived: 0
