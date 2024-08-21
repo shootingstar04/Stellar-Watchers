@@ -73,6 +73,7 @@ public class Hider : MonoBehaviour
         yield return new WaitForSeconds(0.7f);
 
         // 공격 범위 내의 충돌체 확인
+        if (isAttacking == false) yield break;
 
         Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(attackCenter, detectionRadius, LayerMask.GetMask("Player"));
 
@@ -103,19 +104,21 @@ public class Hider : MonoBehaviour
     public IEnumerator TakeDamage(float damage)
     {
         GetComponent<ImpulseSource>().ShakeEffect();
-        animator.SetTrigger("Hit");
-        currentState = State.HIT;
         CurHP -= damage;
 
         if (CurHP <= 0)
         {
             currentState = State.KILLED;
         }
-
-        yield return new WaitForSeconds(0.4f);
-
-        animator.SetTrigger("Idle");
-        currentState = State.IDLE;
+        else
+        {
+            animator.SetTrigger("Hit");
+            StopAllCoroutines();
+            yield return new WaitForSeconds(0.4f);
+            isAttacking = false;
+            animator.SetTrigger("Idle");
+            currentState = State.IDLE;
+        }
     }
 
     private void OnDrawGizmosSelected()

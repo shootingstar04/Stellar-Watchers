@@ -337,12 +337,20 @@ public class EvilWizard : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        GetComponent<ImpulseSource>().ShakeEffect();
         currentHP -= damage;
         if (currentHP < 0)
         {
             rb.gravityScale = 0;
             Destroy(this.GetComponent<CapsuleCollider2D>());
             currentState = State.KILLED;
+        }
+        else
+        {
+            animator.SetTrigger("hurt");
+            StopAllCoroutines();
+            isPerforming = false;
+            currentState = State.IDLE;
         }
     }
 
