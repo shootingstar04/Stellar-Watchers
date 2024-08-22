@@ -13340,50 +13340,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3644889916202361671}
     m_Modifications:
-    - target: {fileID: 2127879994749552495, guid: 361c06886780cd54da96764156e20168, type: 3}
-      propertyPath: Image.Array.data[0]
-      value: 
-      objectReference: {fileID: 21300000, guid: e7b9e355af922f94591f558d887beb55, type: 3}
-    - target: {fileID: 2127879994749552495, guid: 361c06886780cd54da96764156e20168, type: 3}
-      propertyPath: Image.Array.data[1]
-      value: 
-      objectReference: {fileID: 21300000, guid: e66355e921a0f8d4aba010ccc43fab6e, type: 3}
-    - target: {fileID: 2127879994749552495, guid: 361c06886780cd54da96764156e20168, type: 3}
-      propertyPath: Image.Array.data[2]
-      value: 
-      objectReference: {fileID: 21300000, guid: 985b3caf82047cd4f8d4b38d49a9ea68, type: 3}
-    - target: {fileID: 2127879994749552495, guid: 361c06886780cd54da96764156e20168, type: 3}
-      propertyPath: Image.Array.data[4]
-      value: 
-      objectReference: {fileID: 21300000, guid: a4321d6e33ae02144ae87526b0e2125c, type: 3}
-    - target: {fileID: 2127879994749552495, guid: 361c06886780cd54da96764156e20168, type: 3}
-      propertyPath: Image.Array.data[6]
-      value: 
-      objectReference: {fileID: 21300000, guid: 92d7a68e6ff26144c9de651ab8614504, type: 3}
-    - target: {fileID: 2127879994749552495, guid: 361c06886780cd54da96764156e20168, type: 3}
-      propertyPath: Image.Array.data[7]
-      value: 
-      objectReference: {fileID: 21300000, guid: dd83104d56fe93e4ab98d3f9b6fb16cb, type: 3}
-    - target: {fileID: 2127879994749552495, guid: 361c06886780cd54da96764156e20168, type: 3}
-      propertyPath: Image.Array.data[8]
-      value: 
-      objectReference: {fileID: 21300000, guid: a8372bd4015352842add5d1db3cd1190, type: 3}
-    - target: {fileID: 2127879994749552495, guid: 361c06886780cd54da96764156e20168, type: 3}
-      propertyPath: Acquired.Array.data[0]
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2127879994749552495, guid: 361c06886780cd54da96764156e20168, type: 3}
-      propertyPath: Acquired.Array.data[5]
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2127879994749552495, guid: 361c06886780cd54da96764156e20168, type: 3}
-      propertyPath: Acquired.Array.data[6]
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2127879994749552495, guid: 361c06886780cd54da96764156e20168, type: 3}
-      propertyPath: Acquired.Array.data[7]
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4289609093838808687, guid: 361c06886780cd54da96764156e20168, type: 3}
       propertyPath: m_LocalPosition.x
       value: -27.101686
@@ -13428,8 +13384,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI Data
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2770574879026231147, guid: 361c06886780cd54da96764156e20168, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

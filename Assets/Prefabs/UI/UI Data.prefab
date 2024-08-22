@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37d82718ed04e1b42acb11fa3dca60b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Acquired: 010101010100000001
+  Acquired: 010101010101010101
   Image:
   - {fileID: 21300000, guid: e7b9e355af922f94591f558d887beb55, type: 3}
   - {fileID: 21300000, guid: e66355e921a0f8d4aba010ccc43fab6e, type: 3}
@@ -54,7 +54,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 35316ba0423f7c24db3eef54f8fa4e7d, type: 3}
   - {fileID: 21300000, guid: 92d7a68e6ff26144c9de651ab8614504, type: 3}
   - {fileID: 21300000, guid: dd83104d56fe93e4ab98d3f9b6fb16cb, type: 3}
-  - {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 21300000, guid: 8898ac182a4da844f9bcab06d7fae465, type: 3}
   Name:
   - "\uD718\uB450\uB974\uAE30"
   - "\uC77C\uC810 \uCC0C\uB974\uAE30"
@@ -245,7 +245,7 @@ MonoBehaviour:
   - {fileID: 21300010, guid: ccecc80d6c40e36489d87c27e279b905, type: 3}
   - {fileID: 21300012, guid: ccecc80d6c40e36489d87c27e279b905, type: 3}
   - {fileID: 21300024, guid: ccecc80d6c40e36489d87c27e279b905, type: 3}
-  - {fileID: 21300000, guid: a8372bd4015352842add5d1db3cd1190, type: 3}
+  - {fileID: 21300000, guid: 8898ac182a4da844f9bcab06d7fae465, type: 3}
   Name:
   - "\uC9C8\uC8FC"
   - "\uBCBD \uD0C0\uAE30"

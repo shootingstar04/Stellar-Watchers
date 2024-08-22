@@ -12,6 +12,8 @@ public class PlayerSkill : MonoBehaviour
     [Header("강 휘두르기")]
     public Transform stellaPos;
     public Vector2 stellaBox;
+    public Animator stellaEffect;
+    public SpriteRenderer stellaSprite;
     public float stellaDelay1 = 0.3f;
     public float stellaDelay2 = 0.7f;
 
@@ -19,6 +21,7 @@ public class PlayerSkill : MonoBehaviour
     [Header("일점 찌르기")]
     public Transform pointPos;
     public Vector2 pointBox;
+    public SpriteRenderer pointSprite;
     public float pointDelay1 = 1f;
     public float pointDelay2 = 2f;
 
@@ -26,8 +29,13 @@ public class PlayerSkill : MonoBehaviour
     [Header("강타")]
     public Transform meteorPos;
     public Vector2 meteorBox;
+    public Animator meteorEffect1;
+    public SpriteRenderer meteorSprite1;
+    public Animator meteorEffect2;
+    public SpriteRenderer meteorSprite2;
     public float meteorDelay1 = 0.7f;
     public float meteorDelay2 = 1f;
+    private float endTime = 0;
 
     [Space(1)]
     [Header("유성탄")]
@@ -62,6 +70,7 @@ public class PlayerSkill : MonoBehaviour
 
     private PlayerMove playerMove;
     private Rigidbody2D rigid;
+    private Animator animator;
 
     private GameObject effectObj;
 
@@ -69,7 +78,13 @@ public class PlayerSkill : MonoBehaviour
     void Start()
     {
         playerMove = this.gameObject.GetComponent<PlayerMove>();
+        animator = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody2D>();
+
+        meteorSprite1.color = new Color(1, 1, 1, 0);
+        meteorSprite2.color = new Color(1, 1, 1, 0);
+        pointSprite.color = new Color(1, 1, 1, 0);
+        stellaSprite.color = new Color(1, 1, 1, 0);
     }
 
     // Update is called once per frame
@@ -97,7 +112,7 @@ public class PlayerSkill : MonoBehaviour
                 playerMove.PauseMove();
                 playerMove.PlayAnimation(PlayerMove.animationType.block, 1);
                 isHealing = true;
-                }
+            }
             else if (Input.GetKeyDown(KeyCode.A))
             {
                 int index = (this.GetComponent<PlayerTransformation>().PlayerType == "Melee" ? 0 : 1);
@@ -236,7 +251,7 @@ public class PlayerSkill : MonoBehaviour
 
             if (Input.GetKeyUp(KeyCode.S))
             {
-                isHealing = false; 
+                isHealing = false;
                 isEffectOnce = true;
                 skillCounter = 0;
                 playerMove.RestartMove();
@@ -247,24 +262,36 @@ public class PlayerSkill : MonoBehaviour
 
     }
 
-    private IEnumerator Heal_Effect()
-    {
-        while (!Input.GetKeyUp(KeyCode.S))
-        {
-            GameObject obj = ParticleManager.instance.particle_generation(ParticleManager.particleType.HealEffect, new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z));
+    //private IEnumerator Heal_Effect()
+    //{
+    //    while (!Input.GetKeyUp(KeyCode.S))
+    //    {
+    //        GameObject obj = ParticleManager.instance.particle_generation(ParticleManager.particleType.HealEffect, new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z));
 
-            yield return 1.0f;
+    //        yield return 1.0f;
 
-            Destroy(obj);
-        }
+    //        Destroy(obj);
+    //    }
 
-        yield return null;
-    }
+    //    yield return null;
+    //}
 
     private void stella_strike()
     {
         if (isUsingSkill == SkillSet.skill.hardSwing)
         {
+            if (skillCounter == 0)
+            {
+                animator.SetTrigger("Attack1");
+                stellaSprite.color = new Color(1, 1, 1, 1);
+                stellaEffect.SetTrigger("Go");
+            }
+
+            if (skillCounter > stellaDelay1 + 0.1f && isAttacked)
+            {
+                stellaSprite.color = new Color(1, 1, 1, 0);
+            }
+
             skillCounter += Time.deltaTime;
 
             if (skillCounter > stellaDelay1 && !isAttacked)
@@ -307,6 +334,16 @@ public class PlayerSkill : MonoBehaviour
         {
             skillCounter += Time.deltaTime;
 
+            if (skillCounter > pointDelay1 - 0.15f && !isAttacked)
+            {
+                animator.SetTrigger("Attack1");
+                pointSprite.color = new Color(1, 1, 1, 1);
+            }
+            if (skillCounter > pointDelay1 + 0.15f && isAttacked)
+            {
+                pointSprite.color = new Color(1, 1, 1, 0);
+            }
+
             if (skillCounter > pointDelay1 && !isAttacked)
             {
                 isAttacked = true;
@@ -345,10 +382,16 @@ public class PlayerSkill : MonoBehaviour
     {
         if (isUsingSkill == SkillSet.skill.smite)
         {
-            skillCounter += Time.deltaTime;
-
             if (!inAir)
             {
+                if (skillCounter == 0)
+                {
+                    animator.SetTrigger("Attack1");
+                    meteorSprite1.color = new Color(1, 1, 1, 1);
+                    meteorEffect1.SetTrigger("Go");
+                }
+                skillCounter += Time.deltaTime;
+
                 if (skillCounter > meteorDelay1 && !isAttacked)
                 {
 
@@ -378,6 +421,11 @@ public class PlayerSkill : MonoBehaviour
                     }
                 }
 
+                if (skillCounter > meteorDelay1 + 0.1f)
+                {
+                    meteorSprite1.color = new Color(1, 1, 1, 0);
+                }
+
                 if (skillCounter > meteorDelay1 + meteorDelay2)
                 {
                     end_skill();
@@ -386,6 +434,15 @@ public class PlayerSkill : MonoBehaviour
 
             else
             {
+                if (skillCounter == 0)
+                {
+                    animator.SetTrigger("Attack1");
+                    meteorSprite2.color = new Color(1, 1, 1, 1);
+                    meteorEffect2.SetTrigger("Go");
+                }
+
+                skillCounter += Time.deltaTime;
+
                 Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(meteorPos.position, meteorBox, 0);
 
                 foreach (Collider2D collider in collider2Ds)
@@ -402,17 +459,33 @@ public class PlayerSkill : MonoBehaviour
 
                 Collider2D groundCheck = Physics2D.OverlapBox(meteorPos.position, meteorBox, 0, playerMove.groundLayer);
 
-                if (playerMove.IsGrounded || groundCheck != null)
+                if (endTime == 0 && (playerMove.IsGrounded || groundCheck != null))
                 {
+                    endTime = skillCounter;
+
+                    meteorEffect2.SetBool("OnGround", true);
+
                     foreach (Collider2D collider in collider2Ds)
                     {
                         if (collider.tag == "Enemy")
                         {
-                            collider.GetComponent<EnemyData>().TakeDamage(15 * (ProgressData.Instance.reinforcementCount + 1) + (int)(skillCounter / 0.3f) * 1);
-                            Debug.Log(collider.name + " 에게 " + (15 * (ProgressData.Instance.reinforcementCount + 1) + (int)(skillCounter / 0.3f) * 1) + "의 데미지를 입히고 2초간 스턴 효과 부여");
+                            collider.GetComponent<EnemyData>().TakeDamage(15 * (ProgressData.Instance.reinforcementCount + 1) + (skillCounter / 0.3f) * 1);
+                            Debug.Log(collider.name + " 에게 " + (15 * (ProgressData.Instance.reinforcementCount + 1) + (skillCounter / 0.3f) * 1) + "의 데미지를 입히고 2초간 스턴 효과 부여");
                         }
                     }
-                    Invoke("end_skill", meteorDelay2);
+                }
+
+                if (endTime != 0 && !isAttacked && skillCounter > endTime + 0.3f)
+                {
+                    isAttacked = true;
+                    meteorEffect2.SetBool("OnGround", false);
+                    meteorSprite2.color = new Color(1, 1, 1, 0);
+                }
+
+                if (skillCounter > endTime + meteorDelay2)
+                {
+                    endTime = 0;
+                    end_skill();
                 }
             }
         }
@@ -427,6 +500,7 @@ public class PlayerSkill : MonoBehaviour
 
             if (!isAttacked)
             {
+                animator.SetTrigger("Attack1");
                 Debug.Log(skillCounter);
                 isAttacked = true;
 
@@ -449,6 +523,7 @@ public class PlayerSkill : MonoBehaviour
 
             if (!isAttacked)
             {
+                animator.SetTrigger("Attack1");
                 isAttacked = true;
 
 
@@ -466,7 +541,7 @@ public class PlayerSkill : MonoBehaviour
 
                 foreach (GameObject enemy in enemys)
                 {
-                    if(enemy.TryGetComponent<EnemyData>(out EnemyData a))
+                    if (enemy.TryGetComponent<EnemyData>(out EnemyData a))
                     {
                         float dis = ((Vector2)(this.transform.position - enemy.transform.position)).sqrMagnitude;
 
@@ -512,6 +587,7 @@ public class PlayerSkill : MonoBehaviour
         {
             if (skillCounter == 0)
             {
+                animator.SetTrigger("Attack1");
                 GameObject instance = Instantiate(stunBullet1, stunPos.position, stunPos.rotation);
                 instance.GetComponent<TwinStars>().dir = (int)playerMove.LastDirection;
             }

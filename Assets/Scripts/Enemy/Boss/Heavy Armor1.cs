@@ -61,6 +61,7 @@ public class HeavyArmor1 : MonoBehaviour
     public float cliffDetectionDistance = 2f;
     public float wallDetectionDistance = 1f;
     public LayerMask groundLayer;
+    public GameObject FloorDust;
 
     private Vector2 startPos;
     private Vector2 patrolLeftLimit;
