@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class triggerdoors : MonoBehaviour
 {
-    private float duration = 2f;
+    private float duration = 0.5f;
     private float size = 5.2f;
     public void CloseDoor()
     {
