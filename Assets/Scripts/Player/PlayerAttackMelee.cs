@@ -27,7 +27,7 @@ public class PlayerAttackMelee : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.X) || Input.GetButtonDown("attack"))
         {
             if (curTime <= 0 && !(playerMove.IsDashing || playerMove.IsGrabWall))
             {

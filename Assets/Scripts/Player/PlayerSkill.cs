@@ -107,7 +107,7 @@ public class PlayerSkill : MonoBehaviour
     {
         if (isUsingSkill == SkillSet.skill.none && !isHealing && Time.timeScale != 0)
         {
-            if (Input.GetKeyDown(KeyCode.S) && playerMove.IsGrounded)
+            if (Input.GetKeyDown(KeyCode.S) || Input.GetButtonDown("heal") && playerMove.IsGrounded)
             {
                 playerMove.PauseMove();
                 playerMove.PlayAnimation(PlayerMove.animationType.block, 1);
