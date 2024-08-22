@@ -5,8 +5,8 @@ using UnityEngine.UI;
 using UnityEngine.Tilemaps;
 
 public class secret_wall : MonoBehaviour
-{ 
-
+{
+    [SerializeField] int mapnum;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +24,7 @@ public class secret_wall : MonoBehaviour
         if (collision.CompareTag(Define.PlayerTag))
         {
             Color color = Color.white;
-            changeConfinder.instance.ChangeConfAsSecret();
+            confinderChange.instance.ConfinderChangeSecret(mapnum);
 
             color.a = 0.5f;
             this.GetComponent<Tilemap>().color = color;
