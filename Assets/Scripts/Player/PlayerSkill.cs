@@ -249,7 +249,7 @@ public class PlayerSkill : MonoBehaviour
                 skillCounter = 0;
             }
 
-            if (Input.GetKeyUp(KeyCode.S))
+            if (Input.GetKeyUp(KeyCode.S) || Input.GetButtonUp("heal"))
             {
                 isHealing = false;
                 isEffectOnce = true;
