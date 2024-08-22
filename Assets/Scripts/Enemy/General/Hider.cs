@@ -96,6 +96,7 @@ public class Hider : MonoBehaviour
 
     private void Killed()
     {
+        GetComponent<EnemyItemDrop>().DropCoins(6);
         this.tag = "Untagged"; //테그도 없애면 되지않을까 <-태그 없앴더니 됨
         animator.SetTrigger("Die");
         Destroy(gameObject, 1f);

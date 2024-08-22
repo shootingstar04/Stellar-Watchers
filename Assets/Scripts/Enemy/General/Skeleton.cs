@@ -262,7 +262,7 @@ public class Skeleton : MonoBehaviour
         animator.SetTrigger("Die");
         EnemyItemDrop drop = this.gameObject.GetComponent<EnemyItemDrop>();
         if (drop == null) Debug.Log("nocomponent");
-        else if(currentState != State.DIE)drop.DropCoins(coinYield, spYield);
+        else if(currentState != State.DIE)drop.DropCoins(coinYield);
         Destroy(gameObject, 1f);
         currentState = State.DIE;
     }

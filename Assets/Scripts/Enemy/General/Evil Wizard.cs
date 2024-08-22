@@ -259,6 +259,7 @@ public class EvilWizard : MonoBehaviour
 
     private void Killed()
     {
+        GetComponent<EnemyItemDrop>().DropCoins(12);
         rb.velocity = Vector2.zero;
         animator.SetTrigger("Death");
         Destroy(this.GetComponent<EnemyData>());

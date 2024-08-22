@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 5984900336097839444}
   - component: {fileID: 4435975186927105155}
   - component: {fileID: 9170907909724721024}
+  - component: {fileID: -8278918793157694775}
   m_Layer: 6
   m_Name: Evil Wizard
   m_TagString: Enemy
@@ -325,6 +326,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   source: {fileID: 0}
+--- !u!114 &-8278918793157694775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4326881662528759200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82aad9f22529bdc4ea1e94592ed5e11c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7482495608269838609
 GameObject:
   m_ObjectHideFlags: 0

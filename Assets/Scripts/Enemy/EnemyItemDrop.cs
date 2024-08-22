@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyItemDrop : MonoBehaviour
 {
-    public void DropCoins(int coinYield, int spYield)
+    public void DropCoins(int coinYield)
     {
         int coins = 0;
         Queue<int> CoinNumQueue = new Queue<int>();
@@ -42,8 +42,6 @@ public class EnemyItemDrop : MonoBehaviour
             }
 
         }
-
-        PlayerSP.instance.modify_SP(spYield);
     }
 
     private (Queue<Coin>, GameObject) WhatCoinCurrently(int coin)
