@@ -26,7 +26,7 @@ public class PlayerAttackRanged : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.X) || Input.GetButtonDown("attack"))
         {
             if (curTime > coolTime)
             {
