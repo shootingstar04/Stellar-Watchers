@@ -34,7 +34,6 @@ public class ParticleManager : MonoBehaviour
         }
         instance = this;
 
-        DontDestroyOnLoad(this.gameObject);
     }
     void Start()
     {

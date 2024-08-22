@@ -17,12 +17,13 @@ public class MapTeleporter1 : MonoBehaviour
         {
             SceneTransition.instance.FadeOut();
             collision.transform.position = new Vector3(TargetTp.transform.position.x + offset, TargetTp.transform.position.y, collision.transform.position.z);
-            TargetTp.GetComponent<MapTeleporter1>().Teleported();
+            TargetTp.GetComponent<MapTeleporter1>().Teleported(collision);
         }
     }
 
-    public void Teleported()
+    public void Teleported(Collider2D player)
     {
+        player.GetComponent<PlayerMapLocation>().ChangeMapNum(MapNum);
         StartCoroutine(Effect());
         confinderChange.instance.ConfinderChange(MapNum);
         

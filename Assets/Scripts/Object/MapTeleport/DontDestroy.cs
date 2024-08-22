@@ -8,26 +8,15 @@ public class DontDestroy : MonoBehaviour
 {
 
     public static DontDestroy thisIsPlayer;
-    private bool hasInstance;
     public int numbering = 0;
     public bool isTeleported = false;
 
     private void Awake()
     {
-        if (hasInstance)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            hasInstance = true;
-            DontDestroyOnLoad(gameObject);
-        }
 
         if (thisIsPlayer == null)
         {
             thisIsPlayer = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {

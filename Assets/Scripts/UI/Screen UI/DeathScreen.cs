@@ -16,7 +16,6 @@ public class DeathScreen : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(this);
         }
         else
         {
