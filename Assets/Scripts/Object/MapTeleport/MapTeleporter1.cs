@@ -21,6 +21,7 @@ public class MapTeleporter1 : MonoBehaviour
 
     public void Teleported(Collider2D player)
     {
+        Debug.Log(this.gameObject.name + " 에서 텔포받는다. Mapnum은 "+MapNum);
         player.GetComponent<PlayerMapLocation>().ChangeMapNum(MapNum);
         StartCoroutine(Effect(player));
         confinderChange.instance.ConfinderChange(MapNum);

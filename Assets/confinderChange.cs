@@ -20,8 +20,9 @@ public class confinderChange : MonoBehaviour
 
         foreach(GameObject mapEgde in mapEdges)
         { 
-            if(mapEgde.GetComponent<MapEdge>().MapNum == targetMapNum)
+            if(mapEgde.GetComponent<MapEdge>().MapNum == targetMapNum && !mapEgde.GetComponent<MapEdge>().isSecret)
             {
+                Debug.Log(mapEgde.name + " °¡ mapedge");
                 conf.m_BoundingShape2D = mapEgde.GetComponent<PolygonCollider2D>();
             }
         }
