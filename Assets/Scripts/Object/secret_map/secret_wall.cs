@@ -10,13 +10,13 @@ public class secret_wall : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -24,10 +24,9 @@ public class secret_wall : MonoBehaviour
         if (collision.CompareTag(Define.PlayerTag))
         {
             Color color = Color.white;
-            confinderChange.instance.ConfinderChangeSecret(mapnum);
-
             color.a = 0.5f;
             this.GetComponent<Tilemap>().color = color;
+            confinderChange.instance.ConfinderChangeSecret(mapnum);
         }
     }
 
