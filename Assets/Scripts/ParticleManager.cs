@@ -15,7 +15,8 @@ public class ParticleManager : MonoBehaviour
         DoorDust,
         CoinDust,
         HealEffect,
-        SendHelp
+        SendHelp,
+        UpDust
     }
 
     public GameObject hittedParticle;
@@ -25,6 +26,7 @@ public class ParticleManager : MonoBehaviour
     public GameObject coinDust;
     public GameObject healEffect;
     public GameObject sendHelp;
+    public GameObject UpDust;
 
     private void Awake()
     {
@@ -71,6 +73,9 @@ public class ParticleManager : MonoBehaviour
                 break;
             case particleType.SendHelp:
                 particle = Instantiate(sendHelp, pos, Quaternion.identity);
+                break;
+            case particleType.UpDust:
+                particle = Instantiate(UpDust, pos, Quaternion.Euler(90,0,0));
                 break;
         }
         return particle;

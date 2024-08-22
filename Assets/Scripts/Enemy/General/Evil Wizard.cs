@@ -158,8 +158,6 @@ public class EvilWizard : MonoBehaviour
         {
             distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
-            Debug.Log(distanceToPlayer - runRadius + 1);
-
             if (player.transform.position.x - this.transform.position.x > 0 && facingRight)
             {
                 Flip();

@@ -51,3 +51,4 @@ MonoBehaviour:
   coinDust: {fileID: 4638646459967825934, guid: 092992af86873d5419c4d750cdf20e63, type: 3}
   healEffect: {fileID: 6748134351986228405, guid: 01bdc7808f3c3f9449e353d55341ab14, type: 3}
   sendHelp: {fileID: 6748134351986228405, guid: 84737b66d9a54a742a5d3effc75d48a0, type: 3}
+  UpDust: {fileID: 1460397786948024570, guid: 727fd9f817b24b440acb5809f54ea53a, type: 3}

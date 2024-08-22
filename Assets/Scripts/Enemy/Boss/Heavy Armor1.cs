@@ -161,7 +161,6 @@ public class HeavyArmor1 : MonoBehaviour
         animator.SetBool("Walk", false);
         rb.velocity = Vector2.zero;
     }
-
     private void Patrol()
     {
         animator.SetBool("Walk", true);
@@ -178,7 +177,6 @@ public class HeavyArmor1 : MonoBehaviour
         Vector2 target = facingRight ? patrolRightLimit : patrolLeftLimit;
         MoveTo(target);
     }
-
     private void Chase()
     {
         // 이동할 방향 결정
@@ -200,7 +198,6 @@ public class HeavyArmor1 : MonoBehaviour
             currentState = State.PATROL;
         }
     }
-
     private IEnumerator Chase(float time)
     {
         chaseTime = 0;
@@ -317,6 +314,7 @@ public class HeavyArmor1 : MonoBehaviour
         }
         else
         {
+            ParticleManager.instance.particle_generation(ParticleManager.particleType.UpDust, SkillPos3.position + new Vector3(facingRight ? 0.6f : -0.6f, -0.2f, 0));
             Collider2D[] collider2D = Physics2D.OverlapBoxAll(AttackPos3.position, AttackRange3, 0, LayerMask.GetMask("Player"));
 
             foreach (Collider2D collider in collider2D)
@@ -339,7 +337,6 @@ public class HeavyArmor1 : MonoBehaviour
         isPerformingAction = false;
         currentState = State.IDLE;
     }
-
     private IEnumerator PerformSkill1()
     {
         animator.SetTrigger("Skill1");
@@ -391,6 +388,7 @@ public class HeavyArmor1 : MonoBehaviour
                 {
                     hitPlayers.Add(collider);
                 }
+                ParticleManager.instance.particle_generation(ParticleManager.particleType.UpDust, SkillPos3.position + new Vector3(facingRight ? 0.6f : -0.6f, -0.2f, 0));
             }
 
             foreach (var hitPlayer in hitPlayers)
@@ -442,6 +440,7 @@ public class HeavyArmor1 : MonoBehaviour
             }
 
             Debug.Log("Hit");
+            ParticleManager.instance.particle_generation(ParticleManager.particleType.UpDust, SkillPos3.position + new Vector3(facingRight ? 0.6f : -0.6f, -0.2f, 0));
 
             Collider2D[] hitPlayers = Physics2D.OverlapBoxAll(AttackPos3.position, AttackRange3, 0, LayerMask.GetMask("Player"));
             impulse.ShakeEffect();
@@ -582,6 +581,7 @@ public class HeavyArmor1 : MonoBehaviour
 
 
         impulse.ShakeEffect();
+        ParticleManager.instance.particle_generation(ParticleManager.particleType.UpDust, SkillPos3.position + new Vector3(facingRight ? 1f : -1f, -0.2f, 0));
         rb.velocity = new Vector2(0, rb.velocity.y);
 
         yield return new WaitForSeconds(coolTime);

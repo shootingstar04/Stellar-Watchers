@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 875287275419108673}
   - component: {fileID: 51184144590021937}
   - component: {fileID: 8486503681194811734}
+  - component: {fileID: 3149493412648190802}
   m_Layer: 0
   m_Name: UP dust
   m_TagString: Untagged
@@ -665,7 +666,7 @@ ParticleSystem:
     serializedVersion: 6
     enabled: 1
     type: 4
-    angle: 10
+    angle: 15
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 0
@@ -3795,7 +3796,7 @@ ParticleSystem:
     radiusScale: 1
     collidesWith:
       serializedVersion: 2
-      m_Bits: 4294967295
+      m_Bits: 8
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
@@ -4833,3 +4834,16 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &3149493412648190802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1460397786948024570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee6e8e59288048a4f95e648892579876, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifeTime: 5
