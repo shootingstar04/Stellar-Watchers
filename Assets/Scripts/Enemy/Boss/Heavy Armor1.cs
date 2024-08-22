@@ -660,6 +660,8 @@ public class HeavyArmor1 : MonoBehaviour
     {
         if (currentState != State.Dead)
         {
+            GetComponentInParent<BossDoor>().BossKilled();
+
             animator.SetTrigger("Die");
             currentState = State.Dead;
             rb.velocity = Vector2.zero;
@@ -669,6 +671,7 @@ public class HeavyArmor1 : MonoBehaviour
         {
             animator.SetBool("Death", true);
         }
+
     }
 
     private void MoveTo(Vector2 target)

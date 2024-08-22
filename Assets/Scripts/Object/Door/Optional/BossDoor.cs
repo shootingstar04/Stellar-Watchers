@@ -2,46 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Security.Cryptography;
 
 public class BossDoor : Door
 {
     public static Action bossdoorOpen;
     public static Action bossdoorClose;
 
+    private Collider2D col;
+
     [SerializeField] private GameObject Enterancedoor;
     [SerializeField] private GameObject ExitDoor;
+    [SerializeField] private GameObject Boss;
 
     private void Awake()
     {
-        if (door == null)
-        {
-            door = GameObject.FindGameObjectWithTag("Boss");
-        }
+        col = GetComponent<Collider2D>();
+        col.enabled= true;
 
         bossdoorOpen = () => OpenDoor();
         bossdoorClose = () => CloseDoor();
     }
 
-    private void Start()
-    {
-        if (door == null)
-        {
-            door = GameObject.FindGameObjectWithTag("Boss");
-        }
-    }
 
     public override void OpenDoor()
     {
-        Destroy(Enterancedoor);
-        Destroy(ExitDoor);
-        Destroy(this.gameObject);
-        
+        Enterancedoor.GetComponent<triggerdoors>().OpenDoor();
+        ExitDoor.GetComponent<triggerdoors>().OpenDoor();
     }
 
     public override void CloseDoor()
     {
-        Enterancedoor.SetActive(true);
-        ExitDoor.SetActive(true);
+       Enterancedoor.GetComponent<triggerdoors>().CloseDoor();
+       ExitDoor.GetComponent<triggerdoors>().CloseDoor();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -49,6 +42,27 @@ public class BossDoor : Door
         if(collision.CompareTag(Define.PlayerTag))
         {
             bossdoorClose();
+            col.enabled = false;
+            StartCoroutine(SpawnBoss());
         }
+    }
+
+    IEnumerator SpawnBoss()
+    {
+        yield return new WaitForSeconds(1f);
+
+        Instantiate(Boss, this.transform);
+    }
+
+    public void BossKilled()
+    {
+        bossdoorOpen();
+    }
+
+    public void ResetDoor()
+    {
+        col.enabled = true;
+        OpenDoor();
+        Destroy(this.transform.GetChild(2).gameObject);
     }
 }
