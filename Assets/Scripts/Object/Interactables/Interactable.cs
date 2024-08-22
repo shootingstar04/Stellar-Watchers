@@ -110,15 +110,15 @@ public class Interactable : MonoBehaviour
         Debug.Log("저장중");
         Resurrect();
         PlayerHealth.instance.modify_HP(99);
-        mapSpawnMGR spawnmanager = GameObject.Find("SpawnMGR").GetComponent<mapSpawnMGR>();
-        spawnmanager.SaveMethod();
+        //mapSpawnMGR spawnmanager = GameObject.Find("SpawnMGR").GetComponent<mapSpawnMGR>();
+        //spawnmanager.SaveMethod();
 
-        SaveLoadManager.instance.SavePlayerData(this.transform);
-        SaveLoadManager.instance.SaveMapData();
+        SaveLoadManager1.instance.SavePlayerData(this.transform);
+        SaveLoadManager1.instance.SaveMapData();
 
         TextPopUp.instance.show_PopUp("저장");
 
-        mapSpawnMGR.instance.RespawnEnemyMethod();
+        //mapSpawnMGR.instance.RespawnEnemyMethod();
 
     }
 
