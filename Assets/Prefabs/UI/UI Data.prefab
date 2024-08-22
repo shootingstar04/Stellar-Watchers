@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37d82718ed04e1b42acb11fa3dca60b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Acquired: 010101010101010101
+  Acquired: 000000000000000001
   Image:
   - {fileID: 21300000, guid: e7b9e355af922f94591f558d887beb55, type: 3}
   - {fileID: 21300000, guid: e66355e921a0f8d4aba010ccc43fab6e, type: 3}
@@ -212,14 +212,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponImage:
-  - {fileID: 21300000, guid: a8372bd4015352842add5d1db3cd1190, type: 3}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 21300000, guid: 35316ba0423f7c24db3eef54f8fa4e7d, type: 3}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: 8898ac182a4da844f9bcab06d7fae465, type: 3}
+  - {fileID: 21300000, guid: 8898ac182a4da844f9bcab06d7fae465, type: 3}
+  - {fileID: 21300000, guid: 8898ac182a4da844f9bcab06d7fae465, type: 3}
+  - {fileID: 21300000, guid: 8898ac182a4da844f9bcab06d7fae465, type: 3}
+  - {fileID: 21300000, guid: 8898ac182a4da844f9bcab06d7fae465, type: 3}
+  - {fileID: 21300000, guid: 8898ac182a4da844f9bcab06d7fae465, type: 3}
+  - {fileID: 21300000, guid: 8898ac182a4da844f9bcab06d7fae465, type: 3}
+  - {fileID: 21300000, guid: 8898ac182a4da844f9bcab06d7fae465, type: 3}
   weaponName:
   - "\uADFC 1"
   - "\uADFC 2"
@@ -239,9 +239,9 @@ MonoBehaviour:
   - "\uC6D0 3"
   - "\uC6D0 4"
   Image:
-  - {fileID: 21300000, guid: 35316ba0423f7c24db3eef54f8fa4e7d, type: 3}
-  - {fileID: 21300062, guid: d2d21cf840936b94dbcb353312356337, type: 3}
-  - {fileID: 21300024, guid: ccecc80d6c40e36489d87c27e279b905, type: 3}
+  - {fileID: 21300000, guid: 8898ac182a4da844f9bcab06d7fae465, type: 3}
+  - {fileID: 21300000, guid: 8898ac182a4da844f9bcab06d7fae465, type: 3}
+  - {fileID: 21300000, guid: 8898ac182a4da844f9bcab06d7fae465, type: 3}
   - {fileID: 21300010, guid: ccecc80d6c40e36489d87c27e279b905, type: 3}
   - {fileID: 21300012, guid: ccecc80d6c40e36489d87c27e279b905, type: 3}
   - {fileID: 21300024, guid: ccecc80d6c40e36489d87c27e279b905, type: 3}
@@ -267,7 +267,7 @@ MonoBehaviour:
   - "\uC5F4\uC1E0 1"
   - "\uC5F4\uC1E0 2"
   - "\uC544\uC9C1 \uD68D\uB4DD\uD558\uC9C0 \uBABB\uD568"
-  Acquired: 01010100010100
+  Acquired: 00000000010100
   stoneCount: 0
   pointCount: 0
   reinforcementCount: 0

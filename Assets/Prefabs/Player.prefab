@@ -461,7 +461,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5323402017924388303}
   - component: {fileID: 1205079217783039009}
-  - component: {fileID: 857541790779370922}
+  - component: {fileID: 5842276105850241234}
   m_Layer: 13
   m_Name: slash effect
   m_TagString: Untagged
@@ -536,7 +536,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &857541790779370922
+--- !u!95 &5842276105850241234
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -1396,7 +1396,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stellaPos: {fileID: 2512897470640941337}
   stellaBox: {x: 4, y: 3.5}
-  stellaEffect: {fileID: 857541790779370922}
+  stellaEffect: {fileID: 5842276105850241234}
   stellaSprite: {fileID: 1205079217783039009}
   stellaDelay1: 0.3
   stellaDelay2: 0.7
