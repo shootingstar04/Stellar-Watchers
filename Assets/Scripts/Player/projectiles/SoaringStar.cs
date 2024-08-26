@@ -57,7 +57,7 @@ public class SoaringStar : MonoBehaviour
             {
                 if (collider != null)
                 {
-                    if (collider.CompareTag(Define.EnemyTag))
+                    if (collider.CompareTag(Define.EnemyTag) && !collider.isTrigger)
                     {
                         collider.GetComponent<EnemyData>().TakeDamage(5);
                         Debug.Log(collider.name + " 에게 " + 5 + "의 데미지를 입힘");

@@ -54,7 +54,6 @@ public class PlayerTransformation : MonoBehaviour
     IEnumerator color_change()
     {
         spriteRenderer.color = Color.yellow;
-        Debug.Log(1);
         yield return new WaitForSeconds(0.1f);
 
         spriteRenderer.color = Color.white;        

@@ -301,7 +301,7 @@ public class PlayerSkill : MonoBehaviour
 
                 foreach (Collider2D collider in collider2Ds)
                 {
-                    if (collider.tag == "Enemy")
+                    if (collider.tag == "Enemy" && !collider.isTrigger)
                     {
                         collider.GetComponent<EnemyData>().TakeDamage(10 * (ProgressData.Instance.reinforcementCount + 1));
                         Debug.Log(collider.name + " 에게 " + 10 * (ProgressData.Instance.reinforcementCount + 1) + "의 데미지를 입힘");
@@ -351,7 +351,7 @@ public class PlayerSkill : MonoBehaviour
 
                 foreach (Collider2D collider in collider2Ds)
                 {
-                    if (collider.tag == "Enemy")
+                    if (collider.tag == "Enemy" && !collider.isTrigger)
                     {
                         collider.GetComponent<EnemyData>().TakeDamage(9 * (ProgressData.Instance.reinforcementCount + 1));
                         Debug.Log(collider.name + " 에게 " + 9 * (ProgressData.Instance.reinforcementCount + 1) + "의 데미지를 입힘");
@@ -400,7 +400,7 @@ public class PlayerSkill : MonoBehaviour
 
                     foreach (Collider2D collider in collider2Ds)
                     {
-                        if (collider.tag == "Enemy")
+                        if (collider.tag == "Enemy" && !collider.isTrigger)
                         {
                             collider.GetComponent<EnemyData>().TakeDamage(15 * (ProgressData.Instance.reinforcementCount + 1));
                             Debug.Log(collider.name + " 에게 " + 15 * (ProgressData.Instance.reinforcementCount + 1) + "의 데미지를 입히고 2초간 스턴 효과 부여");
@@ -447,7 +447,7 @@ public class PlayerSkill : MonoBehaviour
 
                 foreach (Collider2D collider in collider2Ds)
                 {
-                    if (collider.tag == "Enemy")
+                    if (collider.tag == "Enemy" && !collider.isTrigger)
                     {
                         if (collider.transform.position.y - 1.8f > meteorPos.position.y)
                         {
@@ -467,7 +467,7 @@ public class PlayerSkill : MonoBehaviour
 
                     foreach (Collider2D collider in collider2Ds)
                     {
-                        if (collider.tag == "Enemy")
+                        if (collider.tag == "Enemy" && !collider.isTrigger)
                         {
                             collider.GetComponent<EnemyData>().TakeDamage(15 * (ProgressData.Instance.reinforcementCount + 1) + (skillCounter / 0.3f) * 1);
                             Debug.Log(collider.name + " 에게 " + (15 * (ProgressData.Instance.reinforcementCount + 1) + (skillCounter / 0.3f) * 1) + "의 데미지를 입히고 2초간 스턴 효과 부여");

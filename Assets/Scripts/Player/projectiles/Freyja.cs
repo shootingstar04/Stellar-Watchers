@@ -26,7 +26,7 @@ public class Freyja : MonoBehaviour
             {
                 Destroy(this.gameObject);
             }
-            else if (collision.CompareTag(Define.EnemyTag))
+            else if (collision.CompareTag(Define.EnemyTag) && !collision.isTrigger)
             {
                 collision.GetComponent<EnemyData>().TakeDamage(10 * (ProgressData.Instance.reinforcementCount + 1));
                 Debug.Log(collision.name + " 에게 " + 10 * (ProgressData.Instance.reinforcementCount + 1) + "의 데미지를 입힘");

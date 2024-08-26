@@ -26,7 +26,7 @@ public class TwinStars : MonoBehaviour
             {
                 Destroy(this.gameObject);
             }
-            else if (collision.CompareTag(Define.EnemyTag))
+            else if (collision.CompareTag(Define.EnemyTag) && !collision.isTrigger)
             {
                 collision.GetComponent<EnemyData>().TakeDamage(7.5f * (ProgressData.Instance.reinforcementCount + 1));
                 Debug.Log(collision.name + " 에게 " + 7.5f * (ProgressData.Instance.reinforcementCount + 1) + "의 데미지를 입힘");

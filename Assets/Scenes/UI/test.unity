@@ -332,6 +332,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Heavy Armor1
       objectReference: {fileID: 0}
+    - target: {fileID: 3091007888481144741, guid: 69862aacf9f074a409873126a7bc8c2e, type: 3}
+      propertyPath: CurHP
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

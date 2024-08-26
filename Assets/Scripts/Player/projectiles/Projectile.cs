@@ -32,7 +32,7 @@ public class Projectile : MonoBehaviour
     {
         //GameObject collider = collision.gameObject;
 
-        if (collision.CompareTag(Define.EnemyTag))
+        if (collision.CompareTag(Define.EnemyTag) && !collision.isTrigger)
         {
             collision.GetComponent<EnemyData>().TakeDamage(5 * (ProgressData.Instance.reinforcementCount + 1));
             Debug.Log(collision.name + " 에게 " + 5 * (ProgressData.Instance.reinforcementCount + 1) + "의 데미지를 입힘");

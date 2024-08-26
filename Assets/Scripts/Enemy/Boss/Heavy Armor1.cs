@@ -660,12 +660,24 @@ public class HeavyArmor1 : MonoBehaviour
     {
         if (currentState != State.Dead)
         {
-            GetComponentInParent<BossDoor>().BossKilled();
-
+            if (transform.parent != null && transform.parent.TryGetComponent(out BossDoor a))
+            { 
+                GetComponentInParent<BossDoor>().BossKilled();
+            }
             animator.SetTrigger("Die");
+            StopAllCoroutines();
             currentState = State.Dead;
             rb.velocity = Vector2.zero;
             Destroy(this.gameObject, 4f);
+            foreach (BoxCollider2D box in this.GetComponents<BoxCollider2D>())
+            {
+                if (box.isTrigger)
+                {
+                    Destroy(box);
+                }
+            }
+            Destroy(GetComponent<EnemyData>());
+            Destroy(this);
         }
         else
         {
@@ -721,7 +733,8 @@ public class HeavyArmor1 : MonoBehaviour
 
         if (CurHP <= 0)
         {
-            currentState = State.KILLED;
+            Debug.Log(1);
+            Killed();
         }
     }
     private void OnDrawGizmos()
