@@ -70,7 +70,6 @@ public class Skeleton : MonoBehaviour
         // KILLED 상태일 경우 다른 상태로 바뀌지 않도록 함
         if (currentState == State.KILLED || currentState == State.DIE)
         {
-            Debug.Log("Death");
             return;
         }
 
@@ -257,14 +256,17 @@ public class Skeleton : MonoBehaviour
 
     private void Killed()
     {
-        GetComponent<GetSOindex>().returnBool();
         this.tag = "Untagged"; //테그도 없애면 되지않을까 <-태그 없앴더니 됨
         animator.SetTrigger("Die");
         EnemyItemDrop drop = this.gameObject.GetComponent<EnemyItemDrop>();
         if (drop == null) Debug.Log("nocomponent");
         else if(currentState != State.DIE)drop.DropCoins(coinYield);
+        rb.velocity = Vector2.zero;
+        Destroy(this.GetComponent<EnemyData>());
         Destroy(gameObject, 1f);
         currentState = State.DIE;
+        GetComponent<GetSOindex>().returnBool();
+        Destroy(this);
     }
 
     private void MoveTo(Vector2 target)
@@ -324,18 +326,25 @@ public class Skeleton : MonoBehaviour
             currentState = State.SHIELD;
         }
         else
-        {
-            animator.SetTrigger("Hit");
-            Debug.Log("스켈레톤 피격흔들림");
-            GetComponent<ImpulseSource>().ShakeEffect();
-            GetComponent<AudioSource>().Play(); 
+        { 
             CurHP -= damage;
         }
 
         if (CurHP <= 0)
         {
-            Invoke("Killed", 0.5f);
+            this.tag = "Untagged";
+            rb.gravityScale = 0;
+            Destroy(this.GetComponent<CapsuleCollider2D>());
             currentState = State.KILLED;
+            StopAllCoroutines();
+            Killed();
+        }
+        else 
+        {
+            animator.SetTrigger("Hit");
+            Debug.Log("스켈레톤 피격흔들림");
+            GetComponent<ImpulseSource>().ShakeEffect();
+            GetComponent<AudioSource>().Play();
         }
     }
 
