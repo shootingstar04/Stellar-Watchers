@@ -9,6 +9,8 @@ public class GeneralDoor : Door
     [SerializeField] bool isInteractable = true;
     [SerializeField] Collider2D interactTrigger;
     [SerializeField] float duration;
+    [SerializeField] GameObject openPos;
+    [SerializeField] GameObject closePos;
 
     SpawnPoint spawnpoint;
 
@@ -24,6 +26,11 @@ public class GeneralDoor : Door
                     interactTrigger = collider;
                 }
             }
+
+            if(openPos == null)
+            {
+                openPos = this.gameObject.transform.GetChild(0).gameObject;
+            }
         }
         else
         {
@@ -36,6 +43,11 @@ public class GeneralDoor : Door
                 }
             }
             Destroy(interactTrigger);
+
+            if(openPos != null)
+            {
+                Destroy(openPos);
+            }
         }
     }
 
@@ -55,8 +67,13 @@ public class GeneralDoor : Door
         }
         else
         {
+            if(isDisabled)
+            {
+                return;
+            }
             ParticleManager.instance.particle_generation(ParticleManager.particleType.DoorDust, this.transform.position);
-            Vector3 pos = new Vector3(this.transform.position.x, this.transform.position.y + Mathf.Abs(this.transform.position.y) + 3f, this.transform.position.z);
+            //Vector3 pos = new Vector3(this.transform.position.x, this.transform.position.y + Mathf.Abs(this.transform.position.y) + 3f, this.transform.position.z); //old code
+            Vector3 pos = openPos.GetComponent<Transform>().position;
             isDisabled = true;
             this.transform.DOMove(pos, duration).OnComplete(() => Endfunction());
         }
@@ -66,13 +83,27 @@ public class GeneralDoor : Door
 
     public void Endfunction()
     {
-        this.gameObject.SetActive(false);
-        returnBool();
+        //this.gameObject.SetActive(false);
+        //returnBool(); //old code
+
+        //트리거 바꿔주는 코드 추가/ 혹은 oncomplete라는 특성 이용해 상호작용 가능 여부 바꾸기(returnBool에만 사용했던 isDisabled활용)
+        isDisabled = false;
     }
 
     public override void CloseDoor()
     {
+        if(!isInteractable)
+        {
+            return;
+        }
 
+        if (isDisabled)
+        {
+            return;
+        }
+        Vector3 pos = closePos.GetComponent<Transform>().position;
+        isDisabled = true;
+        this.transform.DOMove(pos, duration).OnComplete(() => Endfunction());
     }
 
     private void OnTriggerStay2D(Collider2D collision)
