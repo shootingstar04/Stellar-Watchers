@@ -10,9 +10,11 @@ public class GeneralDoor : Door
     [SerializeField] Collider2D interactTrigger;
     [SerializeField] float duration;
     [SerializeField] GameObject openPos;
-    [SerializeField] GameObject closePos;
+    [SerializeField] Vector3 closePos;
 
     SpawnPoint spawnpoint;
+
+    bool isDoorClosed = true;
 
     private void Awake()
     {
@@ -30,6 +32,11 @@ public class GeneralDoor : Door
             if(openPos == null)
             {
                 openPos = this.gameObject.transform.GetChild(0).gameObject;
+            }
+
+            if(closePos == null)
+            {
+                closePos = this.gameObject.GetComponent<Transform>().position;
             }
         }
         else
@@ -88,6 +95,7 @@ public class GeneralDoor : Door
 
         //트리거 바꿔주는 코드 추가/ 혹은 oncomplete라는 특성 이용해 상호작용 가능 여부 바꾸기(returnBool에만 사용했던 isDisabled활용)
         isDisabled = false;
+        isDoorClosed = !isDoorClosed;
     }
 
     public override void CloseDoor()
@@ -101,9 +109,9 @@ public class GeneralDoor : Door
         {
             return;
         }
-        Vector3 pos = closePos.GetComponent<Transform>().position;
+        Vector3 pos = closePos;
         isDisabled = true;
-        this.transform.DOMove(pos, duration).OnComplete(() => Endfunction());
+        this.transform.DOMove(pos, duration/2).OnComplete(() => Endfunction());
     }
 
     private void OnTriggerStay2D(Collider2D collision)
